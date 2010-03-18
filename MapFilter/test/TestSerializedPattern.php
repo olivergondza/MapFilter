@@ -2,7 +2,7 @@
 /**
 * Require tested class
 */
-require_once ( __DIR__ . '/../SerializedPattern.php' );
+require_once ( dirname ( __FILE__ ) . '/../SerializedPattern.php' );
 
 class TestMapFilter_SerializedPattern extends PHPUnit_Framework_TestCase {
 

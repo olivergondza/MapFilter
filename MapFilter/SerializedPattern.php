@@ -8,9 +8,9 @@
 * Copyright: 2009-2010 Oliver Gondža
 */
 
-require_once ( __DIR__ . "/Pattern.php" );
-require_once ( __DIR__ . "/MapFilter_Exception.php" );
-require_once ( __DIR__ . "/NotSoSimpleXMLElement.php" );
+require_once ( dirname ( __FILE__ ) . "/Pattern.php" );
+require_once ( dirname ( __FILE__ ) . "/MapFilter_Exception.php" );
+require_once ( dirname ( __FILE__ ) . "/NotSoSimpleXMLElement.php" );
 
 /** Define MapFilter_SerializedPattern as a Patern that load itself from file */
 class MapFilter_SerializedPattern extends MapFilter_Pattern {
@@ -225,7 +225,7 @@ class MapFilter_SerializedPattern extends MapFilter_Pattern {
 
     /** Parse recursively */
     $followers = array_map (
-        "self::parse",
+        Array ( __CLASS__, 'parse' ),
         $XML->getChildren ()
     );
 

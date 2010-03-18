@@ -8,7 +8,7 @@
 * Copyright: 2009-2010 Oliver Gondža
 */
 
-require_once ( __DIR__ . "/PureException.php" );
+require_once ( dirname ( __FILE__ ) . "/PureException.php" );
 
 class MapFilter_Exception extends PureException {
 

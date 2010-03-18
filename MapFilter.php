@@ -7,10 +7,9 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-
-require_once ( __DIR__ . MapFilter::PACKAGE_DIR . "/Pattern.php" );
-require_once ( __DIR__ . MapFilter::PACKAGE_DIR . "/SerializedPattern.php" );
-require_once ( __DIR__ . MapFilter::PACKAGE_DIR . "/MapFilter_Exception.php" );
+require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/Pattern.php" );
+require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/SerializedPattern.php" );
+require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/MapFilter_Exception.php" );
 
 class MapFilter {
   

@@ -4,7 +4,7 @@
 */  
 
 /** Require tested class */
-require_once ( __DIR__ . '/../../MapFilter.php' );
+require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
 class TestUser extends PHPUnit_Framework_TestCase {
 

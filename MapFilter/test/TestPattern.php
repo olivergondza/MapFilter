@@ -2,7 +2,7 @@
 /**
 * Require tested class
 */
-require_once ( __DIR__ . '/../Pattern.php' );
+require_once ( dirname ( __FILE__ ) . '/../Pattern.php' );
 
 class TestMapFilter_Pattern extends PHPUnit_Framework_TestCase {  
   
