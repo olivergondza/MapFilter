@@ -6,7 +6,7 @@
 /** Require tested class */
 require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
-class TestUser extends PHPUnit_Framework_TestCase {
+class TestUser extends BaseTest {
 
   /** Use utterly wrong pattern */
   public static function testUtterlyWrongPattern () {
@@ -323,7 +323,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
     );
     
     $filter->setQuery ( $query );
-    
+
     self::assertEquals (
         $result,
         $filter->parse ()
@@ -727,7 +727,4 @@ class TestUser extends PHPUnit_Framework_TestCase {
     );
   }
 }
-
-BaseTest::take ( "TestUser" );
 ?>
-</pre>

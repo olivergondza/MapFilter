@@ -4,58 +4,7 @@
 */
 require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
-class TestMapFilter extends PHPUnit_Framework_TestCase {
-  
-  /**
-  * Test Create KeyAttr Node
-  */
-  public static function testKeyAttrCreate () {
-  
-    $followers = Array (
-        MapFilter_Pattern::getValueNode ( "task", "do" ),
-        MapFilter_Pattern::getValueNode ( "tasks", "schedule" )
-    );
-  
-    $oldPattern = $pattern = new MapFilter_Pattern (
-        MapFilter_Pattern::NODETYPE_KEYATTR,
-        $followers,
-        "action"
-    );
-
-    $filter = new MapFilter ( $pattern );
-
-    $queries = Array (
-        Array (
-            Array (),
-            Array ( 'no' => "action" )
-        ), Array (
-            Array (),
-            Array ( 'action' => "sickAction", 'task' => "sickTask")
-        ), Array (
-            Array ( 'action' => "do", 'task' => "myTask" ),
-            Array ( 'action' => "do", 'task' => "myTask" )
-        ), Array (
-            Array ( 'action' => "schedule", 'tasks' => "All My Tasks" ),
-            Array ( 'action' => "schedule", 'tasks' => "All My Tasks" )
-        ), Array (
-            Array ( 'action' => "do", 'task' => "myTask" ),
-            Array ( 'action' => "do", 'task' => "myTask", 'tasks' => "My Tasks" )
-        ), Array (
-            Array (),
-            Array ( 'action' => "do", 'nothing' => "All Day" )
-        )
-    );
-
-    foreach ( $queries as $query ) {
-
-      $filter->setQuery ( $query[ 1 ] );
-
-      self::assertEquals (
-          $query[ 0 ],
-          $filter->parse ()
-      );
-    }
-  }
+class TestMapFilter extends BaseTest {
   
   /** Test parsing by empty pattern */
   public static function testEmptyPattern () {
@@ -73,11 +22,13 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     return;
   }
   
-  /** Test PatternValue */
-  public static function testValue () {
+  /** Test PatternAttr */
+  public static function testAttr () {
     
     $query = Array ( 'attr0' => "value" );
-    $pattern = MapFilter_Pattern::getValueNode ( "attr0" );
+    $pattern = new MapFilter_Pattern (
+        new MapFilter_Pattern_Node_Attr ( "attr0" )
+    );
 
     $filter = new MapFilter (
         $pattern,
@@ -99,17 +50,17 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     $accurate = Array ( "Attr0" => 0, "Attr1" => 1 );
     $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
     
-    $pattern = new MapFilter_Pattern ( MapFilter_Pattern::NODETYPE_ALL, 
-        Array (
-            MapFilter_Pattern::getValueNode ( "Attr0" ),
-            MapFilter_Pattern::getValueNode ( "Attr1" )
+    $pattern = new MapFilter_Pattern (
+        new MapFilter_Pattern_Node_All ( 
+            Array (
+                new MapFilter_Pattern_Node_Attr ( "Attr0" ),
+                new MapFilter_Pattern_Node_Attr ( "Attr1" )
+            )
         )
     );
     
 
-    $filter = new MapFilter (
-        $pattern
-    );
+    $filter = new MapFilter ( $pattern );
     
     /** Test trim */
     $filter->setQuery ( $more );
@@ -118,7 +69,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
       $accurate,
       $filter->parse ()
     );
-    
+
     /** Test accurate */
     $filter->setQuery ( $accurate );
 
@@ -145,10 +96,12 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     $all = Array ( "Attr0" => 0, "Attr1" => 1 );
     $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
     
-    $pattern = new MapFilter_Pattern ( MapFilter_Pattern::NODETYPE_ONE, 
-        Array (
-            MapFilter_Pattern::getValueNode ( "Attr0" ),
-            MapFilter_Pattern::getValueNode ( "Attr1" )
+    $pattern = new MapFilter_Pattern (
+        new MapFilter_Pattern_Node_One (
+            Array (
+                new MapFilter_Pattern_Node_Attr ( "Attr0" ),
+                new MapFilter_Pattern_Node_Attr ( "Attr1" )
+            )
         )
     );
 
@@ -189,10 +142,12 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     $all = Array ( "Attr0" => 0, "Attr1" => 1 );
     $nothing = Array ();
     
-    $pattern = new MapFilter_Pattern ( MapFilter_Pattern::NODETYPE_OPT, 
-        Array (
-            MapFilter_Pattern::getValueNode ( "Attr0" ),
-            MapFilter_Pattern::getValueNode ( "Attr1" )
+    $pattern = new MapFilter_Pattern (
+        new MapFilter_Pattern_Node_Opt (
+            Array (
+                new MapFilter_Pattern_Node_Attr ( "Attr0" ),
+                new MapFilter_Pattern_Node_Attr ( "Attr1" )
+            )
         )
     );
 
@@ -230,8 +185,62 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
       $filter->parse ()
     );
   }
-}
+  
+  public static function providerKeyAttrCreate () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ( 'no' => "action" )
+        ), Array (
+            Array (),
+            Array ( 'action' => "sickAction", 'task' => "sickTask")
+        ), Array (
+            Array ( 'action' => "do", 'task' => "myTask" ),
+            Array ( 'action' => "do", 'task' => "myTask" )
+        ), Array (
+            Array ( 'action' => "schedule", 'tasks' => "All My Tasks" ),
+            Array ( 'action' => "schedule", 'tasks' => "All My Tasks" )
+        ), Array (
+            Array ( 'action' => "do", 'task' => "myTask" ),
+            Array ( 'action' => "do", 'task' => "myTask", 'tasks' => "My Tasks" )
+        ), Array (
+            Array (),
+            Array ( 'action' => "do", 'nothing' => "All Day" )
+        )
+    );
+  }
+  
+  /**
+  * Test Create KeyAttr Node
+  *
+  * action => do ; task => ...
+  * action => schedule; tasks => ...
+  *
+  * @dataProvider providerKeyAttrCreate
+  */
+  public static function testKeyAttrCreate ( $result, $query ) {
 
-BaseTest::take ( "TestMapFilter" );
+    $followers = Array (
+        new MapFilter_Pattern_Node_Attr ( "task", "do" ),
+        new MapFilter_Pattern_Node_Attr ( "tasks", "schedule" )
+    );
+  
+    $pattern = new MapFilter_Pattern (    
+        new MapFilter_Pattern_Node_KeyAttr (
+            $followers,
+            "action"
+        )
+    );
+
+    $filter = new MapFilter ( $pattern );
+
+    $filter->setQuery ( $query );
+
+    self::assertEquals (
+        $result,
+        $filter->parse ()
+    );
+  }
+}
 ?>
-</pre>

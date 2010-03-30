@@ -8,8 +8,7 @@
 * Copyright: 2009-2010 Oliver Gondža
 */
 require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/Pattern.php" );
-require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/SerializedPattern.php" );
-require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/MapFilter_Exception.php" );
+require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/Exception.php" );
 
 class MapFilter {
   
@@ -21,10 +20,8 @@ class MapFilter {
   /** Strict array search */
   const STRICT_SEARCH = TRUE;
   
-  protected $parseCall = Array ();
-  
   /**
-  * Query MapFilter_Pattern.
+  * Query MapFilter_Pattern_Node_Abstract.
   * @var: Tree of Pattern
   */
   public $pattern = NULL;
@@ -59,20 +56,6 @@ class MapFilter {
     return;
   }
 
-  /**
-  * Load Pattern from the file
-  * @filename: String
-  * @return: MapFilter_Pattern
-  */
-  public function loadPattern ( $filename ) {
-  
-    $sPattern = MapFilter_SerializedPattern::fromFile ( $filename );
-    
-    return $this->setPattern (
-        $sPattern->fetch ()
-    );
-  }
-  
   /** Resolve tree dependencies and pick up the results */
   public function parse () {
   
@@ -94,13 +77,10 @@ class MapFilter {
     *  Create temporary copy of pattern since it will be modified during
     *  the parsing procedure
     */
-    if ( $this->pattern instanceof MapFilter_Pattern ) {
-
-      $tempPattern = clone $this->pattern;
-    }
+    $tempPattern = clone ( $this->pattern );
 
     /** Resolve all dependencies */
-    $this->satisfy ( $tempPattern );
+    $tempPattern->satisfy ( $this->query );
 
     /** Prevent old result leaking to the new result set*/
     $this->data = Array ();
@@ -110,237 +90,33 @@ class MapFilter {
   }
   
   /**
-  * Satisfy all dependencies
-  * @pattern: MapFilter_Pattern; Current tree node
-  *
-  */
-  private function satisfy ( MapFilter_Pattern $pattern = NULL ) {
-
-    /** Table to map nodetypes an their satisfy callbacks */
-    $calls = Array (
-        MapFilter_Pattern::NODETYPE_ATTR => Array ( $this, "satisfyValueNode" ),
-        MapFilter_Pattern::NODETYPE_OPT => Array ( $this, "satisfyOptNode" ),
-        MapFilter_Pattern::NODETYPE_SOME => Array ( $this, "satisfySomeNode" ),
-        MapFilter_Pattern::NODETYPE_ALL => Array ( $this, "satisfyAllNode" ),
-        MapFilter_Pattern::NODETYPE_ONE => Array ( $this, "satisfyOneNode" ),
-        MapFilter_Pattern::NODETYPE_KEYATTR => Array ( $this, "satisfyKeyAttrNode" ),
-    );
-
-    /** Call appropriate satisfy method */
-    return call_user_func (
-        $calls[ $pattern->nodeType ],
-        $pattern
-    );
-  }
-  
-  /**
-  * Satisfy node just if there are no unsatisfied follower.
-  * Finding unsatisfied follower may stop mapping since there is no way to
-  * satisfy parent of any further potentially satisfied follower.
-  * @pattern: MapFilter_Pattern
-  * @return: Bool
-  */
-  private function satisfyAllNode ( MapFilter_Pattern $pattern = NULL ) {
-  
-    foreach ( $pattern->content as $follower ) {
-      
-      if ( ! $this->satisfy ( $follower ) ) {
-
-        return $pattern->satisfied = FALSE;
-      }
-    }
-    
-    return $pattern->satisfied = TRUE;
-  }
-  
-  /**
-  * Satisfy node if there is one satisfied follower (any further followers
-  * mustn't be satisfied in order to pick up just first one of those).
-  * Mapping CAN'T continue after finding satisfied follower.
-  * @pattern: MapFilter_Pattern
-  * @return: Bool
-  */
-  private function satisfyOneNode ( MapFilter_Pattern $pattern = NULL ) {
-  
-    foreach ( $pattern->content as $follower ) {
-      
-      if ( $this->satisfy ( $follower ) ) {
-
-        return $pattern->satisfied = TRUE;
-      }
-    }
-    
-    return $pattern->satisfied = FALSE;
-  }
-  
-  /**
-  * That node is always satisfyied.
-  * Thus satisfy MUST be mapped on ALL followers.
-  * @pattern: MapFilter_Pattern
-  * @return: Bool
-  */
-  private function satisfySomeNode ( MapFilter_Pattern $pattern = NULL ) {
-  
-    $satisfiedFollowers = array_map (
-        Array ( $this, "satisfy" ),
-        $pattern->content
-    );
-
-    return $pattern->satisfied = in_array (
-        TRUE,
-        $satisfiedFollowers,
-        TRUE /** Compare strictly */
-    );
-  }
-  
-  /**
-  * Satisfy node when there is at least one satisfied follower.
-  * Thus satisfy MUST be mapped on ALL followers.
-  * @pattern: MapFilter_Pattern
-  * @return: Bool
-  */
-  private function satisfyOptNode ( MapFilter_Pattern $pattern = NULL ) {
-  
-    array_map (
-        Array ( $this, "satisfy" ),
-        $pattern->content
-    );
-
-    return $pattern->satisfied = TRUE;
-  }
-  
-  /**
-  * Tests just existence of an attribute, nothing more
-  * @pattern: MapFilter_Pattern
-  * @return: Bool
-  */
-  private function satisfyValueNode ( MapFilter_Pattern $pattern = NULL ) {
-  
-    return $pattern->satisfied = $this->attrPresent (
-        (String) $pattern
-    );
-  }
-  
-  /**
-  * Satisfy node when there is at least one satisfied follower fitting value.
-  * Just such follower should be part of the result.
-  * WORKING FOR SOME REASON
-  * @pattern: MapFilter_Pattern
-  * @return: Bool
-  */
-  private function satisfyKeyAttrNode ( MapFilter_Pattern $pattern = NULL ) {
-
-    $attrName = (String) $pattern;
-    
-    $attrExists = $this->attrPresent ( $attrName );
-    
-    if ( ! $attrExists ) {
-      return FALSE;
-    }
-    
-    /** Find a follower that fits an value filter and let it satisfy */
-    foreach ( $pattern->content as $follower ) {
-      
-      $fits = $this->valueFits (
-          $follower->valueFilter,
-          $attrName
-      );
-      
-      if ( $fits ) {
-      
-        $pattern->satisfied = $this->satisfy ( $follower );
-        
-        if ( $pattern->satisfied ) {
-          return TRUE;
-        }
-      }
-    }
-
-    return FALSE;
-  }
-  
-  /**
-  * Enclose string with begining and end mark to ensure that the string are
-  * completely equal.
-  */
-  const FILTER_BOUNDARIES = '/^%s$/';
-  
-  /** PREG string delimiter */
-  const FILTER_DELIMITER = '/';
-  
-  /**
-  * Test whether a onValue condition on tree node fits given pattern
-  * @valueFilter: PREG; Validation pattern
-  * @valueCandidate: String
-  * @return: Bool
-  */
-  private function valueFits ( $valueFilter, $attrName ) {
-
-    /** Sanitize inputed PREG */
-    $valueCandidate = preg_quote (
-        $this->query[ $attrName ],
-        self::FILTER_DELIMITER
-    );
-  
-    $valueFilter = sprintf (
-        self::FILTER_BOUNDARIES,
-        $valueFilter
-    );
-
-    $matchCount = preg_match (
-        $valueFilter,
-        $valueCandidate
-    );
-
-    /** Assumed match count is 1 (Equals) or 0 (Differs) */
-    assert ( $matchCount < 2 );
-    
-    return (Bool) $matchCount;
-  }
-  
-  /**
-  * Test whether an argument is present in query.
-  * Possible connection between simple array assert filter. Node would be 
-  * satisfied when attribute value satisfies assert callback.
-  * @attrName: String; Name of an attribute
-  * @returns: Bool
-  */
-  private function attrPresent ( $attrName ) {
-    
-    return array_key_exists (
-        $attrName,
-        $this->query
-    );
-  }
-  
-  /**
   * Pick up valid data
   * @pattern: Satisfied pattern
   */
-  private function pickUp ( MapFilter_Pattern $pattern ) {
+  private function pickUp ( MapFilter_Pattern_Node_Abstract $pattern ) {
+  
+    if ( !$pattern->satisfied ) {
+
+      return;
+    }
   
     /** Pick a cherry */
-    if ( MapFilter_Pattern::hasAttribute ( $pattern->nodeType ) ) {
+    if ( $pattern->hasAttr () ) {
       
-      if ( $pattern->satisfied ) {
+      $attrName = $pattern->attribute;
 
-        $attrName = $pattern->attribute;
+      if ( $pattern->attrPresent ( $attrName, $this->query ) ) {
 
-        if ( $this->attrPresent ( $attrName ) ) {
-          $this->data[ $attrName ] = $this->query[ $attrName ];
-        }
+        $this->data[ $attrName ] = $this->query[ $attrName ];
       }
     }
     
     /** Crawl through node's followers */
-    if ( MapFilter_Pattern::validNodeType ( $pattern->nodeType ) ) {
-
-      if ( $pattern->satisfied ) {
+    if ( $pattern->hasFollowers () ) {
       
-        foreach ( $pattern->content as $follower ) {
+      foreach ( $pattern->content as $follower ) {
 
-          $this->pickUp ( $follower );
-        }
+        $this->pickUp ( $follower );
       }
     }
     
@@ -361,17 +137,17 @@ class MapFilter {
     /** Set existing pattern */
     if ( $pattern instanceof MapFilter_Pattern ) {
 
-      $this->pattern = clone ( $pattern );
+      $this->pattern = clone ( $pattern->patternTree );
     
     /** Deserialize pattern file */
     } elseif ( is_readable ( $pattern ) ) {
 
-      $this->pattern = MapFilter_SerializedPattern::fromFile ( $pattern );
+      $this->pattern = MapFilter_Pattern::fromFile ( $pattern ) -> patternTree;
 
     /** Create pattern from XML string */
     } elseif ( is_string ( $pattern ) ) {
 
-      $this->pattern = MapFilter_SerializedPattern::load ( $pattern );
+      $this->pattern = MapFilter_Pattern::load ( $pattern ) -> patternTree;
 
     } else {
       
@@ -392,6 +168,7 @@ class MapFilter {
   */
   public function setQuery ( Array $query ) {
   
+    $this->data = Array ();
     $this->query = $query;
     return;
   }
@@ -401,7 +178,7 @@ class MapFilter {
   * @return: Array
   */
   public function fetch () {
-    
+
     return $this->data;
   }
   

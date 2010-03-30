@@ -1,11 +1,8 @@
-<?php
+<pre><?php
 
-require_once ( dirname ( __FILE__ ) . '/BaseTest.php' );
+require_once ( 'BaseTest.php' );
 
-require_once ( dirname ( __FILE__ ) . '/TestPattern.php' );
-require_once ( dirname ( __FILE__ ) . '/TestMapFilter.php' );
-require_once ( dirname ( __FILE__ ) . '/TestSerializedPattern.php' );
-require_once ( dirname ( __FILE__ ) . '/TestUser.php' );
+error_reporting ( E_ALL | E_STRICT );
 
 /**
 * External sources
@@ -16,4 +13,9 @@ class Test_Source {
   const ACTION = "./action.xml";
   const FILTER = "./filter.xml";
 }
+
+BaseTest::takeDir (
+    dirname ( __FILE__ )
+);
 ?>
+</pre>

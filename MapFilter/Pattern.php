@@ -7,207 +7,384 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
+require_once ( dirname ( __FILE__ ) . '/Pattern/Node/All.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Node/Opt.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Node/One.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Node/Some.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Node/KeyAttr.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Node/Attr.php' );
+
+require_once ( dirname ( __FILE__ ) . '/NotSoSimpleXMLElement.php' );
+
 class MapFilter_Pattern {
 
-  /**
-  * Determine whether the node or list was satisfied by satisfying its
-  * followers
-  * @var: Bool
-  */
-  public $satisfied = FALSE;
-  
-  /**
-  * Attribute
-  * @var: String
-  */
-  public $attribute = "";
-  
-  /**
-  * Determine type of the node
-  * @var: self::NODETYPE_*
-  */
-  public $nodeType = self::NODETYPE_NONE;
-  
-  /**
-  * Value filter
-  * @var: String
-  */
-  public $valueFilter = self::VALUE_FILTER;
-  
-  /**
-  * Array of tree followers
-  * @var: Array of Pattern
-  */
-  public $content = Array ();
-
-  /**
-  * Default Value Filter; Allows everything
-  */
   const VALUE_FILTER = ".*";
 
   /**
-  * Possible Node types.
-  * NONE: Error state; Shouldn't be used
-  * ALL, ONE, OPT, KEYATTR, VALUE: Represents given types of nodes
+  * Pattern tree itself
+  * @var: MapFilter_Pattern_Node_Abstract
   */
-  const NODETYPE_NONE = 0;
-  const NODETYPE_ALL = 1;
-  const NODETYPE_ONE = 2;
-  const NODETYPE_OPT = 3;
-  const NODETYPE_SOME = 4;
-  const NODETYPE_KEYATTR = 5;
-  const NODETYPE_ATTR = 6;
-
-  const NODETYPE_END = 7;
+  public $patternTree = NULL;
 
   /**
-  * Determine whether a nodetype is valid
-  * @nodeType: self::NODETYPE
-  * @return: Bool
-  */
-  public static function validNodeType ( $nodeType ) {
-    
-    if (
-        is_int ( $nodeType ) &&
-        $nodeType > self::NODETYPE_NONE &&
-        $nodeType < self::NODETYPE_END
-    ) {
-
-      return TRUE;
-    }
-    
-    return FALSE;
-  }
-
-  /**
-  * Determines whether a node type requires an attribute
-  * @nodeType: self::NODETYPE
-  * @return: Bool
-  */
-  public static function hasAttribute ( $nodeType ) {
-  
-    static $needAttr = Array (
-        self::NODETYPE_KEYATTR,
-        self::NODETYPE_ATTR
-    );
-  
-    if ( in_array ( $nodeType, $needAttr ) ) {
-
-      return TRUE;
-    }
-
-    return FALSE;
-  }
-  
-  /**
-  * Create node or list in pattern tree.
-  * @nodeType: self::NODETYPE_*; Determines type of used node
-  * @followers: Array of Pattern; Following objects; Array () for Value node
-  * @attribute: String; Name of attribute for Value and KeyAttr nodes
-  * @valueFilter: String; Value filter for key nodes
-  * @throws: MapFilter_Exception
+  * Create Pattern
+  * $patternTree: MapFilter_Pattern_Node_Abstract
   */
   public function __construct (
-      $nodeType = self::NODETYPE_NONE,
-      Array $followers = Array (),
-      $attribute = NULL,
-      $valueFilter = self::VALUE_FILTER
+      MapFilter_Pattern_Node_Abstract $patternTree
   ) {
-
-    /** Set validated nodeType */
-    if ( ! self::validNodeType ( $nodeType ) ) {
-    
-      throw new MapFilter_Exception (
-          MapFilter_Exception::INVALID_NODE_TYPE,
-          Array ( (String) $nodeType, $attribute, $valueFilter )
-      );
-    }
-
-    $this->nodeType = $nodeType;
-    
-    /** Set Attributes for nodes that need so */
-    if ( self::hasAttribute ( $nodeType ) ) {
-
-      if ( ! is_string ( (String) $attribute ) ) {
-        
-        throw new MapFilter_Exception (
-            MapFilter_Exception::INVALID_ATTR,
-            Array ( var_dump ( $attribute ) )
-        );
-      }
-    
-      $this->attribute = (String) $attribute;
-    }
-
-    /** Set validated valueFilter */
-    if ( ! is_string ( (String) $valueFilter ) ) {
-
-      throw new MapFilter_Exception (
-          MapFilter_Exception::INVALID_ATTR,
-          Array ( var_dump ( $valueFilter ) )
-      );
-    }
-
-    $this->valueFilter = (String) $valueFilter;
-
-    $this->content = $followers;
   
+    $this->patternTree = $patternTree;
     return;
   }
 
   /**
-  * Simple Factory Method to create Value Node easier
-  * Equivalent: new MapFilter_Pattern ( Pattern::NODETYPE_ATTR, Array (), $attribute )
-  *
-  * @attribute: String; Name of an attribute
-  * @valueFilter: String; Optional valueFilter for new node
-  * @return: Pattern; MapFilter_Pattern with Value node type
+  * Simple Factory Method to load data from string
+  * @XMLSpecification: String
+  * @return: MapFilter_Pattern
+  * @throw: MapFilter_Exception
   */
-  public static function getValueNode (
-      $attribute,
-      $valueFilter = self::VALUE_FILTER
-  ) {
-  
+  public static function load ( $XMLSource ) {
+    
+    $XMLElement = self::loadXML (
+        $XMLSource,
+        self::DATA_IS_STRING
+    );
+    
     return new MapFilter_Pattern (
-        self::NODETYPE_ATTR,
-        Array (),
-        $attribute,
+        self::parse ( $XMLElement )
+    );
+  }
+  
+  /**
+  * Simple factory method to instantiate with loading the data from file
+  * @url: String; URL
+  * @return: MapFilter_Pattern
+  * @throws: MapFilter_Exception
+  */
+  public static function fromFile ( $url ) {
+  
+    $XMLElement = self::loadXML (
+        $url,
+        self::DATA_IS_URL
+    );
+    
+    return new MapFilter_Pattern (
+        self::parse ( $XMLElement )
+    );
+  }
+
+  /*** XML struct tags */
+  const PATTERN = "pattern";
+  
+  const NODE_ALL = "all";
+  const NODE_ONE = "one";
+  const NODE_OPT = "opt";
+  const NODE_KEYATTR = "key_attr";
+  const NODE_ATTR = "attr";
+  const NODE_SOME = "some";
+  
+  const ATTR_ATTR = "attr";
+  const ATTR_VALUEFILTER = "forValue";
+  const ATTR_DEFAULT = "default";
+// NOT IMPLEMENTED
+//  const ATTR_FLAG = "flag";
+
+  
+  /**
+  * Node name Object type mapping
+  * @var: Array ( TagName => ObjType )
+  */
+  private static $tagToNode = Array (
+      self::NODE_ALL => 'MapFilter_Pattern_Node_All',
+      self::NODE_ONE => 'MapFilter_Pattern_Node_One',
+      self::NODE_OPT => 'MapFilter_Pattern_Node_Opt',
+      self::NODE_SOME => 'MapFilter_Pattern_Node_Some',
+      self::NODE_ATTR => 'MapFilter_Pattern_Node_Attr',
+      self::NODE_KEYATTR => 'MapFilter_Pattern_Node_KeyAttr',
+  );
+  
+  /**
+  * Determines whether a tag is valid
+  * @tag: String
+  * @return: Bool
+  */
+  private static function isValidTag ( $tag ) {
+  
+    return array_key_exists ( $tag, self::$tagToNode );
+  }
+  
+  /** Disallow load from file */
+  const DATA_IS_URL = TRUE;
+  const DATA_IS_STRING = FALSE;
+  
+  /**
+  * Load Xml source and create XMLElement
+  * @xml: String;
+  * @isUrl: Bool;
+  * @return: NotSoSimpleXMLElement
+  * @throw: MapFilter_Exception
+  */
+  private static function loadXML ( $xml, $isUrl ) {
+  
+    /** Suppress Error | Warning vomiting into the output stream */
+    libxml_use_internal_errors ( TRUE );
+    
+    /**
+    * Options used for XML deserialization by NotSoSimpleXMLElement
+    * Use compact data allocation | remove blank nodes | translate HTML entities
+    */
+    $options = LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_NOENT;
+    
+    /** Try to load and raise propper exception accordingly */
+    try {
+    
+      $XMLElement = new NotSoSimpleXMLElement (
+          $xml,
+          $options,
+          $isUrl
+      );
+    } catch ( Exception $exception ) {
+    
+      /** Assign special exception for all kinds of libxml errors */
+      $errorToException = Array (
+          LIBXML_ERR_WARNING => MapFilter_Exception::LIBXML_WARNING,
+          LIBXML_ERR_ERROR => MapFilter_Exception::LIBXML_ERROR,
+          LIBXML_ERR_FATAL => MapFilter_Exception::LIBXML_FATAL
+      );
+
+      /** Throw first error */
+      $error = libxml_get_last_error ();
+      libxml_clear_errors ();
+
+      throw new MapFilter_Exception (
+          $errorToException[ $error->level ],
+          Array ( $error->message, $error->line, $error->file )
+      );
+    }
+
+    /** Sanitize pattern tag */
+    $XMLElement = self::unwrap ( $XMLElement );
+    
+    return $XMLElement;
+  }
+  
+  /**
+  * Obtain and remove valueFilter from an array of attributes or set default
+  * @&Attributes: Array ()
+  * @return: String; valueFilter
+  */
+  private static function getValueFilter ( &$attributes ) {
+  
+    /** Fetch and delete */
+    if ( array_key_exists ( self::ATTR_VALUEFILTER, $attributes ) ) {
+
+      $valueFilter = (String) $attributes[ self::ATTR_VALUEFILTER ];
+
+      unset ( $attributes[ self::ATTR_VALUEFILTER ] );
+
+    /** Set default */
+    } else {
+      
+      $valueFilter = NULL;
+    }
+  
+    return $valueFilter;
+  }
+  
+  /**
+  * Obtain and remove attribute from an array of attributes or set default
+  * @XML: NotSoSimpleXMLElement
+  * @&Attributes: Array ()
+  * @return: String; attribute
+  */
+  private static function getNodeAttribute ( $XML, &$attributes ) {
+  
+    $nodeType = self::$tagToNode[
+        $XML->getName ()
+    ];
+    
+    $hasAttrCallback = Array ( $nodeType, 'hasAttr' );
+    $hasAttribute = call_user_func ( $hasAttrCallback );
+    
+    if ( $hasAttribute ) {
+
+      /** Obtain attribute from keyAttr node*/
+      if (
+          $nodeType === 'MapFilter_Pattern_Node_KeyAttr' &&
+          array_key_exists ( self::ATTR_ATTR, $attributes ) 
+      ) {
+
+        $attrAttr = (String) $attributes[ self::ATTR_ATTR ];
+        /** Delete attribute due to asserive behaviour in case of leftover arguments */
+        unset ( $attributes[ self::ATTR_ATTR ] );
+      }
+      
+      /** Obtain attribute from attr node */
+      if ( $nodeType === 'MapFilter_Pattern_Node_Attr' ) {
+        $attrAttr = (String) $XML[ 0 ];
+      }
+
+    } else {
+
+      $attrAttr = NULL;
+    }
+
+    return $attrAttr;
+  }
+  
+  /**
+  * Throw when there are some leftover attributes
+  * @attributes: Array
+  * @return: Bool
+  * @throw: MapFilter_Exception
+  */
+  private static function assertLeftoverAttrs ( $tagName, $attributes ) {
+  
+    if ( $attributes != Array () ) {
+      
+      $attrs = array_keys ( $attributes );
+      throw new MapFilter_Exception (
+          MapFilter_Exception::INVALID_PATTERN_ATTRIBUTE,
+          Array ( $tagName, $attrs[ 0 ] )
+      );
+    }
+    
+    return;
+  }
+  
+  /**
+  * Parse serialized pattern tree to its object implementation
+  * @xml: NotSoSimpleXMLElement
+  * @return: MapFilter_Pattern_Node_Abstract
+  */
+  private static function parse ( NotSoSimpleXMLElement $XML ) {
+
+    /** Parse recursively */
+    $followers = array_map (
+        Array ( __CLASS__, 'parse' ),
+        $XML->getChildren ()
+    );
+
+    $tagName = $XML->getName ();
+
+    /** Validate tag name */
+    if ( ! self::isValidTag ( $tagName ) ) {
+
+      throw new MapFilter_Exception (
+          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+          Array ( $tagName )
+      );
+    }
+    
+    $attributes = $XML->getAttributes ();
+
+    /** Get ValueFilter if present */
+    $valueFilter = self::getValueFilter ( $attributes );
+
+    /** Get Attribute from certain types of nodes */
+    $attrAttr = self::getNodeAttribute ( $XML, $attributes );
+
+    /** Parse strictly (throw exception when some attributes left over) */
+    $nodeType = self::$tagToNode[ $tagName ];
+    self::assertLeftoverAttrs ( $tagName, $attributes );
+
+    $class = self::$tagToNode[ $tagName ];
+
+    /** Deal with the difference in constructor sinpsis */
+    if ( $class === 'MapFilter_Pattern_Node_Attr' ) {
+      
+      return new $class (
+          $attrAttr,
+          $valueFilter
+// NOT IMPLEMENTED
+//          $default
+      );
+    }
+
+    if ( $class === 'MapFilter_Pattern_Node_KeyAttr' ) {
+    
+      return new $class (
+          $followers,
+          $attrAttr,
+          $valueFilter
+      );
+    }
+    
+    return new $class (
+        $followers,
         $valueFilter
     );
   }
   
+  /**
+  * Unwrap not necessary <pattern> tags from very beginning and end of tree
+  * @XMLElement: NotSoSimpleXMLElement; Tree root
+  * @return: NotSoSimpleXmlElement; New tree root
+  * @throws: MapFilter_Exception
+  */
+  private static function unwrap ( NotSoSimpleXMLElement $XMLElement ) {
+   
+    $tagName = $XMLElement->getName ();
+   
+    /** Tree is not wrapped */
+    if ( self::isValidTag ( $tagName ) ) {
+
+      return $XMLElement;
+    }
+
+    /** Unknown tag */
+    if ( $tagName !== self::PATTERN ) {
+  
+      throw new MapFilter_Exception (
+          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+          Array ( $tagName )
+      );
+    }
+
+    /** Too many followers for pattern tag */
+    $children = $XMLElement->getChildren ();
+    if ( count ( $children ) > 1 ) {
+      
+      throw new MapFilter_Exception (
+          MapFilter_Exception::TOO_MANY_PATTERNS
+      );
+    }
+    
+    /** Unwrap */
+    return $XMLElement->children ();
+  }
+  
+  /**
+  * Fetch created pattern
+  * @return: MapFilter_Pattern
+  */
+  public function fetch () {
+
+    return $this->content;
+  }
+
+  /**
+  * Satisfy pattern
+  * @query: Array
+  * @return: Bool
+  */
+  public function satisfy ( Array $query = Array () ) {
+  
+    return $this->patternTree->satisfy ( $query );
+  }
+
   /** Clone all tree recursively */
   public function __clone () {
 
-    foreach ( $this->content as &$follower ) {
-    
-      $follower = clone ( $follower );
-    }
+    $this->patternTree = clone ( $this->patternTree );
 
     return;
   }
   
-  /**
-  * Enable cast to string to the Value and KeyAttr nodes
-  * @return: String
-  * @throws: MapFilter_Exception
-  */
+  /** Get String representation of pattern */
   public function __toString () {
-
-    if ( self::hasAttribute ( $this->nodeType ) ) {
-
-      return $this->attribute;
-    }
-    
-    /** Different types shouldn't be converted to String */
-    /** Cannot throw an exception from __toString */
-    assert ( FALSE );
-
-/**    throw new MapFilter_Exception (
-        MapFilter_Exception::TYPE_CAST_FAULT,
-        Array ( $this->nodeType )
-    );
-*/
-
+  
+    return (String) var_export ( $this->patternTree, TRUE );
   }
 }
