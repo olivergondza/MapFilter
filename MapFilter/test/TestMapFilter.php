@@ -26,8 +26,11 @@ class TestMapFilter extends BaseTest {
   public static function testAttr () {
     
     $query = Array ( 'attr0' => "value" );
+
+    $attr = new MapFilter_Pattern_Node_Attr ();
+
     $pattern = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_Attr ( "attr0" )
+        $attr -> setAttribute ( "attr0" )
     );
 
     $filter = new MapFilter (
@@ -50,11 +53,15 @@ class TestMapFilter extends BaseTest {
     $accurate = Array ( "Attr0" => 0, "Attr1" => 1 );
     $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
     
+    $all = new MapFilter_Pattern_Node_All ();
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    
     $pattern = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_All ( 
+        $all -> setContent (
             Array (
-                new MapFilter_Pattern_Node_Attr ( "Attr0" ),
-                new MapFilter_Pattern_Node_Attr ( "Attr1" )
+                $attr0 -> setAttribute ( "Attr0" ),
+                $attr1 -> setAttribute ( "Attr1" )
             )
         )
     );
@@ -96,11 +103,15 @@ class TestMapFilter extends BaseTest {
     $all = Array ( "Attr0" => 0, "Attr1" => 1 );
     $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
     
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    $one = new MapFilter_Pattern_Node_One ();
+
     $pattern = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_One (
+        $one -> setContent (
             Array (
-                new MapFilter_Pattern_Node_Attr ( "Attr0" ),
-                new MapFilter_Pattern_Node_Attr ( "Attr1" )
+                $attr0 -> setAttribute  ( "Attr0" ),
+                $attr1 -> setAttribute  ( "Attr1" )
             )
         )
     );
@@ -142,11 +153,15 @@ class TestMapFilter extends BaseTest {
     $all = Array ( "Attr0" => 0, "Attr1" => 1 );
     $nothing = Array ();
     
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    $opt = new MapFilter_Pattern_Node_Opt ();
+
     $pattern = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_Opt (
+        $opt -> setContent (
             Array (
-                new MapFilter_Pattern_Node_Attr ( "Attr0" ),
-                new MapFilter_Pattern_Node_Attr ( "Attr1" )
+                $attr0 -> setAttribute  ( "Attr0" ),
+                $attr1 -> setAttribute  ( "Attr1" )
             )
         )
     );
@@ -221,16 +236,17 @@ class TestMapFilter extends BaseTest {
   */
   public static function testKeyAttrCreate ( $result, $query ) {
 
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+
     $followers = Array (
-        new MapFilter_Pattern_Node_Attr ( "task", "do" ),
-        new MapFilter_Pattern_Node_Attr ( "tasks", "schedule" )
+        $attr0 -> setAttribute  ( "task" ) -> setValueFilter ( "do" ),
+        $attr1 -> setAttribute  ( "tasks") -> setValueFilter ( "schedule" )
     );
   
+    $keyattr = new MapFilter_Pattern_Node_KeyAttr ();
     $pattern = new MapFilter_Pattern (    
-        new MapFilter_Pattern_Node_KeyAttr (
-            $followers,
-            "action"
-        )
+        $keyattr -> setContent ( $followers ) -> setAttribute ( "action" )
     );
 
     $filter = new MapFilter ( $pattern );

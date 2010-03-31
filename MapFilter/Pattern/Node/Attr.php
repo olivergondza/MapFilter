@@ -7,21 +7,51 @@ require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
 class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
 
   /**
+  * Node attribute
+  * @var: String
+  */
+  public $attribute = "";
+  
+  /**
+  * Attr default value
+  * @var: String
+  */
+  public $default = NULL;
+  
+  /**
+  * Attr value Pattern
+  * @var: String; REGEX
+  */
+  public $valuePattern = NULL;
+  
+  /**
+  * Fluent Method; Set attribute
   * @attribute: String
-  * @valueFilter: String
+  */
+  public function setAttribute ( $attribute ) {
+
+    $this->attribute = $attribute;
+    return $this;
+  }
+  
+  /**
+  * Fluent Method; Set default
   * @default: String
   */
-  public function __construct (
-      $attribute,
-      $valueFilter = NULL,
-      $default = NULL
-  ) {
-  
-    $this->attribute = (String) $attribute;
-    $this->valueFilter = $valueFilter;
-    $this->default = (String) $default;
-    
-    return;
+  public function setDefault ( $default ) {
+
+    $this->default = $default;
+    return $this;
+  }
+
+  /**
+  * Fluent Method; Set valuePattern
+  * @valuePattern: String
+  */
+  public function setValuePattern ( $valuePattern ) {
+
+    $this->valuePattern = $valuePattern;
+    return $this;
   }
 
   /**
@@ -55,12 +85,12 @@ class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
   * Determine whether a node has an attribute
   * return: Bool
   */
-  public static function hasAttr () {
+  public function hasAttr () {
   
     return TRUE;
   }
   
-  public static function hasFollowers () {
+  public function hasFollowers () {
   
     return FALSE;
   }

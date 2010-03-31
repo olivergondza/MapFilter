@@ -4,7 +4,7 @@
 */
 require_once ( dirname ( __FILE__ ) . '/../Pattern.php' );
 
-class TestMapFilter_Pattern extends BaseTest {  
+class TestPattern extends BaseTest {  
   
   /**
   * Test MapFilter_Pattern at first
@@ -14,14 +14,25 @@ class TestMapFilter_Pattern extends BaseTest {
     /**
     * Create complex pattern tree
     */
+    $all = new MapFilter_Pattern_Node_All ();
+    $one = new MapFilter_Pattern_Node_One ();
+    $opt = new MapFilter_Pattern_Node_Opt ();
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
     $pattern = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_All (
+        $all -> setContent (
             Array (
-                new MapFilter_Pattern_Node_Attr ( "value" ),
-                new MapFilter_Pattern_Node_One (
+                $attr0 -> setAttribute (
+                    "value"
+                ),
+                $one -> setContent (
                     Array (
-                        new MapFilter_Pattern_Node_Opt ( Array () ),
-                        new MapFilter_Pattern_Node_Attr ( "value" )
+                        $opt -> setContent (
+                            Array ()
+                        ),
+                        $attr1 -> setAttribute (
+                            "value"
+                        )
                     )
                 )
             )
@@ -31,12 +42,22 @@ class TestMapFilter_Pattern extends BaseTest {
     /**
     * Create tree by chunks
     */
-    $step0 = new MapFilter_Pattern_Node_Opt ( Array () );
-    $step1 = new MapFilter_Pattern_Node_Attr ( "value" );
-    $step2 = new MapFilter_Pattern_Node_One ( Array ( $step0, $step1) );
-    $step3 = new MapFilter_Pattern_Node_Attr ( "value" );
+    $step0 = new MapFilter_Pattern_Node_Opt ();
+    $step0 -> setContent ( Array () );
+    
+    $step1 = new MapFilter_Pattern_Node_Attr ();
+    $step1 -> setAttribute ( "value" );
+    
+    $step2 = new MapFilter_Pattern_Node_One ();
+    $step2 -> setContent ( Array ( $step0, $step1) );
+    
+    $step3 = new MapFilter_Pattern_Node_Attr ();
+    $step3 -> setAttribute ( "value" );
+    
+    $step4 = new MapFilter_Pattern_Node_All ();
+    
     $check = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_All ( Array ( $step3, $step2 ) )
+        $step4 -> setContent ( Array ( $step3, $step2 ) )
     );
     
     self::assertEquals (
@@ -51,18 +72,27 @@ class TestMapFilter_Pattern extends BaseTest {
   */
   public static function testLocation () {
     
+    $all0 = new MapFilter_Pattern_Node_All ();
+    $all1 = new MapFilter_Pattern_Node_All ();
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    $attr2 = new MapFilter_Pattern_Node_Attr ();
+    $attr3 = new MapFilter_Pattern_Node_Attr ();
+    $attr4 = new MapFilter_Pattern_Node_Attr ();
+    $one = new MapFilter_Pattern_Node_One ();
+    
     $location = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_All (
+        $all0 -> setContent (
             Array (
-                new MapFilter_Pattern_Node_Attr ( "action" ),
-                new MapFilter_Pattern_Node_One (
+                $attr0 -> setAttribute ( "action" ),
+                $one -> setContent (
                     Array (
-                        new MapFilter_Pattern_Node_Attr ( "nick" ),
-                        new MapFilter_Pattern_Node_All (
+                        $attr1 -> setAttribute ( "nick" ),
+                        $all1 -> setContent (
                             Array (
-                                new MapFilter_Pattern_Node_Attr ( "x" ),
-                                new MapFilter_Pattern_Node_Attr ( "y" ),
-                                new MapFilter_Pattern_Node_Attr ( "z" ),
+                                $attr2 -> setAttribute ( "x" ),
+                                $attr3 -> setAttribute ( "y" ),
+                                $attr4 -> setAttribute ( "z" ),
                             )
                         )
                     )
@@ -70,7 +100,7 @@ class TestMapFilter_Pattern extends BaseTest {
             )
         )
     );
-    
+
     $pattern = MapFilter_Pattern::fromFile (
         Test_Source::LOCATION
     );
@@ -86,21 +116,31 @@ class TestMapFilter_Pattern extends BaseTest {
   */
   public static function testLogin () {
 
+    $all0 = new MapFilter_Pattern_Node_All ();
+    $all1 = new MapFilter_Pattern_Node_All ();
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    $attr2 = new MapFilter_Pattern_Node_Attr ();
+    $attr3 = new MapFilter_Pattern_Node_Attr ();
+    $attr4 = new MapFilter_Pattern_Node_Attr ();
+    $attr5 = new MapFilter_Pattern_Node_Attr ();
+    $opt = new MapFilter_Pattern_Node_Opt ();
+    $one = new MapFilter_Pattern_Node_One ();
     $login = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_All (
+        $all0 -> setContent (
             Array (
-                new MapFilter_Pattern_Node_Attr ( "name" ),
-                new MapFilter_Pattern_Node_Attr ( "pass" ),
-                new MapFilter_Pattern_Node_Opt (
+                $attr0 -> setAttribute ( "name" ),
+                $attr1 -> setAttribute ( "pass" ),
+                $opt -> setContent (
                     Array (
-                        new MapFilter_Pattern_Node_Attr ( "use-https" ),
-                        new MapFilter_Pattern_Node_All (
+                        $attr2 -> setAttribute ( "use-https" ),
+                        $all1 -> setContent (
                             Array (
-                                new MapFilter_Pattern_Node_Attr ( "remember" ),
-                                new MapFilter_Pattern_Node_One (
+                                $attr3 -> setAttribute ( "remember" ),
+                                $one -> setContent (
                                     Array (
-                                        new MapFilter_Pattern_Node_Attr ( "user" ),
-                                        new MapFilter_Pattern_Node_Attr ( "server" ),
+                                        $attr4 -> setAttribute ( "user" ),
+                                        $attr5 -> setAttribute ( "server" ),
                                     )
                                 )
                             )
@@ -128,52 +168,60 @@ class TestMapFilter_Pattern extends BaseTest {
   */  
   public static function testAction () {
 
+    $keyattr = new MapFilter_Pattern_Node_KeyAttr ();
+    $all0 = new MapFilter_Pattern_Node_All ();
+    $all1 = new MapFilter_Pattern_Node_All ();
+    $attr0 = new MapFilter_Pattern_Node_Attr ();
+    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    $attr2 = new MapFilter_Pattern_Node_Attr ();
+    $attr3 = new MapFilter_Pattern_Node_Attr ();
+    $attr4 = new MapFilter_Pattern_Node_Attr ();
+    $attr5 = new MapFilter_Pattern_Node_Attr ();
+    $attr6 = new MapFilter_Pattern_Node_Attr ();
+    $attr7 = new MapFilter_Pattern_Node_Attr ();
+    $opt = new MapFilter_Pattern_Node_Opt ();
+    $one0 = new MapFilter_Pattern_Node_One ();
+    $one1 = new MapFilter_Pattern_Node_One ();
+    
     $action = new MapFilter_Pattern (
-        new MapFilter_Pattern_Node_KeyAttr (
+        $keyattr -> setAttribute ( "action" ) -> setContent (
             Array (
-                new MapFilter_Pattern_Node_One (
+                $one0 -> setValueFilter ( "delete" ) -> setContent (
                     Array (
-                        new MapFilter_Pattern_Node_Attr ( "id" ),
-                        new MapFilter_Pattern_Node_Attr ( "file_name" )
-                    ),
-                    "delete"
-                ),
-                new MapFilter_Pattern_Node_All (
+                        $attr0 -> setAttribute ( "id" ),
+                        $attr1 -> setAttribute ( "file_name" )
+                    )
+                ) ,
+                $all0 -> setValueFilter ( "create" ) -> setContent (
                     Array (
-                        new MapFilter_Pattern_Node_Attr ( "new_file" ),
-                        new MapFilter_Pattern_Node_Opt (
+                        $attr2 -> setAttribute ( "new_file" ),
+                        $opt -> setContent (
                             Array (
-                                new MapFilter_Pattern_Node_Attr ( "new_name" )
+                                $attr3 -> setAttribute ( "new_name" )
                             )
                         )
-                    ),
-                    "create"
-                ),
-                new MapFilter_Pattern_Node_All (
+                    )
+                ) ,
+                $all1 -> setValueFilter ( "rename" ) -> setContent (
                     Array (
-                        new MapFilter_Pattern_Node_One (
+                        $one1 -> setContent (
                             Array (
-                                new MapFilter_Pattern_Node_Attr ( "id" ),
-                                new MapFilter_Pattern_Node_Attr ( "old_name" )
+                                $attr4 -> setAttribute ( "id" ),
+                                $attr5 -> setAttribute ( "old_name" )
                             )
                         ),
-                        new MapFilter_Pattern_Node_Attr ( "new_name" )
-                    ),
-                    "rename"
+                        $attr6 -> setAttribute ( "new_name" )
+                    )
                 ),
-                new MapFilter_Pattern_Node_Attr (
-                    "id",
-                    "report"
-                )
-            ),
-            "action"
-        )
+                $attr7 -> setValueFilter ( "report" ) -> setAttribute ( "id" )
+            )
+        ) 
     );
 
     $pattern = MapFilter_Pattern::fromFile (
         Test_Source::ACTION
     );
-    
+
     self::assertEquals (
         $action,
         $pattern

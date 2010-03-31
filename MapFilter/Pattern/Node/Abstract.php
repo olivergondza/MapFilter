@@ -5,37 +5,68 @@
 abstract class MapFilter_Pattern_Node_Abstract {
   
   /**
-  * 
-  * @var: String
-  */
-  public $valueFilter = NULL;
-  
-  /**
-  * Node attribute
-  * @var: String
-  */
-  public $attribute = "";
-  
-  /**
   * Was node already satisfied
   * @var: Bool
   */
   public $satisfied = FALSE;
   
   /**
-  * Attr default value
-  * @var: String
+  * Key-Attr value filter
+  * @var: String; REGEX
   */
-  public $default = NULL;
+  public $valueFilter = NULL;
   
   /**
-  * Node Followers
-  * @var: Array ( MapFilter_Pattern_Node_Interface )
+  * Node flag
+  * @var: String
   */
-  public $content = NULL;
+  public $flag = NULL;
+  
+  /**
+  * All node types has to have empty constructors
+  * All setting is done by Fluent Methods
+  */
+  final public function __construct () {}
+  
+  /**
+  * Implicit Fluent Interface for all node type that do absolutely nothing;
+  * That's implicit behaviour; Nodes that has certain value define own setter
+  * with body;
+  *
+  * Values:
+  *   attribute
+  *   default
+  *   valuePattern
+  *   content
+  *   valueFilter
+  *   flag
+  */
+  public function setAttribute ( $attrbite ) { return $this; }
+  public function setDefault ( $default ) { return $this; }
+  public function setContent ( Array $content ) { return $this; }
+  public function setValuePattern ( $pattern ) { return $this; }
 
-  /** All classes has to have it's own constructors with different synopsis */
+  /**
+  * Fluent Method; Set valueFilter
+  * @valueFilter: String
+  */
+  public function setValueFilter ( $valueFilter ) {
 
+    $this->valueFilter = $valueFilter;
+    return $this;
+  }
+  
+  /**
+  * Fluent Msthod; Set Flag
+  * @flag: String
+  */
+  public function setFlag ( $flag ) {
+  
+    $this->flag = $flag;
+    return $this;
+  }
+  
+  
   /**
   * Satisfy certain node type and let it's followers to get satisfied
   * Some nodetypes needs to query access so it has to be distributed all over
@@ -49,13 +80,13 @@ abstract class MapFilter_Pattern_Node_Abstract {
   * Determine whether a node has an attribute
   * @return: Bool
   */
-  abstract public static function hasAttr ();
+  abstract public function hasAttr ();
   
   /**
   * Determine whether the node can have followers
   * @return: Bool
   */
-  abstract public static function hasFollowers ();
+  abstract public function hasFollowers ();
   
   /** All nodes must clone */
   public function __clone () {

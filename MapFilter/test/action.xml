@@ -33,8 +33,8 @@ different set of further attributes bonded by certain rules.
     
     <!-- "id" is mandatory argument for "report" action.
       Consider equivalent but slightly clumsy statement:
-      <all>
-        <attr forValue="report">id</attr>
+      <all forValue="report">
+        <attr>id</attr>
       </all>
     -->
     <attr forValue="report">id</attr>

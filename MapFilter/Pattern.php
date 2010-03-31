@@ -87,8 +87,9 @@ class MapFilter_Pattern {
   const ATTR_ATTR = "attr";
   const ATTR_VALUEFILTER = "forValue";
   const ATTR_DEFAULT = "default";
+  const ATTR_VALUEPATTERN = "valuePattern";
 // NOT IMPLEMENTED
-//  const ATTR_FLAG = "flag";
+  const ATTR_FLAG = "flag";
 
   
   /**
@@ -105,6 +106,18 @@ class MapFilter_Pattern {
   );
   
   /**
+  * Attribute name Object setter mapping
+  * @var: Array ( AttrName => SetterMethod )
+  */
+  private static $attrToSetter = Array (
+      self::ATTR_ATTR => 'setAttribute',
+      self::ATTR_VALUEFILTER => 'setValueFilter',
+      self::ATTR_DEFAULT => 'setDefault',
+      self::ATTR_VALUEPATTERN => 'setValuePattern',
+      self::ATTR_FLAG => 'setFlag'
+  );
+  
+  /**
   * Determines whether a tag is valid
   * @tag: String
   * @return: Bool
@@ -112,6 +125,16 @@ class MapFilter_Pattern {
   private static function isValidTag ( $tag ) {
   
     return array_key_exists ( $tag, self::$tagToNode );
+  }
+  
+  /**
+  * Determine whether an attribute is valid
+  * @attr: String
+  * @return: Bool
+  */
+  private static function isValidAttr ( $attr ) {
+  
+    return array_key_exists ( $attr, self::$attrToSetter );
   }
   
   /** Disallow load from file */
@@ -170,70 +193,6 @@ class MapFilter_Pattern {
   }
   
   /**
-  * Obtain and remove valueFilter from an array of attributes or set default
-  * @&Attributes: Array ()
-  * @return: String; valueFilter
-  */
-  private static function getValueFilter ( &$attributes ) {
-  
-    /** Fetch and delete */
-    if ( array_key_exists ( self::ATTR_VALUEFILTER, $attributes ) ) {
-
-      $valueFilter = (String) $attributes[ self::ATTR_VALUEFILTER ];
-
-      unset ( $attributes[ self::ATTR_VALUEFILTER ] );
-
-    /** Set default */
-    } else {
-      
-      $valueFilter = NULL;
-    }
-  
-    return $valueFilter;
-  }
-  
-  /**
-  * Obtain and remove attribute from an array of attributes or set default
-  * @XML: NotSoSimpleXMLElement
-  * @&Attributes: Array ()
-  * @return: String; attribute
-  */
-  private static function getNodeAttribute ( $XML, &$attributes ) {
-  
-    $nodeType = self::$tagToNode[
-        $XML->getName ()
-    ];
-    
-    $hasAttrCallback = Array ( $nodeType, 'hasAttr' );
-    $hasAttribute = call_user_func ( $hasAttrCallback );
-    
-    if ( $hasAttribute ) {
-
-      /** Obtain attribute from keyAttr node*/
-      if (
-          $nodeType === 'MapFilter_Pattern_Node_KeyAttr' &&
-          array_key_exists ( self::ATTR_ATTR, $attributes ) 
-      ) {
-
-        $attrAttr = (String) $attributes[ self::ATTR_ATTR ];
-        /** Delete attribute due to asserive behaviour in case of leftover arguments */
-        unset ( $attributes[ self::ATTR_ATTR ] );
-      }
-      
-      /** Obtain attribute from attr node */
-      if ( $nodeType === 'MapFilter_Pattern_Node_Attr' ) {
-        $attrAttr = (String) $XML[ 0 ];
-      }
-
-    } else {
-
-      $attrAttr = NULL;
-    }
-
-    return $attrAttr;
-  }
-  
-  /**
   * Throw when there are some leftover attributes
   * @attributes: Array
   * @return: Bool
@@ -251,6 +210,26 @@ class MapFilter_Pattern {
     }
     
     return;
+  }
+  
+  /**
+  * Obtain and remove attribute from an array of attributes
+  * @&Attributes: Array ()
+  * @Attribute: String
+  * @return: String;
+  */
+  private static function getAttribute ( &$attributes, $attribute ) {
+  
+    $value = NULL;
+    
+    /** Fetch and delete */
+    if ( array_key_exists ( $attribute, $attributes ) ) {
+
+      $value = (String) $attributes[ $attribute ];
+      unset ( $attributes[ $attribute] );
+    }
+  
+    return $value;
   }
   
   /**
@@ -277,44 +256,43 @@ class MapFilter_Pattern {
       );
     }
     
-    $attributes = $XML->getAttributes ();
-
-    /** Get ValueFilter if present */
-    $valueFilter = self::getValueFilter ( $attributes );
-
-    /** Get Attribute from certain types of nodes */
-    $attrAttr = self::getNodeAttribute ( $XML, $attributes );
-
-    /** Parse strictly (throw exception when some attributes left over) */
-    $nodeType = self::$tagToNode[ $tagName ];
-    self::assertLeftoverAttrs ( $tagName, $attributes );
-
+    /** Instantiate pattern node */
     $class = self::$tagToNode[ $tagName ];
+    $node = new $class ();
+    $node -> setContent ( $followers );
+    
+    /** Obtain all attributes and set them by bunch of seft setters */
+    $attributes = $XML->getAttributes ();
+    foreach ( self::$attrToSetter as $attr => $setter ) {
+    
+      $attrValue = self::getAttribute ( $attributes, $attr );
+    
+      $node = call_user_func (
+          Array ( $node, $setter ),
+          $attrValue
+      );
+    }
 
-    /** Deal with the difference in constructor sinpsis */
-    if ( $class === 'MapFilter_Pattern_Node_Attr' ) {
+    /** Unset attributes and make sure that none of them left over */
+    self::assertLeftoverAttrs ( $tagName, $attributes );
+    unset ( $attributes );
+
+    /**
+    * Sonce Attr node can have it's attribute in tag body this special check 
+    * is needed
+    */
+    if (
+        is_a ( $node, "MapFilter_Pattern_Node_Attr" ) &&
+        !$node->attribute
+    ) {
+
+      $node -> setAttribute (
+          (String) $XML[ 0 ]
+      );
       
-      return new $class (
-          $attrAttr,
-          $valueFilter
-// NOT IMPLEMENTED
-//          $default
-      );
-    }
-
-    if ( $class === 'MapFilter_Pattern_Node_KeyAttr' ) {
-    
-      return new $class (
-          $followers,
-          $attrAttr,
-          $valueFilter
-      );
     }
     
-    return new $class (
-        $followers,
-        $valueFilter
-    );
+    return $node;
   }
   
   /**

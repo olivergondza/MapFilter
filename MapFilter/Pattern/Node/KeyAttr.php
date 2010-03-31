@@ -7,20 +7,35 @@ require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
 class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
 
   /**
-  * @followers: Array ( MapFilter_Pattern_Node_Abstract )
-  * @valueFilter: String
+  * Node Followers
+  * @var: Array ( MapFilter_Pattern_Node_Interface )
   */
-  public function __construct (
-      Array $followers,
-      $attribute,
-      $valueFilter = NULL
-  ) {
+  public $content = Array ();
+
+  /**
+  * Node attribute
+  * @var: String
+  */
+  public $attribute = "";
+
+  /**
+  * Fluent Method; Set content
+  * @content: Array
+  */
+  public function setContent ( Array $content ) {
+   
+    $this->content = $content;
+    return $this;
+  }
   
-    $this->content = $followers;
-    $this->attribute = (String) $attribute;
-    $this->valueFilter = $valueFilter;
-    
-    return;
+  /**
+  * Fluent Method; Set attribute
+  * @attribute: String
+  */
+  public function setAttribute ( $attribute ) {
+  
+    $this->attribute = $attribute;
+    return $this;
   }
 
   /**
@@ -60,12 +75,12 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
   * Determine whether a node has an attribute
   * return: Bool
   */
-  public static function hasAttr () {
+  public function hasAttr () {
   
     return TRUE;
   }
   
-  public static function hasFollowers () {
+  public function hasFollowers () {
   
     return TRUE;
   }
