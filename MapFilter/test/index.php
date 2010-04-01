@@ -12,6 +12,7 @@ class Test_Source {
   const LOGIN = "./login.xml";
   const ACTION = "./action.xml";
   const FILTER = "./filter.xml";
+  const COFFE_MAKER = "./coffe_maker.xml";
 }
 
 BaseTest::takeDir (

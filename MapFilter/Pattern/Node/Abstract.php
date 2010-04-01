@@ -122,16 +122,14 @@ abstract class MapFilter_Pattern_Node_Abstract {
   const FILTER_DELIMITER = '/';
   
   /**
-  * Test whether a onValue condition on tree node fits given pattern
+  * Test whether a ForValue condition on tree node fits given pattern
   * @valueFilter: PREG; Validation pattern
   * @valueCandidate: String
   * @return: Bool
   */
-  protected function valueFits ( $valueCandidate ) {
+  protected function valueFits ( $valueCandidate, $pattern ) {
 
-    $valueFilter = $this->valueFilter;
-
-    if ( !$valueFilter ) {
+    if ( !$pattern ) {
 
       return TRUE;
     }
@@ -142,13 +140,13 @@ abstract class MapFilter_Pattern_Node_Abstract {
         self::FILTER_DELIMITER
     );
   
-    $valueFilter = sprintf (
+    $pattern = sprintf (
         self::FILTER_BOUNDARIES,
-        $valueFilter
+        $pattern
     );
 
     $matchCount = preg_match (
-        $valueFilter,
+        $pattern,
         $valueCandidate
     );
 

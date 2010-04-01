@@ -16,14 +16,14 @@ like:
 <pattern>
   <all>
 
+    <!-- String ( caffe|tea|cacao ) -->
+    <attr valuePattern="coffe|tea|cacao">beverage</attr>
+
     <!-- Bool; default yes -->
     <attr default="yes" valuePattern="yes|no">cup</attr>
 
     <!-- Int ( -5..5 ); default 0 -->
     <attr default="0" valuePattern="-?[0-5]">sugar</attr>
-
-    <!-- String ( caffe|tea|cacao ) -->
-    <attr valuePattern="caffe|tea|cacao">beverage</attr>
 
   </all>
 </pattern>

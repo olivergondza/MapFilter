@@ -85,7 +85,8 @@ class MapFilter {
     /** Prevent old result leaking to the new result set*/
     $this->data = Array ();
     $this->pickUp ( $tempPattern );
-
+//var_dump ( $tempPattern );
+//var_dump ( $this->query );
     return $this->fetch ();
   }
   

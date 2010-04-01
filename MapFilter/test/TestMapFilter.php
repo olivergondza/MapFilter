@@ -201,7 +201,7 @@ class TestMapFilter extends BaseTest {
     );
   }
   
-  public static function providerKeyAttrCreate () {
+  public static function provideKeyAttrCreate () {
   
     return Array (
         Array (
@@ -232,7 +232,7 @@ class TestMapFilter extends BaseTest {
   * action => do ; task => ...
   * action => schedule; tasks => ...
   *
-  * @dataProvider providerKeyAttrCreate
+  * @dataProvider provideKeyAttrCreate
   */
   public static function testKeyAttrCreate ( $result, $query ) {
 

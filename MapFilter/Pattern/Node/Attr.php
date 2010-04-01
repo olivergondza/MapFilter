@@ -62,16 +62,30 @@ class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
   */
   public function satisfy ( Array &$query ) {
   
+    /** If argument exists */
     $present = self::attrPresent (
         $this->attribute,
         $query
     );
     
     if ( $present ) {
-      return $this->satisfied = TRUE;
+    
+      /** And matches pattern */
+      $fitsPattern = self::valueFits (
+          $query[ $this->attribute ],
+          $this->valuePattern
+      );
+//var_dump ( $fitsPattern );
+//var_dump ( $this->valuePattern );
+//var_dump ( $query[ $this->attribute ] );
+      if ( $fitsPattern ) {
+    
+        return $this->satisfied = TRUE;
+      }
     }
     
-    if ( $this->default ) {
+    /** Set default if defined */
+    if ( $this->default !== NULL ) {
       
       $query[ $this->attribute ] = $this->default;
 

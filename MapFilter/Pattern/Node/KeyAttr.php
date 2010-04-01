@@ -58,8 +58,9 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
     /** Find a follower that fits an value filter and let it satisfy */
     foreach ( $this->content as $follower ) {
       
-      $fits = $follower->valueFits (
-          $query[ $attrName ]
+      $fits = self::valueFits (
+          $query[ $attrName ],
+          $follower->valueFilter
       );
       
       if ( $fits ) {

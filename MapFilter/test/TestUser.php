@@ -43,7 +43,10 @@ class TestUser extends BaseTest {
       $filter = new MapFilter ( "<pattern><wrongnode></wrongnode></pattern>" );
     } catch ( MapFilter_Exception $exception ) {
       
-      
+      self::assertEquals (
+          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+          $exception->getCode ()
+      );
     }
   }
   
@@ -70,7 +73,24 @@ class TestUser extends BaseTest {
   
   }
   
-  public static function testSimpleOneWhitelist () {
+  public static function provideSimpleOneWhitelist () {
+  
+    return Array (
+        Array (
+            Array ( '-h' => NULL, '-v' => NULL, '-o' => "a.out" ),
+            Array ( '-h' => NULL )
+        ),
+        Array (
+            Array ( '-o' => "a.out" ),
+            Array ()
+        )
+    );
+  }
+  
+  /**
+  * @dataProvider provideSimpleOneWhitelist
+  */
+  public static function testSimpleOneWhitelist ( $query, $result ) {
   
     $pattern = "
     <pattern>
@@ -85,36 +105,28 @@ class TestUser extends BaseTest {
         $pattern
     );
     
-    $query = Array (
-        '-h' => NULL,
-        '-v' => NULL,
-        '-o' => "a.out"
-    );
-    
     $filter->setQuery ( $query );
-
-    $result = Array (
-        '-h' => NULL
-    );
     
     self::assertEquals (
         $result,
         $filter->parse ()
     );
-    
-    $query = Array (
-        '-o' => "a.out"
-    );
-    
-    $filter->setQuery ( $query );
+  }
 
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
+  public static function provideSimpleAllWhitelist () {
+  
+    return Array (
+        Array (
+            Array ( '-h' => NULL, '-v' => NULL, '-o' => "a.out" ),
+            Array ( '-h' => NULL, '-v' => NULL )
+        )
     );
   }
 
-  public static function testSimpleAllWhitelist () {
+  /**
+  * @dataProvider provideSimpleAllWhitelist
+  */
+  public static function testSimpleAllWhitelist ( $query, $result ) {
   
     $pattern = "
     <pattern>
@@ -129,17 +141,6 @@ class TestUser extends BaseTest {
         $pattern
     );
 
-    $query = Array (
-        '-h' => NULL,
-        '-v' => NULL,
-        '-o' => "a.out"
-    );
-
-    $result = Array (
-        '-h' => NULL,
-        '-v' => NULL
-    );
-    
     $filter->setQuery ( $query );
     
     self::assertEquals (
@@ -148,7 +149,36 @@ class TestUser extends BaseTest {
     );
   }
   
-  public static function testSimpleOptWhitelist () {
+  public static function provideSimpleOptWhitelist () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( '-h' => NULL, '-v' => NULL ),
+            Array ( '-h' => NULL, '-v' => NULL )
+        ),
+        Array (
+            Array ( '-v' => NULL ),
+            Array ( '-v' => NULL )
+        ),
+        Array (
+            Array ( '-h' => NULL ),
+            Array ( '-h' => NULL )
+        ),
+        Array (
+            Array ( '-h' => NULL, '-v' => NULL, '-o' => "a.out" ),
+            Array ( '-h' => NULL, '-v' => NULL )
+        )
+    );
+  }
+  
+  /**
+  * @dataProvider provideSimpleOptWhitelist
+  */
+  public static function testSimpleOptWhitelist ( $query, $result ) {
     
     $pattern = "
     <pattern>
@@ -163,75 +193,45 @@ class TestUser extends BaseTest {
         $pattern
     );
 
-    /** Parse all */
-    $query = Array (
-        '-h' => NULL,
-        '-v' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Parse one */
-    $query = Array (
-        '-v' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Parse one */
-    $query = Array (
-        '-h' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Parse extra */
-    $query = Array (
-        '-h' => NULL,
-        '-v' => NULL,
-        '-o' => "a.out"
-    );
-    
-    $result = Array (
-        '-h' => NULL,
-        '-v' => NULL
-    );
-    
     $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
         $filter->parse ()
     );
-    
-    /** Parse nothing */
-    $query = Array ();
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
+  }
+
+  public static function provideParseLogin () {
+  
+    return Array (
+        Array (
+            Array ( 'name' => "me", 'pass' => "myPass" ),
+            Array ( 'name' => "me", 'pass' => "myPass" )
+        ),
+        Array (
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" )
+        ),
+        Array (
+            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL )
+        ),
+        Array (
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL )
+        ),
+        Array (
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL, 'user' => NULL ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'user' => NULL )
+        )
     );
   }
 
-  /** Test parse external source and validate */
-  public static function testParseLogin () {
+  /**
+  * Test parse external source and validate
+  * @dataProvider provideParseLogin
+  */
+  public static function testParseLogin ( $query, $result ) {
   
     $filter = new MapFilter (
         Test_Source::LOGIN
@@ -244,198 +244,53 @@ class TestUser extends BaseTest {
         Array (),
         $filter->parse () 
     );
+  }
   
-    /** Test minimal */
-    $query = Array (
-      'name' => "me",
-      'pass' => "myPass"
-    );
-    
-    $filter->setQuery ( $query );
-
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-
-    /** Test simple optional */
-    $query = Array (
-      'name' => "me",
-      'pass' => "myPass",
-      'use-https' => "yes"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Test complex optional */
-    $query = Array (
-      'name' => "me",
-      'pass' => "myPass",
-      'remember' => "yes",
-      'server' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Test all */
-    $query = Array (
-      'name' => "me",
-      'pass' => "myPass",
-      'use-https' => "no",
-      'remember' => "yes",
-      'server' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Test Too Much */
-    $query = Array (
-      'name' => "me",
-      'pass' => "myPass",
-      'use-https' => "no",
-      'remember' => "yes",
-      'server' => NULL,
-      'user' => NULL
-    );
-    
-    /** More than one option occured first one used */
-    $result = Array (
-        'name' => "me",
-        'pass' => "myPass",
-        'use-https' => "no",
-        'remember' => "yes",
-        'user' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-
-    self::assertEquals (
-        $result,
-        $filter->parse ()
+  public static function provideParseLocation () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "delete", 'nick' => "myLocation" ),
+            Array ( 'action' => "delete", 'nick' => "myLocation" )
+        ),
+        Array (
+            Array ( 'action' => "delete", 'x' => 1, 'y' => 1, 'z' => 2 ),
+            Array ( 'action' => "delete", 'x' => 1, 'y' => 1, 'z' => 2 )
+        ),
+        Array (
+            Array ( 'action' => "delete", 'x' => 1, 'y' => 1, 'z' => 2, 'a' => 0 ),
+            Array ( 'action' => "delete", 'x' => 1, 'y' => 1, 'z' => 2 )
+        ),
+        Array (
+            Array ( 'action' => "delete", 'x' => 1, 'y' => 1 ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "delete" ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "delete", 'nick' => "myLocation", 'duration' => "permanent" ),
+            Array ( 'action' => "delete", 'nick' => "myLocation" )
+        )
     );
   }
   
-  /** Test parse external source and validate */
-  public static function testParseLocation () {
+  /**
+  * Test parse external source and validate
+  * @dataProvider provideParseLocation
+  */
+  public static function testParseLocation ( $query, $result ) {
   
     $filter = new MapFilter (
         Test_Source::LOCATION
     );
   
     /** Test Empty */
-    $filter->setQuery ( Array () );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Test nick use */
-    $query = Array (
-        'action' => "delete",
-        'nick' => "myLocation"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Coordinates */
-    $query = Array (
-        'action' => "delete",
-        'x' => 1,
-        'y' => 1,
-        'z' => 2
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Too many directions */
-    $query = Array (
-        'action' => "delete",
-        'x' => 1,
-        'y' => 1,
-        'z' => 2,
-        'a' => 0
-    );
-    
-    $result = Array (
-        'action' => "delete",
-        'x' => 1,
-        'y' => 1,
-        'z' => 2
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $result,
-        $filter->parse ()
-    );
-    
-    /** Too few directions */
-    $query = Array (
-        'action' => "delete",
-        'x' => 1,
-        'y' => 1
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Just actions */
-    $query = Array (
-        'action' => "delete"
-    );
-    
-    $result = Array ();
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $result,
-        $filter->parse ()
-    );
-    
-    /** Extra argument */
-    $query = Array (
-        'action' => "delete",
-        'nick' => "myLocation",
-        'duration' => "permanent"
-    );
-    
-    $result = Array (
-        'action' => "delete",
-        'nick' => "myLocation",
-    );
-    
     $filter->setQuery ( $query );
     
     self::assertEquals (
@@ -444,81 +299,128 @@ class TestUser extends BaseTest {
     );
   }
   
-  /** Test parse external source and validate */
-  public static function testParseAction () {
+  public static function provideParseAction () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "noSuchAction" ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "delete", 'id' => 42 ),
+            Array ( 'action' => "delete", 'id' => 42 )
+        ),
+        Array (
+            Array ( 'action' => "delete", 'file_name' => "myFile" ),
+            Array ( 'action' => "delete", 'file_name' => "myFile" )
+        ),
+        Array (
+            Array ( 'action' => "delete", 'wrongAttr' => NULL ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "delete", 'id' => 42, 'file_name' => "myFile" ),
+            Array ( 'action' => "delete", 'id' => 42 )
+        ),
+        Array (
+            Array ( 'action' => "create", 'new_file' => "fileObj", 'new_name' => "myFile" ),
+            Array ( 'action' => "create", 'new_file' => "fileObj", 'new_name' => "myFile" )
+        ),
+        Array (
+            Array ( 'action' => "create", 'new_file' => "fileObj" ),
+            Array ( 'action' => "create", 'new_file' => "fileObj" )
+        ),
+        Array (
+            Array ( 'action' => "rename", 'id' => 42, 'new_name' => "myFile" ),
+            Array ( 'action' => "rename", 'id' => 42, 'new_name' => "myFile" )
+        ),
+        Array (
+            Array ( 'action' => "rename", 'old_name' => "myFile", 'new_name' => "myFile" ),
+            Array ( 'action' => "rename", 'old_name' => "myFile", 'new_name' => "myFile" )
+        ),
+        Array (
+            Array ( 'action' => "rename", 'new_name' => "myFile" ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "rename", 'old_name' => "myFile" ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "rename" ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "report", 'id' => 42 ),
+            Array ( 'action' => "report", 'id' => 42 )
+        ),
+        Array (
+            Array ( 'action' => "report" ),
+            Array ()
+        ),
+        Array (
+            Array ( 'action' => "report", 'file_name' => "myName" ),
+            Array ()
+        )
+    );
+  }
+  
+  /**
+  * Test parse external source and validate
+  * @dataProvider provideParseAction
+  */
+  public static function testParseAction ( $query, $result ) {
   
     $filter = new MapFilter (
         Test_Source::ACTION
     );
     
-    $filter->setQuery ( Array () );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Wrong action */
-    $query = Array (
-        'action' => "noSuchAction"
-    );
-    
     $filter->setQuery ( $query );
     
     self::assertEquals (
-        Array (),
+        $result,
         $filter->parse ()
     );
-    
-    /** Delete by ID */
-    $query = Array (
-        'action' => "delete",
-        'id' => 42
+  }
+  
+  public static function provideParseFilterUtility () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( '-a' => NULL ),
+            Array ( '-a' => NULL )
+        ),
+        Array (
+            Array ( '-c' => NULL ),
+            Array ( '-c' => NULL )
+        ),
+        Array (
+            Array ( '-c' => NULL, '-l' => NULL ),
+            Array ( '-c' => NULL, '-l' => NULL )
+        ),
+        Array (
+            Array ( '-c' => NULL, '-l' => NULL, '-h' => NULL ),
+            Array ( '-c' => NULL, '-l' => NULL, '-h' => NULL )
+        )
     );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Delete by name */
-    $query = Array (
-        'action' => "delete",
-        'file_name' => "myFile"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Delete by wrong attribute */
-    $query = Array (
-        'action' => "delete",
-        'wrongAttr' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Delete by both */
-    $query = Array (
-        'action' => "delete",
-        'id' => 42,
-        'file_name' => "myFile"
-    );
-    
-    $result = Array (
-        'action' => "delete",
-        'id' => 42
+  }
+  
+  /**
+  * Test parse external source and validate
+  * @dataProvider provideParseFilterUtility
+  */
+  public static function testParseFilterUtility ( $query, $result ) {
+
+    $filter = new MapFilter (
+        Test_Source::FILTER
     );
     
     $filter->setQuery ( $query );
@@ -527,203 +429,48 @@ class TestUser extends BaseTest {
         $result,
         $filter->parse ()
     );
-    
-    /** Create file with new name */
-    $query = Array (
-        'action' => "create",
-        'new_file' => "fileObj",
-        'new_name' => "myFile"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Create file without name */
-    $query = Array (
-        'action' => "create",
-        'new_file' => "fileObj"
-    );
-    
-    $filter->setQuery ( $query );
-
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Rename by ID */
-    $query = Array (
-        'action' => "rename",
-        'id' => 42,
-        'new_name' => "myFile"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-
-    /** Rename by name */
-    $query = Array (
-        'action' => "rename",
-        'old_name' => "myFile",
-        'new_name' => "myFile"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Rename without source */
-    $query = Array (
-        'action' => "rename",
-        'new_name' => "myFile"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Rename without destinations */
-    $query = Array (
-        'action' => "rename",
-        'old_name' => "myFile"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Rename without anything */
-    $query = Array (
-        'action' => "rename"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Report */
-    $query = Array (
-        'action' => "report",
-        'id' => 42
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Report without id */
-    $query = Array (
-        'action' => "report"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Report by wrong attribute */
-    $query = Array (
-        'action' => "report",
-        'file_name' => "myName"
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        Array (),
-        $filter->parse ()
+  }
+  
+  public static function provideParseCoffeMaker () {
+  
+    return Array (
+        Array (
+            Array ( 'beverage' => 'coffe' ),
+            Array ( 'beverage' => 'coffe', 'cup' => 'yes', 'sugar' => 0 )
+        ),
+        Array (
+            Array ( 'beverage' => 'tea', 'cup' => 2 ),
+            Array ( 'beverage' => 'tea', 'cup' => 'yes', 'sugar' => 0 )
+        ),
+        Array (
+            Array ( 'beverage' => 'cacao', 'sugar' => 'a lot' ),
+            Array ( 'beverage' => 'cacao', 'cup' => 'yes', 'sugar' => 0 )
+        ),
+        Array (
+            Array ( 'beverage' => 'coffe', 'cup' => 'none', 'sugar' => 'a lot' ),
+            Array ( 'beverage' => 'coffe', 'cup' => 'yes', 'sugar' => 0 )
+        ),
+        Array (
+            Array ( 'beverage' => 'coffe', 'cup' => 'no', 'sugar' => 5 ),
+            Array ( 'beverage' => 'coffe', 'cup' => 'no', 'sugar' => 5 )
+        )
     );
   }
   
-  /** Test parse external source and validate */
-  public static function testParseFilterUtility () {
-
+  /**
+  * @dataProvider provideParseCoffeMaker
+  */
+  public static function testParseCoffeMaker ( $query, $result ) {
+  
     $filter = new MapFilter (
-        Test_Source::FILTER
+        Test_Source::COFFE_MAKER
     );
     
-    /** Parse empty */
-    $filter->setQuery ( Array () );
+    $filter -> setQuery ( $query );
     
     self::assertEquals (
-        Array (),
-        $filter->parse ()
-    );
-    
-    /** Test mandatory */
-    $query = Array (
-        '-a' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Test optional action */
-    $query = Array (
-        '-c' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Test optional actions */
-    $query = Array (
-        '-c' => NULL,
-        '-l' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-    
-    /** Test optional actions with optional arg*/
-    $query = Array (
-        '-c' => NULL,
-        '-l' => NULL,
-        '-h' => NULL
-    );
-    
-    $filter->setQuery ( $query );
-    
-    self::assertEquals (
-        $query,
-        $filter->parse ()
+        $result,
+        $filter -> parse ()
     );
   }
 }
