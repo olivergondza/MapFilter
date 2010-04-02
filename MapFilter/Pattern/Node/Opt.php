@@ -25,17 +25,17 @@ class MapFilter_Pattern_Node_Opt extends MapFilter_Pattern_Node_Abstract {
   /**
   * That node is always satisfyied.
   * Thus satisfy MUST be mapped on ALL followers.
-  * @pattern: MapFilter_Pattern
+  * @query: Array ()
   * @return: Bool
   */
-  public function satisfy ( Array &$query ) {
+  public function satisfy ( Array &$query, Array &$asserts ) {
   
     foreach ( $this->content as $follower ) {
     
-      $follower->satisfy ( $query );
+      $follower->satisfy ( $query, $asserts );
     }
 
-    return $this->satisfied = TRUE;
+    return $this->setSatisfied ( TRUE, $asserts );
   }
   
   /**

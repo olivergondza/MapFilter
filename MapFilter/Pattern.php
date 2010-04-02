@@ -75,21 +75,22 @@ class MapFilter_Pattern {
   }
 
   /*** XML struct tags */
-  const PATTERN = "pattern";
+  const PATTERN = 'pattern';
   
-  const NODE_ALL = "all";
-  const NODE_ONE = "one";
-  const NODE_OPT = "opt";
-  const NODE_KEYATTR = "key_attr";
-  const NODE_ATTR = "attr";
-  const NODE_SOME = "some";
+  const NODE_ALL = 'all';
+  const NODE_ONE = 'one';
+  const NODE_OPT = 'opt';
+  const NODE_KEYATTR = 'key_attr';
+  const NODE_ATTR = 'attr';
+  const NODE_SOME = 'some';
   
-  const ATTR_ATTR = "attr";
-  const ATTR_VALUEFILTER = "forValue";
-  const ATTR_DEFAULT = "default";
-  const ATTR_VALUEPATTERN = "valuePattern";
+  const ATTR_ATTR = 'attr';
+  const ATTR_VALUEFILTER = 'forValue';
+  const ATTR_DEFAULT = 'default';
+  const ATTR_VALUEPATTERN = 'valuePattern';
 // NOT IMPLEMENTED
-  const ATTR_FLAG = "flag";
+  const ATTR_FLAG = 'flag';
+  const ATTR_ASSERT = 'assert';
 
   
   /**
@@ -114,7 +115,8 @@ class MapFilter_Pattern {
       self::ATTR_VALUEFILTER => 'setValueFilter',
       self::ATTR_DEFAULT => 'setDefault',
       self::ATTR_VALUEPATTERN => 'setValuePattern',
-      self::ATTR_FLAG => 'setFlag'
+      self::ATTR_FLAG => 'setFlag',
+      self::ATTR_ASSERT => 'setAssert'
   );
   
   /**
@@ -159,7 +161,7 @@ class MapFilter_Pattern {
     */
     $options = LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_NOENT;
     
-    /** Try to load and raise propper exception accordingly */
+    /** Try to load and raise proper exception accordingly */
     try {
     
       $XMLElement = new NotSoSimpleXMLElement (
@@ -261,7 +263,7 @@ class MapFilter_Pattern {
     $node = new $class ();
     $node -> setContent ( $followers );
     
-    /** Obtain all attributes and set them by bunch of seft setters */
+    /** Obtain all attributes and set them by bunch of soft setters */
     $attributes = $XML->getAttributes ();
     foreach ( self::$attrToSetter as $attr => $setter ) {
     
@@ -278,11 +280,11 @@ class MapFilter_Pattern {
     unset ( $attributes );
 
     /**
-    * Sonce Attr node can have it's attribute in tag body this special check 
+    * Since Attr node can have it's attribute in tag body this special check 
     * is needed
     */
     if (
-        is_a ( $node, "MapFilter_Pattern_Node_Attr" ) &&
+        is_a ( $node, 'MapFilter_Pattern_Node_Attr' ) &&
         !$node->attribute
     ) {
 
@@ -298,7 +300,7 @@ class MapFilter_Pattern {
   /**
   * Unwrap not necessary <pattern> tags from very beginning and end of tree
   * @XMLElement: NotSoSimpleXMLElement; Tree root
-  * @return: NotSoSimpleXmlElement; New tree root
+  * @return: NotSoSimpleXMLElement; New tree root
   * @throws: MapFilter_Exception
   */
   private static function unwrap ( NotSoSimpleXMLElement $XMLElement ) {
@@ -345,9 +347,13 @@ class MapFilter_Pattern {
   /**
   * Satisfy pattern
   * @query: Array
+  * @asserts: Array
   * @return: Bool
   */
-  public function satisfy ( Array $query = Array () ) {
+  public function satisfy (
+      Array $query = Array (),
+      Array $asserts = Array ()
+  ) {
   
     return $this->patternTree->satisfy ( $query );
   }

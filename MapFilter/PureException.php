@@ -54,10 +54,10 @@ class PureException extends Exception {
   }
 
   /**
-  * Get formated message
+  * Get formatted message
   * @code: Int; ! use constants !
   * @args: Array ( Mixed ); Array of args to format output string
-  * @return: String; Formated message
+  * @return: String; Formatted message
   */
   protected function formatMessage ( $code, $args ) {
 

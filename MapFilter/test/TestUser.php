@@ -8,25 +8,11 @@ require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
 class TestUser extends BaseTest {
 
-  /** Use utterly wrong pattern */
-  public static function testUtterlyWrongPattern () {
-    
-    try {
-      $filter = new MapFilter ( 42 );
-    } catch ( MapFilter_Exception $exception ) {
-      
-      self::assertEquals (
-          MapFilter_Exception::UNKNOWN_PATTERN_SOURCE,
-          $exception->getCode ()
-      );
-    }
-  }
-  
   /** Use slightly wrong pattern */
   public static function testWrongPattern () {
     
     try {
-      $filter = new MapFilter ( "<lantern></lantern>" );
+      $pattern = MapFilter_Pattern::load ( "<lantern></lantern>" );
     } catch ( MapFilter_Exception $exception ) {
       
       self::assertEquals (
@@ -40,7 +26,7 @@ class TestUser extends BaseTest {
   public static function testWrongTag () {
   
     try {
-      $filter = new MapFilter ( "<pattern><wrongnode></wrongnode></pattern>" );
+      $pattern = MapFilter_Pattern::load ( "<pattern><wrongnode></wrongnode></pattern>" );
     } catch ( MapFilter_Exception $exception ) {
       
       self::assertEquals (
@@ -62,7 +48,7 @@ class TestUser extends BaseTest {
     ';
   
     try {
-      $filter = new MapFilter ( $pattern );
+      $filter = new MapFilter ( MapFilter_Pattern::load ( $pattern ) );
     } catch ( MapFilter_Exception $exception ) {
 
       self::assertEquals (
@@ -102,7 +88,7 @@ class TestUser extends BaseTest {
     ";
     
     $filter = new MapFilter (
-        $pattern
+        MapFilter_Pattern::load ( $pattern )
     );
     
     $filter->setQuery ( $query );
@@ -138,7 +124,7 @@ class TestUser extends BaseTest {
     ";
     
     $filter = new MapFilter (
-        $pattern
+        MapFilter_Pattern::load ( $pattern )
     );
 
     $filter->setQuery ( $query );
@@ -190,7 +176,7 @@ class TestUser extends BaseTest {
     ";
     
     $filter = new MapFilter (
-        $pattern
+        MapFilter_Pattern::load ( $pattern )
     );
 
     $filter->setQuery ( $query );
@@ -206,23 +192,45 @@ class TestUser extends BaseTest {
     return Array (
         Array (
             Array ( 'name' => "me", 'pass' => "myPass" ),
-            Array ( 'name' => "me", 'pass' => "myPass" )
+            Array ( 'name' => "me", 'pass' => "myPass" ),
+            Array ( 'login' ),
+            Array ()
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" )
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
+            Array ( 'login' ),
+            Array ()
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL )
+            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
+            Array ( 'login', 'remember' ),
+            Array ()
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL )
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL ),
+            Array ( 'login', 'remember' ),
+            Array ()
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL, 'user' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'user' => NULL )
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'user' => NULL ),
+            Array ( 'login', 'remember' ),
+            Array ()
+        ),
+        Array (
+            Array (),
+            Array (),
+            Array (),
+            Array ( 'no_name' )
+        ),
+        Array (
+            Array ( 'name' => "me" ),
+            Array (),
+            Array (),
+            Array ( 'no_password' )
         )
     );
   }
@@ -231,18 +239,28 @@ class TestUser extends BaseTest {
   * Test parse external source and validate
   * @dataProvider provideParseLogin
   */
-  public static function testParseLogin ( $query, $result ) {
+  public static function testParseLogin ( $query, $result, $flags, $asserts ) {
   
     $filter = new MapFilter (
-        Test_Source::LOGIN
+        MapFilter_Pattern::fromFile ( Test_Source::LOGIN )
     );
-  
+
     /** Test Empty */
-    $filter->setQuery ( Array () );
-    
+    $filter->setQuery ( $query );
+
     self::assertEquals (
-        Array (),
+        $result,
         $filter->parse () 
+    );
+
+    self::assertEquals (
+        $flags,
+        $filter->getFlags ()
+    );
+
+    self::assertEquals (
+        $asserts,
+        $filter->getAsserts ()
     );
   }
   
@@ -287,7 +305,7 @@ class TestUser extends BaseTest {
   public static function testParseLocation ( $query, $result ) {
   
     $filter = new MapFilter (
-        Test_Source::LOCATION
+        MapFilter_Pattern::fromFile ( Test_Source::LOCATION )
     );
   
     /** Test Empty */
@@ -376,7 +394,7 @@ class TestUser extends BaseTest {
   public static function testParseAction ( $query, $result ) {
   
     $filter = new MapFilter (
-        Test_Source::ACTION
+        MapFilter_Pattern::fromFile ( Test_Source::ACTION )
     );
     
     $filter->setQuery ( $query );
@@ -420,7 +438,7 @@ class TestUser extends BaseTest {
   public static function testParseFilterUtility ( $query, $result ) {
 
     $filter = new MapFilter (
-        Test_Source::FILTER
+        MapFilter_Pattern::fromFile ( Test_Source::FILTER )
     );
     
     $filter->setQuery ( $query );
@@ -463,7 +481,7 @@ class TestUser extends BaseTest {
   public static function testParseCoffeMaker ( $query, $result ) {
   
     $filter = new MapFilter (
-        Test_Source::COFFE_MAKER
+        MapFilter_Pattern::fromFile ( Test_Source::COFFE_MAKER )
     );
     
     $filter -> setQuery ( $query );

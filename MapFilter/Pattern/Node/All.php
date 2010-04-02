@@ -28,17 +28,17 @@ class MapFilter_Pattern_Node_All extends MapFilter_Pattern_Node_Abstract {
   * satisfy parent by any further potentially satisfied follower.
   * @return: Bool
   */
-  public function satisfy ( Array &$query ) {
+  public function satisfy ( Array &$query, Array &$asserts ) {
   
     foreach ( $this->content as $follower ) {
       
-      if ( !$follower->satisfy ( $query ) ) {
+      if ( !$follower->satisfy ( $query, $asserts ) ) {
 
-        return $this->satisfied = FALSE;
+        return $this->setSatisfied ( FALSE, $asserts );
       }
     }
     
-    return $this->satisfied = TRUE;
+    return $this->setSatisfied ( TRUE, $asserts );
   }
   
   /**

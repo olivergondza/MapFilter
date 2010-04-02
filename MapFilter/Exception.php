@@ -17,7 +17,7 @@ class MapFilter_Exception extends PureException {
   /** Unknown type of pattern */
   const UNKNOWN_PATTERN_SOURCE = 1;
 
-  /** Invalid pattern element occured */
+  /** Invalid pattern element occurred */
   const INVALID_PATTERN_ELEMENT = 2;
   
   /** More than one pattern specification in the XML */
@@ -49,7 +49,7 @@ class MapFilter_Exception extends PureException {
   */
   protected $messages = Array (
       self::UNKNOWN_PATTERN_SOURCE =>
-          "Unknown pattern source '%s'. Suported types are Pattern, XML String or String Filename.",
+          "Unknown pattern source '%s'. Supported types are Pattern, XML String or String Filename.",
       self::INVALID_PATTERN_ELEMENT => "Invalid pattern element '%s'.",
       self::TOO_MANY_PATTERNS => "More than one pattern specified.",
 //      self::NO_SUCH_FILE => "File '%s' does not exists or cannot be read.",

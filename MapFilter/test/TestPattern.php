@@ -127,17 +127,19 @@ class TestPattern extends BaseTest {
     $opt = new MapFilter_Pattern_Node_Opt ();
     $one = new MapFilter_Pattern_Node_One ();
     $login = new MapFilter_Pattern (
-        $all0 -> setContent (
+        $all0 -> setFlag ( "login" ) -> setContent (
             Array (
-                $attr0 -> setAttribute ( "name" ),
-                $attr1 -> setAttribute ( "pass" ),
+                $attr0 -> setAttribute ( "name" ) -> setAssert ( "no_name" ),
+                $attr1 -> setAttribute ( "pass" ) -> setAssert ( "no_password" ),
                 $opt -> setContent (
                     Array (
                         $attr2 -> setAttribute ( "use-https" ),
-                        $all1 -> setContent (
+                        $all1 -> setFlag ( "remember" ) -> setContent (
                             Array (
                                 $attr3 -> setAttribute ( "remember" ),
-                                $one -> setContent (
+                                $one -> setAssert (
+                                    "no_remember_method"
+                                ) -> setContent (
                                     Array (
                                         $attr4 -> setAttribute ( "user" ),
                                         $attr5 -> setAttribute ( "server" ),

@@ -28,19 +28,21 @@ class MapFilter_Pattern_Node_Some extends MapFilter_Pattern_Node_Abstract {
   * @pattern: MapFilter_Pattern
   * @return: Bool
   */
-  public function satisfy ( Array &$query ) {
+  public function satisfy ( Array &$query, Array &$asserts ) {
 
     $satisfiedFollowers = Array ();
     foreach ( $this->content as $follower) {
 
-      $satisfiedFollowers[] = $follower->satisfy ( $query );
+      $satisfiedFollowers[] = $follower->satisfy ( $query, $asserts );
     }
     
-    return $this->satisfied = in_array (
+    $satisfied = in_array (
         TRUE,
         $satisfiedFollowers,
         TRUE /** Compare strictly */
     );
+    
+    return $this->setSatisfied ( $satisfied, $asserts );
   }
   
   /**

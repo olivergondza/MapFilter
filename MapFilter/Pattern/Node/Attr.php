@@ -60,7 +60,7 @@ class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
   * satisfy parent by any further potentially satisfied follower.
   * @return: Bool
   */
-  public function satisfy ( Array &$query ) {
+  public function satisfy ( Array &$query, Array &$asserts ) {
   
     /** If argument exists */
     $present = self::attrPresent (
@@ -75,12 +75,10 @@ class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
           $query[ $this->attribute ],
           $this->valuePattern
       );
-//var_dump ( $fitsPattern );
-//var_dump ( $this->valuePattern );
-//var_dump ( $query[ $this->attribute ] );
+
       if ( $fitsPattern ) {
     
-        return $this->satisfied = TRUE;
+        return $this->setSatisfied ( TRUE, $asserts );
       }
     }
     
@@ -89,10 +87,10 @@ class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
       
       $query[ $this->attribute ] = $this->default;
 
-      return $this->satisfied = TRUE;
+      return $this->setSatisfied ( TRUE, $asserts );
     }
     
-    return $this->satisfied = FALSE;
+    return $this->setSatisfied ( FALSE, $asserts );
   }
   
   /**

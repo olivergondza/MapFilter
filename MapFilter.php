@@ -21,30 +21,42 @@ class MapFilter {
   const STRICT_SEARCH = TRUE;
   
   /**
-  * Query MapFilter_Pattern_Node_Abstract.
-  * @var: Tree of Pattern
+  * Query Tree of Pattern.
+  * @var: MapFilter_Pattern_Node_Abstract
   */
   public $pattern = NULL;
-  
+public $tempPattern = NULL;
   /**
   * Read data / Query candidate
-  * @var: Array of attrCandidate => valueCandidate
+  * @var: Array ( attrCandidate => valueCandidate )
   */
   private $query = Array ();
   
   /**
   * Validated data
-  * @var: Array of attr => value
+  * @var: Array ( attr => value )
   */
   private $data = Array ();
   
   /**
-  * Do all the stuff
+  * Validation asserts
+  * @var: Array ( String )
+  */
+  private $asserts = Array ();
+  
+  /**
+  * Validation flags
+  * @var: Array ( String )
+  */
+  private $flags = Array ();
+  
+  /**
+  * Instantiate and do all the stuff
+  * @pattern: MapFilter_Pattern
   * @query: Array; Input query to parse
-  * @pattern: MapFilter_Pattern | String; pattern to parse or filename to one
   */
   public function __construct (
-      $pattern = NULL,
+      MapFilter_Pattern $pattern = NULL,
       Array $query = Array ()
   ) {
     
@@ -59,13 +71,8 @@ class MapFilter {
   /** Resolve tree dependencies and pick up the results */
   public function parse () {
   
-    /** No query is always satisfied, having no data to fetch */
-    if ( !$this->query ) {
-
-      $this->data = Array ();
-      return $this->fetch ();
-    }
-    
+    $this->cleanup ();
+  
     /** Return untouched query in case there is no pattern */
     if ( !$this->pattern ) {
 
@@ -77,16 +84,14 @@ class MapFilter {
     *  Create temporary copy of pattern since it will be modified during
     *  the parsing procedure
     */
-    $tempPattern = clone ( $this->pattern );
+    $this->tempPattern = clone ( $this->pattern );
 
     /** Resolve all dependencies */
-    $tempPattern->satisfy ( $this->query );
+    $this->tempPattern->satisfy ( $this->query, $this->asserts );
 
     /** Prevent old result leaking to the new result set*/
-    $this->data = Array ();
-    $this->pickUp ( $tempPattern );
-//var_dump ( $tempPattern );
-//var_dump ( $this->query );
+    $this->pickUp ( $this->tempPattern );
+
     return $this->fetch ();
   }
   
@@ -96,12 +101,19 @@ class MapFilter {
   */
   private function pickUp ( MapFilter_Pattern_Node_Abstract $pattern ) {
   
+    /** Set assert for nodes that hasn't been satisfied and stop recursion */
     if ( !$pattern->satisfied ) {
 
       return;
     }
   
-    /** Pick a cherry */
+    /** Set flag from satisfied node */
+    if ( $pattern->flag !== NULL ) {
+    
+      $this->flags[] = $pattern->flag;
+    }
+  
+    /** Pick an attribute from the leaves of tree */
     if ( $pattern->hasAttr () ) {
       
       $attrName = $pattern->attribute;
@@ -109,6 +121,10 @@ class MapFilter {
       if ( $pattern->attrPresent ( $attrName, $this->query ) ) {
 
         $this->data[ $attrName ] = $this->query[ $attrName ];
+      } else {
+
+        /** Attr satisfy error */
+        assert ( FALSE );
       }
     }
     
@@ -125,40 +141,26 @@ class MapFilter {
   }
   
   /**
+  * Clean up object storage that enables to parse multiple queries with
+  * the same pattern with no need to re-instantiate object
+  */
+  private function cleanup () {
+  
+    $this->data = Array ();
+    $this->asserts = Array ();
+    $this->flags = Array ();
+  
+    return;
+  }
+  
+  /**
   * Set desired query pattern from Existing MapFilter_Pattern object,
   * String XML specification or XML file
   * @pattern: MapFilter_Pattern | XML String | Filename String
   */
-  public function setPattern ( $pattern ) {
+  public function setPattern ( MapFilter_pattern $pattern ) {
 
-    if ( $pattern === NULL ) {
-      return;
-    }
-
-    /** Set existing pattern */
-    if ( $pattern instanceof MapFilter_Pattern ) {
-
-      $this->pattern = clone ( $pattern->patternTree );
-    
-    /** Deserialize pattern file */
-    } elseif ( is_readable ( $pattern ) ) {
-
-      $this->pattern = MapFilter_Pattern::fromFile ( $pattern ) -> patternTree;
-
-    /** Create pattern from XML string */
-    } elseif ( is_string ( $pattern ) ) {
-
-      $this->pattern = MapFilter_Pattern::load ( $pattern ) -> patternTree;
-
-    } else {
-      
-      throw new MapFilter_Exception (
-          MapFilter_Exception::UNKNOWN_PATTERN_SOURCE,
-          Array (
-              (String) gettype ( $pattern )
-          )
-      );
-    }
+    $this->pattern = clone ( $pattern->patternTree );
 
     return;
   }
@@ -169,18 +171,35 @@ class MapFilter {
   */
   public function setQuery ( Array $query ) {
   
-    $this->data = Array ();
     $this->query = $query;
     return;
   }
   
   /**
   * Export parsed structure
-  * @return: Array
+  * @return: Array ( Attr => Value )
   */
   public function fetch () {
 
     return $this->data;
+  }
+  
+  /**
+  * Get validation asserts.
+  * @return: Array ( String )
+  */
+  public function getAsserts () {
+  
+    return $this->asserts;
+  }
+  
+  /**
+  * Get sat flags.
+  * @return: Array ( String )
+  */
+  public function getFlags () {
+  
+    return $this->flags;
   }
   
   /**

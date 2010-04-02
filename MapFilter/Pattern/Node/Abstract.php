@@ -23,6 +23,12 @@ abstract class MapFilter_Pattern_Node_Abstract {
   public $flag = NULL;
   
   /**
+  * Node assert
+  * @var: String
+  */
+  public $assert = NULL;
+  
+  /**
   * All node types has to have empty constructors
   * All setting is done by Fluent Methods
   */
@@ -40,6 +46,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   *   content
   *   valueFilter
   *   flag
+  *   assert
   */
   public function setAttribute ( $attrbite ) { return $this; }
   public function setDefault ( $default ) { return $this; }
@@ -66,6 +73,15 @@ abstract class MapFilter_Pattern_Node_Abstract {
     return $this;
   }
   
+  /**
+  * Fluent Msthod; Set Assert
+  * @assert: String
+  */
+  public function setAssert ( $assert ) {
+  
+    $this->assert = $assert;
+    return $this;
+  }
   
   /**
   * Satisfy certain node type and let it's followers to get satisfied
@@ -74,7 +90,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   * @query: Array
   * @return: Bool
   */
-  abstract public function satisfy ( Array &$query );
+  abstract public function satisfy ( Array &$query, Array &$asserts );
   
   /**
   * Determine whether a node has an attribute
@@ -88,6 +104,31 @@ abstract class MapFilter_Pattern_Node_Abstract {
   */
   abstract public function hasFollowers ();
   
+  /**
+  * @cond: Bool
+  * @&asserts: Array
+  * @return: FALSE
+  */
+  protected function setSatisfied ( $cond, Array &$asserts ) {
+  
+    $this->satisfied = (Bool) $cond;
+  
+    /** Unsatisfied */
+    if ( !$this->satisfied ) {
+      
+      if ( $this->assert !== NULL ) {
+      
+        $asserts[] = $this->assert;
+      }
+
+    /** Satisfied */
+    } else {
+    
+    }
+  
+    return $this->satisfied;
+  }
+  
   /** All nodes must clone */
   public function __clone () {
   
@@ -97,6 +138,12 @@ abstract class MapFilter_Pattern_Node_Abstract {
     }
     
     return;
+  }
+  
+  /**  */
+  public function __toString () {
+  
+    return var_export ( $this , TRUE );
   }
   
   /**

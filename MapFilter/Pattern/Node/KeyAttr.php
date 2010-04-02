@@ -44,7 +44,7 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
   * satisfy parent by any further potentially satisfied follower.
   * @return: Bool
   */
-  public function satisfy ( Array &$query ) {
+  public function satisfy ( Array &$query, Array &$asserts ) {
 
     $attrName = $this->attribute;
 
@@ -52,7 +52,7 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
 
     if ( !$attrExists ) {
 
-      return $this->satisfied = FALSE;
+      return $this->setSatisfied ( FALSE,  $asserts );
     }
     
     /** Find a follower that fits an value filter and let it satisfy */
@@ -65,11 +65,13 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
       
       if ( $fits ) {
 
-        return $this->satisfied = $follower->satisfy ( $query );
+        $satisfied = $follower->satisfy ( $query, $asserts );
+        
+        return $this->setSatisfied ( $satisfied, $asserts );
       } 
     }
 
-    return $this->satisfied = FALSE;
+    return $this->setSatisfied ( FALSE, $asserts );
   }
   
   /**

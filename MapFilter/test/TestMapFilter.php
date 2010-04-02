@@ -6,22 +6,6 @@ require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
 class TestMapFilter extends BaseTest {
   
-  /** Test parsing by empty pattern */
-  public static function testEmptyPattern () {
-  
-    $query = Array ( 'attr0' => "val0", 'attr1' => "val1" );
-    
-    $filter = new MapFilter ();
-    $filter->setQuery ( $query );
-
-    self::assertEquals (
-        $query,
-        $filter->parse ()
-    );
-
-    return;
-  }
-  
   /** Test PatternAttr */
   public static function testAttr () {
     
