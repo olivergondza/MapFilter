@@ -24,7 +24,7 @@ class MapFilter_Pattern {
   * Pattern tree itself
   * @var: MapFilter_Pattern_Node_Abstract
   */
-  public $patternTree = NULL;
+  private $patternTree = NULL;
 
   /**
   * Create Pattern
@@ -39,10 +39,22 @@ class MapFilter_Pattern {
   }
 
   /**
+  * Get Pattern tree
+  * @return: MapFilter_Pattern_Node_Abstract
+  */
+  public function getTree () {
+  
+    return $this->patternTree;
+  }
+
+  /** Disallow load from file */
+  const DATA_IS_URL = TRUE;
+  const DATA_IS_STRING = FALSE;
+
+  /**
   * Simple Factory Method to load data from string
   * @XMLSpecification: String
   * @return: MapFilter_Pattern
-  * @throw: MapFilter_Exception
   */
   public static function load ( $XMLSource ) {
     
@@ -60,7 +72,6 @@ class MapFilter_Pattern {
   * Simple factory method to instantiate with loading the data from file
   * @url: String; URL
   * @return: MapFilter_Pattern
-  * @throws: MapFilter_Exception
   */
   public static function fromFile ( $url ) {
   
@@ -74,7 +85,7 @@ class MapFilter_Pattern {
     );
   }
 
-  /*** XML struct tags */
+  /*** Allowed XML struct tags */
   const PATTERN = 'pattern';
   
   const NODE_ALL = 'all';
@@ -84,11 +95,11 @@ class MapFilter_Pattern {
   const NODE_ATTR = 'attr';
   const NODE_SOME = 'some';
   
+  /** Allowed XML attributes */
   const ATTR_ATTR = 'attr';
   const ATTR_VALUEFILTER = 'forValue';
   const ATTR_DEFAULT = 'default';
   const ATTR_VALUEPATTERN = 'valuePattern';
-// NOT IMPLEMENTED
   const ATTR_FLAG = 'flag';
   const ATTR_ASSERT = 'assert';
 
@@ -138,10 +149,6 @@ class MapFilter_Pattern {
   
     return array_key_exists ( $attr, self::$attrToSetter );
   }
-  
-  /** Disallow load from file */
-  const DATA_IS_URL = TRUE;
-  const DATA_IS_STRING = FALSE;
   
   /**
   * Load Xml source and create XMLElement
@@ -346,16 +353,16 @@ class MapFilter_Pattern {
 
   /**
   * Satisfy pattern
-  * @query: Array
-  * @asserts: Array
+  * @&query: Array
+  * @&asserts: Array
   * @return: Bool
   */
   public function satisfy (
-      Array $query = Array (),
-      Array $asserts = Array ()
+      Array &$query,
+      Array &$asserts
   ) {
   
-    return $this->patternTree->satisfy ( $query );
+    return $this->patternTree->satisfy ( $query, $asserts );
   }
 
   /** Clone all tree recursively */
@@ -366,7 +373,10 @@ class MapFilter_Pattern {
     return;
   }
   
-  /** Get String representation of pattern */
+  /**
+  * Get String representation of pattern
+  * @return: String
+  */
   public function __toString () {
   
     return (String) var_export ( $this->patternTree, TRUE );

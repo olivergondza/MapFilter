@@ -1,37 +1,22 @@
 <?php
 /**
-* All Pattern node 
+* Some Pattern node 
 */
-require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/Policy.php' );
 
-class MapFilter_Pattern_Node_Some extends MapFilter_Pattern_Node_Abstract {
-
-  /**
-  * Node Followers
-  * @var: Array ( MapFilter_Pattern_Node_Interface )
-  */
-  public $content = Array ();
-
-  /**
-  * Fluent Method; Set content
-  * @content: Array
-  */
-  public function setContent ( Array $content ) {
-   
-    $this->content = $content;
-    return $this;
-  }
+final class MapFilter_Pattern_Node_Some extends MapFilter_Pattern_Node_Policy {
 
   /**
   * Satisfy node when there is at least one satisfied follower.
   * Thus satisfy MUST be mapped on ALL followers.
-  * @pattern: MapFilter_Pattern
+  * @&query: Array
+  * @&asserts: Array ( String )
   * @return: Bool
   */
   public function satisfy ( Array &$query, Array &$asserts ) {
 
     $satisfiedFollowers = Array ();
-    foreach ( $this->content as $follower) {
+    foreach ( $this->getContent () as $follower ) {
 
       $satisfiedFollowers[] = $follower->satisfy ( $query, $asserts );
     }
@@ -43,19 +28,5 @@ class MapFilter_Pattern_Node_Some extends MapFilter_Pattern_Node_Abstract {
     );
     
     return $this->setSatisfied ( $satisfied, $asserts );
-  }
-  
-  /**
-  * Determine whether a node has an attribute
-  * return: Bool
-  */
-  public function hasAttr () {
-  
-    return FALSE;
-  }
-  
-  public function hasFollowers () {
-  
-    return TRUE;
   }
 }

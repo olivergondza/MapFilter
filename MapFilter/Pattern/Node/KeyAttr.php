@@ -1,32 +1,19 @@
 <?php
 /**
-* KeyAttr Pattern node 
+* KeyAttr Pattern node;
+* Since this node has something simmilar with Policy node extends this class
 */
-require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/Policy.php' );
 
-class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
-
-  /**
-  * Node Followers
-  * @var: Array ( MapFilter_Pattern_Node_Interface )
-  */
-  public $content = Array ();
+final class MapFilter_Pattern_Node_KeyAttr extends
+    MapFilter_Pattern_Node_Policy
+{
 
   /**
   * Node attribute
   * @var: String
   */
   public $attribute = "";
-
-  /**
-  * Fluent Method; Set content
-  * @content: Array
-  */
-  public function setContent ( Array $content ) {
-   
-    $this->content = $content;
-    return $this;
-  }
   
   /**
   * Fluent Method; Set attribute
@@ -42,6 +29,8 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
   * Satisfy node just if there are no unsatisfied follower.
   * Finding unsatisfied follower may stop mapping since there is no way to
   * satisfy parent by any further potentially satisfied follower.
+  * @&query: Array
+  * @&asserts: Array ( String )
   * @return: Bool
   */
   public function satisfy ( Array &$query, Array &$asserts ) {
@@ -56,7 +45,7 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
     }
     
     /** Find a follower that fits an value filter and let it satisfy */
-    foreach ( $this->content as $follower ) {
+    foreach ( $this->getContent () as $follower ) {
       
       $fits = self::valueFits (
           $query[ $attrName ],
@@ -82,7 +71,11 @@ class MapFilter_Pattern_Node_KeyAttr extends MapFilter_Pattern_Node_Abstract {
   
     return TRUE;
   }
-  
+
+  /**
+  * Determine whether a node has an follower
+  * return: Bool
+  */
   public function hasFollowers () {
   
     return TRUE;

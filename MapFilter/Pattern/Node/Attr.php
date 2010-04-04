@@ -1,10 +1,10 @@
 <?php
 /**
-* All Pattern node 
+* Attr Pattern node 
 */
 require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
 
-class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
+final class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
 
   /**
   * Node attribute
@@ -107,7 +107,9 @@ class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
     return FALSE;
   }
   
-  /** All nodes must clone */
+  /**
+  * Attr node has nothing to clone
+  */
   public function __clone () {
   
     return;

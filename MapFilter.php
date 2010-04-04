@@ -7,22 +7,14 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/Pattern.php" );
-require_once ( dirname ( __FILE__ ) . MapFilter::PACKAGE_DIR . "/Exception.php" );
+require_once ( dirname ( __FILE__ ) . "/MapFilter/Pattern.php" );
+require_once ( dirname ( __FILE__ ) . "/MapFilter/Exception.php" );
 
 class MapFilter {
   
-  const PACKAGE_DIR = "/MapFilter/";
-  
-  /** Key that will be used as default value */
-  const DEFAULT_VALUE = 0;
-  
-  /** Strict array search */
-  const STRICT_SEARCH = TRUE;
-  
   /**
   * Query Tree of Pattern.
-  * @var: MapFilter_Pattern_Node_Abstract
+  * @var: MapFilter_Pattern
   */
   public $pattern = NULL;
 public $tempPattern = NULL;
@@ -68,105 +60,19 @@ public $tempPattern = NULL;
     return;
   }
 
-  /** Resolve tree dependencies and pick up the results */
-  public function parse () {
-  
-    $this->cleanup ();
-  
-    /** Return untouched query in case there is no pattern */
-    if ( !$this->pattern ) {
-
-      $this->data = $this->query;
-      return $this->fetch ();
-    }
-    
-    /**
-    *  Create temporary copy of pattern since it will be modified during
-    *  the parsing procedure
-    */
-    $this->tempPattern = clone ( $this->pattern );
-
-    /** Resolve all dependencies */
-    $this->tempPattern->satisfy ( $this->query, $this->asserts );
-
-    /** Prevent old result leaking to the new result set*/
-    $this->pickUp ( $this->tempPattern );
-
-    return $this->fetch ();
-  }
-  
-  /**
-  * Pick up valid data
-  * @pattern: Satisfied pattern
-  */
-  private function pickUp ( MapFilter_Pattern_Node_Abstract $pattern ) {
-  
-    /** Set assert for nodes that hasn't been satisfied and stop recursion */
-    if ( !$pattern->satisfied ) {
-
-      return;
-    }
-  
-    /** Set flag from satisfied node */
-    if ( $pattern->flag !== NULL ) {
-    
-      $this->flags[] = $pattern->flag;
-    }
-  
-    /** Pick an attribute from the leaves of tree */
-    if ( $pattern->hasAttr () ) {
-      
-      $attrName = $pattern->attribute;
-
-      if ( $pattern->attrPresent ( $attrName, $this->query ) ) {
-
-        $this->data[ $attrName ] = $this->query[ $attrName ];
-      } else {
-
-        /** Attr satisfy error */
-        assert ( FALSE );
-      }
-    }
-    
-    /** Crawl through node's followers */
-    if ( $pattern->hasFollowers () ) {
-      
-      foreach ( $pattern->content as $follower ) {
-
-        $this->pickUp ( $follower );
-      }
-    }
-    
-    return;
-  }
-  
-  /**
-  * Clean up object storage that enables to parse multiple queries with
-  * the same pattern with no need to re-instantiate object
-  */
-  private function cleanup () {
-  
-    $this->data = Array ();
-    $this->asserts = Array ();
-    $this->flags = Array ();
-  
-    return;
-  }
-  
   /**
   * Set desired query pattern from Existing MapFilter_Pattern object,
-  * String XML specification or XML file
-  * @pattern: MapFilter_Pattern | XML String | Filename String
+  * @pattern: MapFilter_Pattern
   */
   public function setPattern ( MapFilter_pattern $pattern ) {
 
-    $this->pattern = clone ( $pattern->patternTree );
+    $this->pattern = clone ( $pattern );
 
     return;
   }
   
   /**
-  * Set query
+  * Set query to filter
   * @query: Array
   */
   public function setQuery ( Array $query ) {
@@ -201,13 +107,103 @@ public $tempPattern = NULL;
   
     return $this->flags;
   }
+
+  /**
+  * Resolve tree dependencies, filter and pick up the results.
+  * @return: Array
+  */
+  public function parse () {
+  
+    $this->cleanup ();
+  
+    /** Return untouched query in case there is no pattern */
+    if ( !$this->pattern || !$this->pattern->getTree () ) {
+
+      $this->data = $this->query;
+      return $this->fetch ();
+    }
+    
+    /**
+    *  Create temporary copy of pattern since it will be modified during
+    *  the parsing procedure
+    */
+    $this->tempPattern = clone ( $this->pattern );
+
+    /** Resolve all dependencies */
+    $this->tempPattern->satisfy ( $this->query, $this->asserts );
+
+    /** Prevent old result leaking to the new result set*/
+    $this->pickUp ( $this->tempPattern->getTree () );
+
+    return $this->fetch ();
+  }
+  
+  /**
+  * Pick up valid data
+  * @pattern: MapFilter_Pattern_Node_Abstract
+  */
+  private function pickUp ( MapFilter_Pattern_Node_Abstract $pattern ) {
+  
+    /** Set assert for nodes that hasn't been satisfied and stop recursion */
+    if ( !$pattern->isSatisfied () ) {
+
+      return;
+    }
+  
+    /** Set flag from satisfied node */
+    if ( $pattern->flag !== NULL ) {
+    
+      $this->flags[] = $pattern->flag;
+    }
+  
+    /** Pick an attribute from the leaves of tree */
+    if ( $pattern->hasAttr () ) {
+      
+      $attrName = $pattern->attribute;
+
+      if ( $pattern->attrPresent ( $attrName, $this->query ) ) {
+
+        $this->data[ $attrName ] = $this->query[ $attrName ];
+      } else {
+
+        /** Attr satisfy error */
+        assert ( FALSE );
+      }
+    }
+    
+    /** Crawl through node's followers */
+    if ( $pattern->hasFollowers () ) {
+      
+      foreach ( $pattern->getContent () as $follower ) {
+
+        $this->pickUp ( $follower );
+      }
+    }
+    
+    return;
+  }
+  
+  /**
+  * Clean up object storage that enables to parse multiple queries with
+  * the same pattern with no need to re-instantiate object
+  */
+  private function cleanup () {
+  
+    $this->data = Array ();
+    $this->asserts = Array ();
+    $this->flags = Array ();
+  
+    return;
+  }
   
   /**
   * Invoke class statically
+  * @pattern: MapFilter_Pattern
+  * @query: Array
   */
   public function __invoke (
-      $pattern = NULL,
-      Array $query = Array ()
+      MapFilter_Pattern $pattern,
+      Array $query
   ) {
     
     $filter = new MapFilter ( $pattern, $query );

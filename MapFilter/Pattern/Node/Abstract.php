@@ -8,7 +8,8 @@ abstract class MapFilter_Pattern_Node_Abstract {
   * Was node already satisfied
   * @var: Bool
   */
-  public $satisfied = FALSE;
+//  public $satisfied = FALSE;
+  protected $satisfied = FALSE;
   
   /**
   * Key-Attr value filter
@@ -29,13 +30,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   public $assert = NULL;
   
   /**
-  * All node types has to have empty constructors
-  * All setting is done by Fluent Methods
-  */
-  final public function __construct () {}
-  
-  /**
-  * Implicit Fluent Interface for all node type that do absolutely nothing;
+  * Implicit Fluent Interface for all node types that do absolutely nothing;
   * That's implicit behaviour; Nodes that has certain value define own setter
   * with body;
   *
@@ -84,10 +79,17 @@ abstract class MapFilter_Pattern_Node_Abstract {
   }
   
   /**
+  * All node types has to have empty constructors
+  * All setting is done by Fluent Methods
+  */
+  final public function __construct () {}
+  
+  /**
   * Satisfy certain node type and let it's followers to get satisfied
   * Some nodetypes needs to query access so it has to be distributed all over
   * the tree.
-  * @query: Array
+  * @&query: Array
+  * @&assert: Array ( String )
   * @return: Bool
   */
   abstract public function satisfy ( Array &$query, Array &$asserts );
@@ -105,16 +107,17 @@ abstract class MapFilter_Pattern_Node_Abstract {
   abstract public function hasFollowers ();
   
   /**
+  * Satisfy certain node and do all necessary work to get (un)satisfied
   * @cond: Bool
   * @&asserts: Array
-  * @return: FALSE
+  * @return: Bool
   */
   protected function setSatisfied ( $cond, Array &$asserts ) {
   
     $this->satisfied = (Bool) $cond;
   
     /** Unsatisfied */
-    if ( !$this->satisfied ) {
+    if ( !$this->isSatisfied () ) {
       
       if ( $this->assert !== NULL ) {
       
@@ -129,10 +132,20 @@ abstract class MapFilter_Pattern_Node_Abstract {
     return $this->satisfied;
   }
   
+  /**
+  * Determine whether the node is satisfied
+  * @return: Bool
+  */
+  public function isSatisfied () {
+  
+    return $this->satisfied;
+  }
+  
   /** All nodes must clone */
   public function __clone () {
   
-    foreach ( $this->content as &$follower ) {
+    $content = $this->getContent ();
+    foreach ( $content as &$follower ) {
     
       $follower = clone ( $follower );
     }
@@ -140,7 +153,10 @@ abstract class MapFilter_Pattern_Node_Abstract {
     return;
   }
   
-  /**  */
+  /**
+  * Export object
+  * @return: String
+  */
   public function __toString () {
   
     return var_export ( $this , TRUE );
@@ -203,4 +219,3 @@ abstract class MapFilter_Pattern_Node_Abstract {
     return (Bool) $matchCount;
   }
 }
-
