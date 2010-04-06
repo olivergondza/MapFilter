@@ -1,23 +1,23 @@
 <!--
 
-Structure of not so stupid coffe maker;
+Structure of not so stupid coffee maker;
   Enable setting sugar level or having own cup;
   Cup and sugar has implicit values.
 
 Testing default and valuePattern
   
 like:
-  {beverage} -> {beverage:cup=yes:suggar=0}
-  {beverage:cup} -> {beverage:cup:suggar=0}
-  {beverage:sugar} -> {beverage:cup=yes:suggar}
-  {beverage:cup:suggar}
+  {beverage} -> {beverage:cup=yes:sugar=0}
+  {beverage:cup} -> {beverage:cup:sugar=0}
+  {beverage:sugar} -> {beverage:cup=yes:sugar}
+  {beverage:cup:sugar}
 
 -->
 <pattern>
   <all>
 
-    <!-- String ( caffe|tea|cacao ) -->
-    <attr valuePattern="coffe|tea|cacao">beverage</attr>
+    <!-- String ( coffee|tea|cacao ) -->
+    <attr valuePattern="coffee|tea|cacao">beverage</attr>
 
     <!-- Bool; default yes -->
     <attr default="yes" valuePattern="yes|no">cup</attr>

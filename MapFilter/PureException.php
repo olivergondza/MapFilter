@@ -11,7 +11,7 @@
 class PureException extends Exception {
 
   /** Message format callback */
-  const MESSAGE_FORMAT = "sprintf";
+  const MESSAGE_FORMAT = 'sprintf';
 
   /**
   * Exception message

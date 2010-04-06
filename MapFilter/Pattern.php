@@ -1,6 +1,6 @@
 <?php
 /**
-* Data type to hold Pattern tree
+* Data type to load and hold Pattern tree
 *
 * Author: Oliver Gondža
 * E-mail: 324706(at)mail.muni.cz
@@ -18,8 +18,6 @@ require_once ( dirname ( __FILE__ ) . '/NotSoSimpleXMLElement.php' );
 
 class MapFilter_Pattern {
 
-  const VALUE_FILTER = ".*";
-
   /**
   * Pattern tree itself
   * @var: MapFilter_Pattern_Node_Abstract
@@ -34,7 +32,7 @@ class MapFilter_Pattern {
       MapFilter_Pattern_Node_Abstract $patternTree
   ) {
   
-    $this->patternTree = $patternTree;
+    $this->patternTree = clone ( $patternTree );
     return;
   }
 
@@ -83,6 +81,57 @@ class MapFilter_Pattern {
     return new MapFilter_Pattern (
         self::parse ( $XMLElement )
     );
+  }
+  
+  /**
+  * Load Xml source and create XMLElement
+  * @xml: String;
+  * @isUrl: Bool;
+  * @return: NotSoSimpleXMLElement
+  * @throw: MapFilter_Exception
+  */
+  private static function loadXML ( $xml, $isUrl ) {
+  
+    /** Suppress Error | Warning vomiting into the output stream */
+    libxml_use_internal_errors ( TRUE );
+    
+    /**
+    * Options used for XML deserialization by NotSoSimpleXMLElement
+    * Use compact data allocation | remove blank nodes | translate HTML entities
+    */
+    $options = LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_NOENT;
+    
+    /** Try to load and raise proper exception accordingly */
+    try {
+    
+      $XMLElement = new NotSoSimpleXMLElement (
+          $xml,
+          $options,
+          $isUrl
+      );
+    } catch ( Exception $exception ) {
+    
+      /** Assign special exception for all kinds of libxml errors */
+      $errorToException = Array (
+          LIBXML_ERR_WARNING => MapFilter_Exception::LIBXML_WARNING,
+          LIBXML_ERR_ERROR => MapFilter_Exception::LIBXML_ERROR,
+          LIBXML_ERR_FATAL => MapFilter_Exception::LIBXML_FATAL
+      );
+
+      /** Throw first error */
+      $error = libxml_get_last_error ();
+      libxml_clear_errors ();
+
+      throw new MapFilter_Exception (
+          $errorToException[ $error->level ],
+          Array ( $error->message, $error->line, $error->file )
+      );
+    }
+
+    /** Sanitize pattern tag */
+    $XMLElement = self::unwrap ( $XMLElement );
+    
+    return $XMLElement;
   }
 
   /*** Allowed XML struct tags */
@@ -148,57 +197,6 @@ class MapFilter_Pattern {
   private static function isValidAttr ( $attr ) {
   
     return array_key_exists ( $attr, self::$attrToSetter );
-  }
-  
-  /**
-  * Load Xml source and create XMLElement
-  * @xml: String;
-  * @isUrl: Bool;
-  * @return: NotSoSimpleXMLElement
-  * @throw: MapFilter_Exception
-  */
-  private static function loadXML ( $xml, $isUrl ) {
-  
-    /** Suppress Error | Warning vomiting into the output stream */
-    libxml_use_internal_errors ( TRUE );
-    
-    /**
-    * Options used for XML deserialization by NotSoSimpleXMLElement
-    * Use compact data allocation | remove blank nodes | translate HTML entities
-    */
-    $options = LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_NOENT;
-    
-    /** Try to load and raise proper exception accordingly */
-    try {
-    
-      $XMLElement = new NotSoSimpleXMLElement (
-          $xml,
-          $options,
-          $isUrl
-      );
-    } catch ( Exception $exception ) {
-    
-      /** Assign special exception for all kinds of libxml errors */
-      $errorToException = Array (
-          LIBXML_ERR_WARNING => MapFilter_Exception::LIBXML_WARNING,
-          LIBXML_ERR_ERROR => MapFilter_Exception::LIBXML_ERROR,
-          LIBXML_ERR_FATAL => MapFilter_Exception::LIBXML_FATAL
-      );
-
-      /** Throw first error */
-      $error = libxml_get_last_error ();
-      libxml_clear_errors ();
-
-      throw new MapFilter_Exception (
-          $errorToException[ $error->level ],
-          Array ( $error->message, $error->line, $error->file )
-      );
-    }
-
-    /** Sanitize pattern tag */
-    $XMLElement = self::unwrap ( $XMLElement );
-    
-    return $XMLElement;
   }
   
   /**
@@ -366,15 +364,6 @@ class MapFilter_Pattern {
   }
   
   /**
-  * Fetch created pattern
-  * @return: MapFilter_Pattern
-  */
-  public function fetch () {
-
-    return $this->content;
-  }
-
-  /**
   * Satisfy pattern
   * @&query: Array
   * @&asserts: Array
@@ -393,12 +382,4 @@ class MapFilter_Pattern {
     return;
   }
   
-  /**
-  * Get String representation of pattern
-  * @return: String
-  */
-  public function __toString () {
-  
-    return (String) var_export ( $this->patternTree, TRUE );
-  }
 }

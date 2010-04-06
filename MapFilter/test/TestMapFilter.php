@@ -1,10 +1,10 @@
-<pre><?php
+<?php
 /**
 * Require tested class
 */
 require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
-class TestMapFilter extends BaseTest {
+class TestMapFilter extends PHPUnit_Framework_TestCase {
   
   /** Test PatternAttr */
   public static function testAttr () {
@@ -243,4 +243,3 @@ class TestMapFilter extends BaseTest {
     );
   }
 }
-?>

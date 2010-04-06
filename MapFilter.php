@@ -7,8 +7,8 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . "/MapFilter/Pattern.php" );
-require_once ( dirname ( __FILE__ ) . "/MapFilter/Exception.php" );
+require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern.php' );
+require_once ( dirname ( __FILE__ ) . '/MapFilter/Exception.php' );
 
 class MapFilter {
   
@@ -52,7 +52,10 @@ class MapFilter {
       Array $query = Array ()
   ) {
     
-    $this->setPattern ( $pattern );
+    if ( $pattern ) {
+      $this->setPattern ( $pattern );
+    }
+    
     $this->setQuery ( $query );
 
     $this->parse ();
@@ -61,13 +64,12 @@ class MapFilter {
   }
 
   /**
-  * Set desired query pattern from Existing MapFilter_Pattern object,
+  * Set desired query pattern
   * @pattern: MapFilter_Pattern
   */
-  public function setPattern ( MapFilter_pattern $pattern ) {
+  public function setPattern ( MapFilter_Pattern $pattern ) {
 
     $this->pattern = clone ( $pattern );
-
     return;
   }
   
@@ -207,6 +209,6 @@ class MapFilter {
   ) {
     
     $filter = new MapFilter ( $pattern, $query );
-    return $filter->fetch ();
+    return $filter;
   }
 }

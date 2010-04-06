@@ -6,10 +6,10 @@ Structure of filter utility
 -l reverses line order
 
 -a, reverse character order in whole file.
-when -c and -l can occure simultaneously -a is completely incompatible with
+when -c and -l can occur simultaneously -a is completely incompatible with
 other types of modifications.
 
-like (-h and -v are ommited):
+like (-h and -v are omitted):
   {}
   {-a}
   {-c}

@@ -4,7 +4,7 @@
 */
 require_once ( dirname ( __FILE__ ) . '/../Pattern.php' );
 
-class TestPattern extends BaseTest {  
+class TestPattern extends PHPUnit_Framework_TestCase {  
   
   /**
   * Test MapFilter_Pattern at first
@@ -288,4 +288,3 @@ class TestPattern extends BaseTest {
     }
   }
 }
-?>

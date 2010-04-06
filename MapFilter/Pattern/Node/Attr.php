@@ -9,7 +9,9 @@
 */
 require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
 
-final class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract {
+final class MapFilter_Pattern_Node_Attr extends
+    MapFilter_Pattern_Node_Abstract
+{
 
   /**
   * Node attribute
@@ -63,6 +65,8 @@ final class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract 
   * Satisfy node just if there are no unsatisfied follower.
   * Finding unsatisfied follower may stop mapping since there is no way to
   * satisfy parent by any further potentially satisfied follower.
+  * @&query: Array
+  * @&assert: Array ( String )
   * @return: Bool
   */
   public function satisfy ( Array &$query, Array &$asserts ) {
@@ -107,6 +111,10 @@ final class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract 
     return TRUE;
   }
   
+  /**
+  * Determine whether a node has some followers
+  * return: Bool
+  */
   public function hasFollowers () {
   
     return FALSE;
@@ -126,6 +134,6 @@ final class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract 
   */
   public function __toString () {
   
-    return $this->attribute;
+    return (String) $this->attribute;
   }
 }

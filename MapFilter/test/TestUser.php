@@ -6,7 +6,21 @@
 /** Require tested class */
 require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
-class TestUser extends BaseTest {
+class TestUser extends PHPUnit_Framework_TestCase {
+
+  public static function testEmptyPattern  () {
+  
+    $query = Array ( 'attr' => 'value' );
+    $filter = new MapFilter ();
+    $filter->setQuery (
+        $query
+    );
+    
+    self::assertEquals (
+        $query,
+        $filter->parse ()
+    );
+  }
 
   /** Use slightly wrong pattern */
   public static function testWrongPattern () {
@@ -31,6 +45,20 @@ class TestUser extends BaseTest {
       
       self::assertEquals (
           MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+          $exception->getCode ()
+      );
+    }
+  }
+  
+  /** Multiple tree deserialization */
+  public static function testMultipleTree () {
+  
+    try {
+      $pattern = MapFilter_Pattern::load ( "<pattern><opt></opt><all></all></pattern>" );
+    } catch ( MapFilter_Exception $exception ) {
+      
+      self::assertEquals (
+          MapFilter_Exception::TOO_MANY_PATTERNS,
           $exception->getCode ()
       );
     }
@@ -449,12 +477,12 @@ class TestUser extends BaseTest {
     );
   }
   
-  public static function provideParseCoffeMaker () {
+  public static function provideParseCoffeeMaker () {
   
     return Array (
         Array (
-            Array ( 'beverage' => 'coffe' ),
-            Array ( 'beverage' => 'coffe', 'cup' => 'yes', 'sugar' => 0 )
+            Array ( 'beverage' => 'coffee' ),
+            Array ( 'beverage' => 'coffee', 'cup' => 'yes', 'sugar' => 0 )
         ),
         Array (
             Array ( 'beverage' => 'tea', 'cup' => 2 ),
@@ -465,23 +493,23 @@ class TestUser extends BaseTest {
             Array ( 'beverage' => 'cacao', 'cup' => 'yes', 'sugar' => 0 )
         ),
         Array (
-            Array ( 'beverage' => 'coffe', 'cup' => 'none', 'sugar' => 'a lot' ),
-            Array ( 'beverage' => 'coffe', 'cup' => 'yes', 'sugar' => 0 )
+            Array ( 'beverage' => 'coffee', 'cup' => 'none', 'sugar' => 'a lot' ),
+            Array ( 'beverage' => 'coffee', 'cup' => 'yes', 'sugar' => 0 )
         ),
         Array (
-            Array ( 'beverage' => 'coffe', 'cup' => 'no', 'sugar' => 5 ),
-            Array ( 'beverage' => 'coffe', 'cup' => 'no', 'sugar' => 5 )
+            Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5 ),
+            Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5 )
         )
     );
   }
   
   /**
-  * @dataProvider provideParseCoffeMaker
+  * @dataProvider provideParseCoffeeMaker
   */
-  public static function testParseCoffeMaker ( $query, $result ) {
+  public static function testParseCoffeeMaker ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::COFFE_MAKER )
+        MapFilter_Pattern::fromFile ( Test_Source::COFFEE_MAKER )
     );
     
     $filter -> setQuery ( $query );
@@ -492,4 +520,3 @@ class TestUser extends BaseTest {
     );
   }
 }
-?>

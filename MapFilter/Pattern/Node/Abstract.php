@@ -13,7 +13,6 @@ abstract class MapFilter_Pattern_Node_Abstract {
   * Was node already satisfied
   * @var: Bool
   */
-//  public $satisfied = FALSE;
   protected $satisfied = FALSE;
   
   /**
@@ -37,7 +36,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   /**
   * Implicit Fluent Interface for all node types that rises exception;
   * That's implicit behavior; Nodes that has certain value define own setter
-  * with body;
+  * with meningful body;
   *
   * Values:
   *   attribute
@@ -119,7 +118,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   /**
   * Satisfy certain node type and let it's followers to get satisfied
   * Some node types needs to query access so it has to be distributed all over
-  * the tree.
+  * the tree. All assertions must be set during the first walk.
   * @&query: Array
   * @&assert: Array ( String )
   * @return: Bool
@@ -173,33 +172,13 @@ abstract class MapFilter_Pattern_Node_Abstract {
     return $this->satisfied;
   }
   
-  /** All nodes must clone */
-  public function __clone () {
-  
-    $content = $this->getContent ();
-    foreach ( $content as &$follower ) {
-    
-      $follower = clone ( $follower );
-    }
-    
-    return;
-  }
-  
-  /**
-  * Export object
-  * @return: String
-  */
-  public function __toString () {
-  
-    return var_export ( $this , TRUE );
-  }
-  
   /**
   * Test whether an argument is present in query.
-  * @attrName: String; Name of an attribute
+  * @attrName: String
+  * @query: Array
   * @returns: Bool
   */
-  public static function attrPresent ( $attrName, &$query ) {
+  public static function attrPresent ( $attrName, $query ) {
     
     return array_key_exists (
         $attrName,
@@ -218,8 +197,8 @@ abstract class MapFilter_Pattern_Node_Abstract {
   
   /**
   * Test whether a ForValue condition on tree node fits given pattern
-  * @valueFilter: PREG; Validation pattern
   * @valueCandidate: String
+  * @pattern: String
   * @return: Bool
   */
   protected function valueFits ( $valueCandidate, $pattern ) {

@@ -1,7 +1,6 @@
 <?php
 /**
-* Policy Pattern node; Ancestor of nodes that no nothing else just set
-* a satisfaction policy
+* Policy Pattern node; Ancestor of nodes that set satisfaction policy
 *
 * Author: Oliver Gondža
 * E-mail: 324706(at)mail.muni.cz
@@ -32,7 +31,7 @@ abstract class MapFilter_Pattern_Node_Policy extends
 
   /**
   * Get node followers
-  * @return: Array ( MapFilter_Pattern_Node_Abstract )
+  * @&return: Array ( MapFilter_Pattern_Node_Abstract )
   */
   public function &getContent () {
   
@@ -55,5 +54,19 @@ abstract class MapFilter_Pattern_Node_Policy extends
   public function hasFollowers () {
   
     return TRUE;
+  }
+  
+  /**
+  * Clone node followers
+  */
+  public function __clone () {
+  
+    $content = $this->getContent ();
+    foreach ( $content as &$follower ) {
+    
+      $follower = clone ( $follower );
+    }
+    
+    return;
   }
 }
