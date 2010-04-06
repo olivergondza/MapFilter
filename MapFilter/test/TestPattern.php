@@ -245,5 +245,47 @@ class TestPattern extends BaseTest {
       );
     }
   }
+  
+  public static function provideWrongAttribute () {
+  
+    return Array (
+        Array (
+            '<pattern><all attribute="attrName" /></pattern>',
+            "Node 'all' has no attribute like 'attribute'."
+        ),
+        Array (
+            '<pattern><one valuePattern="pattern" /></pattern>',
+            "Node 'one' has no attribute like 'valuePattern'."
+        ),
+        Array (
+            '<pattern><opt default="defaultValue" /></pattern>',
+            "Node 'opt' has no attribute like 'default'."
+        ),
+        Array (
+            '<pattern><attr><attr>an_attr</attr></attr></pattern>',
+            "Node 'attr' has no content."
+        ),
+    );
+  }
+  
+  /**
+  * Get wrong attribute
+  * @dataProvider provideWrongAttribute
+  */
+  public static function testWrongAttribute ( $pattern, $exception ) {
+
+    try {
+
+      MapFilter_Pattern::load ( $pattern );
+      self::fail ( "No exception risen." );
+
+    } catch ( MapFilter_Exception $ex ) {
+
+      self::assertEquals ( $exception, $ex->getMessage () );
+    } catch ( Exception $ex ) {
+    
+      self::fail ( "Wrong exception: " . $ex->getMessage () );
+    }
+  }
 }
 ?>

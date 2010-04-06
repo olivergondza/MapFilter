@@ -1,6 +1,11 @@
 <?php
 /**
-* Some Pattern node 
+* Some Pattern node
+*
+* Author: Oliver Gondža
+* E-mail: 324706(at)mail.muni.cz
+* License: GNU GPLv3
+* Copyright: 2009-2010 Oliver Gondža
 */
 require_once ( dirname ( __FILE__ ) . '/Policy.php' );
 

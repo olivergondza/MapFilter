@@ -225,11 +225,11 @@ class MapFilter_Pattern {
   * Obtain and remove attribute from an array of attributes
   * @&Attributes: Array ()
   * @Attribute: String
-  * @return: String;
+  * @return: String | FALSE
   */
   private static function getAttribute ( &$attributes, $attribute ) {
   
-    $value = NULL;
+    $value = FALSE;
     
     /** Fetch and delete */
     if ( array_key_exists ( $attribute, $attributes ) ) {
@@ -268,18 +268,44 @@ class MapFilter_Pattern {
     /** Instantiate pattern node */
     $class = self::$tagToNode[ $tagName ];
     $node = new $class ();
-    $node -> setContent ( $followers );
+    
+    try {
+      if ( $followers !== Array () ) {
+        $node -> setContent ( $followers );
+      }
+    } catch ( MapFilter_Exception $exception ) {
+    
+      throw new MapFilter_Exception (
+          MapFilter_Exception::INVALID_XML_CONTENT, Array ( $tagName )
+      );
+    }
     
     /** Obtain all attributes and set them by bunch of soft setters */
     $attributes = $XML->getAttributes ();
     foreach ( self::$attrToSetter as $attr => $setter ) {
     
+      /** Stop loop if attribute does not exists */
       $attrValue = self::getAttribute ( $attributes, $attr );
-    
-      $node = call_user_func (
-          Array ( $node, $setter ),
-          $attrValue
-      );
+      if ( $attrValue === FALSE ) {
+        continue;
+      }
+
+      /**
+      * Try to set an attribute or rise an exception when attribute is not
+      * supported
+      */
+      try {
+        $node = call_user_func (
+            Array ( $node, $setter ),
+            $attrValue
+        );
+      } catch ( MapFilter_Exception $exception ) {
+        
+        throw new MapFilter_Exception (
+            MapFilter_Exception::INVALID_XML_ATTRIBUTE,
+            Array ( $tagName, $attr )
+        );
+      }
     }
 
     /** Unset attributes and make sure that none of them left over */
@@ -295,10 +321,7 @@ class MapFilter_Pattern {
         !$node->attribute
     ) {
 
-      $node -> setAttribute (
-          (String) $XML[ 0 ]
-      );
-      
+      $node -> setAttribute ( (String) $XML[ 0 ] );
     }
     
     return $node;
@@ -357,10 +380,7 @@ class MapFilter_Pattern {
   * @&asserts: Array
   * @return: Bool
   */
-  public function satisfy (
-      Array &$query,
-      Array &$asserts
-  ) {
+  public function satisfy ( Array &$query, Array &$asserts ) {
   
     return $this->patternTree->satisfy ( $query, $asserts );
   }

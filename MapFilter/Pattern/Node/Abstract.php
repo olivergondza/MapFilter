@@ -1,6 +1,11 @@
 <?php
 /**
-* Interface to Pattern node 
+* Abstract Pattern node; Ancestor of all pattern nodes
+*
+* Author: Oliver Gondža
+* E-mail: 324706(at)mail.muni.cz
+* License: GNU GPLv3
+* Copyright: 2009-2010 Oliver Gondža
 */
 abstract class MapFilter_Pattern_Node_Abstract {
   
@@ -13,7 +18,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   
   /**
   * Key-Attr value filter
-  * @var: String; REGEX
+  * @var: String; REGEXP
   */
   public $valueFilter = NULL;
   
@@ -30,8 +35,8 @@ abstract class MapFilter_Pattern_Node_Abstract {
   public $assert = NULL;
   
   /**
-  * Implicit Fluent Interface for all node types that do absolutely nothing;
-  * That's implicit behaviour; Nodes that has certain value define own setter
+  * Implicit Fluent Interface for all node types that rises exception;
+  * That's implicit behavior; Nodes that has certain value define own setter
   * with body;
   *
   * Values:
@@ -43,10 +48,37 @@ abstract class MapFilter_Pattern_Node_Abstract {
   *   flag
   *   assert
   */
-  public function setAttribute ( $attrbite ) { return $this; }
-  public function setDefault ( $default ) { return $this; }
-  public function setContent ( Array $content ) { return $this; }
-  public function setValuePattern ( $pattern ) { return $this; }
+  public function setAttribute ( $attribute ) {
+  
+    throw new MapFilter_Exception (
+        MapFilter_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( "", $attribute )
+    );
+  }
+  
+  public function setDefault ( $default ) {
+  
+    throw new MapFilter_Exception (
+        MapFilter_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( "", $default )
+    );
+  }
+  
+  public function setContent ( Array $content ) {
+  
+    throw new MapFilter_Exception (
+        MapFilter_Exception::INVALID_XML_CONTENT,
+        Array ( "" )
+    );
+  }
+  
+  public function setValuePattern ( $pattern ) {
+  
+    throw new MapFilter_Exception (
+        MapFilter_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( "", $pattern )
+    );
+  }
 
   /**
   * Fluent Method; Set valueFilter
@@ -59,7 +91,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   }
   
   /**
-  * Fluent Msthod; Set Flag
+  * Fluent Method; Set Flag
   * @flag: String
   */
   public function setFlag ( $flag ) {
@@ -69,7 +101,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   }
   
   /**
-  * Fluent Msthod; Set Assert
+  * Fluent Method; Set Assert
   * @assert: String
   */
   public function setAssert ( $assert ) {
@@ -86,7 +118,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   
   /**
   * Satisfy certain node type and let it's followers to get satisfied
-  * Some nodetypes needs to query access so it has to be distributed all over
+  * Some node types needs to query access so it has to be distributed all over
   * the tree.
   * @&query: Array
   * @&assert: Array ( String )
@@ -176,7 +208,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   }
   
   /**
-  * Enclose string with begining and end mark to ensure that the string are
+  * Enclose string with beginning and end mark to ensure that the string are
   * completely equal.
   */
   const FILTER_BOUNDARIES = '/^%s$/';
@@ -197,7 +229,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
       return TRUE;
     }
 
-    /** Sanitize inputed PREG */
+    /** Sanitize inputted PREG */
     $valueCandidate = preg_quote (
         $valueCandidate,
         self::FILTER_DELIMITER

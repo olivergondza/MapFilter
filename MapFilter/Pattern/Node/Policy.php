@@ -1,7 +1,12 @@
 <?php
 /**
-* Policy Pattern node; Ancestor of nodes thad no nothing else just set
+* Policy Pattern node; Ancestor of nodes that no nothing else just set
 * a satisfaction policy
+*
+* Author: Oliver Gondža
+* E-mail: 324706(at)mail.muni.cz
+* License: GNU GPLv3
+* Copyright: 2009-2010 Oliver Gondža
 */
 require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
 

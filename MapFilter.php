@@ -17,7 +17,7 @@ class MapFilter {
   * @var: MapFilter_Pattern
   */
   public $pattern = NULL;
-public $tempPattern = NULL;
+
   /**
   * Read data / Query candidate
   * @var: Array ( attrCandidate => valueCandidate )
@@ -127,13 +127,13 @@ public $tempPattern = NULL;
     *  Create temporary copy of pattern since it will be modified during
     *  the parsing procedure
     */
-    $this->tempPattern = clone ( $this->pattern );
+    $tempPattern = clone ( $this->pattern );
 
     /** Resolve all dependencies */
-    $this->tempPattern->satisfy ( $this->query, $this->asserts );
+    $tempPattern->satisfy ( $this->query, $this->asserts );
 
     /** Prevent old result leaking to the new result set*/
-    $this->pickUp ( $this->tempPattern->getTree () );
+    $this->pickUp ( $tempPattern->getTree () );
 
     return $this->fetch ();
   }

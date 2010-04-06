@@ -1,13 +1,18 @@
 <?php
 /**
-* Opt Pattern node 
+* Opt Pattern node
+*
+* Author: Oliver Gondža
+* E-mail: 324706(at)mail.muni.cz
+* License: GNU GPLv3
+* Copyright: 2009-2010 Oliver Gondža
 */
 require_once ( dirname ( __FILE__ ) . '/Policy.php' );
 
 final class MapFilter_Pattern_Node_Opt extends MapFilter_Pattern_Node_Policy {
 
   /**
-  * That node is always satisfyied.
+  * That node is always satisfied.
   * Thus satisfy MUST be mapped on ALL followers.
   * @&query: Array
   * @&query: Array ( String )

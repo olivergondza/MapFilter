@@ -1,6 +1,11 @@
 <?php
 /**
-* Attr Pattern node 
+* Attr Pattern node
+*
+* Author: Oliver Gondža
+* E-mail: 324706(at)mail.muni.cz
+* License: GNU GPLv3
+* Copyright: 2009-2010 Oliver Gondža
 */
 require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
 
@@ -20,7 +25,7 @@ final class MapFilter_Pattern_Node_Attr extends MapFilter_Pattern_Node_Abstract 
   
   /**
   * Attr value Pattern
-  * @var: String; REGEX
+  * @var: String; REGEXP
   */
   public $valuePattern = NULL;
   
