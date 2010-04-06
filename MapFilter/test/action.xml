@@ -1,0 +1,43 @@
+<!--
+Structure describing set of actions requesting different count and types of
+arguments. Decision is made depending on value of "action" attribute.
+Allowed actions will be "delete", "create", "rename" and "report" demanding
+different set of further attributes bonded by certain rules.
+-->
+<pattern>
+  <key_attr attr="action">
+
+    <!-- "id" or "file_name" must be used -->
+    <one forValue="delete">
+      <attr>id</attr>
+      <attr>file_name</attr>
+    </one>
+
+    <!-- "new_file" is mandatory and "new_name" is optional attribute -->
+    <all forValue="create">
+      <attr>new_file</attr>
+      <opt>
+        <attr>new_name</attr>
+      </opt>
+    </all>
+
+    <!-- "new_name" is now mandatory with one from couple "id" and "old_name"
+    -->
+    <all forValue="rename">
+      <one>
+        <attr>id</attr>
+        <attr>old_name</attr>
+      </one>
+      <attr>new_name</attr>
+    </all>
+    
+    <!-- "id" is mandatory argument for "report" action.
+      Consider equivalent but slightly clumsy statement:
+      <all forValue="report">
+        <attr>id</attr>
+      </all>
+    -->
+    <attr forValue="report">id</attr>
+
+  </key_attr>
+</pattern>

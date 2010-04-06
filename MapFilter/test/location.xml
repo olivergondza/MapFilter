@@ -1,0 +1,24 @@
+<!--
+Structure of location service
+Determine location in three dimensional space or use defined nickname to
+known location. Every use has to have a action.
+
+like:
+  {}
+  {action:nick}
+  {action:x:y:z}
+but nothing else
+-->
+<pattern>
+  <all>
+    <attr>action</attr>
+    <one>
+      <attr>nick</attr>
+      <all>
+        <attr>x</attr>
+        <attr>y</attr>
+        <attr>z</attr>
+      </all>
+    </one>
+  </all>
+</pattern>

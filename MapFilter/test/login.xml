@@ -1,0 +1,31 @@
+<!--
+Structure of login service
+
+like:
+  {}
+  {name:pass}
+  {name:pass:use-https}
+  {name:pass:remember:user}
+  {name:pass:remember:server}
+  {name:pass:remember:use-https:user}
+  {name:pass:remember:use-https:server}
+  
+  
+but nothing else
+-->
+<pattern>
+  <all flag="login">
+    <attr assert="no_name">name</attr>
+    <attr assert="no_password">pass</attr>
+    <opt>
+      <attr>use-https</attr>
+      <all flag="remember">
+        <attr>remember</attr>
+        <one assert="no_remember_method">
+          <attr>user</attr>
+          <attr>server</attr>
+        </one>
+      </all>
+    </opt>
+  </all>
+</pattern>
