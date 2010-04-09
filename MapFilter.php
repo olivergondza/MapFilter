@@ -158,18 +158,12 @@ class MapFilter {
       $this->flags[] = $pattern->flag;
     }
   
-    /** Pick an attribute from the leaves of tree */
+    /** Pick an attribute and value from the leaves of tree */
     if ( $pattern->hasAttr () ) {
       
       $attrName = $pattern->attribute;
 
-      /** Attr satisfy error */
-      if ( ! $pattern->attrPresent ( $attrName, $this->query ) ) {
-      
-        assert ( FALSE );
-      }
-
-      $this->data[ $attrName ] = $this->query[ $attrName ];
+      $this->data[ $attrName ] = $pattern->value;
     }
     
     /** Crawl through node's followers */

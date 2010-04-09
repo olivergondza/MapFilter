@@ -21,6 +21,12 @@ final class MapFilter_Pattern_Node_KeyAttr extends
   public $attribute = "";
   
   /**
+  * Attribute value
+  * @var:String
+  */
+  public $value = "";
+  
+  /**
   * Fluent Method; Set attribute
   * @attribute: String
   */
@@ -60,6 +66,11 @@ final class MapFilter_Pattern_Node_KeyAttr extends
       if ( $fits ) {
 
         $satisfied = $follower->satisfy ( $query, $asserts );
+        
+        if ( $satisfied ) {
+        
+          $this->value = $query[ $attrName ];
+        }
         
         return $this->setSatisfied ( $satisfied, $asserts );
       } 

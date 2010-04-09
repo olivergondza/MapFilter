@@ -20,6 +20,12 @@ final class MapFilter_Pattern_Node_Attr extends
   public $attribute = "";
   
   /**
+  * Attribute value
+  * @var: String
+  */
+  public $value = "";
+  
+  /**
   * Attr default value
   * @var: String
   */
@@ -87,6 +93,8 @@ final class MapFilter_Pattern_Node_Attr extends
 
       if ( $fitsPattern ) {
     
+        $this->value = $query[ $this->attribute ];
+    
         return $this->setSatisfied ( TRUE, $asserts );
       }
     }
@@ -94,7 +102,7 @@ final class MapFilter_Pattern_Node_Attr extends
     /** Set default if defined */
     if ( $this->default !== NULL ) {
       
-      $query[ $this->attribute ] = $this->default;
+      $this->value = $this->default;
 
       return $this->setSatisfied ( TRUE, $asserts );
     }
