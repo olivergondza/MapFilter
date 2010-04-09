@@ -163,14 +163,13 @@ class MapFilter {
       
       $attrName = $pattern->attribute;
 
-      if ( $pattern->attrPresent ( $attrName, $this->query ) ) {
-
-        $this->data[ $attrName ] = $this->query[ $attrName ];
-      } else {
-
-        /** Attr satisfy error */
+      /** Attr satisfy error */
+      if ( ! $pattern->attrPresent ( $attrName, $this->query ) ) {
+      
         assert ( FALSE );
       }
+
+      $this->data[ $attrName ] = $this->query[ $attrName ];
     }
     
     /** Crawl through node's followers */
