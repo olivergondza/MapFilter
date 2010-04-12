@@ -6,6 +6,18 @@ require_once ( dirname ( __FILE__ ) . '/../Pattern.php' );
 
 class TestPattern extends PHPUnit_Framework_TestCase {  
   
+  /** Parse a tag that hes not been wrapped in <pattern> tags */
+  public static function testUnwrapped () {
+
+    $lazyPattern = '<attr>anAttribute</attr>';
+    $pattern = '<pattern><attr>anAttribute</attr></pattern>';
+  
+    self::assertEquals (
+        MapFilter_Pattern::load ( $pattern ),
+        MapFilter_Pattern::load ( $lazyPattern )
+    );
+  }
+  
   /**
   * Test MapFilter_Pattern at first
   */
@@ -14,11 +26,11 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     /**
     * Create complex pattern tree
     */
-    $all = new MapFilter_Pattern_Node_All ();
-    $one = new MapFilter_Pattern_Node_One ();
-    $opt = new MapFilter_Pattern_Node_Opt ();
-    $attr0 = new MapFilter_Pattern_Node_Attr ();
-    $attr1 = new MapFilter_Pattern_Node_Attr ();
+    $all = new MapFilter_Pattern_Tree_Node_All ();
+    $one = new MapFilter_Pattern_Tree_Node_One ();
+    $opt = new MapFilter_Pattern_Tree_Node_Opt ();
+    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
     $pattern = new MapFilter_Pattern (
         $all -> setContent (
             Array (
@@ -42,19 +54,19 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     /**
     * Create tree by chunks
     */
-    $step0 = new MapFilter_Pattern_Node_Opt ();
+    $step0 = new MapFilter_Pattern_Tree_Node_Opt ();
     $step0 -> setContent ( Array () );
     
-    $step1 = new MapFilter_Pattern_Node_Attr ();
+    $step1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
     $step1 -> setAttribute ( "value" );
     
-    $step2 = new MapFilter_Pattern_Node_One ();
+    $step2 = new MapFilter_Pattern_Tree_Node_One ();
     $step2 -> setContent ( Array ( $step0, $step1) );
     
-    $step3 = new MapFilter_Pattern_Node_Attr ();
+    $step3 = new MapFilter_Pattern_Tree_Leaf_Attr ();
     $step3 -> setAttribute ( "value" );
     
-    $step4 = new MapFilter_Pattern_Node_All ();
+    $step4 = new MapFilter_Pattern_Tree_Node_All ();
     
     $check = new MapFilter_Pattern (
         $step4 -> setContent ( Array ( $step3, $step2 ) )
@@ -72,14 +84,14 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   */
   public static function testLocation () {
     
-    $all0 = new MapFilter_Pattern_Node_All ();
-    $all1 = new MapFilter_Pattern_Node_All ();
-    $attr0 = new MapFilter_Pattern_Node_Attr ();
-    $attr1 = new MapFilter_Pattern_Node_Attr ();
-    $attr2 = new MapFilter_Pattern_Node_Attr ();
-    $attr3 = new MapFilter_Pattern_Node_Attr ();
-    $attr4 = new MapFilter_Pattern_Node_Attr ();
-    $one = new MapFilter_Pattern_Node_One ();
+    $all0 = new MapFilter_Pattern_Tree_Node_All ();
+    $all1 = new MapFilter_Pattern_Tree_Node_All ();
+    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr2 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr3 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr4 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $one = new MapFilter_Pattern_Tree_Node_One ();
     
     $location = new MapFilter_Pattern (
         $all0 -> setContent (
@@ -116,16 +128,16 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   */
   public static function testLogin () {
 
-    $all0 = new MapFilter_Pattern_Node_All ();
-    $all1 = new MapFilter_Pattern_Node_All ();
-    $attr0 = new MapFilter_Pattern_Node_Attr ();
-    $attr1 = new MapFilter_Pattern_Node_Attr ();
-    $attr2 = new MapFilter_Pattern_Node_Attr ();
-    $attr3 = new MapFilter_Pattern_Node_Attr ();
-    $attr4 = new MapFilter_Pattern_Node_Attr ();
-    $attr5 = new MapFilter_Pattern_Node_Attr ();
-    $opt = new MapFilter_Pattern_Node_Opt ();
-    $one = new MapFilter_Pattern_Node_One ();
+    $all0 = new MapFilter_Pattern_Tree_Node_All ();
+    $all1 = new MapFilter_Pattern_Tree_Node_All ();
+    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr2 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr3 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr4 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr5 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $opt = new MapFilter_Pattern_Tree_Node_Opt ();
+    $one = new MapFilter_Pattern_Tree_Node_One ();
     $login = new MapFilter_Pattern (
         $all0 -> setFlag ( "login" ) -> setContent (
             Array (
@@ -170,20 +182,20 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   */  
   public static function testAction () {
 
-    $keyattr = new MapFilter_Pattern_Node_KeyAttr ();
-    $all0 = new MapFilter_Pattern_Node_All ();
-    $all1 = new MapFilter_Pattern_Node_All ();
-    $attr0 = new MapFilter_Pattern_Node_Attr ();
-    $attr1 = new MapFilter_Pattern_Node_Attr ();
-    $attr2 = new MapFilter_Pattern_Node_Attr ();
-    $attr3 = new MapFilter_Pattern_Node_Attr ();
-    $attr4 = new MapFilter_Pattern_Node_Attr ();
-    $attr5 = new MapFilter_Pattern_Node_Attr ();
-    $attr6 = new MapFilter_Pattern_Node_Attr ();
-    $attr7 = new MapFilter_Pattern_Node_Attr ();
-    $opt = new MapFilter_Pattern_Node_Opt ();
-    $one0 = new MapFilter_Pattern_Node_One ();
-    $one1 = new MapFilter_Pattern_Node_One ();
+    $keyattr = new MapFilter_Pattern_Tree_Node_KeyAttr ();
+    $all0 = new MapFilter_Pattern_Tree_Node_All ();
+    $all1 = new MapFilter_Pattern_Tree_Node_All ();
+    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr2 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr3 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr4 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr5 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr6 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr7 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $opt = new MapFilter_Pattern_Tree_Node_Opt ();
+    $one0 = new MapFilter_Pattern_Tree_Node_One ();
+    $one1 = new MapFilter_Pattern_Tree_Node_One ();
     
     $action = new MapFilter_Pattern (
         $keyattr -> setAttribute ( "action" ) -> setContent (
@@ -250,8 +262,8 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   
     return Array (
         Array (
-            '<pattern><all attribute="attrName" /></pattern>',
-            "Node 'all' has no attribute like 'attribute'."
+            '<pattern><all attr="attrName" /></pattern>',
+            "Node 'all' has no attribute like 'attr'."
         ),
         Array (
             '<pattern><one valuePattern="pattern" /></pattern>',

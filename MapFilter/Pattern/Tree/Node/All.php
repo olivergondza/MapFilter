@@ -7,28 +7,29 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/Policy.php' );
+require_once ( dirname ( __FILE__ ) . '/../Node_Abstract.php' );
 
-final class MapFilter_Pattern_Node_All extends MapFilter_Pattern_Node_Policy {
+final class MapFilter_Pattern_Tree_Node_All
+    extends MapFilter_Pattern_Tree_Node_Abstract
+{
 
   /**
   * Satisfy node just if there are no unsatisfied follower.
   * Finding unsatisfied follower may stop mapping since there is no way to
   * satisfy parent by any further potentially satisfied follower.
-  * @&query: Array ( String )
-  * @&asserts: Array ( String )
+  * @param: MapFilter_Pattern_SatisfyParam
   * @return: Bool
   */
-  public function satisfy ( Array &$query, Array &$asserts ) {
+  public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
     foreach ( $this->getContent () as $follower ) {
       
-      if ( !$follower->satisfy ( $query, $asserts ) ) {
+      if ( !$follower->satisfy ( $param ) ) {
 
-        return $this->setSatisfied ( FALSE, $asserts );
+        return $this->setSatisfied ( FALSE, $param->asserts );
       }
     }
     
-    return $this->setSatisfied ( TRUE, $asserts );
+    return $this->setSatisfied ( TRUE, $param->asserts );
   }
 }

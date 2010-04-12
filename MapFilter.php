@@ -52,10 +52,11 @@ class MapFilter {
       Array $query = Array ()
   ) {
     
-    if ( $pattern ) {
-      $this->setPattern ( $pattern );
+    if ( !$pattern ) {
+      return;
     }
-    
+
+    $this->setPattern ( $pattern );
     $this->setQuery ( $query );
 
     $this->parse ();
@@ -64,23 +65,23 @@ class MapFilter {
   }
 
   /**
-  * Set desired query pattern
+  * Fluent Method that sets desired query pattern
   * @pattern: MapFilter_Pattern
   */
   public function setPattern ( MapFilter_Pattern $pattern ) {
 
     $this->pattern = clone ( $pattern );
-    return;
+    return $this;
   }
   
   /**
-  * Set query to filter
+  * Fluent Method that sets query to filter
   * @query: Array
   */
   public function setQuery ( Array $query ) {
   
     $this->query = $query;
-    return;
+    return $this;
   }
   
   /**
@@ -132,50 +133,20 @@ class MapFilter {
     $tempPattern = clone ( $this->pattern );
 
     /** Resolve all dependencies */
-    $tempPattern->satisfy ( $this->query, $this->asserts );
+    $param = new MapFilter_Pattern_SatisfyParam ();
+    $param->query =& $this->query;
+    $param->asserts =& $this->asserts;
+
+    $tempPattern->satisfy ( $param );
 
     /** Prevent old result leaking to the new result set*/
-    $this->pickUp ( $tempPattern->getTree () );
+    $param = new MapFilter_Pattern_PickUpParam ();
+    $param->flags =& $this->flags;
+    $param->data =& $this->data;
+
+    $tempPattern->pickUp ( $param );
 
     return $this->fetch ();
-  }
-  
-  /**
-  * Pick up valid data
-  * @pattern: MapFilter_Pattern_Node_Abstract
-  */
-  private function pickUp ( MapFilter_Pattern_Node_Abstract $pattern ) {
-  
-    /** Set assert for nodes that hasn't been satisfied and stop recursion */
-    if ( !$pattern->isSatisfied () ) {
-
-      return;
-    }
-  
-    /** Set flag from satisfied node */
-    if ( $pattern->flag !== NULL ) {
-    
-      $this->flags[] = $pattern->flag;
-    }
-  
-    /** Pick an attribute and value from the leaves of tree */
-    if ( $pattern->hasAttr () ) {
-      
-      $attrName = $pattern->attribute;
-
-      $this->data[ $attrName ] = $pattern->value;
-    }
-    
-    /** Crawl through node's followers */
-    if ( $pattern->hasFollowers () ) {
-      
-      foreach ( $pattern->getContent () as $follower ) {
-
-        $this->pickUp ( $follower );
-      }
-    }
-    
-    return;
   }
   
   /**

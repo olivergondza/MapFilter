@@ -7,7 +7,7 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-abstract class MapFilter_Pattern_Node_Abstract {
+abstract class MapFilter_Pattern_Tree_Abstract {
   
   /**
   * Was node already satisfied
@@ -36,7 +36,7 @@ abstract class MapFilter_Pattern_Node_Abstract {
   /**
   * Implicit Fluent Interface for all node types that rises exception;
   * That's implicit behavior; Nodes that has certain value define own setter
-  * with meningful body;
+  * with meaningful body;
   *
   * Values:
   *   attribute
@@ -117,25 +117,16 @@ abstract class MapFilter_Pattern_Node_Abstract {
   
   /**
   * Satisfy certain node type and let it's followers to get satisfied
-  * Some node types needs to query access so it has to be distributed all over
-  * the tree. All assertions must be set during the first walk.
-  * @&query: Array
-  * @&assert: Array ( String )
+  * @param: MapFilter_Pattern_SatisfyParam
   * @return: Bool
   */
-  abstract public function satisfy ( Array &$query, Array &$asserts );
+  abstract public function satisfy ( MapFilter_Pattern_SatisfyParam $param );
   
   /**
-  * Determine whether a node has an attribute
-  * @return: Bool
+  * Pick-up satisfaction results
+  * @param: MapFilter_Pattern_PickUpParam
   */
-  abstract public function hasAttr ();
-  
-  /**
-  * Determine whether the node can have followers
-  * @return: Bool
-  */
-  abstract public function hasFollowers ();
+  abstract public function pickUp ( MapFilter_Pattern_PickUpParam $param );
   
   /**
   * Satisfy certain node and do all necessary work to get (un)satisfied

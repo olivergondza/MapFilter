@@ -7,23 +7,24 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/Policy.php' );
+require_once ( dirname ( __FILE__ ) . '/../Node_Abstract.php' );
 
-final class MapFilter_Pattern_Node_Some extends MapFilter_Pattern_Node_Policy {
+final class MapFilter_Pattern_Tree_Node_Some
+    extends MapFilter_Pattern_Tree_Node_Abstract
+{
 
   /**
   * Satisfy node when there is at least one satisfied follower.
   * Thus satisfy MUST be mapped on ALL followers.
-  * @&query: Array
-  * @&asserts: Array ( String )
+  * @param: MapFilter_Pattern_SatisfyParam
   * @return: Bool
   */
-  public function satisfy ( Array &$query, Array &$asserts ) {
+  public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
 
     $satisfiedFollowers = Array ();
     foreach ( $this->getContent () as $follower ) {
 
-      $satisfiedFollowers[] = $follower->satisfy ( $query, $asserts );
+      $satisfiedFollowers[] = $follower->satisfy ( $param );
     }
     
     $satisfied = in_array (
@@ -32,6 +33,6 @@ final class MapFilter_Pattern_Node_Some extends MapFilter_Pattern_Node_Policy {
         TRUE /** Compare strictly */
     );
     
-    return $this->setSatisfied ( $satisfied, $asserts );
+    return $this->setSatisfied ( $satisfied, $param->asserts );
   }
 }

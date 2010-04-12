@@ -7,10 +7,12 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/../../Tree_Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/../Attribute_Interface.php' );
 
-final class MapFilter_Pattern_Node_Attr extends
-    MapFilter_Pattern_Node_Abstract
+final class MapFilter_Pattern_Tree_Leaf_Attr
+    extends MapFilter_Pattern_Tree_Abstract
+    implements MapFilter_Pattern_Tree_Attribute_Interface
 {
 
   /**
@@ -71,31 +73,30 @@ final class MapFilter_Pattern_Node_Attr extends
   * Satisfy node just if there are no unsatisfied follower.
   * Finding unsatisfied follower may stop mapping since there is no way to
   * satisfy parent by any further potentially satisfied follower.
-  * @&query: Array
-  * @&assert: Array ( String )
+  * @param: MapFilter_Pattern_SatisfyParam
   * @return: Bool
   */
-  public function satisfy ( Array &$query, Array &$asserts ) {
+  public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
     /** If argument exists */
     $present = self::attrPresent (
         $this->attribute,
-        $query
+        $param->query
     );
     
     if ( $present ) {
     
       /** And matches pattern */
       $fitsPattern = self::valueFits (
-          $query[ $this->attribute ],
+          $param->query[ $this->attribute ],
           $this->valuePattern
       );
 
       if ( $fitsPattern ) {
     
-        $this->value = $query[ $this->attribute ];
+        $this->value = $param->query[ $this->attribute ];
     
-        return $this->setSatisfied ( TRUE, $asserts );
+        return $this->setSatisfied ( TRUE, $param->asserts );
       }
     }
     
@@ -104,28 +105,33 @@ final class MapFilter_Pattern_Node_Attr extends
       
       $this->value = $this->default;
 
-      return $this->setSatisfied ( TRUE, $asserts );
+      return $this->setSatisfied ( TRUE, $param->asserts );
     }
     
-    return $this->setSatisfied ( FALSE, $asserts );
+    return $this->setSatisfied ( FALSE, $param->asserts );
   }
   
   /**
-  * Determine whether a node has an attribute
-  * return: Bool
+  * Pick-up results
+  * @param: MapFilter_Pattern_PickUpParam
   */
-  public function hasAttr () {
+  public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
+
+    /** Set assert for nodes that hasn't been satisfied and stop recursion */
+    if ( !$this->isSatisfied () ) {
+
+      return;
+    }
   
-    return TRUE;
-  }
-  
-  /**
-  * Determine whether a node has some followers
-  * return: Bool
-  */
-  public function hasFollowers () {
-  
-    return FALSE;
+    /** Set flag from satisfied node */
+    if ( $this->flag !== NULL ) {
+    
+      $param->flags[] = $this->flag;
+    }
+    
+    $param->data[ (String) $this ] = $this->value;
+
+    return;
   }
   
   /**

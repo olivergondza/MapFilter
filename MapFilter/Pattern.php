@@ -7,12 +7,15 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/Pattern/Node/All.php' );
-require_once ( dirname ( __FILE__ ) . '/Pattern/Node/Opt.php' );
-require_once ( dirname ( __FILE__ ) . '/Pattern/Node/One.php' );
-require_once ( dirname ( __FILE__ ) . '/Pattern/Node/Some.php' );
-require_once ( dirname ( __FILE__ ) . '/Pattern/Node/KeyAttr.php' );
-require_once ( dirname ( __FILE__ ) . '/Pattern/Node/Attr.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/All.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/Opt.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/One.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/Some.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/KeyAttr.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Leaf/Attr.php' );
+
+require_once ( dirname ( __FILE__ ) . '/Pattern/SatisfyParam.php' );
+require_once ( dirname ( __FILE__ ) . '/Pattern/PickUpParam.php' );
 
 require_once ( dirname ( __FILE__ ) . '/NotSoSimpleXMLElement.php' );
 
@@ -20,16 +23,16 @@ class MapFilter_Pattern {
 
   /**
   * Pattern tree itself
-  * @var: MapFilter_Pattern_Node_Abstract
+  * @var: MapFilter_Pattern_Tree_Abstract
   */
   private $patternTree = NULL;
 
   /**
   * Create Pattern
-  * $patternTree: MapFilter_Pattern_Node_Abstract
+  * $patternTree: MapFilter_Pattern_Tree_Abstract
   */
   public function __construct (
-      MapFilter_Pattern_Node_Abstract $patternTree
+      MapFilter_Pattern_Tree_Abstract $patternTree
   ) {
   
     $this->patternTree = clone ( $patternTree );
@@ -38,7 +41,7 @@ class MapFilter_Pattern {
 
   /**
   * Get Pattern tree
-  * @return: MapFilter_Pattern_Node_Abstract
+  * @return: MapFilter_Pattern_Tree_Abstract
   */
   public function getTree () {
   
@@ -158,12 +161,12 @@ class MapFilter_Pattern {
   * @var: Array ( TagName => ObjType )
   */
   private static $tagToNode = Array (
-      self::NODE_ALL => 'MapFilter_Pattern_Node_All',
-      self::NODE_ONE => 'MapFilter_Pattern_Node_One',
-      self::NODE_OPT => 'MapFilter_Pattern_Node_Opt',
-      self::NODE_SOME => 'MapFilter_Pattern_Node_Some',
-      self::NODE_ATTR => 'MapFilter_Pattern_Node_Attr',
-      self::NODE_KEYATTR => 'MapFilter_Pattern_Node_KeyAttr',
+      self::NODE_ALL => 'MapFilter_Pattern_Tree_Node_All',
+      self::NODE_ONE => 'MapFilter_Pattern_Tree_Node_One',
+      self::NODE_OPT => 'MapFilter_Pattern_Tree_Node_Opt',
+      self::NODE_SOME => 'MapFilter_Pattern_Tree_Node_Some',
+      self::NODE_KEYATTR => 'MapFilter_Pattern_Tree_Node_KeyAttr',
+      self::NODE_ATTR => 'MapFilter_Pattern_Tree_Leaf_Attr',
   );
   
   /**
@@ -187,16 +190,6 @@ class MapFilter_Pattern {
   private static function isValidTag ( $tag ) {
   
     return array_key_exists ( $tag, self::$tagToNode );
-  }
-  
-  /**
-  * Determine whether an attribute is valid
-  * @attr: String
-  * @return: Bool
-  */
-  private static function isValidAttr ( $attr ) {
-  
-    return array_key_exists ( $attr, self::$attrToSetter );
   }
   
   /**
@@ -242,7 +235,7 @@ class MapFilter_Pattern {
   /**
   * Parse serialized pattern tree to its object implementation
   * @xml: NotSoSimpleXMLElement
-  * @return: MapFilter_Pattern_Node_Abstract
+  * @return: MapFilter_Pattern_Tree_Abstract
   */
   private static function parse ( NotSoSimpleXMLElement $XML ) {
 
@@ -266,7 +259,7 @@ class MapFilter_Pattern {
     /** Instantiate pattern node */
     $class = self::$tagToNode[ $tagName ];
     $node = new $class ();
-    
+
     try {
       if ( $followers !== Array () ) {
         $node -> setContent ( $followers );
@@ -281,8 +274,8 @@ class MapFilter_Pattern {
     /** Obtain all attributes and set them by bunch of soft setters */
     $attributes = $XML->getAttributes ();
     foreach ( self::$attrToSetter as $attr => $setter ) {
-    
-      /** Stop loop if attribute does not exists */
+
+      /** Reset loop if attribute does not exists */
       $attrValue = self::getAttribute ( $attributes, $attr );
       if ( $attrValue === FALSE ) {
         continue;
@@ -314,12 +307,12 @@ class MapFilter_Pattern {
     * Since Attr node can have it's attribute in tag body this special check 
     * is needed
     */
-    if (
-        is_a ( $node, 'MapFilter_Pattern_Node_Attr' ) &&
-        !$node->attribute
-    ) {
+    if ( is_a ( $node, 'MapFilter_Pattern_Tree_Leaf_Attr' ) ) {
 
-      $node -> setAttribute ( (String) $XML[ 0 ] );
+      if ( $XML[ 0 ] ) {
+      
+        $node -> setAttribute ( (String) $XML[ 0 ] );
+      }
     }
     
     return $node;
@@ -365,13 +358,21 @@ class MapFilter_Pattern {
   
   /**
   * Satisfy pattern
-  * @&query: Array
-  * @&asserts: Array
+  * @param: MapFilter_Pattern_SatisfyParam
   * @return: Bool
   */
-  public function satisfy ( Array &$query, Array &$asserts ) {
+  public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
-    return $this->patternTree->satisfy ( $query, $asserts );
+    return $this->patternTree->satisfy ( $param );
+  }
+  
+  /**
+  * Pick up results
+  * @param: MapFilter_Pattern_PickUpParam
+  */
+  public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
+  
+    return $this->patternTree->pickUp ( $param );
   }
 
   /** Clone all tree recursively */

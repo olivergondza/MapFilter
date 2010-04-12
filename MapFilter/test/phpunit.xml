@@ -3,13 +3,17 @@
     bootstrap="bootstrap.php">
   <testsuites>
     <testsuite name="MapFilter">
-      <directory suffix=".php">.</directory>
+      <directory suffix=".test.php">.</directory>
     </testsuite>
   </testsuites>
   
   <filter>
     <whitelist>
       <directory suffix=".php">../..</directory>
+      <exclude>
+        <directory>.</directory>
+        <file>../PureException.php</file>
+      </exclude>
     </whitelist>
   </filter>
 </phpunit>
