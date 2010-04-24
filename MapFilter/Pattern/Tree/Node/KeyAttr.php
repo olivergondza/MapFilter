@@ -8,29 +8,29 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/../Node_Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 require_once ( dirname ( __FILE__ ) . '/../Attribute_Interface.php' );
 
 final class MapFilter_Pattern_Tree_Node_KeyAttr
-    extends MapFilter_Pattern_Tree_Node_Abstract
+    extends MapFilter_Pattern_Tree_Node
     implements MapFilter_Pattern_Tree_Attribute_Interface
 {
 
   /**
   * Node attribute
-  * @var: String
+  * @var String
   */
   public $attribute = "";
   
   /**
   * Attribute value
-  * @var:String
+  * @var String
   */
   public $value = "";
   
   /**
   * Fluent Method; Set attribute
-  * @attribute: String
+  * @param String
   */
   public function setAttribute ( $attribute ) {
   
@@ -39,11 +39,9 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
   }
 
   /**
-  * Satisfy node just if there are no unsatisfied follower.
-  * Finding unsatisfied follower may stop mapping since there is no way to
-  * satisfy parent by any further potentially satisfied follower.
-  * @param: MapFilter_Pattern_SatisfyParam
-  * @return: Bool
+  * Find a follower with a valueFilter that fits and try to satisfy it.
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
 
@@ -53,7 +51,7 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
 
     if ( !$attrExists ) {
 
-      return $this->setSatisfied ( FALSE, $param->asserts );
+      return $this->setSatisfied ( FALSE, $param );
     }
     
     /** Find a follower that fits an value filter and let it satisfy */
@@ -64,40 +62,35 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
           $follower->valueFilter
       );
       
-      if ( $fits ) {
+      if ( !$fits ) {
+      
+        continue;
+      }
 
-        $satisfied = $follower->satisfy ( $param );
+      $satisfied = $follower->satisfy ( $param );
         
-        if ( $satisfied ) {
+      if ( $satisfied ) {
           
-          $this->value = $param->query[ $attrName ];
-        }
+        $this->value = $param->query[ $attrName ];
+      }
         
-        return $this->setSatisfied ( $satisfied, $param->asserts );
-      } 
+      return $this->setSatisfied ( $satisfied, $param );
     }
 
-    return $this->setSatisfied ( FALSE, $param->asserts );
+    return $this->setSatisfied ( FALSE, $param );
   }
   
   /**
   * Pick-up results
-  * @param: MapFilter_Pattern_PickUpParam
+  * @param MapFilter_Pattern_PickUpParam
   */
   public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
 
     /** Set assert for nodes that hasn't been satisfied and stop recursion */
     if ( !$this->isSatisfied () ) {
-
       return;
     }
   
-    /** Set flag from satisfied node */
-    if ( $this->flag !== NULL ) {
-    
-      $param->flags[] = $this->flag;
-    }
-
     $param->data[ (String) $this ] = $this->value;
 
     foreach ( $this->getContent () as $follower ) {
@@ -110,7 +103,7 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
   
   /**
   * Cast to string
-  * @return: String
+  * @return String
   */
   public function __toString () {
   

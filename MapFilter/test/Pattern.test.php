@@ -18,14 +18,10 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     );
   }
   
-  /**
-  * Test MapFilter_Pattern at first
-  */
+  /** Test MapFilter_Pattern at first */
   public static function testBuild () {
 
-    /**
-    * Create complex pattern tree
-    */
+    /** Create complex pattern tree */
     $all = new MapFilter_Pattern_Tree_Node_All ();
     $one = new MapFilter_Pattern_Tree_Node_One ();
     $opt = new MapFilter_Pattern_Tree_Node_Opt ();
@@ -51,9 +47,7 @@ class TestPattern extends PHPUnit_Framework_TestCase {
         )
     );
     
-    /**
-    * Create tree by chunks
-    */
+    /** Create tree by chunks */
     $step0 = new MapFilter_Pattern_Tree_Node_Opt ();
     $step0 -> setContent ( Array () );
     
@@ -79,9 +73,7 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     return;
   }
   
-  /**
-  * Test location.xml parsing
-  */
+  /** Test location.xml parsing */
   public static function testLocation () {
     
     $all0 = new MapFilter_Pattern_Tree_Node_All ();
@@ -123,9 +115,7 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     );
   }
   
-  /**
-  * Test login.xml parsing
-  */
+  /** Test login.xml parsing */
   public static function testLogin () {
 
     $all0 = new MapFilter_Pattern_Tree_Node_All ();
@@ -177,9 +167,7 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     return;
   }
 
-  /**
-  * Test action.xml parsing
-  */  
+  /** Test action.xml parsing */  
   public static function testAction () {
 
     $keyattr = new MapFilter_Pattern_Tree_Node_KeyAttr ();
@@ -249,10 +237,10 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   
     try {
       $filter = MapFilter_Pattern::fromFile ( "no_such_file.xml" );
-    } catch ( MapFilter_Exception $exception ) {
+    } catch ( MapFilter_Pattern_Exception $exception ) {
 
       self::assertEquals (
-          MapFilter_Exception::LIBXML_WARNING,
+          MapFilter_Pattern_Exception::LIBXML_WARNING,
           $exception->getCode ()
       );
     }
@@ -291,7 +279,7 @@ class TestPattern extends PHPUnit_Framework_TestCase {
       MapFilter_Pattern::load ( $pattern );
       self::fail ( "No exception risen." );
 
-    } catch ( MapFilter_Exception $ex ) {
+    } catch ( MapFilter_Pattern_Exception $ex ) {
 
       self::assertEquals ( $exception, $ex->getMessage () );
     } catch ( Exception $ex ) {

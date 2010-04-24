@@ -7,10 +7,9 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
+require_once ( dirname ( __FILE__ ) . '/../PureException.php' );
 
-require_once ( dirname ( __FILE__ ) . '/PureException.php' );
-
-class MapFilter_Exception extends PureException {
+class MapFilter_Pattern_Exception extends PureException {
 
   /** Exception code constants */
 
@@ -34,10 +33,6 @@ class MapFilter_Exception extends PureException {
   /** Content in tags that has none */
   const INVALID_XML_CONTENT = 10;
   
-  /**
-  * Messages
-  * @var: Array ( MapFilter_Exception::const => String )
-  */
   protected $messages = Array (
       self::INVALID_PATTERN_ELEMENT => "Invalid pattern element '%s'.",
       self::TOO_MANY_PATTERNS => "More than one pattern specified.",

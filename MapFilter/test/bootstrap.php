@@ -6,4 +6,5 @@ class Test_Source {
   const COFFEE_MAKER = 'coffee_maker.xml';
   const ACTION = 'action.xml';
   const FILTER = 'filter.xml';
+  const DURATION = 'duration.xml';
 }

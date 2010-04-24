@@ -1,6 +1,6 @@
 <?php
 /**
-* SimpleXMLElement wrapper providing some aditional functionality
+* SimpleXMLElement wrapper providing some additional functionality
 * 
 * Author: Oliver Gondža
 * E-mail: 324706(at)mail.muni.cz
@@ -11,7 +11,7 @@ class NotSoSimpleXMLElement extends SimpleXMLElement {
 
   /**
   * Obtain all children of an elements
-  * @return: Array ( SimpleXMLElement )
+  * @return Array ( SimpleXMLElement )
   */
   public function getChildren () {
   
@@ -25,7 +25,7 @@ class NotSoSimpleXMLElement extends SimpleXMLElement {
   
   /**
   * Get array of node attributes
-  * @return: Array ( SimpleXMLElement )
+  * @return Array ( SimpleXMLElement )
   */
   public function getAttributes () {
   

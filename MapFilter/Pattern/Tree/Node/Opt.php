@@ -7,17 +7,17 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/../Node_Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 final class MapFilter_Pattern_Tree_Node_Opt
-    extends MapFilter_Pattern_Tree_Node_Abstract
+    extends MapFilter_Pattern_Tree_Node
 {
 
   /**
   * That node is always satisfied.
   * Thus satisfy MUST be mapped on ALL followers.
-  * @param: MapFilter_Pattern_SatisfyParam
-  * @return: Bool
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
@@ -26,6 +26,6 @@ final class MapFilter_Pattern_Tree_Node_Opt
       $follower->satisfy ( $param );
     }
 
-    return $this->setSatisfied ( TRUE, $param->asserts );
+    return $this->setSatisfied ( TRUE, $param );
   }
 }

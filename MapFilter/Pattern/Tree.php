@@ -7,29 +7,34 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-abstract class MapFilter_Pattern_Tree_Abstract {
+require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
+require_once ( dirname ( __FILE__ ) . '/Tree_Interface.php' );
+
+abstract class MapFilter_Pattern_Tree
+    implements MapFilter_Pattern_Tree_Interface
+{
   
   /**
-  * Was node already satisfied
-  * @var: Bool
+  * Determine whether the node was already satisfied
+  * @var Bool
   */
   protected $satisfied = FALSE;
   
   /**
-  * Key-Attr value filter
-  * @var: String; REGEXP
+  * Key-Attr value filter. REGEXP
+  * @var String
   */
   public $valueFilter = NULL;
   
   /**
   * Node flag
-  * @var: String
+  * @var String
   */
   public $flag = NULL;
   
   /**
   * Node assert
-  * @var: String
+  * @var String
   */
   public $assert = NULL;
   
@@ -49,39 +54,38 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   */
   public function setAttribute ( $attribute ) {
   
-    throw new MapFilter_Exception (
-        MapFilter_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( "", $attribute )
+    throw new MapFilter_Pattern_Tree_Exception (
+        MapFilter_Pattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $attribute )
     );
   }
   
   public function setDefault ( $default ) {
   
-    throw new MapFilter_Exception (
-        MapFilter_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( "", $default )
+    throw new MapFilter_Pattern_Tree_Exception (
+        MapFilter_Pattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $default )
     );
   }
   
   public function setContent ( Array $content ) {
   
-    throw new MapFilter_Exception (
-        MapFilter_Exception::INVALID_XML_CONTENT,
-        Array ( "" )
+    throw new MapFilter_Pattern_Tree_Exception (
+        MapFilter_Pattern_Tree_Exception::INVALID_XML_CONTENT
     );
   }
   
   public function setValuePattern ( $pattern ) {
   
-    throw new MapFilter_Exception (
-        MapFilter_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( "", $pattern )
+    throw new MapFilter_Pattern_Tree_Exception (
+        MapFilter_Pattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $pattern )
     );
   }
 
   /**
   * Fluent Method; Set valueFilter
-  * @valueFilter: String
+  * @param String
   */
   public function setValueFilter ( $valueFilter ) {
 
@@ -91,7 +95,7 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   
   /**
   * Fluent Method; Set Flag
-  * @flag: String
+  * @param String
   */
   public function setFlag ( $flag ) {
   
@@ -101,7 +105,7 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   
   /**
   * Fluent Method; Set Assert
-  * @assert: String
+  * @param String
   */
   public function setAssert ( $assert ) {
   
@@ -116,25 +120,15 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   final public function __construct () {}
   
   /**
-  * Satisfy certain node type and let it's followers to get satisfied
-  * @param: MapFilter_Pattern_SatisfyParam
-  * @return: Bool
-  */
-  abstract public function satisfy ( MapFilter_Pattern_SatisfyParam $param );
-  
-  /**
-  * Pick-up satisfaction results
-  * @param: MapFilter_Pattern_PickUpParam
-  */
-  abstract public function pickUp ( MapFilter_Pattern_PickUpParam $param );
-  
-  /**
   * Satisfy certain node and do all necessary work to get (un)satisfied
-  * @cond: Bool
-  * @&asserts: Array
-  * @return: Bool
+  * @param Bool
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
   */
-  protected function setSatisfied ( $cond, Array &$asserts ) {
+  protected function setSatisfied (
+      $cond,
+      MapFilter_Pattern_SatisfyParam $param
+  ) {
   
     $this->satisfied = (Bool) $cond;
   
@@ -143,12 +137,17 @@ abstract class MapFilter_Pattern_Tree_Abstract {
       
       if ( $this->assert !== NULL ) {
       
-        $asserts[] = $this->assert;
+        $param->asserts[] = $this->assert;
       }
 
     /** Satisfied */
     } else {
     
+      if ( $this->flag !== NULL ) {
+      
+        $param->flags[] = $this->flag;
+      }
+      
     }
   
     return $this->satisfied;
@@ -156,7 +155,7 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   
   /**
   * Determine whether the node is satisfied
-  * @return: Bool
+  * @return Bool
   */
   public function isSatisfied () {
   
@@ -165,9 +164,9 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   
   /**
   * Test whether an argument is present in query.
-  * @attrName: String
-  * @query: Array
-  * @returns: Bool
+  * @param String
+  * @param Array
+  * @return Bool
   */
   public static function attrPresent ( $attrName, $query ) {
     
@@ -179,18 +178,22 @@ abstract class MapFilter_Pattern_Tree_Abstract {
   
   /**
   * Enclose string with beginning and end mark to ensure that the string are
-  * completely equal.
+  * completely equal. FORMAT
+  * @var String
   */
   const FILTER_BOUNDARIES = '/^%s$/';
   
-  /** PREG string delimiter */
+  /**
+  * PREG string delimiter
+  * @var String
+  */
   const FILTER_DELIMITER = '/';
   
   /**
   * Test whether a ForValue condition on tree node fits given pattern
-  * @valueCandidate: String
-  * @pattern: String
-  * @return: Bool
+  * @param String
+  * @param String
+  * @return Bool
   */
   protected function valueFits ( $valueCandidate, $pattern ) {
 

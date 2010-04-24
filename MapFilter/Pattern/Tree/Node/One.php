@@ -7,18 +7,18 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/../Node_Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 final class MapFilter_Pattern_Tree_Node_One
-    extends MapFilter_Pattern_Tree_Node_Abstract
+    extends MapFilter_Pattern_Tree_Node
 {
 
   /**
   * Satisfy node if there is one satisfied follower (any further followers
   * mustn't be satisfied in order to pick up just first one of those).
   * Mapping CAN'T continue after finding satisfied follower.
-  * @param: MapFilter_Pattern_SatisfyParam
-  * @return: Bool
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
 
@@ -26,10 +26,10 @@ final class MapFilter_Pattern_Tree_Node_One
       
       if ( $follower->satisfy ( $param ) ) {
 
-        return $this->setSatisfied ( TRUE, $param->asserts );
+        return $this->setSatisfied ( TRUE, $param );
       }
     }
     
-    return $this->setSatisfied ( FALSE, $param->asserts );
+    return $this->setSatisfied ( FALSE, $param );
   }
 }

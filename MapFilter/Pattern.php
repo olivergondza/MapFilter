@@ -7,6 +7,8 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
+require_once ( dirname ( __FILE__ ) . '/Pattern/Exception.php' );
+
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/All.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/Opt.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/One.php' );
@@ -19,21 +21,21 @@ require_once ( dirname ( __FILE__ ) . '/Pattern/PickUpParam.php' );
 
 require_once ( dirname ( __FILE__ ) . '/NotSoSimpleXMLElement.php' );
 
-class MapFilter_Pattern {
+require_once ( dirname ( __FILE__ ) . '/Pattern_Interface.php' );
+
+class MapFilter_Pattern implements MapFilter_Pattern_Interface {
 
   /**
   * Pattern tree itself
-  * @var: MapFilter_Pattern_Tree_Abstract
+  * @var MapFilter_Pattern_Tree
   */
   private $patternTree = NULL;
 
   /**
-  * Create Pattern
-  * $patternTree: MapFilter_Pattern_Tree_Abstract
+  * Create Pattern from Pattern_Tree onbject creating a new copy of it.
+  * $param MapFilter_Pattern_Tree
   */
-  public function __construct (
-      MapFilter_Pattern_Tree_Abstract $patternTree
-  ) {
+  public function __construct ( MapFilter_Pattern_Tree $patternTree ) {
   
     $this->patternTree = clone ( $patternTree );
     return;
@@ -41,21 +43,24 @@ class MapFilter_Pattern {
 
   /**
   * Get Pattern tree
-  * @return: MapFilter_Pattern_Tree_Abstract
+  * @return MapFilter_Pattern_Tree
   */
   public function getTree () {
   
     return $this->patternTree;
   }
 
-  /** Disallow load from file */
+  /**
+  * Disallow load from file
+  * @var Bool
+  */
   const DATA_IS_URL = TRUE;
   const DATA_IS_STRING = FALSE;
 
   /**
   * Simple Factory Method to load data from string
-  * @XMLSpecification: String
-  * @return: MapFilter_Pattern
+  * @param String
+  * @return MapFilter_Pattern
   */
   public static function load ( $XMLSource ) {
     
@@ -71,8 +76,8 @@ class MapFilter_Pattern {
   
   /**
   * Simple factory method to instantiate with loading the data from file
-  * @url: String; URL
-  * @return: MapFilter_Pattern
+  * @param String; URL
+  * @return MapFilter_Pattern
   */
   public static function fromFile ( $url ) {
   
@@ -87,11 +92,21 @@ class MapFilter_Pattern {
   }
   
   /**
+  * LibXml error to MapFilter_Pattern_Exception mapping
+  * @var Array ( LIBXML_ERR_* => MapFilter_Pattern_Exception::LIBXML_* )
+  */
+  private static $errorToException = Array (
+      LIBXML_ERR_WARNING => MapFilter_Pattern_Exception::LIBXML_WARNING,
+      LIBXML_ERR_ERROR => MapFilter_Pattern_Exception::LIBXML_ERROR,
+      LIBXML_ERR_FATAL => MapFilter_Pattern_Exception::LIBXML_FATAL
+  );
+  
+  /**
   * Load Xml source and create XMLElement
-  * @xml: String;
-  * @isUrl: Bool;
-  * @return: NotSoSimpleXMLElement
-  * @throw: MapFilter_Exception
+  * @param String;
+  * @param Bool;
+  * @return NotSoSimpleXMLElement
+  * @throws MapFilter_Pattern_Exception
   */
   private static function loadXML ( $xml, $isUrl ) {
   
@@ -107,26 +122,16 @@ class MapFilter_Pattern {
     /** Try to load and raise proper exception accordingly */
     try {
     
-      $XMLElement = new NotSoSimpleXMLElement (
-          $xml,
-          $options,
-          $isUrl
-      );
+      $XMLElement = new NotSoSimpleXMLElement ( $xml, $options, $isUrl );
+
     } catch ( Exception $exception ) {
     
-      /** Assign special exception for all kinds of libxml errors */
-      $errorToException = Array (
-          LIBXML_ERR_WARNING => MapFilter_Exception::LIBXML_WARNING,
-          LIBXML_ERR_ERROR => MapFilter_Exception::LIBXML_ERROR,
-          LIBXML_ERR_FATAL => MapFilter_Exception::LIBXML_FATAL
-      );
-
       /** Throw first error */
       $error = libxml_get_last_error ();
       libxml_clear_errors ();
 
-      throw new MapFilter_Exception (
-          $errorToException[ $error->level ],
+      throw new MapFilter_Pattern_Exception (
+          self::$errorToException[ $error->level ],
           Array ( $error->message, $error->line, $error->file )
       );
     }
@@ -137,7 +142,10 @@ class MapFilter_Pattern {
     return $XMLElement;
   }
 
-  /*** Allowed XML struct tags */
+  /**
+  * Allowed XML struct tags
+  * @var String
+  */
   const PATTERN = 'pattern';
   
   const NODE_ALL = 'all';
@@ -147,18 +155,20 @@ class MapFilter_Pattern {
   const NODE_ATTR = 'attr';
   const NODE_SOME = 'some';
   
-  /** Allowed XML attributes */
+  /**
+  * Allowed XML attributes
+  * @var String
+  */
   const ATTR_ATTR = 'attr';
   const ATTR_VALUEFILTER = 'forValue';
   const ATTR_DEFAULT = 'default';
   const ATTR_VALUEPATTERN = 'valuePattern';
   const ATTR_FLAG = 'flag';
   const ATTR_ASSERT = 'assert';
-
   
   /**
   * Node name Object type mapping
-  * @var: Array ( TagName => ObjType )
+  * @var Array ( TagName => ObjType )
   */
   private static $tagToNode = Array (
       self::NODE_ALL => 'MapFilter_Pattern_Tree_Node_All',
@@ -171,7 +181,7 @@ class MapFilter_Pattern {
   
   /**
   * Attribute name Object setter mapping
-  * @var: Array ( AttrName => SetterMethod )
+  * @var Array ( AttrName => SetterMethod )
   */
   private static $attrToSetter = Array (
       self::ATTR_ATTR => 'setAttribute',
@@ -184,8 +194,8 @@ class MapFilter_Pattern {
   
   /**
   * Determines whether a tag is valid
-  * @tag: String
-  * @return: Bool
+  * @param String
+  * @return Bool
   */
   private static function isValidTag ( $tag ) {
   
@@ -194,17 +204,17 @@ class MapFilter_Pattern {
   
   /**
   * Throw when there are some leftover attributes
-  * @attributes: Array
-  * @return: Bool
-  * @throw: MapFilter_Exception
+  * @param Array
+  * @param Array
+  * @throws MapFilter_Pattern_Exception::INVALID_PATTERN_ATTRIBUTE
   */
   private static function assertLeftoverAttrs ( $tagName, $attributes ) {
   
     if ( $attributes != Array () ) {
       
       $attrs = array_keys ( $attributes );
-      throw new MapFilter_Exception (
-          MapFilter_Exception::INVALID_PATTERN_ATTRIBUTE,
+      throw new MapFilter_Pattern_Exception (
+          MapFilter_Pattern_Exception::INVALID_PATTERN_ATTRIBUTE,
           Array ( $tagName, $attrs[ 0 ] )
       );
     }
@@ -214,9 +224,9 @@ class MapFilter_Pattern {
   
   /**
   * Obtain and remove attribute from an array of attributes
-  * @&Attributes: Array ()
-  * @Attribute: String
-  * @return: String | FALSE
+  * @param &Array ()
+  * @param String
+  * @return String | FALSE
   */
   private static function getAttribute ( &$attributes, $attribute ) {
   
@@ -234,12 +244,12 @@ class MapFilter_Pattern {
   
   /**
   * Parse serialized pattern tree to its object implementation
-  * @xml: NotSoSimpleXMLElement
-  * @return: MapFilter_Pattern_Tree_Abstract
+  * @param NotSoSimpleXMLElement
+  * @return MapFilter_Pattern_Tree_Abstract
   */
   private static function parse ( NotSoSimpleXMLElement $XML ) {
 
-    /** Parse recursively */
+    /** Parse followers recursively */
     $followers = array_map (
         Array ( __CLASS__, 'parse' ),
         $XML->getChildren ()
@@ -250,8 +260,8 @@ class MapFilter_Pattern {
     /** Validate tag name */
     if ( ! self::isValidTag ( $tagName ) ) {
 
-      throw new MapFilter_Exception (
-          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+      throw new MapFilter_Pattern_Exception (
+          MapFilter_Pattern_Exception::INVALID_PATTERN_ELEMENT,
           Array ( $tagName )
       );
     }
@@ -264,10 +274,10 @@ class MapFilter_Pattern {
       if ( $followers !== Array () ) {
         $node -> setContent ( $followers );
       }
-    } catch ( MapFilter_Exception $exception ) {
+    } catch ( MapFilter_Pattern_Tree_Exception $exception ) {
     
-      throw new MapFilter_Exception (
-          MapFilter_Exception::INVALID_XML_CONTENT, Array ( $tagName )
+      throw new MapFilter_Pattern_Exception (
+          MapFilter_Pattern_Exception::INVALID_XML_CONTENT, Array ( $tagName )
       );
     }
     
@@ -290,10 +300,10 @@ class MapFilter_Pattern {
             Array ( $node, $setter ),
             $attrValue
         );
-      } catch ( MapFilter_Exception $exception ) {
+      } catch ( MapFilter_Pattern_Tree_Exception $exception ) {
         
-        throw new MapFilter_Exception (
-            MapFilter_Exception::INVALID_XML_ATTRIBUTE,
+        throw new MapFilter_Pattern_Exception (
+            MapFilter_Pattern_Exception::INVALID_XML_ATTRIBUTE,
             Array ( $tagName, $attr )
         );
       }
@@ -320,9 +330,9 @@ class MapFilter_Pattern {
   
   /**
   * Unwrap not necessary <pattern> tags from very beginning and end of tree
-  * @XMLElement: NotSoSimpleXMLElement; Tree root
-  * @return: NotSoSimpleXMLElement; New tree root
-  * @throws: MapFilter_Exception
+  * @param NotSoSimpleXMLElement; Tree root
+  * @return NotSoSimpleXMLElement; New tree root
+  * @throws MapFilter_Pattern_Exception
   */
   private static function unwrap ( NotSoSimpleXMLElement $XMLElement ) {
    
@@ -337,8 +347,8 @@ class MapFilter_Pattern {
     /** Unknown tag */
     if ( $tagName !== self::PATTERN ) {
   
-      throw new MapFilter_Exception (
-          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+      throw new MapFilter_Pattern_Exception (
+          MapFilter_Pattern_Exception::INVALID_PATTERN_ELEMENT,
           Array ( $tagName )
       );
     }
@@ -347,8 +357,8 @@ class MapFilter_Pattern {
     $children = $XMLElement->getChildren ();
     if ( count ( $children ) > 1 ) {
       
-      throw new MapFilter_Exception (
-          MapFilter_Exception::TOO_MANY_PATTERNS
+      throw new MapFilter_Pattern_Exception (
+          MapFilter_Pattern_Exception::TOO_MANY_PATTERNS
       );
     }
     
@@ -358,8 +368,8 @@ class MapFilter_Pattern {
   
   /**
   * Satisfy pattern
-  * @param: MapFilter_Pattern_SatisfyParam
-  * @return: Bool
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
@@ -368,14 +378,16 @@ class MapFilter_Pattern {
   
   /**
   * Pick up results
-  * @param: MapFilter_Pattern_PickUpParam
+  * @param MapFilter_Pattern_PickUpParam
   */
   public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
   
     return $this->patternTree->pickUp ( $param );
   }
 
-  /** Clone all tree recursively */
+  /**
+  * Clone pattern tree
+  */
   public function __clone () {
 
     $this->patternTree = clone ( $this->patternTree );

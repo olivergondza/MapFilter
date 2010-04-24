@@ -20,18 +20,6 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
         $filter0,
         $filter1
     );
-
-    if ( !version_compare ( PHP_VERSION, '5.3.0', '>=' ) ) {
-      return;
-    }
-
-    $filter2 = new MapFilter ();
-    $filter2 = $filter2 ( $pattern, $query );
-    
-    self::assertEquals (
-        $filter0,
-        $filter1
-    );
   }
   
   /** Test PatternAttr */

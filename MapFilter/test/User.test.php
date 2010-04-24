@@ -27,10 +27,10 @@ class TestUser extends PHPUnit_Framework_TestCase {
     
     try {
       $pattern = MapFilter_Pattern::load ( "<lantern></lantern>" );
-    } catch ( MapFilter_Exception $exception ) {
+    } catch ( MapFilter_Pattern_Exception $exception ) {
       
       self::assertEquals (
-          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+          MapFilter_Pattern_Exception::INVALID_PATTERN_ELEMENT,
           $exception->getCode ()
       );
     }
@@ -41,10 +41,10 @@ class TestUser extends PHPUnit_Framework_TestCase {
   
     try {
       $pattern = MapFilter_Pattern::load ( "<pattern><wrongnode></wrongnode></pattern>" );
-    } catch ( MapFilter_Exception $exception ) {
+    } catch ( MapFilter_Pattern_Exception $exception ) {
       
       self::assertEquals (
-          MapFilter_Exception::INVALID_PATTERN_ELEMENT,
+          MapFilter_Pattern_Exception::INVALID_PATTERN_ELEMENT,
           $exception->getCode ()
       );
     }
@@ -55,10 +55,10 @@ class TestUser extends PHPUnit_Framework_TestCase {
   
     try {
       $pattern = MapFilter_Pattern::load ( "<pattern><opt></opt><all></all></pattern>" );
-    } catch ( MapFilter_Exception $exception ) {
+    } catch ( MapFilter_Pattern_Exception $exception ) {
       
       self::assertEquals (
-          MapFilter_Exception::TOO_MANY_PATTERNS,
+          MapFilter_Pattern_Exception::TOO_MANY_PATTERNS,
           $exception->getCode ()
       );
     }
@@ -77,10 +77,10 @@ class TestUser extends PHPUnit_Framework_TestCase {
   
     try {
       $filter = new MapFilter ( MapFilter_Pattern::load ( $pattern ) );
-    } catch ( MapFilter_Exception $exception ) {
+    } catch ( MapFilter_Pattern_Exception $exception ) {
 
       self::assertEquals (
-          MapFilter_Exception::INVALID_PATTERN_ATTRIBUTE,
+          MapFilter_Pattern_Exception::INVALID_PATTERN_ATTRIBUTE,
           $exception->getCode ()
       );
     }
@@ -259,6 +259,12 @@ class TestUser extends PHPUnit_Framework_TestCase {
             Array (),
             Array (),
             Array ( 'no_password' )
+        ),
+        Array (
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes", 'remember' => "yes" ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
+            Array ( 'login' ),
+            Array ( 'no_remember_method' )
         )
     );
   }
@@ -269,6 +275,9 @@ class TestUser extends PHPUnit_Framework_TestCase {
   */
   public static function testParseLogin ( $query, $result, $flags, $asserts ) {
   
+    sort ( $flags );
+    sort ( $asserts );
+  
     $filter = new MapFilter (
         MapFilter_Pattern::fromFile ( Test_Source::LOGIN )
     );
@@ -276,19 +285,25 @@ class TestUser extends PHPUnit_Framework_TestCase {
     /** Test Empty */
     $filter->setQuery ( $query );
 
+    $fResult = $filter->parse ();
+    $fFlags = $filter->getFlags ();
+    $fAsserts = $filter->getAsserts ();
+    sort ( $fFlags );
+    sort ( $fAsserts );
+
     self::assertEquals (
         $result,
-        $filter->parse () 
+        $fResult
     );
 
     self::assertEquals (
         $flags,
-        $filter->getFlags ()
+        $fFlags
     );
 
     self::assertEquals (
         $asserts,
-        $filter->getAsserts ()
+        $fAsserts
     );
   }
   
@@ -517,6 +532,102 @@ class TestUser extends PHPUnit_Framework_TestCase {
     self::assertEquals (
         $result,
         $filter -> parse ()
+    );
+  }
+  
+  public static function provideDuration () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array (),
+            Array (),
+            Array ( 'no_beginning_time', 'no_start_hour' )
+        ),
+        Array (
+            Array ( 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0 ),
+            Array (),
+            Array (),
+            Array ( 'no_duration_hour', 'no_end_hour', 'no_termination_time' )
+        ),
+        Array (
+            Array ( 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 'now' ),
+            Array (),
+            Array (),
+            Array ( 'no_beginning_time', 'no_start_second' )
+        ),
+        Array (
+            Array (
+                'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
+                'end_hour' => 1, 'end_minute' => 59, 'end_second' => 59,
+            ),
+            Array (
+                'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
+                'end_hour' => 1, 'end_minute' => 59, 'end_second' => 59,
+            ),
+            Array ( 'duration', 'ending_time' ),
+            Array ()
+        ),
+        Array (
+            Array (
+                'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
+                'duration_hour' => 1, 'duration_minute' => 59, 'duration_second' => 59,
+            ),
+            Array (
+                'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
+                'duration_hour' => 1, 'duration_minute' => 59, 'duration_second' => 59,
+            ),
+            Array ( 'duration', 'duration_time' ),
+            Array ( 'no_end_hour' )
+        ),
+        Array (
+            Array ( 'start_hour' => -1 ),
+            Array (),
+            Array (),
+            Array ( 'no_beginning_time', 'no_start_hour' )
+        ),
+        Array (
+            Array ( 'start_hour' => 0, 'start_minute' => 60 ),
+            Array (),
+            Array (),
+            Array ( 'no_beginning_time', 'no_start_minute' )
+        )
+    );
+  }
+  
+  /**
+  * @dataProvider provideDuration
+  */
+  public static function testDuration ( $query, $result, $flags, $asserts ) {
+  
+    sort ( $flags );
+    sort ( $asserts );
+  
+    $filter = new MapFilter (
+        MapFilter_Pattern::fromFile ( Test_Source::DURATION ),
+        $query
+    );
+    
+    $filter->parse ();
+    
+    $fFlags = $filter->getFlags ();
+    $fAsserts = $filter->getAsserts ();
+    sort ( $fFlags );
+    sort ( $fAsserts );
+
+    self::assertEquals (
+        $result,
+        $filter->getResults ()
+    );
+    
+    self::assertEquals (
+        $flags,
+        $fFlags
+    );
+    
+    self::assertEquals (
+        $asserts,
+        $fAsserts
     );
   }
 }

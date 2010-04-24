@@ -10,6 +10,8 @@
   <filter>
     <whitelist>
       <directory suffix=".php">../..</directory>
+      <directory suffix=".php">../Pattern</directory>
+      <directory suffix=".php">../ParameterObject</directory>
       <exclude>
         <directory>.</directory>
         <file>../PureException.php</file>

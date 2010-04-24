@@ -10,38 +10,41 @@
 
 class PureException extends Exception {
 
-  /** Message format callback */
+  /**
+  * Message format callback
+  * @var String
+  */
   const MESSAGE_FORMAT = 'sprintf';
 
   /**
   * Exception message
-  * @var: String
+  * @var String
   */
   protected $message = "";
   
   /**
   * Exception code
-  * @var: Int
+  * @var Int
   */
   protected $code = 0;
   
   /**
   * Exception args
-  * @var: Array ( Mixed )
+  * @var Array ( Mixed )
   */
   protected $args = Array ();
 
   /**
   * Message format strings
-  * @var: Array ( String )
+  * @var Array ( String )
   */
   protected $messages = Array ();
 
   /**
   * Create exception from @code and @args from predefined exceptions
   * and their messages
-  * @code: Int; ! use constants !
-  * @args: Array ( Mixed ); Array of args to format output string
+  * @param Int
+  * @param Array ( Mixed )
   */
   public function __construct ( $code, $args = Array () ) {
 
@@ -55,9 +58,9 @@ class PureException extends Exception {
 
   /**
   * Get formatted message
-  * @code: Int; ! use constants !
-  * @args: Array ( Mixed ); Array of args to format output string
-  * @return: String; Formatted message
+  * @param Int
+  * @param Array ( Mixed )
+  * @return String
   */
   protected function formatMessage ( $code, $args ) {
 
@@ -76,7 +79,7 @@ class PureException extends Exception {
   
   /**
   * Rethrow the same exception
-  * @throws: my exception
+  * @throws self
   */
   public function rethrow () {
     
@@ -89,7 +92,7 @@ class PureException extends Exception {
   
   /**
   * Get just message without trace when typecast to string
-  * @return: String
+  * @return String
   */
   public function __toString () {
 

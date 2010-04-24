@@ -7,17 +7,23 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/../Node_Abstract.php' );
+require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 final class MapFilter_Pattern_Tree_Node_Some
-    extends MapFilter_Pattern_Tree_Node_Abstract
+    extends MapFilter_Pattern_Tree_Node
 {
+
+  /**
+  * Compare strictly
+  * @var Bool
+  */
+  const STRICT_COMPARISON = TRUE;
 
   /**
   * Satisfy node when there is at least one satisfied follower.
   * Thus satisfy MUST be mapped on ALL followers.
-  * @param: MapFilter_Pattern_SatisfyParam
-  * @return: Bool
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
 
@@ -30,9 +36,9 @@ final class MapFilter_Pattern_Tree_Node_Some
     $satisfied = in_array (
         TRUE,
         $satisfiedFollowers,
-        TRUE /** Compare strictly */
+        self::STRICT_COMPARISON
     );
     
-    return $this->setSatisfied ( $satisfied, $param->asserts );
+    return $this->setSatisfied ( $satisfied, $param );
   }
 }

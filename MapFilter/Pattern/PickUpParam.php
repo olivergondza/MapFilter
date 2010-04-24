@@ -7,21 +7,15 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/ParameterObject.php' );
+require_once ( dirname ( __FILE__ ) . '/../ParameterObject.php' );
 
 final class MapFilter_Pattern_PickUpParam
-    extends MapFilter_Pattern_ParameterObject
+    extends MapFilter_ParameterObject
 {
 
   /**
-  * Flags
-  * @var: Array ()
+  * Out parameter for parsing results.
+  * @var Array ( Attribute => Value )
   */
-  public $flags = Array ();
-  
-  /**
-  * Data
-  * @var: Array ()
-  */
-  public $data = Array ();
+  public $data;
 }

@@ -7,21 +7,27 @@
 * License: GNU GPLv3
 * Copyright: 2009-2010 Oliver Gondža
 */
-require_once ( dirname ( __FILE__ ) . '/ParameterObject.php' );
+require_once ( dirname ( __FILE__ ) . '/../ParameterObject.php' );
 
 final class MapFilter_Pattern_SatisfyParam
-    extends MapFilter_Pattern_ParameterObject
+    extends MapFilter_ParameterObject
 {
 
   /**
-  * Query
-  * @var: Array ()
+  * In. User query
+  * @var Array ( Attribute => Value )
   */
-  public $query = Array ();
+  public $query;
   
   /**
-  * Assertions
-  * @var: Array ()
+  * Out. Parsing asserts
+  * @var Array ( String )
   */
-  public $asserts = Array ();
+  public $asserts;
+  
+  /**
+  * Out. Parsing flags
+  * @var Array ( String )
+  */
+  public $flags;
 }
