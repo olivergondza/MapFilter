@@ -6,6 +6,30 @@ require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
 
 class TestMapFilter extends PHPUnit_Framework_TestCase {
   
+  /** Test whether a fetch get deprecated error */
+  public static function testDeprecated () {
+  
+    $filter = new MapFilter ();
+    @$filter->fetch ();
+    
+    $error = error_get_last ();
+    
+    self::assertEquals (
+        'MapFilter::fetch () is deprecated. Use MapFilter::getResults () instead.',
+        $error[ 'message' ]
+    );
+    
+    $level =  ( defined ( 'E_USER_DEPRECATED' ) )
+        ? E_USER_DEPRECATED
+        : E_USER_NOTICE
+    ;
+
+    self::assertEquals (
+        $level,
+        $error[ 'type' ]
+    );
+  }
+  
   /** Test invoke , Class Invocation available since PHP 5.3.0 */
   public static function testInvocation () {
   

@@ -138,6 +138,18 @@ class MapFilter implements MapFilter_Interface {
   */
   public function fetch () {
   
+    $level = ( defined ( 'E_USER_DEPRECATED' ) )
+        ? E_USER_DEPRECATED
+        : E_USER_NOTICE
+    ;
+
+    $message = sprintf (
+        '%s::%s () is deprecated. Use %s::getResults () instead.',
+        __CLASS__, __FUNCTION__, __CLASS__
+    );
+  
+    trigger_error ( $message, $level );
+  
     return $this->getResults ();
   }
   
