@@ -2,14 +2,19 @@
 /**
 * Abstract Parameter Object
 *
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
-*
+* @author Oliver Gondža
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
+*/
+
+/**
+* Include exception class
 */
 require_once ( dirname ( __FILE__ ) . '/ParameterObject/Exception.php' );
 
+/**
+* ParameterObject
+*/
 class MapFilter_ParameterObject {
 
   /**
@@ -77,7 +82,7 @@ class MapFilter_ParameterObject {
   /**
   * Set property value. Provide fluent interface
   * @param String
-  * @param: Array ( String => Mixed )
+  * @param Array ( String => Mixed )
   * @throws MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
   * @return Mixed
   */

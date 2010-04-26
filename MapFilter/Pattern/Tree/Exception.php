@@ -2,14 +2,21 @@
 /**
 * Class for exceptions raised by the MapFilter_Pattern_Tree.
 *
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
+* @author Oliver Gondža
+* @link http://github.com/olivergondza/MapFilter
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
+* @package MapFilter
 */
 
+/**
+* Include ecxception class
+*/
 require_once ( dirname ( __FILE__ ) . '/../../PureException.php' );
 
+/**
+* @package MapFilter
+*/
 class MapFilter_Pattern_Tree_Exception extends PureException {
 
   /** Exception code constants */

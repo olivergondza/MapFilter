@@ -4,6 +4,30 @@ README
 What is MapFilter?
 ------------------
 
-MapFilter is powerful tool to filter associative arrays (maps or hash tables) in PHP5.
+MapFilter is powerful tool to filter associative arrays (maps or hash tables) 
+in PHP5.
 
-MapFilter enables to enforce relations between groups of data Keys or/and allowed Values and depending Keys from simple Key-based whitelisting to more complex structures.
+MapFilter enables to enforce relations between groups of data Keys 
+or/and allowed Values and depending Keys from simple Key-based whitelisting 
+to more complex structures.
+
+
+Reference Manual
+----------------
+
+MapFilter uses phpDocumentor utility to dynamically create reference
+documentation. There are two different initialization files to generate both
+user and programmer documentation.
+
+Use:
+
+phpdoc -c ./phpdoc_user.ini
+
+    To generate UserDocumentation/
+
+phpdoc -c ./phpdoc_programmer.ini
+
+    To generate ProgrammerDocumentation/
+
+More complex documentation can be found at
+http://wiki.github.com/olivergondza/MapFilter/.

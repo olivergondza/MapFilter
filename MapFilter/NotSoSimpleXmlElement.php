@@ -1,13 +1,16 @@
 <?php
 /**
-* SimpleXMLElement wrapper providing some additional functionality
+* SimpleXmlElement wrapper providing some additional functionality
 * 
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
+* @author Oliver Gondža
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
 */
-class NotSoSimpleXMLElement extends SimpleXMLElement {
+
+/**
+* Simple XmlElement extension
+*/
+class NotSoSimpleXmlElement extends SimpleXMLElement {
 
   /**
   * Obtain all children of an elements

@@ -2,14 +2,27 @@
 /**
 * Class to filter associative arrays
 * 
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
+* @author Oliver Gondža
+* @link http://github.com/olivergondza/MapFilter
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
+* @package MapFilter
+*/
+
+/**
+* Include pattern class
 */
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern.php' );
+
+/**
+* Include class interface
+*/
 require_once ( dirname ( __FILE__ ) . '/MapFilter_Interface.php' );
 
+/**
+* Class to filter associative arrays
+* @package MapFilter
+*/
 class MapFilter implements MapFilter_Interface {
   
   /**
@@ -20,32 +33,34 @@ class MapFilter implements MapFilter_Interface {
 
   /**
   * Read data / Query candidate
-  * @var Array ( attrCandidate => valueCandidate )
+  * @var Array
   */
   private $query = Array ();
   
   /**
   * Validated data
-  * @var Array ( attr => value )
+  * @var Array
   */
   private $results = Array ();
   
   /**
   * Validation asserts
-  * @var Array ( String )
+  * @var Array
   */
   private $asserts = Array ();
   
   /**
   * Validation flags
-  * @var Array ( String )
+  * @var Array
   */
   private $flags = Array ();
   
   /**
-  * Instantiate and do all the stuff
+  * Create new filter instance. If are pattern and query sat trigger parsing
+  * procedure.
+  * @see setPattern, setQuery, parse, MapFilter_Pattern
   * @param MapFilter_Pattern
-  * @param Array; Input query to parse
+  * @param Array $query A query to filter.
   */
   public function __construct (
       MapFilter_Pattern $pattern = NULL,
@@ -66,7 +81,9 @@ class MapFilter implements MapFilter_Interface {
 
   /**
   * Fluent Method that sets desired query pattern
+  * @see __construct
   * @param MapFilter_Pattern
+  * @return MapFilter Instance of MapFilter with new pattern
   */
   public function setPattern ( MapFilter_Pattern $pattern ) {
 
@@ -76,7 +93,9 @@ class MapFilter implements MapFilter_Interface {
   
   /**
   * Fluent Method that sets query to filter
+  * @see __construct
   * @param Array
+  * @return MapFilter Instance of MapFilter with new query
   */
   public function setQuery ( Array $query ) {
   
@@ -87,7 +106,8 @@ class MapFilter implements MapFilter_Interface {
   /**
   * Resolve tree dependencies, filter, pick up the results and return filtered
   * query.
-  * @return Array
+  * @see __construct, getResults
+  * @return Array Parsing results
   */
   public function parse () {
   
@@ -124,8 +144,9 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-  * Export parsed structure
-  * @return Array ( Attr => Value )
+  * Get parsed query from latest parsing process.
+  * @see parse
+  * @return Array () Parsing results
   */
   public function getResults () {
 
@@ -133,8 +154,10 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-  * alias for getResults (). Just here for maintain backward compatibility
-  * @return Array ( Attr => Value )
+  * Alias for getResults (). Just here for maintain backward compatibility
+  * @deprecated since 0.2
+  * @see getResults
+  * @return Array ()
   */
   public function fetch () {
   
@@ -154,8 +177,9 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-  * Get validation asserts.
-  * @return Array ( String )
+  * Get validation assertions from latest parsing process.
+  * @see parse
+  * @return Array () Parsing asserts
   */
   public function getAsserts () {
   
@@ -163,8 +187,9 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-  * Get sat flags.
-  * @return Array ( String )
+  * Get flags sat during latest parsing process.
+  * @see parse
+  * @return Array () Parsing flags
   */
   public function getFlags () {
   

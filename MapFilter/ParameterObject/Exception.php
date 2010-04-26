@@ -1,11 +1,16 @@
 <?php
 /**
-* Abstract Parameter Object
+* Parameter Object Exceptions
 *
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
+* @author Oliver Gondža
+* @link http://github.com/olivergondza/MapFilter
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
+* @package MapFilter
+*/
+
+/**
+* @package MapFilter
 */
 class MapFilter_ParameterObject_Exception extends PureException {
 

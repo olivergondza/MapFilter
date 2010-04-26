@@ -2,14 +2,26 @@
 /**
 * Abstract Pattern node; Ancestor of all pattern nodes
 *
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
+* @author Oliver Gondža
+* @link http://github.com/olivergondza/MapFilter
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
+* @package MapFilter
+*/
+
+/**
+* Include class exception
 */
 require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
+
+/**
+* Include class interface
+*/
 require_once ( dirname ( __FILE__ ) . '/Tree_Interface.php' );
 
+/**
+* @package MapFilter
+*/
 abstract class MapFilter_Pattern_Tree
     implements MapFilter_Pattern_Tree_Interface
 {

@@ -1,5 +1,7 @@
 <?php
 
+error_reporting ( E_ALL | E_STRICT );
+
 class Test_Source {
   const LOCATION = 'location.xml';
   const LOGIN = 'login.xml';

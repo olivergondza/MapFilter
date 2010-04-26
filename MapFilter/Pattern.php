@@ -1,28 +1,51 @@
 <?php
 /**
-* Data type to load and hold Pattern tree
+* Class to load and hold Pattern tree
 *
-* Author: Oliver Gondža
-* E-mail: 324706(at)mail.muni.cz
-* License: GNU GPLv3
-* Copyright: 2009-2010 Oliver Gondža
+* @author Oliver Gondža
+* @link http://github.com/olivergondza/MapFilter
+* @license GNU GPLv3
+* @copyright 2009-2010 Oliver Gondža
+* @package MapFilter
 */
-require_once ( dirname ( __FILE__ ) . '/Pattern/Exception.php' );
 
+/**#@+
+* Include tree node
+*/
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/All.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/Opt.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/One.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/Some.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Node/KeyAttr.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/Tree/Leaf/Attr.php' );
+/**#@-*/
 
+/**#@+
+* Include ParameterObject
+*/
 require_once ( dirname ( __FILE__ ) . '/Pattern/SatisfyParam.php' );
 require_once ( dirname ( __FILE__ ) . '/Pattern/PickUpParam.php' );
+/**#@-*/
 
-require_once ( dirname ( __FILE__ ) . '/NotSoSimpleXMLElement.php' );
+/**
+* Include NotSoSimpleXmlElement
+*/
+require_once ( dirname ( __FILE__ ) . '/NotSoSimpleXmlElement.php' );
 
+/**
+* Include class exception
+*/
+require_once ( dirname ( __FILE__ ) . '/Pattern/Exception.php' );
+
+/**
+* Include class interface
+*/
 require_once ( dirname ( __FILE__ ) . '/Pattern_Interface.php' );
 
+/**
+* Class to load and hold Pattern tree
+* @package MapFilter
+*/
 class MapFilter_Pattern implements MapFilter_Pattern_Interface {
 
   /**
@@ -32,8 +55,10 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   private $patternTree = NULL;
 
   /**
-  * Create Pattern from Pattern_Tree onbject creating a new copy of it.
-  * $param MapFilter_Pattern_Tree
+  * Create Pattern from Pattern_Tree object creating a new copy of it.
+  * @see load fromFile
+  * @param MapFilter_Pattern_Tree A pattern tree to use
+  * @return MapFilter_Pattern Created Pattern
   */
   public function __construct ( MapFilter_Pattern_Tree $patternTree ) {
   
@@ -43,7 +68,7 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
 
   /**
   * Get Pattern tree
-  * @return MapFilter_Pattern_Tree
+  * @return MapFilter_Pattern_Tree Internal pattern tree
   */
   public function getTree () {
   
@@ -51,49 +76,85 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   }
 
   /**
-  * Disallow load from file
+  * Load from file
   * @var Bool
   */
   const DATA_IS_URL = TRUE;
+  
+  /**
+  * Load from string
+  * @var Bool
+  */
   const DATA_IS_STRING = FALSE;
 
   /**
   * Simple Factory Method to load data from string
-  * @param String
-  * @return MapFilter_Pattern
+  * @see fromFile, __construct
+  * @param String XML pattern string
+  * @return MapFilter_Pattern Pattern created from $XmlSource string
   */
-  public static function load ( $XMLSource ) {
+  public static function load ( $XmlSource ) {
     
-    $XMLElement = self::loadXML (
-        $XMLSource,
+    $XmlElement = self::loadXML (
+        $XmlSource,
         self::DATA_IS_STRING
     );
     
     return new MapFilter_Pattern (
-        self::parse ( $XMLElement )
+        self::parse ( $XmlElement )
     );
   }
   
   /**
   * Simple factory method to instantiate with loading the data from file
-  * @param String; URL
-  * @return MapFilter_Pattern
+  * @see load, __construct
+  * @param String XML pattern file
+  * @return MapFilter_Pattern Pattern created from $url file
   */
   public static function fromFile ( $url ) {
   
-    $XMLElement = self::loadXML (
+    $XmlElement = self::loadXML (
         $url,
         self::DATA_IS_URL
     );
     
     return new MapFilter_Pattern (
-        self::parse ( $XMLElement )
+        self::parse ( $XmlElement )
     );
   }
   
   /**
+  * Satisfy pattern
+  * @param MapFilter_Pattern_SatisfyParam
+  * @return Bool
+  */
+  public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
+  
+    return $this->patternTree->satisfy ( $param );
+  }
+  
+  /**
+  * Pick up results
+  * @param MapFilter_Pattern_PickUpParam
+  */
+  public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
+  
+    return $this->patternTree->pickUp ( $param );
+  }
+
+  /**
+  * Clone pattern tree recursively.
+  */
+  public function __clone () {
+
+    $this->patternTree = clone ( $this->patternTree );
+
+    return;
+  }
+  
+  /**
   * LibXml error to MapFilter_Pattern_Exception mapping
-  * @var Array ( LIBXML_ERR_* => MapFilter_Pattern_Exception::LIBXML_* )
+  * @var Array ()
   */
   private static $errorToException = Array (
       LIBXML_ERR_WARNING => MapFilter_Pattern_Exception::LIBXML_WARNING,
@@ -102,10 +163,10 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   );
   
   /**
-  * Load Xml source and create XMLElement
-  * @param String;
-  * @param Bool;
-  * @return NotSoSimpleXMLElement
+  * Load Xml source and create XmlElement
+  * @param String
+  * @param Bool
+  * @return NotSoSimpleXmlElement
   * @throws MapFilter_Pattern_Exception
   */
   private static function loadXML ( $xml, $isUrl ) {
@@ -114,7 +175,7 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
     libxml_use_internal_errors ( TRUE );
     
     /**
-    * Options used for XML deserialization by NotSoSimpleXMLElement
+    * Options used for XML deserialization by NotSoSimpleXmlElement
     * Use compact data allocation | remove blank nodes | translate HTML entities
     */
     $options = LIBXML_COMPACT & LIBXML_NOBLANKS & LIBXML_NOENT;
@@ -122,7 +183,7 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
     /** Try to load and raise proper exception accordingly */
     try {
     
-      $XMLElement = new NotSoSimpleXMLElement ( $xml, $options, $isUrl );
+      $XmlElement = new NotSoSimpleXmlElement ( $xml, $options, $isUrl );
 
     } catch ( Exception $exception ) {
     
@@ -137,13 +198,13 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
     }
 
     /** Sanitize pattern tag */
-    $XMLElement = self::unwrap ( $XMLElement );
+    $XmlElement = self::unwrap ( $XmlElement );
     
-    return $XMLElement;
+    return $XmlElement;
   }
 
-  /**
-  * Allowed XML struct tags
+  /**#@+
+  * Valid XML structure tag
   * @var String
   */
   const PATTERN = 'pattern';
@@ -154,9 +215,10 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   const NODE_KEYATTR = 'key_attr';
   const NODE_ATTR = 'attr';
   const NODE_SOME = 'some';
+  /**#@-*/
   
-  /**
-  * Allowed XML attributes
+  /**#@+
+  * Valid XML attribute
   * @var String
   */
   const ATTR_ATTR = 'attr';
@@ -165,10 +227,11 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   const ATTR_VALUEPATTERN = 'valuePattern';
   const ATTR_FLAG = 'flag';
   const ATTR_ASSERT = 'assert';
+  /**#@-*/
   
   /**
   * Node name Object type mapping
-  * @var Array ( TagName => ObjType )
+  * @var Array ()
   */
   private static $tagToNode = Array (
       self::NODE_ALL => 'MapFilter_Pattern_Tree_Node_All',
@@ -181,7 +244,7 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   
   /**
   * Attribute name Object setter mapping
-  * @var Array ( AttrName => SetterMethod )
+  * @var Array ()
   */
   private static $attrToSetter = Array (
       self::ATTR_ATTR => 'setAttribute',
@@ -244,10 +307,10 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   
   /**
   * Parse serialized pattern tree to its object implementation
-  * @param NotSoSimpleXMLElement
+  * @param NotSoSimpleXmlElement
   * @return MapFilter_Pattern_Tree_Abstract
   */
-  private static function parse ( NotSoSimpleXMLElement $XML ) {
+  private static function parse ( NotSoSimpleXmlElement $XML ) {
 
     /** Parse followers recursively */
     $followers = array_map (
@@ -330,18 +393,18 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   
   /**
   * Unwrap not necessary <pattern> tags from very beginning and end of tree
-  * @param NotSoSimpleXMLElement; Tree root
-  * @return NotSoSimpleXMLElement; New tree root
+  * @param NotSoSimpleXmlElement
+  * @return NotSoSimpleXmlElement
   * @throws MapFilter_Pattern_Exception
   */
-  private static function unwrap ( NotSoSimpleXMLElement $XMLElement ) {
+  private static function unwrap ( NotSoSimpleXmlElement $XmlElement ) {
    
-    $tagName = $XMLElement->getName ();
+    $tagName = $XmlElement->getName ();
    
     /** Tree is not wrapped */
     if ( self::isValidTag ( $tagName ) ) {
 
-      return $XMLElement;
+      return $XmlElement;
     }
 
     /** Unknown tag */
@@ -354,7 +417,7 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
     }
 
     /** Too many followers for pattern tag */
-    $children = $XMLElement->getChildren ();
+    $children = $XmlElement->getChildren ();
     if ( count ( $children ) > 1 ) {
       
       throw new MapFilter_Pattern_Exception (
@@ -363,36 +426,6 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
     }
     
     /** Unwrap */
-    return $XMLElement->children ();
+    return $XmlElement->children ();
   }
-  
-  /**
-  * Satisfy pattern
-  * @param MapFilter_Pattern_SatisfyParam
-  * @return Bool
-  */
-  public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
-  
-    return $this->patternTree->satisfy ( $param );
-  }
-  
-  /**
-  * Pick up results
-  * @param MapFilter_Pattern_PickUpParam
-  */
-  public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
-  
-    return $this->patternTree->pickUp ( $param );
-  }
-
-  /**
-  * Clone pattern tree
-  */
-  public function __clone () {
-
-    $this->patternTree = clone ( $this->patternTree );
-
-    return;
-  }
-  
 }
