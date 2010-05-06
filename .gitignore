@@ -1,0 +1,4 @@
+# Ignore generated documentation
+*user/documentation*
+# Ignore code coverage results
+*Coverage

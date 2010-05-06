@@ -2,7 +2,7 @@
 /**
 * Require tested class
 */
-require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
+require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
 
 class TestMapFilter extends PHPUnit_Framework_TestCase {
   
@@ -30,21 +30,38 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     );
   }
   
-  /** Test invoke , Class Invocation available since PHP 5.3.0 */
+  /**@{*/
+  /** Test invoke */
   public static function testInvocation () {
   
-    $pattern = MapFilter_Pattern::load ( '<pattern><some><attr attr="attr0" /><attr>attr1</attr></some></pattern>' );
+    $pattern = MapFilter_Pattern::load (
+        '<pattern><some><attr>attr0</attr><attr>attr1</attr></some></pattern>'
+    );
+    
     $query = Array ( 'attr0' => 'value', 'attr1' => 'value' );
 
+    // Configure filter using constructor.
     $filter0 = new MapFilter ( $pattern, $query );
+    
+    // Create empty filter and configure it using fluent methods.
     $filter1 = new MapFilter ();
-    $filter1 -> setPattern ( $pattern ) -> setQuery ( $query ) -> parse ();
+    $filter1 -> setPattern ( $pattern ) -> setQuery ( $query );
+
+    // Optional combination of both can be used as well
+    $filter2 = new MapFilter ( $pattern );
+    $filter2 -> setQuery ( $query );
 
     self::assertEquals (
         $filter0,
         $filter1
     );
+    
+    self::assertEquals (
+        $filter0,
+        $filter2
+    );
   }
+  /**@}*/
   
   /** Test PatternAttr */
   public static function testAttr () {
@@ -64,7 +81,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
         $query,
-        $filter->parse ()
+        $filter->getResults ()
     );
   }
   
@@ -98,7 +115,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $accurate,
-      $filter->parse ()
+      $filter->getResults ()
     );
 
     /** Test accurate */
@@ -106,7 +123,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $accurate,
-      $filter->parse ()
+      $filter->getResults ()
     );
 
     /** Test error */
@@ -114,7 +131,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       Array (),
-      $filter->parse ()
+      $filter->getResults ()
     );
   }
   
@@ -147,7 +164,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $accurate,
-      $filter->parse ()
+      $filter->getResults ()
     );
 
     /** Test choose */
@@ -155,7 +172,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $accurate,
-      $filter->parse ()
+      $filter->getResults ()
     );
     
     /** Test trim */
@@ -163,7 +180,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $accurate,
-      $filter->parse ()
+      $filter->getResults ()
     );
   }
   
@@ -197,7 +214,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $all,
-      $filter->parse ()
+      $filter->getResults ()
     );
 
     /** Test accurate */
@@ -205,7 +222,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $one,
-      $filter->parse ()
+      $filter->getResults ()
     );
 
     /** Test All */
@@ -213,7 +230,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $all,
-      $filter->parse ()
+      $filter->getResults ()
     );
     
     /** Test nothing */
@@ -221,7 +238,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
       $nothing,
-      $filter->parse ()
+      $filter->getResults ()
     );
   }
   
@@ -279,7 +296,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults ()
     );
   }
 }

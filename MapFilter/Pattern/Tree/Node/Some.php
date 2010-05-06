@@ -2,36 +2,37 @@
 /**
 * Some Pattern node
 *
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	MapFilter
+* @since	0.3
 */
 
 /**
-* Include abstract class
+* @file		MapFilter/Pattern/Tree/Node.php
 */
 require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 /**
-* @package MapFilter
+* MapFilter pattern tree some node
+*
+* @class	MapFilter_Pattern_Tree_Node_Some
+* @package	MapFilter
+* @since	0.3
 */
 final class MapFilter_Pattern_Tree_Node_Some
     extends MapFilter_Pattern_Tree_Node
 {
 
   /**
-  * Compare strictly
-  * @var Bool
-  */
-  const STRICT_COMPARISON = TRUE;
-
-  /**
+  * @copybrief		MapFilter_Pattern_Tree_Interface::satisfy
+  *
   * Satisfy node when there is at least one satisfied follower.
   * Thus satisfy MUST be mapped on ALL followers.
-  * @param MapFilter_Pattern_SatisfyParam
-  * @return Bool
+  *
+  * @copydetails		MapFilter_Pattern_Tree_Interface::satisfy
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
 
@@ -43,8 +44,7 @@ final class MapFilter_Pattern_Tree_Node_Some
     
     $satisfied = in_array (
         TRUE,
-        $satisfiedFollowers,
-        self::STRICT_COMPARISON
+        $satisfiedFollowers
     );
     
     return $this->setSatisfied ( $satisfied, $param );

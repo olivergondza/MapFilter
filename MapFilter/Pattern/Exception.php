@@ -2,45 +2,91 @@
 /**
 * Class for exceptions raised by the MapFilter package.
 *
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	MapFilter
+* @since	0.4
 */
 
 /**
-* Include Exception class
+* @file		3rdParty/PureException.php
 */
-require_once ( dirname ( __FILE__ ) . '/../PureException.php' );
+require_once ( dirname ( __FILE__ ) . '/../../3rdParty/PureException.php' );
 
 /**
-* @package MapFilter
+* MapFilter_Pattern Exceptions
+*
+* @class	MapFilter_Pattern_Exception
+* @package	MapFilter
+* @since	0.4
 */
 class MapFilter_Pattern_Exception extends PureException {
 
-  /** Exception code constants */
-
-  /** Invalid pattern element occurred */
+  /**
+  * Invalid pattern element occurred.
+  *
+  * @since	0.4
+  *
+  * An invalid pattern tag used.
+  */
   const INVALID_PATTERN_ELEMENT = 1;
   
-  /** More than one pattern specification in the XML */
+  /**
+  * More than one pattern specified in the XML.
+  *
+  * @since	0.4
+  *
+  * A pattern tree must have exactly one follower whether an optional
+  * \<pattern\> tag is used or not.
+  */
   const TOO_MANY_PATTERNS = 2;
   
-  /** No such attribute with this type of node */
+  /**
+  * No such attribute with this type of node.
+  *
+  * @since	0.4
+  * 
+  * Invalid pattern attribute used.
+  */
   const INVALID_PATTERN_ATTRIBUTE = 3;
   
-  /** libXML cannot parse source */
+  /**
+  * LibXML internal error
+  *
+  * libXML cannot parse source
+  * @{
+  */
   const LIBXML_WARNING = 6;
   const LIBXML_ERROR = 7;
   const LIBXML_FATAL = 8;
+  /**@}*/
   
-  /** Valid attributes passed to invalid tags */
+  /**
+  * Invalid xml attribute used.
+  *
+  * Invalid attribute passed to the tag.
+  */
   const INVALID_XML_ATTRIBUTE = 9;
   
-  /** Content in tags that has none */
+  /**
+  * Invalid tag content.
+  *
+  * A pattern tree leaf has some content specified.
+  */
   const INVALID_XML_CONTENT = 10;
   
+  /**
+  * Missing attribute value.
+  *
+  * An attribute tag has no attr value specified.
+  */
+  const MISSING_ATTRIBUTE_VALUE = 11;
+  
+  /**
+  * Exception messages
+  */
   protected $messages = Array (
       self::INVALID_PATTERN_ELEMENT => "Invalid pattern element '%s'.",
       self::TOO_MANY_PATTERNS => "More than one pattern specified.",
@@ -50,5 +96,6 @@ class MapFilter_Pattern_Exception extends PureException {
       self::LIBXML_FATAL => "LibXML fatal error: %s on line %s (in file %s).",
       self::INVALID_XML_ATTRIBUTE => "Node '%s' has no attribute like '%s'.",
       self::INVALID_XML_CONTENT => "Node '%s' has no content.",
+      self::MISSING_ATTRIBUTE_VALUE => "There is an Attr node without attribute value specified.",
   );
 }

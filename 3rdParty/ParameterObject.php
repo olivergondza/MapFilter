@@ -1,29 +1,36 @@
 <?php
 /**
-* Abstract Parameter Object
+* Abstract Parameter Object.
 *
-* @author Oliver Gondža
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
+* @author	Oliver Gondža
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	3rdParty
 */
 
 /**
-* Include exception class
+* @file		ParameterObject/Exception.php
 */
 require_once ( dirname ( __FILE__ ) . '/ParameterObject/Exception.php' );
 
 /**
-* ParameterObject
+* Universal Parameter Object.
+*
+* @class	ParameterObject
+* @package	3rdParty
+* @author	Oliver Gondža
 */
-class MapFilter_ParameterObject {
+class ParameterObject {
 
   /**
   * Deal with property declaration and set its default value.
   * Declared property has integer index assigned and it's value should be
   * it's name thous string is expected.
-  * @param &Mixed
-  * @param &Mixed
-  * @throws MapFilter_ParameterObject_Exception::INVALID_DECLARATION
+  *
+  * @param	property	A property to declare sent by reference
+  * @param	value		Value of the property sent by reference
+  *
+  * @throws	ParameterObject_Exception::INVALID_DECLARATION
   */
   private function dispatchDeclaration ( &$property, &$value ) {
   
@@ -33,8 +40,8 @@ class MapFilter_ParameterObject {
       
     if ( ! is_string ( $value ) ) {
 
-      throw new MapFilter_ParameterObject_Exception (
-          MapFilter_ParameterObject_Exception::INVALID_DECLARATION,
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_DECLARATION,
           Array ( gettype ( $value ) )
       );
     }
@@ -45,7 +52,8 @@ class MapFilter_ParameterObject {
 
   /**
   * Create an (inherited) object.
-  * @param Array ( String )
+  *
+  * @param	writable	Initialization data array
   */
   public function __construct ( Array $writable = Array () ) {
     
@@ -61,8 +69,10 @@ class MapFilter_ParameterObject {
 
   /**
   * Determine whether an object has a given property.
-  * @param String
-  * @return Bool
+  *
+  * @param	name	Property name
+  *
+  * @return	Bool
   */
   public function hasProperty ( $name ) {
   
@@ -71,8 +81,10 @@ class MapFilter_ParameterObject {
 
   /**
   * Get property name from action name substring.
-  * @param String
-  * @return String
+  *
+  * @param	name	Property name candidate
+  *
+  * @return	String	New property name
   */
   private static function getPropertyName ( $name ) {
   
@@ -80,11 +92,13 @@ class MapFilter_ParameterObject {
   }
   
   /**
-  * Set property value. Provide fluent interface
-  * @param String
-  * @param Array ( String => Mixed )
-  * @throws MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
-  * @return Mixed
+  * Set property value. Provide fluent interface.
+  *
+  * @param	name		Callback name
+  * @param	arguments	Function arguments
+  *
+  * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
+  * @return	Mixed
   */
   private function callSetter ( $name, Array $arguments ) {
   
@@ -92,16 +106,16 @@ class MapFilter_ParameterObject {
   
     if ( count ( $arguments ) !== 1 ) {
      
-      throw new MapFilter_ParameterObject_Exception (
-          MapFilter_ParameterObject_Exception::INVALID_ARG_COUNT,
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_ARG_COUNT,
           Array ( get_class (), $name, 1, count ( $arguments ) )
       );
     }
     
     if ( !$this->hasProperty ( $property ) ) {
 
-      throw new MapFilter_ParameterObject_Exception (
-          MapFilter_ParameterObject_Exception::INVALID_SET,
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_SET,
           Array ( get_class (), $property )
       );
     }
@@ -112,11 +126,13 @@ class MapFilter_ParameterObject {
   }
   
   /**
-  * Get property value
-  * @param String
-  * @param Array ( String => Mixed )
-  * @throws MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
-  * @return Mixed
+  * Get property value.
+  *
+  * @param	name	Callback name
+  * @param	arguments	Function arguments
+  *
+  * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
+  * @return	Mixed
   */
   private function callGetter ( $name, Array $arguments ) {
   
@@ -124,16 +140,16 @@ class MapFilter_ParameterObject {
   
     if ( count ( $arguments ) !== 0 ) {
      
-      throw new MapFilter_ParameterObject_Exception (
-          MapFilter_ParameterObject_Exception::INVALID_ARG_COUNT,
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_ARG_COUNT,
           Array ( get_class (), $name, 0, count ( $arguments ) )
       );
     }
     
     if ( !$this->hasProperty ( $property ) ) {
 
-      throw new MapFilter_ParameterObject_Exception (
-          MapFilter_ParameterObject_Exception::INVALID_GET,
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_GET,
           Array ( get_class (), $property )
       );
     }
@@ -142,14 +158,18 @@ class MapFilter_ParameterObject {
   }
   
   /**
-  * Action REGEXP.
-  * @var String
+  * Action pattern.
+  *
+  * A REGEXP to match for action to be valid.
   */
   const ACTION_PATTERN = '/^(set|get)([A-Z].*)$/';
   
   /**
-  * Action prefix to action callback mapping
-  * @var Array ( String => String )
+  * Action-prefix to action-callback mapping.
+  *
+  * A mapping table to translate action prefixes to corresponding callbacks.
+  *
+  * @var	Array	$prefix2action
   */
   private $prefix2action = Array (
       'set' => 'callSetter',
@@ -158,8 +178,10 @@ class MapFilter_ParameterObject {
   
   /**
   * Determine whether an action exists.
-  * @param Array
-  * @return Bool
+  *
+  * @param	matches
+  *
+  * @return	Bool
   */
   private function actionExists ( $matches ) {
 
@@ -172,10 +194,12 @@ class MapFilter_ParameterObject {
   }
   
   /**
-  * Call special method or throw an exception
-  * @param String
-  * @param Array ( String => Mixed )
-  * @throws MapFilter_Pattern_ParameterObject_Exception::INVALID_CALL
+  * Call special method or throw an exception.
+  *
+  * @param	name	Callback name
+  * @param	arguments Function arguments
+  *
+  * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_CALL
   */
   public function __call ( $name, Array $arguments ) {
   
@@ -183,8 +207,8 @@ class MapFilter_ParameterObject {
 
     if ( !$match || !$this->actionExists ( $matches ) ) {
     
-      throw new MapFilter_ParameterObject_Exception (
-          MapFilter_ParameterObject_Exception::INVALID_CALL,
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_CALL,
           Array ( get_class (), $name )
       );
     }

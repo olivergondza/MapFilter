@@ -2,31 +2,38 @@
 /**
 * All Pattern node 
 *
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	MapFilter
+* @since	0.4
 */
 
 /**
-* Include abstract class
+* @file		MapFilter/Pattern/Tree/Node.php
 */
 require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 /**
-* @package MapFilter
+* MapFilter pattern tree all node
+*
+* @class	MapFilter_Pattern_Tree_Node_All
+* @package	MapFilter
+* @since	0.4
 */
 final class MapFilter_Pattern_Tree_Node_All
     extends MapFilter_Pattern_Tree_Node
 {
 
   /**
+  * @copybrief		MapFilter_Pattern_Tree_Interface::satisfy
+  *
   * Satisfy node just if there are no unsatisfied follower.
   * Finding unsatisfied follower may stop mapping since there is no way to
   * satisfy parent by any further potentially satisfied follower.
-  * @param MapFilter_Pattern_SatisfyParam
-  * @return Bool
+  *
+  * @copydetails	MapFilter_Pattern_Tree_Interface::satisfy
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   

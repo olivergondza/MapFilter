@@ -4,10 +4,12 @@
 */  
 
 /** Require tested class */
-require_once ( dirname ( __FILE__ ) . '/../../MapFilter.php' );
+require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
 
 class TestUser extends PHPUnit_Framework_TestCase {
 
+  /**@{*/
+  /** Empty pattern filtering */
   public static function testEmptyPattern  () {
   
     $query = Array ( 'attr' => 'value' );
@@ -18,10 +20,12 @@ class TestUser extends PHPUnit_Framework_TestCase {
     
     self::assertEquals (
         $query,
-        $filter->parse ()
+        $filter->getResults ()
     );
   }
+  /**@}*/
 
+  /**@{*/
   /** Use slightly wrong pattern */
   public static function testWrongPattern () {
     
@@ -40,7 +44,9 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testWrongTag () {
   
     try {
-      $pattern = MapFilter_Pattern::load ( "<pattern><wrongnode></wrongnode></pattern>" );
+      $pattern = MapFilter_Pattern::load (
+          "<pattern><wrongnode></wrongnode></pattern>"
+      );
     } catch ( MapFilter_Pattern_Exception $exception ) {
       
       self::assertEquals (
@@ -54,7 +60,9 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testMultipleTree () {
   
     try {
-      $pattern = MapFilter_Pattern::load ( "<pattern><opt></opt><all></all></pattern>" );
+      $pattern = MapFilter_Pattern::load (
+          "<pattern><opt></opt><all></all></pattern>"
+      );
     } catch ( MapFilter_Pattern_Exception $exception ) {
       
       self::assertEquals (
@@ -101,6 +109,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
     );
   }
   
+  /**@{*/
   /**
   * @dataProvider provideSimpleOneWhitelist
   */
@@ -116,16 +125,16 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ";
     
     $filter = new MapFilter (
-        MapFilter_Pattern::load ( $pattern )
+        MapFilter_Pattern::load ( $pattern ),
+        $query
     );
-    
-    $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults()
     );
   }
+  /**@}*/
 
   public static function provideSimpleAllWhitelist () {
   
@@ -152,14 +161,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ";
     
     $filter = new MapFilter (
-        MapFilter_Pattern::load ( $pattern )
+        MapFilter_Pattern::load ( $pattern ),
+        $query
     );
-
-    $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults()
     );
   }
   
@@ -204,14 +212,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ";
     
     $filter = new MapFilter (
-        MapFilter_Pattern::load ( $pattern )
+        MapFilter_Pattern::load ( $pattern ),
+        $query
     );
-
-    $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults()
     );
   }
 
@@ -279,13 +286,11 @@ class TestUser extends PHPUnit_Framework_TestCase {
     sort ( $asserts );
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::LOGIN )
+        MapFilter_Pattern::fromFile ( Test_Source::LOGIN ),
+        $query
     );
 
-    /** Test Empty */
-    $filter->setQuery ( $query );
-
-    $fResult = $filter->parse ();
+    $fResult = $filter->getResults();
     $fFlags = $filter->getFlags ();
     $fAsserts = $filter->getAsserts ();
     sort ( $fFlags );
@@ -348,15 +353,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseLocation ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::LOCATION )
+        MapFilter_Pattern::fromFile ( Test_Source::LOCATION ),
+        $query
     );
-  
-    /** Test Empty */
-    $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults()
     );
   }
   
@@ -437,14 +440,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseAction ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::ACTION )
+        MapFilter_Pattern::fromFile ( Test_Source::ACTION ),
+        $query
     );
-    
-    $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults()
     );
   }
   
@@ -481,14 +483,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseFilterUtility ( $query, $result ) {
 
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::FILTER )
+        MapFilter_Pattern::fromFile ( Test_Source::FILTER ),
+        $query
     );
-    
-    $filter->setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter->parse ()
+        $filter->getResults()
     );
   }
   
@@ -524,14 +525,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseCoffeeMaker ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::COFFEE_MAKER )
+        MapFilter_Pattern::fromFile ( Test_Source::COFFEE_MAKER ),
+        $query
     );
-    
-    $filter -> setQuery ( $query );
     
     self::assertEquals (
         $result,
-        $filter -> parse ()
+        $filter->getResults()
     );
   }
   
@@ -595,39 +595,31 @@ class TestUser extends PHPUnit_Framework_TestCase {
     );
   }
   
+  /**@{*/
   /**
   * @dataProvider provideDuration
   */
   public static function testDuration ( $query, $result, $flags, $asserts ) {
-  
-    sort ( $flags );
-    sort ( $asserts );
   
     $filter = new MapFilter (
         MapFilter_Pattern::fromFile ( Test_Source::DURATION ),
         $query
     );
     
-    $filter->parse ();
-    
-    $fFlags = $filter->getFlags ();
-    $fAsserts = $filter->getAsserts ();
-    sort ( $fFlags );
-    sort ( $fAsserts );
-
     self::assertEquals (
-        $result,
-        $filter->getResults ()
+        array_diff ( $result, $filter->getResults () ),
+        array_diff ( $filter->getResults (), $result )
     );
     
     self::assertEquals (
-        $flags,
-        $fFlags
+        array_diff ( $flags, $filter->getFlags () ),
+        array_diff ( $filter->getFlags (), $flags )
     );
     
     self::assertEquals (
-        $asserts,
-        $fAsserts
+        array_diff ( $asserts, $filter->getAsserts () ),
+        array_diff ( $filter->getAsserts (), $asserts )
     );
   }
+  /**@}*/
 }

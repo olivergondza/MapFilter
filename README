@@ -12,22 +12,31 @@ or/and allowed Values and depending Keys from simple Key-based whitelisting
 to more complex structures.
 
 
-Reference Manual
+Manual
 ----------------
 
-MapFilter uses phpDocumentor utility to dynamically create reference
-documentation. There are two different initialization files to generate both
-user and programmer documentation.
+MapFilter uses doxygen utility to create reference manual dynamically.
+There are three different initialization files to generate user,
+ programmer and internal documentation. Programmer documentation contains
+full MapFilter package documentation. Comprehensive documentation including
+supporting classes can be found in documentation/internal/ directory.
 
 Use:
 
-phpdoc -c ./phpdoc_user.ini
 
-    To generate UserDocumentation/
+cd user/
+doxygen doxygen_user.ini
 
-phpdoc -c ./phpdoc_programmer.ini
+    To generate documentation/user/
 
-    To generate ProgrammerDocumentation/
 
-More complex documentation can be found at
-http://wiki.github.com/olivergondza/MapFilter/.
+cd user/
+doxygen doxygen_programmer.ini
+
+    To generate documentation/programmer/
+
+
+cd user/
+doxygen doxygen_internal.ini
+
+    To generate documentation/internal/

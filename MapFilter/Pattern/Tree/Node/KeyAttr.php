@@ -1,27 +1,31 @@
 <?php
 /**
-* KeyAttr Pattern node;
-* Since this node has something similar with Policy node extends this class
+* KeyAttr Pattern node
 *
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	MapFilter
+* @since	0.4
 */
 
 /**
-* Include abstract class
+* @file		MapFilter/Pattern/Tree/Node.php
 */
 require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 /**
-* Include attribute interface
+* @file		MapFilter/Pattern/Tree/Attribute/Interface.php
 */
-require_once ( dirname ( __FILE__ ) . '/../Attribute_Interface.php' );
+require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 
 /**
-* @package MapFilter
+* MapFilter pattern tree SetAttribute node
+*
+* @class	MapFilter_Pattern_Tree_Node_KeyAttr
+* @package	MapFilter
+* @since	0.4
 */
 final class MapFilter_Pattern_Tree_Node_KeyAttr
     extends MapFilter_Pattern_Tree_Node
@@ -30,30 +34,45 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
 
   /**
   * Node attribute
-  * @var String
+  *
+  * @since	0.4
+  *
+  * @var	String	$attribute
   */
   public $attribute = "";
   
   /**
   * Attribute value
-  * @var String
+  *
+  * @since	0.4
+  *
+  * @var	String	$value
   */
   public $value = "";
   
   /**
-  * Fluent Method; Set attribute
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setAttribute()}
   */
   public function setAttribute ( $attribute ) {
   
     $this->attribute = $attribute;
     return $this;
   }
+  
+  /**
+  * @copyfull{MapFilter_Pattern_Tree_Attribute_Interface::getAttribute()}
+  */
+  public function getAttribute () {
+  
+    return $this->attribute;
+  }
 
   /**
+  * @copybrief		MapFilter_Pattern_Tree_Interface::satisfy()
+  *
   * Find a follower with a valueFilter that fits and try to satisfy it.
-  * @param MapFilter_Pattern_SatisfyParam
-  * @return Bool
+  *
+  * @copydetails	MapFilter_Pattern_Tree_Interface::satisfy()
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
 
@@ -71,7 +90,7 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
       
       $fits = self::valueFits (
           $param->query[ $attrName ],
-          $follower->valueFilter
+          $follower->getValueFilter ()
       );
       
       if ( !$fits ) {
@@ -93,8 +112,7 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
   }
   
   /**
-  * Pick-up results
-  * @param MapFilter_Pattern_PickUpParam
+  * @copyfull{MapFilter_Pattern_Tree_Interface::pickUp()}
   */
   public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
 
@@ -114,8 +132,7 @@ final class MapFilter_Pattern_Tree_Node_KeyAttr
   }
   
   /**
-  * Cast to string
-  * @return String
+  * @copyfull{MapFilter_Pattern_Tree_Attribute_Interface::__toString()}
   */
   public function __toString () {
   

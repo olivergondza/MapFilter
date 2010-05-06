@@ -1,59 +1,83 @@
 <?php
 /**
-* Attr Pattern node
+* Attr Pattern node.
 *
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	MapFilter
+* @since	0.4
 */
 
 /**
-* Include abstract class
+* @file		MapFilter/Pattern/Tree/Leaf.php
 */
-require_once ( dirname ( __FILE__ ) . '/../../Tree.php' );
+require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
 
 /**
-* Include attribute interface
+* @file		MapFilter/Pattern/Tree/Attribute/Interface.php
 */
-require_once ( dirname ( __FILE__ ) . '/../Attribute_Interface.php' );
+require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 
 /**
-* @package MapFilter
+* MapFilter pattern tree attribute leaf
+*
+* @class	MapFilter_Pattern_Tree_Leaf_Attr
+* @package	MapFilter
+* @since	0.4
 */
 final class MapFilter_Pattern_Tree_Leaf_Attr
-    extends MapFilter_Pattern_Tree
+    extends MapFilter_Pattern_Tree_Leaf
     implements MapFilter_Pattern_Tree_Attribute_Interface
 {
 
   /**
   * Node attribute
-  * @var String
+  *
+  * @since	0.4
+  *
+  * @var	String	$attribute
   */
-  public $attribute = "";
+  private $attribute = "";
   
   /**
   * Attribute value
-  * @var String
+  *
+  * @since	0.4
+  *
+  * @var	String	$value
   */
-  public $value = "";
+  private $value = "";
   
   /**
   * Attr default value
-  * @var String
+  *
+  * @since	0.4
+  *
+  * @var	String	$default
   */
-  public $default = NULL;
+  private $default = NULL;
   
   /**
   * Attr value Pattern
-  * @var String
+  *
+  * @since	0.4
+  *
+  * @var	String	$valuePattern
   */
-  public $valuePattern = NULL;
+  private $valuePattern = NULL;
   
   /**
-  * Fluent Method; Set attribute
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Attribute_Interface::getAttribute()}
+  */
+  public function getAttribute () {
+  
+    return $this->attribute;
+  }
+  
+  /**
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setAttribute()}
   */
   public function setAttribute ( $attribute ) {
 
@@ -62,8 +86,7 @@ final class MapFilter_Pattern_Tree_Leaf_Attr
   }
   
   /**
-  * Fluent Method; Set default
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setDefault()}
   */
   public function setDefault ( $default ) {
 
@@ -72,8 +95,7 @@ final class MapFilter_Pattern_Tree_Leaf_Attr
   }
 
   /**
-  * Fluent Method; Set valuePattern
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setValuePattern()}
   */
   public function setValuePattern ( $valuePattern ) {
 
@@ -82,11 +104,13 @@ final class MapFilter_Pattern_Tree_Leaf_Attr
   }
 
   /**
+  * @copybrief		MapFilter_Pattern_Tree_Interface::satisfy()
+  *
   * Satisfy node just if there are no unsatisfied follower.
   * Finding unsatisfied follower may stop mapping since there is no way to
   * satisfy parent by any further potentially satisfied follower.
-  * @param MapFilter_Pattern_SatisfyParam
-  * @return Bool
+  *
+  * @copydetails	MapFilter_Pattern_Tree_Interface::satisfy()
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
@@ -124,8 +148,7 @@ final class MapFilter_Pattern_Tree_Leaf_Attr
   }
   
   /**
-  * Pick-up results
-  * @param MapFilter_Pattern_PickUpParam
+  * @copyfull{MapFilter_Pattern_Tree_Interface::pickUp()}
   */
   public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
 
@@ -140,16 +163,7 @@ final class MapFilter_Pattern_Tree_Leaf_Attr
   }
   
   /**
-  * Attr node has nothing to clone
-  */
-  public function __clone () {
-  
-    return;
-  }
-  
-  /**
-  * Cast to string
-  * @return String
+  * @copyfull{MapFilter_Pattern_Tree_Attribute_Interface::__toString()}
   */
   public function __toString () {
   

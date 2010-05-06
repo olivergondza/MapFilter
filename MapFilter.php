@@ -1,115 +1,194 @@
 <?php
 /**
 * Class to filter associative arrays
+*
+* @since	0.1
 * 
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+*
+* @package	MapFilter
 */
 
 /**
-* Include pattern class
+* MapFilter Pattern
+*
+* @file		MapFilter/Pattern.php
 */
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern.php' );
 
 /**
-* Include class interface
+* Class to filter associative arrays.
+*
+* @since	0.1
+*
+* @class	MapFilter
+* @author	Oliver Gondža
+* @package	MapFilter
 */
-require_once ( dirname ( __FILE__ ) . '/MapFilter_Interface.php' );
+class MapFilter {
 
-/**
-* Class to filter associative arrays
-* @package MapFilter
-*/
-class MapFilter implements MapFilter_Interface {
-  
   /**
   * Query Tree of Pattern.
-  * @var MapFilter_Pattern
+  *
+  * @since	0.4
+  *
+  * @var	MapFilter_Pattern	$pattern
+  * @see	setPattern(), __construct()
   */
   private $pattern = NULL;
 
   /**
   * Read data / Query candidate
-  * @var Array
+  *
+  * @since	0.4
+  *
+  * @var	Array	$query
+  * @see	setQuery(), __construct()
   */
   private $query = Array ();
   
   /**
   * Validated data
-  * @var Array
+  *
+  * @since	0.4
+  *
+  * @var	Array	$results
+  * @see	getResults(), parse()
   */
   private $results = Array ();
   
   /**
   * Validation asserts
-  * @var Array
+  *
+  * @since	0.4
+  *
+  * @var	Array	$asserts
+  * @see	getAsserts(), parse()
   */
   private $asserts = Array ();
   
   /**
   * Validation flags
-  * @var Array
+  *
+  * @since	0.4
+  *
+  * @var	Array	$flags
+  * @see	getFlags(), parse()
   */
   private $flags = Array ();
   
   /**
-  * Create new filter instance. If are pattern and query sat trigger parsing
-  * procedure.
-  * @see setPattern, setQuery, parse, MapFilter_Pattern
-  * @param MapFilter_Pattern
-  * @param Array $query A query to filter.
+  * Determine whether the filter configuration has been parsed
+  *
+  * @since	0.4
+  *
+  * @var	Bool	$parsed
+  * @see	parse(), setQuery(), setPattern()
+  */
+  private $parsed = FALSE;
+  
+  /**
+  * Create new filter instance.
+  *
+  * @since	0.1
+  *
+  * @param	pattern		A pattern to set
+  * @param	query		A query to filter
+  *
+  * If no pattern specified an untouched query will be returned:
+  *
+  * @clip{User.test.php,testEmptyPattern}
+  *
+  * All parsing is done just in time (however it can be triggered manually using
+  * MapFilter::parse()) when some of parsing results is accessed (in this case
+  * when MapFilter::getResults() is called for the first time):
+  *
+  * @clip{User.test.php,testDuration}
+  *
+  * @see	setPattern(), setQuery(), MapFilter_Pattern()
   */
   public function __construct (
       MapFilter_Pattern $pattern = NULL,
       Array $query = Array ()
   ) {
     
-    if ( !$pattern ) {
-      return;
-    }
+    if ( $pattern ) {
 
-    $this->setPattern ( $pattern );
+      $this->setPattern ( $pattern );
+    }
+    
     $this->setQuery ( $query );
 
-    $this->parse ();
-    
     return;
   }
 
   /**
-  * Fluent Method that sets desired query pattern
-  * @see __construct
-  * @param MapFilter_Pattern
-  * @return MapFilter Instance of MapFilter with new pattern
+  * Set desired query pattern.
+  *
+  * Fluent Method
+  *
+  * @since	0.1
+  *
+  * @param	pattern		A pattern to set
+  *
+  * @return	MapFilter	Instance of MapFilter with new pattern
+  *
+  * MapFilter can be configured using both constructor and specialized fluent
+  * methods MapFilter::setPattern() and MapFilter::setQuery():
+  *
+  * @clip{MapFilter.test.php,testInvocation}
+  *
+  * @see	__construct()
   */
   public function setPattern ( MapFilter_Pattern $pattern ) {
+
+    $this->parsed = FALSE;
 
     $this->pattern = clone ( $pattern );
     return $this;
   }
   
   /**
-  * Fluent Method that sets query to filter
-  * @see __construct
-  * @param Array
-  * @return MapFilter Instance of MapFilter with new query
+  * Set query to filter.
+  *
+  * @since	0.1
+  *
+  * @param	query	A query to set
+  *
+  * @return	MapFilter	Instance of MapFilter with new query
+  *
+  * MapFilter can be configured using both constructor and specialized fluent
+  * methods MapFilter::setPattern() and MapFilter::setQuery():
+  *
+  * @clip{MapFilter.test.php,testInvocation}
+  *
+  * @see	__construct()
+  * @todo	Arbitrary iterator query should be supported
   */
   public function setQuery ( Array $query ) {
+  
+    $this->parsed = FALSE;
   
     $this->query = $query;
     return $this;
   }
   
   /**
-  * Resolve tree dependencies, filter, pick up the results and return filtered
-  * query.
-  * @see __construct, getResults
-  * @return Array Parsing results
+  * Parse filter configuration.
+  *
+  * @since	0.1
+  *
+  * @see	__construct(), getResults(), getAsserts(), getFlags()
   */
   public function parse () {
+  
+    if ( $this->parsed ) {
+      
+      return;
+    }
   
     $this->cleanup ();
   
@@ -117,12 +196,15 @@ class MapFilter implements MapFilter_Interface {
     if ( !$this->pattern || !$this->pattern->getTree () ) {
 
       $this->results = $this->query;
-      return $this->getResults ();
+      
+      $this->parsed = TRUE;
+      
+      return;
     }
     
     /**
-    *  Create temporary copy of pattern since it will be modified during
-    *  the parsing procedure
+    * Create temporary copy of pattern since it will be modified during
+    * the parsing procedure
     */
     $tempPattern = clone ( $this->pattern );
 
@@ -140,24 +222,34 @@ class MapFilter implements MapFilter_Interface {
 
     $tempPattern->pickUp ( $pickUpParam );
 
-    return $this->getResults ();
+    $this->parsed = TRUE;
+
+    return;
   }
   
   /**
+  * Get results.
+  *
   * Get parsed query from latest parsing process.
-  * @see parse
-  * @return Array () Parsing results
+  *
+  * @since	0.2
+  *
+  * @return	Array	Parsing results
   */
   public function getResults () {
+
+    $this->parse ();
 
     return $this->results;
   }
   
   /**
-  * Alias for getResults (). Just here for maintain backward compatibility
-  * @deprecated since 0.2
-  * @see getResults
-  * @return Array ()
+  * Alias for getResults(). Just here for maintain backward compatibility
+  *
+  * @since	0.1
+  *
+  * @deprecated	since 0.2
+  * @see	getResults()
   */
   public function fetch () {
   
@@ -172,33 +264,51 @@ class MapFilter implements MapFilter_Interface {
     );
   
     trigger_error ( $message, $level );
+    
+    $this->parse ();
   
     return $this->getResults ();
   }
   
   /**
-  * Get validation assertions from latest parsing process.
-  * @see parse
-  * @return Array () Parsing asserts
+  * Get validation assertions.
+  *
+  * Return validation asserts that was raised during latest parsing process.
+  *
+  * @since	0.1
+  *
+  * @return	Array	Parsing asserts
   */
   public function getAsserts () {
+  
+    $this->parse ();
   
     return $this->asserts;
   }
   
   /**
-  * Get flags sat during latest parsing process.
-  * @see parse
-  * @return Array () Parsing flags
+  * Get flags
+  *
+  * Return flags that was sat during latest parsing process.
+  *
+  * @since	0.1
+  *
+  * @return	Array	Parsing flags
   */
   public function getFlags () {
+  
+    $this->parse ();
   
     return $this->flags;
   }
 
   /**
-  * Clean up object storage that enables to parse multiple queries with
-  * the same pattern with no need to re-instantiate object
+  * Clean up object storage.
+  *
+  * @since	0.4
+  *
+  * This enables to parse multiple queries with the same pattern with no need 
+  * to re-instantiate the object.
   */
   private function cleanup () {
   

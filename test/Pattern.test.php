@@ -2,7 +2,7 @@
 /**
 * Require tested class
 */
-require_once ( dirname ( __FILE__ ) . '/../Pattern.php' );
+require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern.php' );
 
 class TestPattern extends PHPUnit_Framework_TestCase {  
   
@@ -17,6 +17,94 @@ class TestPattern extends PHPUnit_Framework_TestCase {
         MapFilter_Pattern::load ( $lazyPattern )
     );
   }
+  
+  /** Attribute tag value should overwrite attribute value */
+  public static function testAttrOverwrite () {
+  
+    $lazyPattern = '<attr>anAttribute</attr>';
+    $pattern = '<attr attr="wrongAttribute">anAttribute</attr>';
+    
+    self::assertEquals (
+        MapFilter_Pattern::load ( $lazyPattern ),
+        MapFilter_Pattern::load ( $pattern )
+    );
+  }
+  
+  /** Compare attributes sat by different ways */
+  public static function testCompareAttrs () {
+  
+    $lazyPattern = '<attr>anAttribute</attr>';
+    $pattern = '<attr attr="anAttribute"></attr>';
+    
+    self::assertEquals (
+        MapFilter_Pattern::load ( $lazyPattern ),
+        MapFilter_Pattern::load ( $pattern )
+    );
+  }
+  
+  public static function provideAssertEmptyAttr () {
+  
+    return Array (
+        Array ( '<attr attr="" />' ),
+        Array ( '<attr attr=""></attr>' ),
+        Array ( '<attr></attr>' ),
+        Array ( '<attr />' ),
+    );
+  }
+  
+  /**
+  * Rise an exception in case of no attr value
+  * @dataProvider	provideAssertEmptyAttr
+  */
+  public static function testAssertEmptyAttr ( $pattern ) {
+  
+    try {
+    
+      $pattern = MapFilter_Pattern::load ( $pattern );
+      self::fail ( "No exception risen." );
+
+    } catch ( MapFilter_Pattern_Exception $exception ) {
+
+      self::assertEquals (
+          MapFilter_Pattern_Exception::MISSING_ATTRIBUTE_VALUE,
+          $exception->getCode ()
+      );
+
+    } catch ( Exception $ex ) {
+    
+      self::fail ( "Wrong exception: " . $ex->getMessage () );
+    }
+  }
+  
+  public static function provideLoadFromFileComparison () {
+  
+    return Array (
+          Array ( Test_Source::LOCATION ),
+          Array ( Test_Source::LOGIN ),
+          Array ( Test_Source::COFFEE_MAKER ),
+          Array ( Test_Source::ACTION ),
+          Array ( Test_Source::FILTER ),
+          Array ( Test_Source::DURATION )
+    );
+  }
+  
+  /**@{*/
+  /**
+  * @dataProvider provideLoadFromFileComparison
+  */
+  public static function testLoadFromFileComparison ( $filename ) {
+  
+    $string = file_get_contents ( $filename );
+  
+    $filePattern = MapFilter_Pattern::fromFile ( $filename );
+    $stringPattern = MapFilter_Pattern::load ( $string );
+    
+    self::assertEquals (
+        $filePattern,
+        $stringPattern
+    );
+  }
+  /**@}*/
   
   /** Test MapFilter_Pattern at first */
   public static function testBuild () {
@@ -236,13 +324,19 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   public static function testWrongFile () {
   
     try {
+
       $filter = MapFilter_Pattern::fromFile ( "no_such_file.xml" );
+      self::fail ( "No exception risen." );
+      
     } catch ( MapFilter_Pattern_Exception $exception ) {
 
       self::assertEquals (
           MapFilter_Pattern_Exception::LIBXML_WARNING,
           $exception->getCode ()
       );
+    } catch ( Exception $ex ) {
+    
+      self::fail ( "Wrong exception: " . $ex->getMessage () );
     }
   }
   

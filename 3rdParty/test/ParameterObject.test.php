@@ -9,26 +9,26 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   /** Call invalid setter and catch an exception */
   public static function testInvalidCall () {
   
-     $pa = new MapFilter_ParameterObject ();
+     $pa = new ParameterObject ();
 
      try {
        $pa->noSuchMethod ();
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_CALL,
+           ParameterObject_Exception::INVALID_CALL,
            $ex->getCode ()
        );
      }
      
-     $pa = new MapFilter_ParameterObject ();
+     $pa = new ParameterObject ();
 
      try {
        $pa->set ();
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_CALL,
+           ParameterObject_Exception::INVALID_CALL,
            $ex->getCode ()
        );
      }
@@ -37,14 +37,14 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   /** Invalid setter */
   public static function testInvalidSetter () {
   
-     $pa = new MapFilter_ParameterObject ();
+     $pa = new ParameterObject ();
 
      try {
        $pa->setUnknownValue ( 'val' );
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_SET,
+           ParameterObject_Exception::INVALID_SET,
            $ex->getCode ()
        );
      }
@@ -53,14 +53,14 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   /** Invalid getter */
   public static function testInvalidGetter () {
   
-     $pa = new MapFilter_ParameterObject ();
+     $pa = new ParameterObject ();
 
      try {
        $pa->getUnknownValue ();
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_GET,
+           ParameterObject_Exception::INVALID_GET,
            $ex->getCode ()
        );
      }
@@ -70,11 +70,11 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   public static function testInvalidDeclaration () {
   
      try {
-       $pa = new MapFilter_ParameterObject ( Array ( 0 ) );
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+       $pa = new ParameterObject ( Array ( 0 ) );
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_DECLARATION,
+           ParameterObject_Exception::INVALID_DECLARATION,
            $ex->getCode ()
        );
      }
@@ -83,26 +83,26 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   /** Invalid arg count */
   public static function testInvalidArgCount () {
   
-    $pa = new MapFilter_ParameterObject ();
+    $pa = new ParameterObject ();
   
      try {
        $pa->setVal ( 1, 2 );
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_ARG_COUNT,
+           ParameterObject_Exception::INVALID_ARG_COUNT,
            $ex->getCode ()
        );
      }
      
-   $pa = new MapFilter_ParameterObject ();
+   $pa = new ParameterObject ();
   
      try {
        $pa->getVal ( 1, 2 );
-     } catch ( MapFilter_ParameterObject_Exception $ex ) {
+     } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
-           MapFilter_ParameterObject_Exception::INVALID_ARG_COUNT,
+           ParameterObject_Exception::INVALID_ARG_COUNT,
            $ex->getCode ()
        );
      }
@@ -111,7 +111,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   /** */
   public static function testCreateEmpty () {
   
-    $pa = new MapFilter_ParameterObject ();
+    $pa = new ParameterObject ();
     
     self::assertFalse ( isset ( $pa->val ) );
   }
@@ -121,7 +121,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   
     $val = 'val';
   
-    $pa = new MapFilter_ParameterObject (
+    $pa = new ParameterObject (
         Array ( 'val' => $val, 'var' )
     );
 
@@ -141,7 +141,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   /** test setter/getter usage */
   public static function testSeters () {
     
-    $pa = new MapFilter_ParameterObject (
+    $pa = new ParameterObject (
         Array ( 'val', 'var', 'wax' => 'wax' )
     );
     
@@ -163,7 +163,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   public static function testFluentInterface () {
   
     $val1 = $val2 = 0;
-    $pa = new MapFilter_ParameterObject (
+    $pa = new ParameterObject (
         Array ( 'val1' => &$val1, 'val2' => &$val2 )
     );
     
@@ -175,7 +175,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
     
     /** Objects are equals */
     $val1 = $val2 = 1;
-    $new = new MapFilter_ParameterObject (
+    $new = new ParameterObject (
         Array ( 'val1' => &$val1, 'val2' => &$val2 )
     );
     
@@ -186,7 +186,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   public static function testAssignment () {
   
     $val1 = $val2 = 0;
-    $pa = new MapFilter_ParameterObject (
+    $pa = new ParameterObject (
         Array ( 'val1' => &$val1, 'val2' => &$val2 )
     );
     
@@ -228,7 +228,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
     self::assertFalse ( $pa->hasProperty ( 'wax' ) );
     
     /** Injected */
-    $pa = new MapFilter_ParameterObject ( Array ( 'wax' ) );
+    $pa = new ParameterObject ( Array ( 'wax' ) );
     
     self::assertTrue ( $pa->hasProperty ( 'wax' ) );
     
@@ -236,7 +236,7 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
   }
 }
 
-final class MyParam extends MapFilter_ParameterObject {
+final class MyParam extends ParameterObject {
 
   public $val = 0;
   

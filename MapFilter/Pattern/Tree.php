@@ -2,25 +2,30 @@
 /**
 * Abstract Pattern node; Ancestor of all pattern nodes
 *
-* @author Oliver Gondža
-* @link http://github.com/olivergondza/MapFilter
-* @license GNU GPLv3
-* @copyright 2009-2010 Oliver Gondža
-* @package MapFilter
+* @author	Oliver Gondža
+* @link		http://github.com/olivergondza/MapFilter
+* @license	GNU GPLv3
+* @copyright	2009-2010 Oliver Gondža
+* @package	MapFilter
+* @since	0.3
 */
 
 /**
-* Include class exception
+* @file		MapFilter/Pattern/Tree/Exception.php
 */
 require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
 
 /**
-* Include class interface
+* @file		MapFilter/Pattern/Tree/Interface.php
 */
-require_once ( dirname ( __FILE__ ) . '/Tree_Interface.php' );
+require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
 
 /**
-* @package MapFilter
+* Internal pattern tree
+*
+* @class	MapFilter_Pattern_Tree
+* @package	MapFilter
+* @since	0.3
 */
 abstract class MapFilter_Pattern_Tree
     implements MapFilter_Pattern_Tree_Interface
@@ -28,41 +33,42 @@ abstract class MapFilter_Pattern_Tree
   
   /**
   * Determine whether the node was already satisfied
-  * @var Bool
+  *
+  * @since	0.3
+  *
+  * @var	Bool	$satisfied
   */
-  protected $satisfied = FALSE;
+  private $satisfied = FALSE;
   
   /**
-  * Key-Attr value filter. REGEXP
-  * @var String
+  * Key-Attr value filter.
+  *
+  * @since	0.3
+  *
+  * @var	String	$valueFilter
   */
-  public $valueFilter = NULL;
+  private $valueFilter = NULL;
   
   /**
   * Node flag
-  * @var String
+  *
+  * @since	0.3
+  *
+  * @var	String	$flag
   */
-  public $flag = NULL;
+  private $flag = NULL;
   
   /**
   * Node assert
-  * @var String
+  *
+  * @since	0.3
+  *
+  * @var	String	$assert
   */
-  public $assert = NULL;
+  private $assert = NULL;
   
   /**
-  * Implicit Fluent Interface for all node types that rises exception;
-  * That's implicit behavior; Nodes that has certain value define own setter
-  * with meaningful body;
-  *
-  * Values:
-  *   attribute
-  *   default
-  *   valuePattern
-  *   content
-  *   valueFilter
-  *   flag
-  *   assert
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setAttribute()}
   */
   public function setAttribute ( $attribute ) {
   
@@ -72,6 +78,9 @@ abstract class MapFilter_Pattern_Tree
     );
   }
   
+  /**
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setDefault()}
+  */
   public function setDefault ( $default ) {
   
     throw new MapFilter_Pattern_Tree_Exception (
@@ -80,6 +89,9 @@ abstract class MapFilter_Pattern_Tree
     );
   }
   
+  /**
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setContent()}
+  */
   public function setContent ( Array $content ) {
   
     throw new MapFilter_Pattern_Tree_Exception (
@@ -87,17 +99,19 @@ abstract class MapFilter_Pattern_Tree
     );
   }
   
-  public function setValuePattern ( $pattern ) {
+  /**
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setValuePattern()}
+  */
+  public function setValuePattern ( $valuePattern ) {
   
     throw new MapFilter_Pattern_Tree_Exception (
         MapFilter_Pattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $pattern )
+        Array ( $valuePattern )
     );
   }
-
+  
   /**
-  * Fluent Method; Set valueFilter
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setValueFilter()}
   */
   public function setValueFilter ( $valueFilter ) {
 
@@ -106,8 +120,7 @@ abstract class MapFilter_Pattern_Tree
   }
   
   /**
-  * Fluent Method; Set Flag
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setFlag()}
   */
   public function setFlag ( $flag ) {
   
@@ -116,8 +129,7 @@ abstract class MapFilter_Pattern_Tree
   }
   
   /**
-  * Fluent Method; Set Assert
-  * @param String
+  * @copyfull{MapFilter_Pattern_Tree_Interface::setAssert()}
   */
   public function setAssert ( $assert ) {
   
@@ -126,16 +138,38 @@ abstract class MapFilter_Pattern_Tree
   }
   
   /**
-  * All node types has to have empty constructors
-  * All setting is done by Fluent Methods
+  * Get valueFilter
+  *
+  * @since	0.3
+  *
+  * @return	String	Node value filter
+  */
+  public function getValueFilter () {
+  
+    return $this->valueFilter;
+  }
+  
+  /**
+  * Empty constructor.
+  *
+  * @since	0.3
+  *
+  * All setting is done by Fluent Methods.
+  *
+  * @see	setAssert(), setFlag(), setValueFilter(), setValuePattern(),
+  * 		setContent(), setDefault() or setAttribute()
   */
   final public function __construct () {}
   
   /**
   * Satisfy certain node and do all necessary work to get (un)satisfied
-  * @param Bool
-  * @param MapFilter_Pattern_SatisfyParam
-  * @return Bool
+  *
+  * @since	0.3
+  *
+  * @param	cond	Bool Satisfy condition
+  * @param	param	Parameter object
+  *
+  * @return	Bool	Was or was not satisfied
   */
   protected function setSatisfied (
       $cond,
@@ -166,8 +200,7 @@ abstract class MapFilter_Pattern_Tree
   }
   
   /**
-  * Determine whether the node is satisfied
-  * @return Bool
+  * @copyfull{MapFilter_Pattern_Tree_Interface::isSatisfied()}
   */
   public function isSatisfied () {
   
@@ -175,10 +208,7 @@ abstract class MapFilter_Pattern_Tree
   }
   
   /**
-  * Test whether an argument is present in query.
-  * @param String
-  * @param Array
-  * @return Bool
+  * @copyfull{MapFilter_Pattern_Tree_Interface::attrPresent()}
   */
   public static function attrPresent ( $attrName, $query ) {
     
@@ -188,24 +218,38 @@ abstract class MapFilter_Pattern_Tree
     );
   }
   
+  /** @cond INTERNAL */
+  
   /**
-  * Enclose string with beginning and end mark to ensure that the string are
-  * completely equal. FORMAT
-  * @var String
+  * Filter boundaries.
+  *
+  * @since	0.3
+  *
+  * A format string to enclose pattern with begin and end mark to ensure
+  * that the string are completely (not partially) equal. 
   */
   const FILTER_BOUNDARIES = '/^%s$/';
   
   /**
-  * PREG string delimiter
-  * @var String
+  * PCRE filter delimiter
+  *
+  * @since	0.3
+  * 
+  * Special char to enclose PCRE filter.
   */
   const FILTER_DELIMITER = '/';
   
+  /** @endcond */
+  
   /**
-  * Test whether a ForValue condition on tree node fits given pattern
-  * @param String
-  * @param String
-  * @return Bool
+  * Test whether a ForValue condition on tree node fits given pattern.
+  *
+  * @since	0.3
+  *
+  * @param	valueCandidate	A value to fit
+  * @param	pattern		Value pattern
+  *
+  * @return	Bool	Does the value fit
   */
   protected function valueFits ( $valueCandidate, $pattern ) {
 
@@ -214,7 +258,7 @@ abstract class MapFilter_Pattern_Tree
       return TRUE;
     }
 
-    /** Sanitize inputted PREG */
+    /** Sanitize inputted PCRE */
     $valueCandidate = preg_quote (
         $valueCandidate,
         self::FILTER_DELIMITER
