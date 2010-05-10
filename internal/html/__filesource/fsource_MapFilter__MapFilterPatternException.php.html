@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Source for Exception.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">MapFilter<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                                      
+                      		[ <a href="../classtrees_MapFilter.html" class="menu">class tree: MapFilter</a> ]
+		[ <a href="../elementindex_MapFilter.html" class="menu">index: MapFilter</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">MapFilter</div>
+  <div class="package">
+	<div id="ric">
+					<p><a href="../ric_README.html">README</a></p>
+			</div>
+	</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_3rdParty.html">3rdParty</a><br />
+              <a href="../li_MapFilter.html">MapFilter</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file Exception.php</h1>
+<p>Documentation is available at <a href="../MapFilter/_MapFilter---Pattern---Exception.php.html">Exception.php</a></p>
+<div class="src-code"><span class="php">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">*&nbsp;Class&nbsp;for&nbsp;exceptions&nbsp;raised&nbsp;by&nbsp;the&nbsp;MapFilter&nbsp;package.</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Oliver&nbsp;Gondža</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://github.com/olivergondza/MapFilter</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;GNU&nbsp;GPLv3</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;2009-2010&nbsp;Oliver&nbsp;Gondža</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;MapFilter</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">*/</span></div></li>
+<li><div class="src-line"><a name="a11"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-inc">require_once&nbsp;</span><span class="src-sym">(&nbsp;</span><span class="src-id">dirname&nbsp;</span><span class="src-sym">(&nbsp;</span>__FILE__&nbsp;<span class="src-sym">)&nbsp;</span>.&nbsp;<span class="src-str">'/../../3rdParty/PureException.php'&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a13"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-doc">*&nbsp;MapFilter_Pattern&nbsp;Exceptions</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-tag">@class</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;MapFilter_Pattern_Exception</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;MapFilter</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">*/</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-key">class&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html">MapFilter_Pattern_Exception</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../3rdParty/PureException.html">PureException</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a21"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a22"></a>&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;Invalid&nbsp;pattern&nbsp;element&nbsp;occurred.</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-doc">&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;An&nbsp;invalid&nbsp;pattern&nbsp;tag&nbsp;used.</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@hideinitializer</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a28"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constINVALID_PATTERN_ELEMENT">INVALID_PATTERN_ELEMENT</a>&nbsp;=&nbsp;<span class="src-num">1</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a29"></a>&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a30"></a>&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;More&nbsp;than&nbsp;one&nbsp;pattern&nbsp;specified&nbsp;in&nbsp;the&nbsp;XML.</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-doc">&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;A&nbsp;pattern&nbsp;tree&nbsp;must&nbsp;have&nbsp;exactly&nbsp;one&nbsp;follower&nbsp;whether&nbsp;an&nbsp;optional</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;\&lt;pattern\&gt;&nbsp;tag&nbsp;is&nbsp;used&nbsp;or&nbsp;not.</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@hideinitializer</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a37"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constTOO_MANY_PATTERNS">TOO_MANY_PATTERNS</a>&nbsp;=&nbsp;<span class="src-num">2</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a38"></a>&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a40"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;No&nbsp;such&nbsp;attribute&nbsp;with&nbsp;this&nbsp;type&nbsp;of&nbsp;node.</span></div></li>
+<li><div class="src-line"><a name="a41"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a42"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;Invalid&nbsp;pattern&nbsp;attribute&nbsp;used.</span></div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@hideinitializer</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-doc">&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a45"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constINVALID_PATTERN_ATTRIBUTE">INVALID_PATTERN_ATTRIBUTE</a>&nbsp;=&nbsp;<span class="src-num">3</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a46"></a>&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a47"></a>&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;LibXML&nbsp;internal&nbsp;error</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-doc">&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;libXML&nbsp;cannot&nbsp;parse&nbsp;source</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@hideinitializer</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@{</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-doc">&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a54"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constLIBXML_WARNING">LIBXML_WARNING</a>&nbsp;=&nbsp;<span class="src-num">6</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a55"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constLIBXML_ERROR">LIBXML_ERROR</a>&nbsp;=&nbsp;<span class="src-num">7</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a56"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constLIBXML_FATAL">LIBXML_FATAL</a>&nbsp;=&nbsp;<span class="src-num">8</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a57"></a>&nbsp;&nbsp;<span class="src-comm">/**@}*/</span></div></li>
+<li><div class="src-line"><a name="a58"></a>&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a59"></a>&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a60"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;Invalid&nbsp;xml&nbsp;attribute&nbsp;used.</span></div></li>
+<li><div class="src-line"><a name="a61"></a><span class="src-doc">&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a62"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;Invalid&nbsp;attribute&nbsp;passed&nbsp;to&nbsp;the&nbsp;tag.</span></div></li>
+<li><div class="src-line"><a name="a63"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@hideinitializer</span></div></li>
+<li><div class="src-line"><a name="a64"></a><span class="src-doc">&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constINVALID_XML_ATTRIBUTE">INVALID_XML_ATTRIBUTE</a>&nbsp;=&nbsp;<span class="src-num">9</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a68"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;Invalid&nbsp;tag&nbsp;content</span></div></li>
+<li><div class="src-line"><a name="a69"></a><span class="src-doc">&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a70"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;A&nbsp;pattern&nbsp;tree&nbsp;leaf&nbsp;has&nbsp;some&nbsp;content&nbsp;specified.</span></div></li>
+<li><div class="src-line"><a name="a71"></a><span class="src-doc">&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@hideinitializer</span></div></li>
+<li><div class="src-line"><a name="a72"></a><span class="src-doc">&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a73"></a>&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#constINVALID_XML_CONTENT">INVALID_XML_CONTENT</a>&nbsp;=&nbsp;<span class="src-num">10</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a75"></a>&nbsp;&nbsp;<span class="src-key">protected&nbsp;</span><a href="../MapFilter/MapFilter_Pattern_Exception.html#var$messages">$messages</a>&nbsp;=&nbsp;<span class="src-key">Array&nbsp;</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">INVALID_PATTERN_ELEMENT&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;Invalid&nbsp;pattern&nbsp;element&nbsp;'%s'.&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a77"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">TOO_MANY_PATTERNS&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;More&nbsp;than&nbsp;one&nbsp;pattern&nbsp;specified.&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a78"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">INVALID_PATTERN_ATTRIBUTE&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;Node&nbsp;'%s'&nbsp;has&nbsp;no&nbsp;attribute&nbsp;like&nbsp;'%s'.&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">LIBXML_WARNING&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;LibXML&nbsp;warning:&nbsp;%s&nbsp;on&nbsp;line&nbsp;%s&nbsp;(in&nbsp;file&nbsp;%s).&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">LIBXML_ERROR&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;LibXML&nbsp;error:&nbsp;%s&nbsp;on&nbsp;line&nbsp;%s&nbsp;(in&nbsp;file&nbsp;%s).&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">LIBXML_FATAL&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;LibXML&nbsp;fatal&nbsp;error:&nbsp;%s&nbsp;on&nbsp;line&nbsp;%s&nbsp;(in&nbsp;file&nbsp;%s).&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">INVALID_XML_ATTRIBUTE&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;Node&nbsp;'%s'&nbsp;has&nbsp;no&nbsp;attribute&nbsp;like&nbsp;'%s'.&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">INVALID_XML_CONTENT&nbsp;</span>=&gt;&nbsp;<span class="src-str">&quot;Node&nbsp;'%s'&nbsp;has&nbsp;no&nbsp;content.&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a85"></a><span class="src-sym">}</span></div></li>
+</ol>
+</span></div>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Sun, 09 May 2010 18:57:11 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
