@@ -108,7 +108,7 @@ class MapFilter {
   *
   * @clip{User.test.php,testDuration}
   *
-  * @see	setPattern(), setQuery(), MapFilter_Pattern()
+  * @see	setPattern(), setQuery(), MapFilter_Pattern
   */
   public function __construct (
       MapFilter_Pattern $pattern = NULL,

@@ -17,7 +17,7 @@ Manual
 
 MapFilter uses doxygen utility to create reference manual dynamically.
 There are three different initialization files to generate user,
- programmer and internal documentation. Programmer documentation contains
+programmer and internal documentation. Programmer documentation contains
 full MapFilter package documentation. Comprehensive documentation including
 supporting classes can be found in documentation/internal/ directory.
 

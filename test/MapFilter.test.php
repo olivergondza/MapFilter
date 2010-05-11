@@ -35,7 +35,12 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
   public static function testInvocation () {
   
     $pattern = MapFilter_Pattern::load (
-        '<pattern><some><attr>attr0</attr><attr>attr1</attr></some></pattern>'
+        '<pattern>
+          <some>
+            <attr>attr0</attr>
+            <attr>attr1</attr>
+          </some>
+        </pattern>'
     );
     
     $query = Array ( 'attr0' => 'value', 'attr1' => 'value' );
