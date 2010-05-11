@@ -144,25 +144,4 @@ interface MapFilter_Pattern_Tree_Interface {
   * @param	param	PickUp ParameterObject
   */
   public function pickUp ( MapFilter_Pattern_PickUpParam $param );
-  
-  /**
-  * Determine whether the node is satisfied.
-  *
-  * @since 0.4
-  *
-  * @return	Bool	Satisfied or not
-  */
-  public function isSatisfied ();
-  
-  /**
-  * Test whether an argument is present in query.
-  *
-  * @since 0.4
-  *
-  * @param	attrName	Name of an attribute
-  * @param	query		Input array
-  *
-  * @return	Bool	Attribute present or not
-  */
-  public static function attrPresent ( $attrName, $query );
 }

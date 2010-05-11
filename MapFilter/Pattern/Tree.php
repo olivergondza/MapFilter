@@ -144,7 +144,7 @@ abstract class MapFilter_Pattern_Tree
   *
   * @return	String	Node value filter
   */
-  public function getValueFilter () {
+  protected function getValueFilter () {
   
     return $this->valueFilter;
   }
@@ -200,17 +200,28 @@ abstract class MapFilter_Pattern_Tree
   }
   
   /**
-  * @copyfull{MapFilter_Pattern_Tree_Interface::isSatisfied()}
+  * Determine whether the node is satisfied.
+  *
+  * @since 0.4
+  *
+  * @return	Bool	Satisfied or not
   */
-  public function isSatisfied () {
+  protected function isSatisfied () {
   
     return $this->satisfied;
   }
   
   /**
-  * @copyfull{MapFilter_Pattern_Tree_Interface::attrPresent()}
+  * Test whether an argument is present in query.
+  *
+  * @since 0.4
+  *
+  * @param	attrName	Name of an attribute
+  * @param	query		Input array
+  *
+  * @return	Bool	Attribute present or not
   */
-  public static function attrPresent ( $attrName, $query ) {
+  protected static function attrPresent ( $attrName, $query ) {
     
     return array_key_exists (
         $attrName,

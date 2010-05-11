@@ -6,6 +6,19 @@ require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern.php' );
 
 class TestPattern extends PHPUnit_Framework_TestCase {  
   
+  /**
+  * Test whether MapFilter_Pattern implements MapFilter_Pattern_Interface
+  */
+  public static function testInterface () {
+  
+    self::assertTrue (
+        is_a (
+            MapFilter_Pattern::load ( '<attr>attr</attr>' ),
+            'MapFilter_Pattern_Interface'
+        )
+    );
+  }
+  
   /** Parse a tag that hes not been wrapped in <pattern> tags */
   public static function testUnwrapped () {
 

@@ -6,6 +6,14 @@ require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
 
 class TestMapFilter extends PHPUnit_Framework_TestCase {
   
+  /** Test whether MapFilter class implements MapFilter_Interface */
+  public static function testInterface () {
+  
+    self::assertTrue (
+        is_a ( new MapFilter, 'MapFilter_Interface' )
+    );
+  }
+  
   /** Test whether a fetch get deprecated error */
   public static function testDeprecated () {
   

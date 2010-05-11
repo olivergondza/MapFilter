@@ -63,6 +63,11 @@ require_once ( dirname ( __FILE__ ) . '/../3rdParty/NotSoSimpleXmlElement.php' )
 require_once ( dirname ( __FILE__ ) . '/Pattern/Exception.php' );
 
 /**
+* @file		MapFilter/Pattern/Interface.php
+*/
+require_once ( dirname ( __FILE__ ) . '/Pattern/Interface.php' );
+
+/**
 * Class to load and hold Pattern tree
 *
 * @since	0.1
@@ -71,7 +76,7 @@ require_once ( dirname ( __FILE__ ) . '/Pattern/Exception.php' );
 * @package	MapFilter
 * @author	Oliver Gondža
 */
-class MapFilter_Pattern {
+class MapFilter_Pattern implements MapFilter_Pattern_Interface {
 
   /**
   * Pattern tree itself
@@ -106,18 +111,7 @@ class MapFilter_Pattern {
   /** @endcond */
 
   /**
-  * Simple Factory Method to load data from string
-  *
-  * @since	0.1
-  *
-  * @param	xmlSource	pattern string
-  *
-  * @return	MapFilter_Pattern	Pattern created from $XmlSource string
-  *
-  * fromFile() and load() difference demonstration:
-  * @clip{Pattern.test.php,testLoadFromFileComparison}
-  *
-  * @see	fromFile(), __construct()
+  * @copyfull{MapFilter_Pattern_Interface::load()}
   */
   public static function load ( $xmlSource ) {
     
@@ -132,18 +126,7 @@ class MapFilter_Pattern {
   }
 
   /**
-  * Simple factory method to instantiate with loading the data from file
-  *
-  * @since	0.1
-  *
-  * @param	url	XML pattern file
-  *
-  * @return	MapFilter_Pattern	Pattern created from $url file
-  * 
-  * fromFile() and load() difference demonstration:
-  * @clip{Pattern.test.php,testLoadFromFileComparison}
-  *
-  * @see	load(), __construct()
+  * @copyfull{MapFilter_Pattern_Interface::fromFile()}
   */
   public static function fromFile ( $url ) {
   
@@ -158,16 +141,7 @@ class MapFilter_Pattern {
   }
   
   /**
-  * Create Pattern from Pattern_Tree object.
-  *
-  * @since	0.1
-  * @note New object is created with @b copy of given patternTree
-  *
-  * @param	patternTree	A pattern tree to use
-  *
-  * @return	MapFilter_Pattern	Created Pattern
-  *
-  * @see	load(), fromFile()
+  * @copyfull{MapFilter_Pattern_Interface::__construct()}
   */
   public function __construct ( MapFilter_Pattern_Tree $patternTree ) {
   
@@ -178,13 +152,7 @@ class MapFilter_Pattern {
   /** @cond PROGRAMMER */
 
   /**
-  * Get Pattern tree
-  *
-  * @since	0.1
-  *
-  * @return	MapFilter_Pattern_Tree	Internal pattern tree
-  *
-  * @see	__construct()
+  * @copyfull{MapFilter_Pattern_Interface::getTree()}
   */
   public function getTree () {
   
@@ -192,13 +160,7 @@ class MapFilter_Pattern {
   }
   
   /**
-  * Satisfy pattern
-  *
-  * @since	0.1
-  *
-  * @param	param	MapFilter_Pattern_SatisfyParam
-  *
-  * @return	Bool	Satisfaction results
+  * @copyfull{MapFilter_Pattern_Interface::satisfy()}
   */
   public function satisfy ( MapFilter_Pattern_SatisfyParam $param ) {
   
@@ -206,11 +168,7 @@ class MapFilter_Pattern {
   }
   
   /**
-  * Pick up results
-  *
-  * @since	0.1
-  *
-  * @param	param	MapFilter_Pattern_PickUpParam
+  * @copyfull{MapFilter_Pattern_Interface::pickUp()}
   */
   public function pickUp ( MapFilter_Pattern_PickUpParam $param ) {
   
@@ -218,12 +176,7 @@ class MapFilter_Pattern {
   }
 
   /**
-  * Clone pattern tree recursively.
-  *
-  * @since	0.1
-  *
-  * @note Deep cloning is used thus new copy of patternTree is going to be
-  * created
+  * @copyfull{MapFilter_Pattern_Interface::__clone()}
   */
   public function __clone () {
 
@@ -279,6 +232,11 @@ class MapFilter_Pattern {
       /** Throw first error */
       $error = libxml_get_last_error ();
       libxml_clear_errors ();
+
+      if ( !$error ) {
+        
+        throw $exception;
+      }
 
       throw new MapFilter_Pattern_Exception (
           self::$errorToException[ $error->level ],
