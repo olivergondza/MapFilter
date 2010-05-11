@@ -99,8 +99,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
-<p>Simple Factory Method to load data from string. </p>
-<dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
+<p>Simple Factory Method to load data from string.  </p>
+<p><dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>xmlSource</em>&nbsp;</td><td>pattern string</td></tr>
@@ -108,20 +108,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classMapFilter__Pattern.html" title="Class to load and hold Pattern tree.">MapFilter_Pattern</a> Pattern created from $XmlSource string</dd></dl>
-<p><a class="el" href="classMapFilter__Pattern_a20772b5dd05d0af199e9da900b8c14e2.html#a20772b5dd05d0af199e9da900b8c14e2" title="Simple factory method to instantiate with loading the data from file.">fromFile()</a> and <a class="el" href="classMapFilter__Pattern_a223d49c96ab0f3620e171a060064d8ad.html#a223d49c96ab0f3620e171a060064d8ad" title="Simple Factory Method to load data from string.">load()</a> difference demonstration:  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testLoadFromFileComparison ( $filename ) {
+<p><a class="el" href="interfaceMapFilter__Pattern__Interface_ab4a9391535bd37397ba9df10dcb61f55.html#ab4a9391535bd37397ba9df10dcb61f55" title="Simple factory method to instantiate with loading the data from file.">fromFile()</a> and <a class="el" href="interfaceMapFilter__Pattern__Interface_af1d98553703a77052683e6e938ff3fa0.html#af1d98553703a77052683e6e938ff3fa0" title="Simple Factory Method to load data from string.">load()</a> difference demonstration:  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testLoadFromFileComparison ( $filename ) {
   
     $string = file_get_contents ( $filename );
   
-    $filePattern = <a class="code" href="classMapFilter__Pattern_a20772b5dd05d0af199e9da900b8c14e2.html#a20772b5dd05d0af199e9da900b8c14e2" title="Simple factory method to instantiate with loading the data from file.">MapFilter_Pattern::fromFile</a> ( $filename );
-    $stringPattern = <a class="code" href="classMapFilter__Pattern_a223d49c96ab0f3620e171a060064d8ad.html#a223d49c96ab0f3620e171a060064d8ad" title="Simple Factory Method to load data from string.">MapFilter_Pattern::load</a> ( $string );
+    $filePattern = <a class="code" href="interfaceMapFilter__Pattern__Interface_ab4a9391535bd37397ba9df10dcb61f55.html#ab4a9391535bd37397ba9df10dcb61f55" title="Simple factory method to instantiate with loading the data from file.">MapFilter_Pattern::fromFile</a> ( $filename );
+    $stringPattern = <a class="code" href="interfaceMapFilter__Pattern__Interface_af1d98553703a77052683e6e938ff3fa0.html#af1d98553703a77052683e6e938ff3fa0" title="Simple Factory Method to load data from string.">MapFilter_Pattern::load</a> ( $string );
     
     self::assertEquals (
         $filePattern,
         $stringPattern
     );
   }
-</pre></div></p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classMapFilter__Pattern_a20772b5dd05d0af199e9da900b8c14e2.html#a20772b5dd05d0af199e9da900b8c14e2" title="Simple factory method to instantiate with loading the data from file.">fromFile()</a>, <a class="el" href="classMapFilter__Pattern_a518be6b4ee3eac4824dc8b0613268368.html#a518be6b4ee3eac4824dc8b0613268368" title="Create Pattern from Pattern_Tree object.">__construct()</a> </dd></dl>
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interfaceMapFilter__Pattern__Interface_ab4a9391535bd37397ba9df10dcb61f55.html#ab4a9391535bd37397ba9df10dcb61f55" title="Simple factory method to instantiate with loading the data from file.">fromFile()</a>, <a class="el" href="interfaceMapFilter__Pattern__Interface_a39aa803c664d0c5fca3bfea94cd2eb6d.html#a39aa803c664d0c5fca3bfea94cd2eb6d" title="Create Pattern from Pattern_Tree object.">__construct()</a> </dd></dl>
+ </p>
+
+<p>Reimplemented from <a class="el" href="interfaceMapFilter__Pattern__Interface_af1d98553703a77052683e6e938ff3fa0.html#af1d98553703a77052683e6e938ff3fa0">MapFilter_Pattern_Interface</a>.</p>
 
 </div>
 </div>
@@ -143,7 +145,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon May 10 17:40:48 2010 for MapFilter by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 11 20:13:05 2010 for MapFilter by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

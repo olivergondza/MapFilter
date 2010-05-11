@@ -79,9 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
-<p>Set desired query pattern. </p>
-<p>Fluent Method</p>
-<dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
+<p>Set desired query pattern.  </p>
+<p>Fluent Method<dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>pattern</em>&nbsp;</td><td>A pattern to set</td></tr>
@@ -89,25 +88,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> Instance of <a class="el" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> with new pattern</dd></dl>
-<p><a class="el" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> can be configured using both constructor and specialized fluent methods <a class="el" href="classMapFilter_a43de1203a56ffbdb10498c4f2e32f7fd.html#a43de1203a56ffbdb10498c4f2e32f7fd" title="Set desired query pattern.">MapFilter::setPattern()</a> and <a class="el" href="classMapFilter_addffbbbd2fc85344a1d00b5750519937.html#addffbbbd2fc85344a1d00b5750519937" title="Set query to filter.">MapFilter::setQuery()</a>:</p>
- <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testInvocation () {
+<p><a class="el" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> can be configured using both constructor and specialized fluent methods <a class="el" href="interfaceMapFilter__Interface_a3d24c4e25e0179bcdc8f8315dae27e2d.html#a3d24c4e25e0179bcdc8f8315dae27e2d" title="Set desired query pattern.">setPattern()</a> and <a class="el" href="interfaceMapFilter__Interface_aefc2ae78c224e1df0bd0cbdc56b7b57c.html#aefc2ae78c224e1df0bd0cbdc56b7b57c" title="Set query to filter.">setQuery()</a>: <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testInvocation () {
   
-    <a class="code" href="classMapFilter_a5d39db8d6006bdd629dbcd4315f0707d.html#a5d39db8d6006bdd629dbcd4315f0707d" title="Query Tree of Pattern.">$pattern</a> = <a class="code" href="classMapFilter__Pattern_a223d49c96ab0f3620e171a060064d8ad.html#a223d49c96ab0f3620e171a060064d8ad" title="Simple Factory Method to load data from string.">MapFilter_Pattern::load</a> (
-        <span class="stringliteral">&#39;&lt;pattern&gt;&lt;some&gt;&lt;attr&gt;attr0&lt;/attr&gt;&lt;attr&gt;attr1&lt;/attr&gt;&lt;/some&gt;&lt;/pattern&gt;&#39;</span>
+    $pattern = <a class="code" href="classMapFilter__Pattern_a223d49c96ab0f3620e171a060064d8ad.html#a223d49c96ab0f3620e171a060064d8ad" title="Simple Factory Method to load data from string. ">MapFilter_Pattern::load</a> (
+        <span class="stringliteral">&#39;&lt;pattern&gt;</span>
+<span class="stringliteral">          &lt;some&gt;</span>
+<span class="stringliteral">            &lt;attr&gt;attr0&lt;/attr&gt;</span>
+<span class="stringliteral">            &lt;attr&gt;attr1&lt;/attr&gt;</span>
+<span class="stringliteral">          &lt;/some&gt;</span>
+<span class="stringliteral">        &lt;/pattern&gt;&#39;</span>
     );
     
-    <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a> = Array ( <span class="stringliteral">&#39;attr0&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span>, <span class="stringliteral">&#39;attr1&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
+    $query = Array ( <span class="stringliteral">&#39;attr0&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span>, <span class="stringliteral">&#39;attr1&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
 
     <span class="comment">// Configure filter using constructor.</span>
-    $filter0 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> ( <a class="code" href="classMapFilter_a5d39db8d6006bdd629dbcd4315f0707d.html#a5d39db8d6006bdd629dbcd4315f0707d" title="Query Tree of Pattern.">$pattern</a>, <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a> );
+    $filter0 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> ( $pattern, $query );
     
     <span class="comment">// Create empty filter and configure it using fluent methods.</span>
     $filter1 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> ();
-    $filter1 -&gt; <a class="code" href="classMapFilter_a43de1203a56ffbdb10498c4f2e32f7fd.html#a43de1203a56ffbdb10498c4f2e32f7fd" title="Set desired query pattern.">setPattern</a> ( <a class="code" href="classMapFilter_a5d39db8d6006bdd629dbcd4315f0707d.html#a5d39db8d6006bdd629dbcd4315f0707d" title="Query Tree of Pattern.">$pattern</a> ) -&gt; <a class="code" href="classMapFilter_addffbbbd2fc85344a1d00b5750519937.html#addffbbbd2fc85344a1d00b5750519937" title="Set query to filter.">setQuery</a> ( <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a> );
+    $filter1 -&gt; <a class="code" href="interfaceMapFilter__Interface_a3d24c4e25e0179bcdc8f8315dae27e2d.html#a3d24c4e25e0179bcdc8f8315dae27e2d" title="Set desired query pattern.">setPattern</a> ( $pattern ) -&gt; <a class="code" href="interfaceMapFilter__Interface_aefc2ae78c224e1df0bd0cbdc56b7b57c.html#aefc2ae78c224e1df0bd0cbdc56b7b57c" title="Set query to filter.">setQuery</a> ( $query );
 
     <span class="comment">// Optional combination of both can be used as well</span>
-    $filter2 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> ( <a class="code" href="classMapFilter_a5d39db8d6006bdd629dbcd4315f0707d.html#a5d39db8d6006bdd629dbcd4315f0707d" title="Query Tree of Pattern.">$pattern</a> );
-    $filter2 -&gt; <a class="code" href="classMapFilter_addffbbbd2fc85344a1d00b5750519937.html#addffbbbd2fc85344a1d00b5750519937" title="Set query to filter.">setQuery</a> ( <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a> );
+    $filter2 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> ( $pattern );
+    $filter2 -&gt; <a class="code" href="interfaceMapFilter__Interface_aefc2ae78c224e1df0bd0cbdc56b7b57c.html#aefc2ae78c224e1df0bd0cbdc56b7b57c" title="Set query to filter.">setQuery</a> ( $query );
 
     self::assertEquals (
         $filter0,
@@ -119,8 +122,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
         $filter2
     );
   }
-</pre></div></p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classMapFilter_a5a11162db31d36df1a0e4a4907cb4a66.html#a5a11162db31d36df1a0e4a4907cb4a66" title="Create new filter instance.">__construct()</a> </dd></dl>
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interfaceMapFilter__Interface_a5354ca96d6a56452722fef0f68dd9c13.html#a5354ca96d6a56452722fef0f68dd9c13" title="Create new filter instance.">__construct()</a> </dd></dl>
+ </p>
+
+<p>Reimplemented from <a class="el" href="interfaceMapFilter__Interface_a3d24c4e25e0179bcdc8f8315dae27e2d.html#a3d24c4e25e0179bcdc8f8315dae27e2d">MapFilter_Interface</a>.</p>
 
 </div>
 </div>
@@ -142,7 +147,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon May 10 17:40:48 2010 for MapFilter by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 11 20:13:05 2010 for MapFilter by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

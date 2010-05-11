@@ -88,8 +88,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
-<p>Create new filter instance. </p>
-<dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
+<p>Create new filter instance.  </p>
+<p><dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>pattern</em>&nbsp;</td><td>A pattern to set </td></tr>
@@ -97,27 +97,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </table>
   </dd>
 </dl>
-<p>If no pattern specified an untouched query will be returned:</p>
- <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testEmptyPattern  () {
+<p>If no pattern specified an untouched query will be returned: <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testEmptyPattern  () {
   
-    <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a> = Array ( <span class="stringliteral">&#39;attr&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
+    $query = Array ( <span class="stringliteral">&#39;attr&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
     $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> ();
     $filter-&gt;setQuery (
-        <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a>
+        $query
     );
     
     self::assertEquals (
-        <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a>,
+        $query,
         $filter-&gt;getResults ()
     );
   }
-</pre></div></p>
-<p>All parsing is done just in time (however it can be triggered manually using <a class="el" href="classMapFilter_a3de98bf6a40bbe8359eccd0f9098b3b7.html#a3de98bf6a40bbe8359eccd0f9098b3b7" title="Parse filter configuration.">MapFilter::parse()</a>) when some of parsing results is accessed (in this case when <a class="el" href="classMapFilter_a139add23886402fefefd8e9031fdfbca.html#a139add23886402fefefd8e9031fdfbca" title="Get results.">MapFilter::getResults()</a> is called for the first time):</p>
- <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testDuration ( <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a>, $result, <a class="code" href="classMapFilter_ae6e02eac130b903015abdf01d29792b5.html#ae6e02eac130b903015abdf01d29792b5" title="Validation flags.">$flags</a>, <a class="code" href="classMapFilter_a34db17da77aeffb1f4d474525013d106.html#a34db17da77aeffb1f4d474525013d106" title="Validation asserts.">$asserts</a> ) {
+</pre></div>All parsing is done just in time (however it can be triggered manually using <a class="el" href="classMapFilter_a3de98bf6a40bbe8359eccd0f9098b3b7.html#a3de98bf6a40bbe8359eccd0f9098b3b7" title="Parse filter configuration.">MapFilter::parse()</a>) when some of parsing results is accessed (in this case when <a class="el" href="classMapFilter_a139add23886402fefefd8e9031fdfbca.html#a139add23886402fefefd8e9031fdfbca" title="Get results. ">MapFilter::getResults()</a> is called for the first time): <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testDuration ( $query, $result, $flags, $asserts ) {
   
     $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter associative arrays.">MapFilter</a> (
-        <a class="code" href="classMapFilter__Pattern_a20772b5dd05d0af199e9da900b8c14e2.html#a20772b5dd05d0af199e9da900b8c14e2" title="Simple factory method to instantiate with loading the data from file.">MapFilter_Pattern::fromFile</a> ( Test_Source::DURATION ),
-        <a class="code" href="classMapFilter_a451e1f7e48a59fb442cbac013198bec0.html#a451e1f7e48a59fb442cbac013198bec0" title="Read data / Query candidate.">$query</a>
+        <a class="code" href="classMapFilter__Pattern_a20772b5dd05d0af199e9da900b8c14e2.html#a20772b5dd05d0af199e9da900b8c14e2" title="Simple factory method to instantiate with loading the data from file. ">MapFilter_Pattern::fromFile</a> ( Test_Source::DURATION ),
+        $query
     );
     
     self::assertEquals (
@@ -126,17 +123,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     );
     
     self::assertEquals (
-        array_diff ( <a class="code" href="classMapFilter_ae6e02eac130b903015abdf01d29792b5.html#ae6e02eac130b903015abdf01d29792b5" title="Validation flags.">$flags</a>, $filter-&gt;getFlags () ),
-        array_diff ( $filter-&gt;getFlags (), <a class="code" href="classMapFilter_ae6e02eac130b903015abdf01d29792b5.html#ae6e02eac130b903015abdf01d29792b5" title="Validation flags.">$flags</a> )
+        array_diff ( $flags, $filter-&gt;getFlags () ),
+        array_diff ( $filter-&gt;getFlags (), $flags )
     );
     
     self::assertEquals (
-        array_diff ( <a class="code" href="classMapFilter_a34db17da77aeffb1f4d474525013d106.html#a34db17da77aeffb1f4d474525013d106" title="Validation asserts.">$asserts</a>, $filter-&gt;getAsserts () ),
-        array_diff ( $filter-&gt;getAsserts (), <a class="code" href="classMapFilter_a34db17da77aeffb1f4d474525013d106.html#a34db17da77aeffb1f4d474525013d106" title="Validation asserts.">$asserts</a> )
+        array_diff ( $asserts, $filter-&gt;getAsserts () ),
+        array_diff ( $filter-&gt;getAsserts (), $asserts )
     );
   }
-</pre></div></p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classMapFilter_a43de1203a56ffbdb10498c4f2e32f7fd.html#a43de1203a56ffbdb10498c4f2e32f7fd" title="Set desired query pattern.">setPattern()</a>, <a class="el" href="classMapFilter_addffbbbd2fc85344a1d00b5750519937.html#addffbbbd2fc85344a1d00b5750519937" title="Set query to filter.">setQuery()</a>, MapFilter_Pattern() </dd></dl>
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interfaceMapFilter__Interface_a3d24c4e25e0179bcdc8f8315dae27e2d.html#a3d24c4e25e0179bcdc8f8315dae27e2d" title="Set desired query pattern.">setPattern()</a>, <a class="el" href="interfaceMapFilter__Interface_aefc2ae78c224e1df0bd0cbdc56b7b57c.html#aefc2ae78c224e1df0bd0cbdc56b7b57c" title="Set query to filter.">setQuery()</a>, <a class="el" href="classMapFilter__Pattern.html" title="Class to load and hold Pattern tree.">MapFilter_Pattern</a> </dd></dl>
+ </p>
+
+<p>Reimplemented from <a class="el" href="interfaceMapFilter__Interface_a5354ca96d6a56452722fef0f68dd9c13.html#a5354ca96d6a56452722fef0f68dd9c13">MapFilter_Interface</a>.</p>
 
 </div>
 </div>
@@ -158,7 +157,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon May 10 17:40:48 2010 for MapFilter by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Tue May 11 20:13:05 2010 for MapFilter by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>
