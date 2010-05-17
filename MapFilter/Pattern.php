@@ -115,6 +115,8 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   */
   public static function load ( $xmlSource ) {
     
+    assert ( is_string ( $xmlSource ) );
+    
     $xmlElement = self::loadXML (
         $xmlSource,
         self::DATA_IS_STRING
@@ -129,6 +131,8 @@ class MapFilter_Pattern implements MapFilter_Pattern_Interface {
   * @copyfull{MapFilter_Pattern_Interface::fromFile()}
   */
   public static function fromFile ( $url ) {
+  
+    assert ( is_string ( $url ) );
   
     $xmlElement = self::loadXML (
         $url,
