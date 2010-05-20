@@ -15,7 +15,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
   }
   
   /** Test whether a fetch get deprecated error */
-  public static function testDeprecated () {
+  public static function testDeprecatedFetch () {
   
     $filter = new MapFilter ();
     @$filter->fetch ();
@@ -38,11 +38,35 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     );
   }
   
+  /** Test whether a parse get deprecated error */
+  public static function testDeprecatedParse () {
+  
+    $filter = new MapFilter ();
+    @$filter->parse ();
+    
+    $error = error_get_last ();
+    
+    self::assertEquals (
+        'MapFilter::parse () is deprecated.',
+        $error[ 'message' ]
+    );
+    
+    $level =  ( defined ( 'E_USER_DEPRECATED' ) )
+        ? E_USER_DEPRECATED
+        : E_USER_NOTICE
+    ;
+
+    self::assertEquals (
+        $level,
+        $error[ 'type' ]
+    );
+  }
+  
   /**@{*/
   /** Test invoke */
   public static function testInvocation () {
   
-    $pattern = MapFilter_Pattern::load (
+    $pattern = MapFilter_TreePattern::load (
         '<pattern>
           <some>
             <attr>attr0</attr>
@@ -81,9 +105,9 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     
     $query = Array ( 'attr0' => "value" );
 
-    $attr = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr = new MapFilter_TreePattern_Tree_Leaf_Attr ();
 
-    $pattern = new MapFilter_Pattern (
+    $pattern = new MapFilter_TreePattern (
         $attr -> setAttribute ( "attr0" )
     );
 
@@ -107,11 +131,11 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     $accurate = Array ( "Attr0" => 0, "Attr1" => 1 );
     $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
     
-    $all = new MapFilter_Pattern_Tree_Node_All ();
-    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
-    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $all = new MapFilter_TreePattern_Tree_Node_All ();
+    $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
     
-    $pattern = new MapFilter_Pattern (
+    $pattern = new MapFilter_TreePattern (
         $all -> setContent (
             Array (
                 $attr0 -> setAttribute ( "Attr0" ),
@@ -157,11 +181,11 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     $all = Array ( "Attr0" => 0, "Attr1" => 1 );
     $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
     
-    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
-    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
-    $one = new MapFilter_Pattern_Tree_Node_One ();
+    $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
+    $one = new MapFilter_TreePattern_Tree_Node_One ();
 
-    $pattern = new MapFilter_Pattern (
+    $pattern = new MapFilter_TreePattern (
         $one -> setContent (
             Array (
                 $attr0 -> setAttribute  ( "Attr0" ),
@@ -207,11 +231,11 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
     $all = Array ( "Attr0" => 0, "Attr1" => 1 );
     $nothing = Array ();
     
-    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
-    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
-    $opt = new MapFilter_Pattern_Tree_Node_Opt ();
+    $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
+    $opt = new MapFilter_TreePattern_Tree_Node_Opt ();
 
-    $pattern = new MapFilter_Pattern (
+    $pattern = new MapFilter_TreePattern (
         $opt -> setContent (
             Array (
                 $attr0 -> setAttribute  ( "Attr0" ),
@@ -290,16 +314,16 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
   */
   public static function testKeyAttrCreate ( $result, $query ) {
 
-    $attr0 = new MapFilter_Pattern_Tree_Leaf_Attr ();
-    $attr1 = new MapFilter_Pattern_Tree_Leaf_Attr ();
+    $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
+    $attr1 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
 
     $followers = Array (
         $attr0 -> setAttribute  ( "task" ) -> setValueFilter ( "do" ),
         $attr1 -> setAttribute  ( "tasks") -> setValueFilter ( "schedule" )
     );
   
-    $keyattr = new MapFilter_Pattern_Tree_Node_KeyAttr ();
-    $pattern = new MapFilter_Pattern (    
+    $keyattr = new MapFilter_TreePattern_Tree_Node_KeyAttr ();
+    $pattern = new MapFilter_TreePattern (    
         $keyattr -> setContent ( $followers ) -> setAttribute ( "action" )
     );
 

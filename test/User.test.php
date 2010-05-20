@@ -30,11 +30,11 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testWrongPattern () {
     
     try {
-      $pattern = MapFilter_Pattern::load ( "<lantern></lantern>" );
-    } catch ( MapFilter_Pattern_Exception $exception ) {
+      $pattern = MapFilter_TreePattern::load ( "<lantern></lantern>" );
+    } catch ( MapFilter_TreePattern_Exception $exception ) {
       
       self::assertEquals (
-          MapFilter_Pattern_Exception::INVALID_PATTERN_ELEMENT,
+          MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
           $exception->getCode ()
       );
     }
@@ -44,13 +44,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testWrongTag () {
   
     try {
-      $pattern = MapFilter_Pattern::load (
+      $pattern = MapFilter_TreePattern::load (
           "<pattern><wrongnode></wrongnode></pattern>"
       );
-    } catch ( MapFilter_Pattern_Exception $exception ) {
+    } catch ( MapFilter_TreePattern_Exception $exception ) {
       
       self::assertEquals (
-          MapFilter_Pattern_Exception::INVALID_PATTERN_ELEMENT,
+          MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
           $exception->getCode ()
       );
     }
@@ -60,13 +60,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testMultipleTree () {
   
     try {
-      $pattern = MapFilter_Pattern::load (
+      $pattern = MapFilter_TreePattern::load (
           "<pattern><opt></opt><all></all></pattern>"
       );
-    } catch ( MapFilter_Pattern_Exception $exception ) {
+    } catch ( MapFilter_TreePattern_Exception $exception ) {
       
       self::assertEquals (
-          MapFilter_Pattern_Exception::TOO_MANY_PATTERNS,
+          MapFilter_TreePattern_Exception::TOO_MANY_PATTERNS,
           $exception->getCode ()
       );
     }
@@ -84,11 +84,11 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ';
   
     try {
-      $filter = new MapFilter ( MapFilter_Pattern::load ( $pattern ) );
-    } catch ( MapFilter_Pattern_Exception $exception ) {
+      $filter = new MapFilter ( MapFilter_TreePattern::load ( $pattern ) );
+    } catch ( MapFilter_TreePattern_Exception $exception ) {
 
       self::assertEquals (
-          MapFilter_Pattern_Exception::INVALID_PATTERN_ATTRIBUTE,
+          MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE,
           $exception->getCode ()
       );
     }
@@ -125,7 +125,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ";
     
     $filter = new MapFilter (
-        MapFilter_Pattern::load ( $pattern ),
+        MapFilter_TreePattern::load ( $pattern ),
         $query
     );
     
@@ -161,7 +161,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ";
     
     $filter = new MapFilter (
-        MapFilter_Pattern::load ( $pattern ),
+        MapFilter_TreePattern::load ( $pattern ),
         $query
     );
     
@@ -212,7 +212,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
     ";
     
     $filter = new MapFilter (
-        MapFilter_Pattern::load ( $pattern ),
+        MapFilter_TreePattern::load ( $pattern ),
         $query
     );
     
@@ -286,7 +286,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
     sort ( $asserts );
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::LOGIN ),
+        MapFilter_TreePattern::fromFile ( Test_Source::LOGIN ),
         $query
     );
 
@@ -353,7 +353,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseLocation ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::LOCATION ),
+        MapFilter_TreePattern::fromFile ( Test_Source::LOCATION ),
         $query
     );
     
@@ -440,7 +440,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseAction ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::ACTION ),
+        MapFilter_TreePattern::fromFile ( Test_Source::ACTION ),
         $query
     );
     
@@ -483,7 +483,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseFilterUtility ( $query, $result ) {
 
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::FILTER ),
+        MapFilter_TreePattern::fromFile ( Test_Source::FILTER ),
         $query
     );
     
@@ -525,7 +525,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseCoffeeMaker ( $query, $result ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::COFFEE_MAKER ),
+        MapFilter_TreePattern::fromFile ( Test_Source::COFFEE_MAKER ),
         $query
     );
     
@@ -602,7 +602,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testDuration ( $query, $result, $flags, $asserts ) {
   
     $filter = new MapFilter (
-        MapFilter_Pattern::fromFile ( Test_Source::DURATION ),
+        MapFilter_TreePattern::fromFile ( Test_Source::DURATION ),
         $query
     );
     
@@ -619,6 +619,36 @@ class TestUser extends PHPUnit_Framework_TestCase {
     self::assertEquals (
         array_diff ( $asserts, $filter->getAsserts () ),
         array_diff ( $filter->getAsserts (), $asserts )
+    );
+  }
+  /**@}*/
+  
+  /**{@*/
+  /**
+  * @dataProvider provideDuration
+  */
+  public static function testDurationByFetchResult (
+      $query, $result, $flags, $asserts
+  ) {
+  
+    $filter = new MapFilter (
+        MapFilter_TreePattern::fromFile ( Test_Source::DURATION ),
+        $query
+    );
+    
+    self::assertEquals (
+        $filter->fetchResult ()->getResults (),
+        $filter->getResults ()
+    );
+    
+    self::assertEquals (
+        $filter->fetchResult ()->getFlags (),
+        $filter->getFlags ()
+    );
+    
+    self::assertEquals (
+        $filter->fetchResult ()->getAsserts (),
+        $filter->getAsserts ()
     );
   }
   /**@}*/

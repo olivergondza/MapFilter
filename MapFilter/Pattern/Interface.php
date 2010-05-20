@@ -21,50 +21,19 @@
 * @package	MapFilter
 * @subpackage	Filter
 * @author	Oliver Gondža
+*
+* @see		MapFilter_Pattern_AssertInterface
+* @see		MapFilter_Pattern_FlagInterface
+* @see		MapFilter_Pattern_ResultInterface
 */
 interface MapFilter_Pattern_Interface {
 
   /**
-  * Get results.
-  *
-  * Get parsed query from latest parsing process.
-  *
-  * @since	0.5
-  *
-  * @return	Array	Parsing results
-  */
-  public function getResults ();
-  
-  /**
-  * Get validation assertions.
-  *
-  * Return validation asserts that was raised during latest parsing process.
-  *
-  * @since	0.5
-  *
-  * @return	Array	Parsing asserts
-  */
-  public function getAsserts ();
-  
-  /**
-  * Get flags
-  *
-  * Return flags that was sat during latest parsing process.
-  *
-  * @since	0.5
-  *
-  * @return	Array	Parsing flags
-  */
-  public function getFlags ();
-  
-  /**
-  * Parse pattern aginst given query.
+  * Parse pattern against given query.
   *
   * @since	0.5
   *
   * @param	$query		A query to parse
-  *
-  * @see	getResults(), getAsserts(), getFlags()
   */
   public function parse ( Array $query );
 }

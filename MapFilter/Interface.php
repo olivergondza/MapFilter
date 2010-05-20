@@ -89,6 +89,20 @@ interface MapFilter_Interface {
   public function setQuery ( Array $query );
   
   /**
+  * Get full filtering results.
+  *
+  * Return used pattern to obtain all kind of results to enable user interface
+  * usage.
+  *
+  * @since	0.5
+  *
+  * @return	MapFilter_Pattern_Interface	Parsing results
+  *
+  * @see	__construct(), setPattern()
+  */
+  public function fetchResult ();
+  
+  /**
   * Get results.
   *
   * Get parsed query from latest parsing process.
@@ -96,6 +110,8 @@ interface MapFilter_Interface {
   * @since	0.2
   *
   * @return	Array	Parsing results
+  *
+  * @see	fetchResult()
   */
   public function getResults ();
   
@@ -107,6 +123,8 @@ interface MapFilter_Interface {
   * @since	0.4
   *
   * @return	Array	Parsing asserts
+  *
+  * @see	fetchResult()
   */
   public function getAsserts ();
   
@@ -118,6 +136,8 @@ interface MapFilter_Interface {
   * @since	0.4
   *
   * @return	Array	Parsing flags
+  *
+  * @see	fetchResult()
   */
   public function getFlags ();
 }

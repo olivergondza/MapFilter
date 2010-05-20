@@ -20,7 +20,22 @@
 require_once ( dirname ( __FILE__ ) . '/Interface.php' );
 
 /**
-* A mock implementation MapFilter_Pattern_Interface
+* @file		MapFilter/Pattern/AssertInterface.php
+*/
+require_once ( dirname ( __FILE__ ) . '/AssertInterface.php' );
+
+/**
+* @file		MapFilter/Pattern/FlagInterface.php
+*/
+require_once ( dirname ( __FILE__ ) . '/FlagInterface.php' );
+
+/**
+* @file		MapFilter/Pattern/ResultInterface.php
+*/
+require_once ( dirname ( __FILE__ ) . '/ResultInterface.php' );
+
+/**
+* A mock implementation basic MapFilter_Pattern interfaces
 *
 * @since	0.5
 *
@@ -30,11 +45,14 @@ require_once ( dirname ( __FILE__ ) . '/Interface.php' );
 * @subpackage	NullPattern
 */
 class MapFilter_Pattern_Null implements
-    MapFilter_Pattern_Interface
+    MapFilter_Pattern_Interface,
+    MapFilter_Pattern_AssertInterface,
+    MapFilter_Pattern_FlagInterface,
+    MapFilter_Pattern_ResultInterface
 {
 
   /**
-  * Parsed query to return by getResilts()
+  * Parsed query to return by getResults()
   *
   * @since	0.5
   *
@@ -52,7 +70,7 @@ class MapFilter_Pattern_Null implements
   public function __construct () {}
 
   /**
-  * @copyfull{MapFilter_Pattern_Interface::getResults()}
+  * @copyfull{MapFilter_Pattern_ResultInterface::getResults()}
   */
   public function getResults () {
   
@@ -60,7 +78,7 @@ class MapFilter_Pattern_Null implements
   }
   
   /**
-  * @copyfull{MapFilter_Pattern_Interface::getAsserts()}
+  * @copyfull{MapFilter_Pattern_AssertInterface::getAsserts()}
   */
   public function getAsserts () {
     
@@ -68,7 +86,7 @@ class MapFilter_Pattern_Null implements
   }
   
   /**
-  * @copyfull{MapFilter_Pattern_Interface::getFlags()}
+  * @copyfull{MapFilter_Pattern_FlagInterface::getFlags()}
   */
   public function getFlags () {
   

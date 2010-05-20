@@ -39,7 +39,7 @@ require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php' );
 class MapFilter implements MapFilter_Interface {
 
   /**
-  * Query Tree of Pattern.
+  * Pattern.
   *
   * @since	0.4
   *
@@ -47,6 +47,16 @@ class MapFilter implements MapFilter_Interface {
   * @see	setPattern(), __construct()
   */
   private $pattern = NULL;
+  
+  /**
+  * Used Pattern.
+  *
+  * @since	0.5
+  *
+  * @var	MapFilter_Pattern_Interface	$usedPattern
+  * @see	setPattern(), __construct()
+  */
+  private $usedPattern = NULL;
 
   /**
   * Read data / Query candidate
@@ -59,14 +69,14 @@ class MapFilter implements MapFilter_Interface {
   private $query = Array ();
   
   /**
-  * Determine whether the filter configuration has been parsed
+  * Determine whether the filter configuration has been filtered
   *
   * @since	0.4
   *
-  * @var	Bool	$parsed
-  * @see	parse(), setQuery(), setPattern()
+  * @var	Bool	$filtered
+  * @see	filter(), setQuery(), setPattern()
   */
-  private $parsed = FALSE;
+  private $filtered = FALSE;
   
   /**
   * @copyfull{MapFilter_Interface::__construct()}
@@ -79,8 +89,6 @@ class MapFilter implements MapFilter_Interface {
     $this->setPattern ( $pattern );
     
     $this->setQuery ( $query );
-
-    return;
   }
 
   /**
@@ -88,15 +96,11 @@ class MapFilter implements MapFilter_Interface {
   */
   public function setPattern ( MapFilter_Pattern_Interface $pattern = NULL) {
 
-    $this->parsed = FALSE;
+    $this->filtered = FALSE;
 
-    if ( $pattern === NULL) {
-    
-      $this->pattern = new MapFilter_Pattern_Null ();
-    } else {
-
-      $this->pattern = clone ( $pattern );
-    }
+    $this->pattern = ( $pattern === NULL )
+        ? new MapFilter_Pattern_Null ()
+        : clone ( $pattern );
     
     return $this;
   }
@@ -106,7 +110,7 @@ class MapFilter implements MapFilter_Interface {
   */
   public function setQuery ( Array $query ) {
   
-    $this->parsed = FALSE;
+    $this->filtered = FALSE;
   
     $this->query = $query;
     return $this;
@@ -115,25 +119,32 @@ class MapFilter implements MapFilter_Interface {
   /**
   * Parse filter configuration.
   *
-  * Direct call of this method is no longer necessery since it is being called
-  * automatically during result obtaining.
+  * @since	0.5
   *
-  * @since	0.1
-  *
-  * @see	__construct(), getResults(), getAsserts(), getFlags()
+  * @see	fetchResult(), getResults(), getAsserts(), getFlags()
   */
-  public function parse () {
+  private function filter () {
   
-    if ( $this->parsed ) {
+    if ( $this->filtered ) {
       
       return;
     }
   
-    $this->parsed = TRUE;
+    $this->filtered = TRUE;
   
-    $this->pattern->parse ( $this->query );
+    $this->usedPattern = clone ( $this->pattern );
     
-    return;
+    $this->usedPattern->parse ( $this->query );
+  }
+  
+  /**
+  * @copyfull{MapFilter_Interface::fetchResult()}
+  */
+  public function fetchResult () {
+  
+    $this->filter ();
+  
+    return $this->usedPattern;
   }
   
   /**
@@ -141,9 +152,7 @@ class MapFilter implements MapFilter_Interface {
   */
   public function getResults () {
 
-    $this->parse ();
-
-    return $this->pattern->getResults ();
+    return $this->fetchResult ()->getResults ();
   }
   
   /**
@@ -151,9 +160,7 @@ class MapFilter implements MapFilter_Interface {
   */
   public function getAsserts () {
   
-    $this->parse ();
-  
-    return $this->pattern->getAsserts ();
+    return $this->fetchResult ()->getAsserts ();
   }
   
   /**
@@ -161,9 +168,7 @@ class MapFilter implements MapFilter_Interface {
   */
   public function getFlags () {
   
-    $this->parse ();
-  
-    return $this->pattern->getFlags();
+    return $this->fetchResult ()->getFlags();
   }
   
   /**
@@ -188,8 +193,33 @@ class MapFilter implements MapFilter_Interface {
   
     trigger_error ( $message, $level );
     
-    $this->parse ();
-  
     return $this->getResults ();
+  }
+  
+  /**
+  * Just here for maintain backward compatibility
+  *
+  * @note There is no replacement for this method since it has become
+  * unnecessary
+  *
+  * @since	0.1
+  *
+  * @deprecated	since 0.5
+  */
+  public function parse () {
+  
+    $level = ( defined ( 'E_USER_DEPRECATED' ) )
+        ? E_USER_DEPRECATED
+        : E_USER_NOTICE
+    ;
+
+    $message = sprintf (
+        '%s::%s () is deprecated.',
+        __CLASS__, __FUNCTION__
+    );
+  
+    trigger_error ( $message, $level );
+    
+    $this->filter ();
   }
 }
