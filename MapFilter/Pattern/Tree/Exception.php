@@ -7,6 +7,7 @@
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
+* @subpackage	DefaultPattern
 * @since	0.4
 */
 
@@ -20,6 +21,7 @@ require_once ( dirname ( __FILE__ ) . '/../../../3rdParty/PureException.php' );
 *
 * @class	MapFilter_Pattern_Tree_Exception
 * @package	MapFilter
+* @subpackage	DefaultPattern
 * @since	0.4
 */
 class MapFilter_Pattern_Tree_Exception extends PureException {

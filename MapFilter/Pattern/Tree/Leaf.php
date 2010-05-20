@@ -9,6 +9,8 @@
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
+* @subpackage	DefaultPattern
+* @since	0.4
 */
 
 /**
@@ -26,6 +28,8 @@ require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
 *
 * @class	MapFilter_Pattern_Tree_Leaf
 * @package	MapFilter
+* @subpackage	DefaultPattern
+* @since	0.4
 */
 abstract class MapFilter_Pattern_Tree_Leaf
     extends MapFilter_Pattern_Tree

@@ -7,6 +7,7 @@
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
+* @subpackage	DefaultPattern
 * @since	0.4
 */
 
@@ -25,6 +26,7 @@ require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 *
 * @class	MapFilter_Pattern_Tree_Leaf_Attr
 * @package	MapFilter
+* @subpackage	DefaultPattern
 * @since	0.4
 */
 final class MapFilter_Pattern_Tree_Leaf_Attr

@@ -7,7 +7,8 @@
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
-* @since 0.4
+* @subpackage	DefaultPattern
+* @since	0.4
 */
 
 /**
@@ -15,7 +16,8 @@
 *
 * @class	MapFilter_Pattern_Tree_Interface
 * @package	MapFilter
-* @since 0.4
+* @subpackage	DefaultPattern
+* @since	0.4
 */
 interface MapFilter_Pattern_Tree_Interface {
   
@@ -24,7 +26,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	attribute			An attribute to set
   * @return	MapFilter_Pattern_Tree	A pattern with new attribute
@@ -37,7 +39,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	default			A default value to set
   * @return	MapFilter_Pattern_Tree	A pattern with new default value
@@ -50,7 +52,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	content			A content to set
   * @return	MapFilter_Pattern_Tree	A pattern with new content
@@ -63,7 +65,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	valuePattern			A valueFilter to set
   * @return	MapFilter_Pattern_Tree	A pattern with new valueFilter
@@ -76,7 +78,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	valueFilter		A valueFilter to set
   * @return	MapFilter_Pattern_Tree	New pattern with valueFilter
@@ -89,7 +91,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	flag			A flag to set
   * @return	MapFilter_Pattern_Tree	New pattern with flag
@@ -102,7 +104,7 @@ interface MapFilter_Pattern_Tree_Interface {
   *
   * A Fluent Method.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	assert			An assert to set
   * @return	MapFilter_Pattern_Tree	New pattern with flag
@@ -113,7 +115,7 @@ interface MapFilter_Pattern_Tree_Interface {
   /**
   * Create new tree instance.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @return	MapFilter_Pattern_Tree_Interface	New instance
   */
@@ -122,14 +124,14 @@ interface MapFilter_Pattern_Tree_Interface {
   /**
   * Make copy of the node
   *
-  * @since 0.4
+  * @since	0.4
   */
   public function __clone ();
   
   /**
   * Satisfy certain node type and let it's followers to get satisfied.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	param	Satisfy ParameterObject
   * @return	Bool	Satisfaction result
@@ -139,7 +141,7 @@ interface MapFilter_Pattern_Tree_Interface {
   /**
   * Pick-up satisfaction results.
   *
-  * @since 0.4
+  * @since	0.4
   *
   * @param	param	PickUp ParameterObject
   */

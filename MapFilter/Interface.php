@@ -8,18 +8,19 @@
 * @link		http://github.com/olivergondza/MapFilter
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
-*
 * @package	MapFilter
+* @subpackage	Filter
 */
 
 /**
 * A MapFilter Interface
 *
-* @since	0.1
+* @since	0.5
 *
 * @class	MapFilter_Interface
 * @author	Oliver Gondža
 * @package	MapFilter
+* @subpackage	Filter
 */
 interface MapFilter_Interface {
 
@@ -28,8 +29,8 @@ interface MapFilter_Interface {
   *
   * @since	0.1
   *
-  * @param	pattern		A pattern to set
-  * @param	query		A query to filter
+  * @param	MapFilter_Pattern_Interface	pattern	A pattern to set
+  * @param	Array				query	A query to filter
   *
   * If no pattern specified an untouched query will be returned:
   *
@@ -44,7 +45,7 @@ interface MapFilter_Interface {
   * @see	setPattern(), setQuery(), MapFilter_Pattern
   */
   public function __construct (
-      MapFilter_Pattern $pattern = NULL,
+      MapFilter_Pattern_Interface $pattern = NULL,
       Array $query = Array ()
   );
 
@@ -66,14 +67,14 @@ interface MapFilter_Interface {
   *
   * @see	__construct()
   */
-  public function setPattern ( MapFilter_Pattern $pattern );
+  public function setPattern ( MapFilter_Pattern_Interface $pattern );
   
   /**
   * Set query to filter.
   *
   * @since	0.1
   *
-  * @param	query	A query to set
+  * @param	Array		query		A query to set
   *
   * @return	MapFilter	Instance of MapFilter with new query
   *
@@ -103,7 +104,7 @@ interface MapFilter_Interface {
   *
   * Return validation asserts that was raised during latest parsing process.
   *
-  * @since	0.1
+  * @since	0.4
   *
   * @return	Array	Parsing asserts
   */
@@ -114,9 +115,10 @@ interface MapFilter_Interface {
   *
   * Return flags that was sat during latest parsing process.
   *
-  * @since	0.1
+  * @since	0.4
   *
   * @return	Array	Parsing flags
   */
   public function getFlags ();
 }
+

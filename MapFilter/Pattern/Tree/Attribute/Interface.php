@@ -7,6 +7,8 @@
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
+* @subpackage	DefaultPattern
+* @since	0.4
 */
 
 /**
@@ -14,6 +16,8 @@
 *
 * @class	MapFilter_Pattern_Tree_Attribute_Interface
 * @package	MapFilter
+* @subpackage	DefaultPattern
+* @since	0.4
 */
 interface MapFilter_Pattern_Tree_Attribute_Interface {
 

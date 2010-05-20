@@ -1,12 +1,13 @@
 <?php
 /**
-* Class for exceptions raised by the MapFilter package.
+* Class for exceptions raised by the MapFilter_Pattern class.
 *
 * @author	Oliver Gondža
 * @link		http://github.com/olivergondza/MapFilter
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
+* @subpackage	DefaultPattern
 * @since	0.4
 */
 
@@ -20,6 +21,7 @@ require_once ( dirname ( __FILE__ ) . '/../../3rdParty/PureException.php' );
 *
 * @class	MapFilter_Pattern_Exception
 * @package	MapFilter
+* @subpackage	DefaultPattern
 * @since	0.4
 */
 class MapFilter_Pattern_Exception extends PureException {
@@ -55,6 +57,8 @@ class MapFilter_Pattern_Exception extends PureException {
   /**
   * LibXML internal error
   *
+  * @since	0.5
+  *
   * libXML cannot parse source
   * @{
   */
@@ -66,6 +70,8 @@ class MapFilter_Pattern_Exception extends PureException {
   /**
   * Invalid xml attribute used.
   *
+  * @since	0.5
+  *
   * Invalid attribute passed to the tag.
   */
   const INVALID_XML_ATTRIBUTE = 9;
@@ -73,12 +79,16 @@ class MapFilter_Pattern_Exception extends PureException {
   /**
   * Invalid tag content.
   *
+  * @since	0.5
+  *
   * A pattern tree leaf has some content specified.
   */
   const INVALID_XML_CONTENT = 10;
   
   /**
   * Missing attribute value.
+  *
+  * @since	0.5
   *
   * An attribute tag has no attr value specified.
   */

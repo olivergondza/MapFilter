@@ -8,8 +8,8 @@
 * @link		http://github.com/olivergondza/MapFilter
 * @license	GNU GPLv3
 * @copyright	2009-2010 Oliver Gondža
-*
 * @package	MapFilter
+* @subpackage	Filter
 */
 
 /**
@@ -19,94 +19,52 @@
 *
 * @class	MapFilter_Pattern_Interface
 * @package	MapFilter
+* @subpackage	Filter
 * @author	Oliver Gondža
 */
 interface MapFilter_Pattern_Interface {
 
   /**
-  * Simple Factory Method to load data from string
+  * Get results.
   *
-  * @since	0.1
+  * Get parsed query from latest parsing process.
   *
-  * @param	xmlSource	pattern string
+  * @since	0.5
   *
-  * @return	MapFilter_Pattern	Pattern created from $XmlSource string
-  *
-  * fromFile() and load() difference demonstration:
-  * @clip{Pattern.test.php,testLoadFromFileComparison}
-  *
-  * @see	fromFile(), __construct()
+  * @return	Array	Parsing results
   */
-  public static function load ( $xmlSource );
-
-  /**
-  * Simple factory method to instantiate with loading the data from file
-  *
-  * @since	0.1
-  *
-  * @param	url	XML pattern file
-  *
-  * @return	MapFilter_Pattern	Pattern created from $url file
-  * 
-  * fromFile() and load() difference demonstration:
-  * @clip{Pattern.test.php,testLoadFromFileComparison}
-  *
-  * @see	load(), __construct()
-  */
-  public static function fromFile ( $url );
+  public function getResults ();
   
   /**
-  * Create Pattern from Pattern_Tree object.
+  * Get validation assertions.
   *
-  * @since	0.1
-  * @note New object is created with @b copy of given patternTree
+  * Return validation asserts that was raised during latest parsing process.
   *
-  * @param	patternTree	A pattern tree to use
+  * @since	0.5
   *
-  * @return	MapFilter_Pattern	Created Pattern
-  *
-  * @see	load(), fromFile()
+  * @return	Array	Parsing asserts
   */
-  public function __construct ( MapFilter_Pattern_Tree $patternTree );
-
-  /**
-  * Get Pattern tree
-  *
-  * @since	0.1
-  *
-  * @return	MapFilter_Pattern_Tree	Internal pattern tree
-  *
-  * @see	__construct()
-  */
-  public function getTree ();
+  public function getAsserts ();
   
   /**
-  * Satisfy pattern
+  * Get flags
   *
-  * @since	0.1
+  * Return flags that was sat during latest parsing process.
   *
-  * @param	param	MapFilter_Pattern_SatisfyParam
+  * @since	0.5
   *
-  * @return	Bool	Satisfaction results
+  * @return	Array	Parsing flags
   */
-  public function satisfy ( MapFilter_Pattern_SatisfyParam $param );
+  public function getFlags ();
   
   /**
-  * Pick up results
+  * Parse pattern aginst given query.
   *
-  * @since	0.1
+  * @since	0.5
   *
-  * @param	param	MapFilter_Pattern_PickUpParam
+  * @param	$query		A query to parse
+  *
+  * @see	getResults(), getAsserts(), getFlags()
   */
-  public function pickUp ( MapFilter_Pattern_PickUpParam $param );
-
-  /**
-  * Clone pattern tree recursively.
-  *
-  * @since	0.1
-  *
-  * @note Deep cloning is used thus new copy of patternTree is going to be
-  * created
-  */
-  public function __clone ();
+  public function parse ( Array $query );
 }
