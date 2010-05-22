@@ -31,7 +31,7 @@ interface MapFilter_Pattern_AssertInterface {
   *
   * @since	0.5
   *
-  * @return	Array	Parsing asserts
+  * @return	Array|Iterator	Parsing asserts
   */
   public function getAsserts ();
 }

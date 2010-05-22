@@ -31,7 +31,7 @@ interface MapFilter_Pattern_FlagInterface {
   *
   * @since	0.5
   *
-  * @return	Array	Parsing flags
+  * @return	Array|Iterator	Parsing flags
   */
   public function getFlags ();
 }

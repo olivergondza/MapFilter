@@ -30,7 +30,7 @@ interface MapFilter_Interface {
   * @since	0.1
   *
   * @param	MapFilter_Pattern_Interface	pattern	A pattern to set
-  * @param	Array				query	A query to filter
+  * @param	Array|Iterator			query	A query to filter
   *
   * If no pattern specified an untouched query will be returned:
   *
@@ -46,7 +46,7 @@ interface MapFilter_Interface {
   */
   public function __construct (
       MapFilter_Pattern_Interface $pattern = NULL,
-      Array $query = Array ()
+      $query = Array ()
   );
 
   /**
@@ -74,7 +74,7 @@ interface MapFilter_Interface {
   *
   * @since	0.1
   *
-  * @param	Array		query		A query to set
+  * @param	Array|Iterator		query		A query to set
   *
   * @return	MapFilter	Instance of MapFilter with new query
   *
@@ -86,7 +86,7 @@ interface MapFilter_Interface {
   * @see	__construct()
   * @todo	Arbitrary iterator query should be supported
   */
-  public function setQuery ( Array $query );
+  public function setQuery ( $query );
   
   /**
   * Get full filtering results.
@@ -109,7 +109,7 @@ interface MapFilter_Interface {
   *
   * @since	0.2
   *
-  * @return	Array	Parsing results
+  * @return	Array|Iterator	Parsing results
   *
   * @see	fetchResult()
   */
@@ -122,7 +122,7 @@ interface MapFilter_Interface {
   *
   * @since	0.4
   *
-  * @return	Array	Parsing asserts
+  * @return	Array|Iterator	Parsing asserts
   *
   * @see	fetchResult()
   */
@@ -135,10 +135,9 @@ interface MapFilter_Interface {
   *
   * @since	0.4
   *
-  * @return	Array	Parsing flags
+  * @return	Array|Iterator	Parsing flags
   *
   * @see	fetchResult()
   */
   public function getFlags ();
 }
-

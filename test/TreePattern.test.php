@@ -489,7 +489,9 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
 /**
 * User pattern
 */
-class WhitelistPattern implements MapFilter_Pattern_Interface {
+class WhitelistPattern implements
+    MapFilter_Pattern_Interface
+{
 
   private $whitelist = Array ();
   
@@ -502,7 +504,7 @@ class WhitelistPattern implements MapFilter_Pattern_Interface {
   }
   
   /** Perform a filtering */
-  public function parse ( Array $query ) {
+  public function parse ( $query ) {
   
     foreach ( $this->whitelist as $validValue ) {
     

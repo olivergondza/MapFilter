@@ -115,7 +115,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.5
   *
-  * @var	Array	$results
+  * @var	Array|Iterator			$results
   * @see	getResults(), parse()
   */
   private $results = Array ();
@@ -125,7 +125,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.5
   *
-  * @var	Array	$asserts
+  * @var	Array|Iterator			$asserts
   * @see	getAsserts(), parse()
   */
   private $asserts = Array ();
@@ -135,7 +135,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.5
   *
-  * @var	Array	$flags
+  * @var	Array|Iterator			$flags
   * @see	getFlags(), parse()
   */
   private $flags = Array ();
@@ -292,7 +292,9 @@ class MapFilter_TreePattern implements
   /**
   * @copyfull{MapFilter_Pattern_Interface::parse()}
   */
-  public function parse ( Array $query ) {
+  public function parse ( $query ) {
+  
+    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
   
     $this->cleanup ();
   

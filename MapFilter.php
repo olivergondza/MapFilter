@@ -83,8 +83,10 @@ class MapFilter implements MapFilter_Interface {
   */
   public function __construct (
       MapFilter_Pattern_Interface $pattern = NULL,
-      Array $query = Array ()
+      $query = Array ()
   ) {
+    
+    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
     
     $this->setPattern ( $pattern );
     
@@ -108,7 +110,9 @@ class MapFilter implements MapFilter_Interface {
   /**
   * @copyfull{MapFilter_Interface::setQuery()}
   */
-  public function setQuery ( Array $query ) {
+  public function setQuery ( $query ) {
+  
+    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
   
     $this->filtered = FALSE;
   

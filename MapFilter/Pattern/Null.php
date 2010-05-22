@@ -56,7 +56,7 @@ class MapFilter_Pattern_Null implements
   *
   * @since	0.5
   *
-  * @var	Array	$query
+  * @var	Array|Iterator	$query
   */
   private $query = Array ();
 
@@ -96,7 +96,9 @@ class MapFilter_Pattern_Null implements
   /**
   * @copyfull{MapFilter_Pattern_Interface::parse()}
   */
-  public function parse ( Array $query ) {
+  public function parse ( $query ) {
+  
+    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
   
     $this->query = $query;
   }

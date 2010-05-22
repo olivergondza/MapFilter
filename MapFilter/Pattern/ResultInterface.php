@@ -31,7 +31,7 @@ interface MapFilter_Pattern_ResultInterface {
   *
   * @since	0.5
   *
-  * @return	Array	Parsing results
+  * @return	Array|Iterator	Parsing results
   */
   public function getResults ();
 }

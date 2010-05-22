@@ -33,7 +33,7 @@ interface MapFilter_Pattern_Interface {
   *
   * @since	0.5
   *
-  * @param	$query		A query to parse
+  * @param	Array|Iterator	$query		A query to parse
   */
-  public function parse ( Array $query );
+  public function parse ( $query );
 }
