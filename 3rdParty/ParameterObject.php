@@ -27,8 +27,8 @@ class ParameterObject {
   * Declared property has integer index assigned and it's value should be
   * it's name thous string is expected.
   *
-  * @param	property	A property to declare sent by reference
-  * @param	value		Value of the property sent by reference
+  * @param	String	property	A property to declare sent by reference
+  * @param	Mixed	value		Value of the property sent by reference
   *
   * @throws	ParameterObject_Exception::INVALID_DECLARATION
   */
@@ -53,26 +53,28 @@ class ParameterObject {
   /**
   * Create an (inherited) object.
   *
-  * @param	writable	Initialization data array
+  * Reference foreach is used in order to enable reference assigninment.
+  *
+  * @param	Array		writable	Initialization data array
+  *
+  * @return	ParameterObject			A new object
   */
   public function __construct ( Array $writable = Array () ) {
     
-    foreach ( $writable as $property => $value ) {
+    foreach ( $writable as $property => &$value ) {
     
       self::dispatchDeclaration ( $property, $value );
       
-      $this->$property = $value;
+      $this->$property = &$value;
     }
-
-    return;
   }
 
   /**
   * Determine whether an object has a given property.
   *
-  * @param	name	Property name
+  * @param	String		name		A property name
   *
-  * @return	Bool
+  * @return	Bool		Has or has not a property
   */
   public function hasProperty ( $name ) {
   
@@ -82,7 +84,7 @@ class ParameterObject {
   /**
   * Get property name from action name substring.
   *
-  * @param	name	Property name candidate
+  * @param	String	name	Property name candidate
   *
   * @return	String	New property name
   */
@@ -94,15 +96,13 @@ class ParameterObject {
   /**
   * Set property value. Provide fluent interface.
   *
-  * @param	name		Callback name
-  * @param	arguments	Function arguments
+  * @param	String		name		Callback name
+  * @param	Array		arguments	Function arguments
   *
   * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
-  * @return	Mixed
+  * @return	ParameterObject
   */
-  private function callSetter ( $name, Array $arguments ) {
-  
-    $property = self::getPropertyName ( $name );
+  private function callSetter ( $name, Array &$arguments ) {
   
     if ( count ( $arguments ) !== 1 ) {
      
@@ -112,6 +112,7 @@ class ParameterObject {
       );
     }
     
+    $property = self::getPropertyName ( $name );
     if ( !$this->hasProperty ( $property ) ) {
 
       throw new ParameterObject_Exception (
@@ -126,17 +127,48 @@ class ParameterObject {
   }
   
   /**
-  * Get property value.
+  * Set property reference. Provide fluent interface.
   *
-  * @param	name	Callback name
-  * @param	arguments	Function arguments
+  * @param	String		name		Callback name
+  * @param	Array		arguments	Function arguments
   *
   * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
-  * @return	Mixed
+  * @return	ParameterObject
   */
-  private function callGetter ( $name, Array $arguments ) {
+  private function callRefSetter ( $name, Array &$arguments ) {
   
+    if ( count ( $arguments ) !== 1 ) {
+     
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_ARG_COUNT,
+          Array ( get_class (), $name, 1, count ( $arguments ) )
+      );
+    }
+    
     $property = self::getPropertyName ( $name );
+    if ( !$this->hasProperty ( $property ) ) {
+
+      throw new ParameterObject_Exception (
+          ParameterObject_Exception::INVALID_REFSET,
+          Array ( get_class (), $property )
+      );
+    }
+    
+    $this->$property = &$arguments[ 0 ];
+    
+    return $this;
+  }
+  
+  /**
+  * Get property value.
+  *
+  * @param	String	name		Callback name
+  * @param	Array	arguments	Function arguments
+  *
+  * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_ARG_COUNT
+  * @return	ParameterObject
+  */
+  private function &callGetter ( $name, Array &$arguments ) {
   
     if ( count ( $arguments ) !== 0 ) {
      
@@ -146,6 +178,7 @@ class ParameterObject {
       );
     }
     
+    $property = self::getPropertyName ( $name );
     if ( !$this->hasProperty ( $property ) ) {
 
       throw new ParameterObject_Exception (
@@ -162,7 +195,7 @@ class ParameterObject {
   *
   * A REGEXP to match for action to be valid.
   */
-  const ACTION_PATTERN = '/^(set|get)([A-Z].*)$/';
+  const ACTION_PATTERN = '/^(?<prefix>setRef|set|get)(?<name>[A-Z].*)$/';
   
   /**
   * Action-prefix to action-callback mapping.
@@ -172,23 +205,22 @@ class ParameterObject {
   * @var	Array	$prefix2action
   */
   private $prefix2action = Array (
+      'setRef' => 'callRefSetter',
       'set' => 'callSetter',
-      'get' => 'callGetter'
+      'get' => 'callGetter',
   );
   
   /**
   * Determine whether an action exists.
   *
-  * @param	matches
+  * @param	Array	matches
   *
   * @return	Bool
   */
   private function actionExists ( $matches ) {
 
-    assert ( count ( $matches ) === 3 );
-    
     return (Bool) array_key_exists (
-        $matches[ 1 ],
+        $matches[ 'prefix' ],
         $this->prefix2action
     );
   }
@@ -196,8 +228,8 @@ class ParameterObject {
   /**
   * Call special method or throw an exception.
   *
-  * @param	name	Callback name
-  * @param	arguments Function arguments
+  * @param	String		name		Callback name
+  * @param	Array		arguments	Function arguments
   *
   * @throws	MapFilter_Pattern_ParameterObject_Exception::INVALID_CALL
   */
@@ -214,13 +246,16 @@ class ParameterObject {
     }
 
     /** Call action with specified property */
-    $action = $this->prefix2action[ $matches[ 1 ] ];
-    $propertyName = $matches[ 2 ];
+    $callback = Array (
+        $this,
+        $this->prefix2action[ $matches[ 'prefix' ] ]
+    );
     
+    /** Call-time pass by reference override */
     return call_user_func (
-        Array ( $this, $action ),
-        $propertyName,
-        $arguments
+        $callback,
+        $matches[ 'name' ],
+        $args =& $arguments
     );
   }
 }

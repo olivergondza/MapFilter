@@ -1,6 +1,6 @@
 <?php
 /**
-* MapFilter_Pattern_FlagInterface
+* Interface that provides filtering flags access.
 *
 * @since	0.5
 *
@@ -13,11 +13,12 @@
 */
 
 /**
-* MapFilter_Pattern_FlagInterface
+* Interface that provides filtering flags access.
 *
 * @since	0.5
 *
 * @class	MapFilter_Pattern_FlagInterface
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	Filter
 * @author	Oliver Gondža
@@ -31,7 +32,7 @@ interface MapFilter_Pattern_FlagInterface {
   *
   * @since	0.5
   *
-  * @return	Array|Iterator	Parsing flags
+  * @return	Array|ArrayAccess	Parsing flags
   */
   public function getFlags ();
 }

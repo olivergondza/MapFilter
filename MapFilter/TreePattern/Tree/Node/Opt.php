@@ -20,12 +20,13 @@ require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 * MapFilter pattern tree opt node
 *
 * @class	MapFilter_TreePattern_Tree_Node_Opt
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.3
 */
-final class MapFilter_TreePattern_Tree_Node_Opt
-    extends MapFilter_TreePattern_Tree_Node
+final class MapFilter_TreePattern_Tree_Node_Opt extends
+    MapFilter_TreePattern_Tree_Node
 {
 
   /**

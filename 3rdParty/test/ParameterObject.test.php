@@ -65,6 +65,23 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
        );
      }
   }
+
+  /** Invalid refSetter */
+  public static function testInvalidRefSetter () {
+  
+     $pa = new ParameterObject ();
+
+     try {
+       $pa->setRefUnknownValue ( $pa );
+     } catch ( ParameterObject_Exception $ex ) {
+       
+       self::assertEquals (
+           ParameterObject_Exception::INVALID_REFSET,
+           $ex->getCode ()
+       );
+     }
+  }
+
   
   /** Invalid declaration */
   public static function testInvalidDeclaration () {
@@ -86,7 +103,9 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
     $pa = new ParameterObject ();
   
      try {
+       
        $pa->setVal ( 1, 2 );
+       self::fail ( 'No exception risen' );
      } catch ( ParameterObject_Exception $ex ) {
        
        self::assertEquals (
@@ -98,9 +117,25 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
    $pa = new ParameterObject ();
   
      try {
+       
        $pa->getVal ( 1, 2 );
+       self::fail ( 'No exception risen' );
      } catch ( ParameterObject_Exception $ex ) {
        
+       self::assertEquals (
+           ParameterObject_Exception::INVALID_ARG_COUNT,
+           $ex->getCode ()
+       );
+     }
+     
+     $pa = new ParameterObject ();
+  
+     try {
+       
+       $pa->setRefVal ( 1, 2 );
+       self::fail ( 'No exception risen' );
+     } catch ( ParameterObject_Exception $ex ) {
+
        self::assertEquals (
            ParameterObject_Exception::INVALID_ARG_COUNT,
            $ex->getCode ()
@@ -234,10 +269,145 @@ class TestParameterObject extends PHPUnit_Framework_TestCase {
     
     self::assertFalse ( $pa->hasProperty ( 'val' ) );
   }
+  
+  /** test pass by reference and later modification */
+  public static function testReferenceByAssign () {
+  
+    $pa = new ParameterObject (
+        Array ( 'var', 'obj' )
+    );
+    
+    $val = 0;
+    $obj = new ArrayObject ( Array ( 0 ) );
+    
+    $pa->var = &$val;
+    $pa->obj = &$obj;
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $val = 1;
+    $obj = new ArrayObject ( Array ( 1 ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->var = 2;
+    $pa->obj = new ArrayObject ( Array ( 2 ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->setVar ( 3 );
+    $pa->setObj ( new ArrayObject ( Array ( 3 ) ) );
+
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+  }
+  
+  /** pass by setRef */
+  public static function testReferenceBySetRef () {
+    
+    $pa = new ParameterObject (
+        Array ( 'var', 'obj' )
+    );
+    
+    $val = 0;
+    $obj = new ArrayObject ( Array ( 0 ) );
+    
+    $pa->setRefVar ( &$val );
+    $pa->setRefObj ( &$obj );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $val = 1;
+    $obj = new ArrayObject ( Array ( 1 ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->var = 2;
+    $pa->obj = new ArrayObject ( Array ( 2 ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->setVar ( 3 );
+    $pa->setVar ( new ArrayObject ( Array ( 3 ) ) );
+
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+  }
+  
+  /** pass by constructor */
+  public static function testReferenceByConstructor () {
+    
+    $val = 0;
+    $obj = new ArrayObject ( Array ( 0 ) );
+    
+    $pa = new ParameterObject (
+        Array ( 'var' => &$val, 'obj' => &$obj )
+    );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $val = 1;
+    $obj = new ArrayObject ( Array ( 1 ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->var = 2;
+    $pa->obj = new ArrayObject ( Array ( 2 ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->setVar ( 3 );
+    $pa->setObj ( new ArrayObject ( Array ( 3 ) ) );
+    
+    self::assertEquals ( $val, $pa->var );
+    self::assertEquals ( $obj, $pa->obj );
+  }
+  
+  /** pass by extending constructor */
+  public static function testReferenceByExtendedConstructor () {
+    
+    $val = 0;
+    $obj = new ArrayObject ( Array ( 0 ) );
+    
+    $pa = new ParameterObject (
+        Array ( 'val' => &$val, 'obj' => &$obj )
+    );
+    
+    self::assertEquals ( $val, $pa->val );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $val = 1;
+    $obj = new ArrayObject ( Array ( 1 ) );
+    
+    self::assertEquals ( $val, $pa->val );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->val = 2;
+    $pa->obj = new ArrayObject ( Array ( 2 ) );
+    
+    self::assertEquals ( $val, $pa->val );
+    self::assertEquals ( $obj, $pa->obj );
+    
+    $pa->setVal ( 3 );
+    $pa->setVal ( new ArrayObject ( Array ( 3 ) ) );
+    
+    self::assertEquals ( $val, $pa->val );
+    self::assertEquals ( $obj, $pa->obj );
+  }
 }
 
 final class MyParam extends ParameterObject {
 
   public $val = 0;
   
+  public $obj = NULL;
 }

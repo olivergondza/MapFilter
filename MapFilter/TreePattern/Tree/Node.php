@@ -25,12 +25,13 @@ require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
 * Abstract class for pattern tree node,
 *
 * @class	MapFilter_TreePattern_Tree_Node
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.3
 */
-abstract class MapFilter_TreePattern_Tree_Node
-extends MapFilter_TreePattern_Tree
+abstract class MapFilter_TreePattern_Tree_Node extends
+    MapFilter_TreePattern_Tree
 implements
     MapFilter_TreePattern_Tree_Node_Interface
 {
@@ -42,14 +43,14 @@ implements
   *
   * @var	Array	$content
   */
-  private $content = Array ();
+  protected $content = Array ();
 
   /**
   * Fluent Method; Set content
   *
   * @since	0.3
   *
-  * @param	content		A content to set
+  * @param	Array	content		A content to set
   */
   public function setContent ( Array $content ) {
    
@@ -74,7 +75,7 @@ implements
   *
   * @since	0.3
   *
-  * @param	param	MapFilter_TreePattern_PickUpParam to obtain results
+  * @param	MapFilter_TreePattern_PickUpParam	param
   */
   public function pickUp ( MapFilter_TreePattern_PickUpParam $param ) {
 
@@ -91,6 +92,8 @@ implements
   
   /**
   * Clone node followers
+  *
+  * @note This method uses deep cloning
   *
   * @since	0.3
   */

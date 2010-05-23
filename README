@@ -1,42 +1,74 @@
 README
 ======
 
-What is MapFilter?
-------------------
+MapFilter
+---------
 
-MapFilter is powerful tool to filter associative arrays (maps or hash tables) 
-in PHP5.
+MapFilter is extensible tool to filter key-value data structures such as
+associative arrays (maps or hash tables) in PHP5.
 
-MapFilter enables to enforce relations between groups of data Keys 
-or/and allowed Values and depending Keys from simple Key-based whitelisting 
-to more complex structures.
+MapFilter package is distributed with default Pattern implementation. 
+MapFilter_TreePattern enables to enforce relations between groups of data
+Keys, Keys and allowed Values or Values and Keys from simple Key or Value
+-based whitelisting to more complex structures.
+
+
+License
+-------
+
+GNU GPLv3
+
+
+Author
+------
+
+Oliver Gondža (324706@mail.muni.cz)
 
 
 Manual
-----------------
+------
 
-MapFilter uses doxygen utility to create reference manual dynamically.
-There are three different initialization files to generate user,
-programmer and internal documentation. Programmer documentation contains
-full MapFilter package documentation. Comprehensive documentation including
-supporting classes can be found in documentation/internal/ directory.
+MapFilter uses doxygen utility to create HTML reference manual dynamically. 
+There are three different initialization files to generate user, programmer
+and internal documentation.  Programmer documentation contains full
+MapFilter package documentation.  Comprehensive documentation including
+supporting classes can be found in doc/internal/ directory.
 
 Use:
 
 
-cd user/
-doxygen doxygen_user.ini
+$ cd user/
+$ doxygen doxygen_user.ini
 
-    To generate documentation/user/
-
-
-cd user/
-doxygen doxygen_programmer.ini
-
-    To generate documentation/programmer/
+    To generate doc/user/html/
 
 
-cd user/
-doxygen doxygen_internal.ini
+$ cd user/
+$ doxygen doxygen_programmer.ini
 
-    To generate documentation/internal/
+    To generate doc/programmer/html/
+
+
+$ cd user/
+$ doxygen doxygen_internal.ini
+
+    To generate doc/internal/html/
+
+An on-line documentation can be found at
+http://olivergondza.github.com/MapFilter/.
+
+
+Download
+--------
+
+Current version:
+
+$ git clone git://github.com/olivergondza/MapFilter
+
+or Zip
+
+http://github.com/olivergondza/MapFilter/zipball/master
+
+or Tar
+
+http://github.com/olivergondza/MapFilter/tarball/master

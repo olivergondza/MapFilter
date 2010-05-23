@@ -1,15 +1,14 @@
 <?php
 /**
-* Class to filter associative arrays
+* Class to filter key-value data structures.
 *
-* @since	0.1
-* 
-* @author	Oliver Gondža
-* @link		http://github.com/olivergondza/MapFilter
-* @license	GNU GPLv3
-* @copyright	2009-2010 Oliver Gondža
 * @package	MapFilter
 * @subpackage	Filter
+* @author	Oliver Gondža
+* @copyright	2009-2010 Oliver Gondža
+* @license	GNU GPLv3
+* @link		http://github.com/olivergondza/MapFilter
+* @since	0.1
 */
 
 /**
@@ -27,14 +26,14 @@ require_once ( dirname ( __FILE__ ) . '/MapFilter/Interface.php' );
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php' );
 
 /**
-* Class to filter associative arrays.
-*
-* @since	0.1
+* Class to filter key-value data structures.
 *
 * @class	MapFilter
-* @author	Oliver Gondža
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	Filter
+* @author	Oliver Gondža
+* @since	0.1
 */
 class MapFilter implements MapFilter_Interface {
 
@@ -85,8 +84,8 @@ class MapFilter implements MapFilter_Interface {
       MapFilter_Pattern_Interface $pattern = NULL,
       $query = Array ()
   ) {
-    
-    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
+
+    assert ( is_array ( $query ) ||  ( $query instanceof ArrayAccess ) );
     
     $this->setPattern ( $pattern );
     
@@ -112,7 +111,7 @@ class MapFilter implements MapFilter_Interface {
   */
   public function setQuery ( $query ) {
   
-    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
+    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
     $this->filtered = FALSE;
   

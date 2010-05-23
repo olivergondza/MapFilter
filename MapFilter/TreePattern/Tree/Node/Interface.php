@@ -15,6 +15,7 @@
 * MapFilter_TreePattern_Tree_Node Interface
 *
 * @class	MapFilter_TreePattern_Tree_Node_Interface
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.4

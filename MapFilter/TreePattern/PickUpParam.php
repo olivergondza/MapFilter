@@ -11,15 +11,20 @@
 * @since	0.3
 */
 
+/** @cond	INTERNAL */
+
 /**
 * @file		3rdParty/ParameterObject.php
 */
 require_once ( dirname ( __FILE__ ) . '/../../3rdParty/ParameterObject.php' );
 
+/** @endcond */
+
 /**
-* MapFilter_TreePattern_PickUpParam Parameter Object
+* MapFilter_TreePattern::PickUpParam Parameter Object
 *
 * @class	MapFilter_TreePattern_PickUpParam
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.3
@@ -33,7 +38,7 @@ final class MapFilter_TreePattern_PickUpParam
   *
   * @since	0.3
   *
-  * @var	Array	$data
+  * @var	Array		$data
   */
   public $data;
 }

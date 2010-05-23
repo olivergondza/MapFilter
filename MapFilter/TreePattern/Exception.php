@@ -11,15 +11,20 @@
 * @since	0.4
 */
 
+/** @cond	INTERNAL */
+
 /**
 * @file		3rdParty/PureException.php
 */
 require_once ( dirname ( __FILE__ ) . '/../../3rdParty/PureException.php' );
 
+/** @endcond */
+
 /**
 * MapFilter_TreePattern Exceptions
 *
 * @class	MapFilter_TreePattern_Exception
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.4

@@ -47,4 +47,90 @@ class TestPattern extends PHPUnit_Framework_TestCase {
         $filter->getResults ()
     );
   }
+  
+  public static function provideUserPatternFiltering () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( 'attr1' => 'val' ),
+            Array ( 'attr1' => 'val' )
+        ),
+        Array (
+            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
+            Array ( 'attr1' => 'val', 'attr2' => 'val' )
+        ),
+        Array (
+            Array ( 'wrongAttr' => 'val' ),
+            Array ()
+        ),
+        Array (
+            Array ( 'attr1' => 'val', 'attr2' => 'val', 'attr3' => 'val' ),
+            Array ( 'attr1' => 'val', 'attr2' => 'val' )
+        )
+    );
+  }
+  
+  /**
+  * Test user defined pattern
+  *
+  * @dataProvider	provideUserPatternFiltering
+  */
+  public static function testUserPatternFiltering (
+      Array $query, Array $result
+  ) {
+  
+    $filter = new MapFilter (
+        new WhitelistResultPattern (
+            Array ( 'attr1', 'attr2' )
+        )
+    );
+    
+    $filter->setQuery ( $query, $result );
+    
+    self::assertEquals (
+        $result,
+        $filter->getResults()
+    );
+  }
+}
+
+/**
+* User pattern
+*/
+class WhitelistResultPattern implements
+    MapFilter_Pattern_Interface,
+    MapFilter_Pattern_ResultInterface
+{
+
+  private $whitelist = Array ();
+  
+  private $results = Array ();
+
+  /** Create user pattern */
+  public function __construct ( Array $whitelist ) {
+  
+    $this->whitelist = $whitelist;
+  }
+  
+  /** Perform a filtering */
+  public function parse ( $query ) {
+  
+    foreach ( $this->whitelist as $validValue ) {
+    
+      if ( array_key_exists ( $validValue, $query ) ) {
+  
+        $this->results[ $validValue ] = $query[ $validValue ];
+      }
+    }
+  }
+  
+  /** Get filtering results */
+  public function getResults () {
+  
+    return $this->results;
+  }
 }

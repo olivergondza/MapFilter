@@ -13,10 +13,16 @@
 * @subpackage	TreePattern
 */
 
+/** @cond	INTERNAL */
+
 /**
 * @file		3rdParty/NotSoSimpleXmlElement.php
 */
 require_once ( dirname ( __FILE__ ) . '/../3rdParty/NotSoSimpleXmlElement.php' );
+
+/** @endcond */
+
+/** @cond	PROGRAMMER */
 
 /**
 * @file		MapFilter/TreePattern/Tree/Node/All.php
@@ -83,15 +89,19 @@ require_once ( dirname ( __FILE__ ) . '/Pattern/FlagInterface.php' );
 */
 require_once ( dirname ( __FILE__ ) . '/Pattern/ResultInterface.php' );
 
+/** @endcond */
+
 /**
 * Class to load and hold Pattern tree
 *
 * @since	0.1
 *
+* @author	Oliver Gondža
 * @class	MapFilter_TreePattern
+*
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	TreePattern
-* @author	Oliver Gondža
 */
 class MapFilter_TreePattern implements
     MapFilter_Pattern_Interface,
@@ -115,7 +125,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.5
   *
-  * @var	Array|Iterator			$results
+  * @var	Array|ArrayAccess		$results
   * @see	getResults(), parse()
   */
   private $results = Array ();
@@ -125,7 +135,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.5
   *
-  * @var	Array|Iterator			$asserts
+  * @var	Array|ArrayAccess		$asserts
   * @see	getAsserts(), parse()
   */
   private $asserts = Array ();
@@ -135,7 +145,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.5
   *
-  * @var	Array|Iterator			$flags
+  * @var	Array|ArrayAccess		$flags
   * @see	getFlags(), parse()
   */
   private $flags = Array ();
@@ -195,7 +205,7 @@ class MapFilter_TreePattern implements
   *
   * @since	0.1
   *
-  * @param	String			url		XML pattern file
+  * @param	String		url	XML pattern file
   *
   * @return	MapFilter_TreePattern	Pattern created from $url file
   * 
@@ -226,9 +236,9 @@ class MapFilter_TreePattern implements
   * @since	0.1
   * @note New object is created with @b copy of given patternTree
   *
-  * @param	patternTree		A pattern tree to use
+  * @param	MapFilter_TreePattern_Tree	patternTree	A tree to use
   *
-  * @return	MapFilter_TreePattern	Created Pattern
+  * @return	MapFilter_TreePattern		Created Pattern
   *
   * @see	load(), fromFile()
   */
@@ -294,7 +304,7 @@ class MapFilter_TreePattern implements
   */
   public function parse ( $query ) {
   
-    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
+    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
     $this->cleanup ();
   
@@ -302,15 +312,17 @@ class MapFilter_TreePattern implements
   
     /** Resolve all dependencies */
     $satisfyParam = new MapFilter_TreePattern_SatisfyParam ();
-    $satisfyParam->setQuery ( $query );
-    $satisfyParam->asserts = &$this->asserts;
-    $satisfyParam->flags = &$this->flags;
+    $satisfyParam
+        -> setQuery ( $query )
+        -> setRefAsserts ( &$this->asserts )
+        -> setRefFlags ( &$this->flags )
+    ;
 
     $tempTree->satisfy ( $satisfyParam );
 
     /** Pick up data */
     $pickUpParam = new MapFilter_TreePattern_PickUpParam ();
-    $pickUpParam->data = &$this->results;
+    $pickUpParam -> setRefData ( &$this->results );
 
     $tempTree->pickUp ( $pickUpParam );
   }
@@ -356,7 +368,6 @@ class MapFilter_TreePattern implements
     try {
     
       $XmlElement = new NotSoSimpleXmlElement ( $xml, $options, $isUrl );
-
     } catch ( Exception $exception ) {
     
       /** Throw first error */
@@ -447,11 +458,13 @@ class MapFilter_TreePattern implements
   *
   * @since	0.4
   *
-  * @param	String	tag	A tag name to test
+  * @param	String		tag	A tag name to test
   *
-  * @return	Bool	Valid or not
+  * @return	Bool		Valid or not
   */
   private static function isValidTag ( $tag ) {
+  
+    assert ( is_string ( $tag ) );
   
     return array_key_exists ( $tag, self::$tagToNode );
   }
@@ -466,7 +479,9 @@ class MapFilter_TreePattern implements
   *
   * @throws	MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE
   */
-  private static function assertLeftoverAttrs ( $tagName, $attributes ) {
+  private static function assertLeftoverAttrs ( $tagName, Array $attributes ) {
+  
+    assert ( is_string ( $tagName ) );
   
     if ( $attributes != Array () ) {
       
@@ -483,18 +498,19 @@ class MapFilter_TreePattern implements
   *
   * @since	0.4
   *
-  * @param	attributes	Array of all provided attributes
-  * @param	attribute	Attribute to obtain
+  * @param	Array	attributes	Array of all provided attributes
+  * @param	String	attribute	Attribute to obtain
   *
   * @return	String | FALSE		Attribute name or false
   */
-  private static function getAttribute ( &$attributes, $attribute ) {
+  private static function getAttribute ( Array &$attributes, $attribute ) {
+  
+    assert ( is_string ( $attribute ) );
   
     $value = FALSE;
-    
-    /** Fetch and delete */
     if ( array_key_exists ( $attribute, $attributes ) ) {
 
+      /** Fetch and delete */
       $value = (String) $attributes[ $attribute ];
       unset ( $attributes[ $attribute] );
     }
@@ -509,6 +525,7 @@ class MapFilter_TreePattern implements
   *
   * @param	xml		A node to validate
   * @return	String		New tag name
+  *
   * @throws	MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT
   */
   private static function validateTagName ( NotSoSimpleXmlElement $xml ) {
@@ -532,9 +549,9 @@ class MapFilter_TreePattern implements
   *
   * @since	0.4
   *
-  * @param	NotSoSimpleXmlEmement	xml		A node to parse
-  * @param	MapFilter_TreePattern_Tree	node		A pattern node to fill
-  * @param	String			tagName		A name of tag
+  * @param	NotSoSimpleXmlEmement		xml	A node to parse
+  * @param	MapFilter_TreePattern_Tree	node	A pattern node to fill
+  * @param	String				tagName	A name of tag
   *
   * @return	MapFilter_TreePattern_Tree		A pattern node with attributes
   * @throws	MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE
@@ -544,6 +561,8 @@ class MapFilter_TreePattern implements
       MapFilter_TreePattern_Tree $node,
       $tagName
   ) {
+  
+    assert ( is_string ( $tagName ) );
   
     /** Obtain all attributes and set them by bunch of soft setters */
     $attributes = $xml->getAttributes ();
@@ -560,6 +579,7 @@ class MapFilter_TreePattern implements
       * supported
       */
       try {
+
         $node = call_user_func (
             Array ( $node, $setter ),
             $attrValue
@@ -591,6 +611,8 @@ class MapFilter_TreePattern implements
   * @throws	MapFilter_TreePattern_Exception::INVALID_XML_CONTENT
   */
   private static function createTreeNode ( $tagName, Array $followers ) {
+  
+    assert ( is_string ( $tagName ) );
   
     /** Instantiate pattern node */
     $class = self::$tagToNode[ $tagName ];

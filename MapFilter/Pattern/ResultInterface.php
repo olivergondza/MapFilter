@@ -1,6 +1,6 @@
 <?php
 /**
-* MapFilter_Pattern_ResultInterface
+* Interface that provides filtering results access.
 *
 * @since	0.5
 *
@@ -13,11 +13,12 @@
 */
 
 /**
-* MapFilter_Pattern_ResultInterface
+* Interface that provides filtering results access.
 *
 * @since	0.5
 *
 * @class	MapFilter_Pattern_ResultInterface
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	Filter
 * @author	Oliver Gondža
@@ -31,7 +32,7 @@ interface MapFilter_Pattern_ResultInterface {
   *
   * @since	0.5
   *
-  * @return	Array|Iterator	Parsing results
+  * @return	Array|ArrayAccess	Parsing results
   */
   public function getResults ();
 }

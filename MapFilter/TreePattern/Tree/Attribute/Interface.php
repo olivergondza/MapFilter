@@ -15,6 +15,7 @@
 * Interface for MapFilter pattern tree nodes that has an attribute.
 *
 * @class	MapFilter_TreePattern_Tree_Attribute_Interface
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.4
@@ -40,7 +41,7 @@ interface MapFilter_TreePattern_Tree_Attribute_Interface {
   *
   * @since	0.4
   *
-  * @return	String	A node attribute
+  * @return	String		A node attribute
   * @see	setAttribute()
   */
   public function getAttribute ();

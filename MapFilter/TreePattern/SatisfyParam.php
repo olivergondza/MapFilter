@@ -11,21 +11,25 @@
 * @since	0.3
 */
 
+/** @cond	INTERNAL */
+
 /**
 * @file		3rdParty/ParameterObject.php
 */
 require_once ( dirname ( __FILE__ ) . '/../../3rdParty/ParameterObject.php' );
 
+/** @endcond */
+
 /**
-* MapFilter_TreePattern Satisfy Parameter Object
+* MapFilter_TreePattern::Satisfy Parameter Object
 *
 * @class	MapFilter_TreePattern_SatisfyParam
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.3
 */
-final class MapFilter_TreePattern_SatisfyParam
-    extends ParameterObject
+final class MapFilter_TreePattern_SatisfyParam extends ParameterObject
 {
 
   /**
@@ -35,7 +39,7 @@ final class MapFilter_TreePattern_SatisfyParam
   *
   * Input variable with user query.
   *
-  * @var	Array	$query
+  * @var	Array		$query
   */
   public $query;
   
@@ -46,7 +50,7 @@ final class MapFilter_TreePattern_SatisfyParam
   *
   * Out variable to get raised user asserts.
   *
-  * @var	Array	$asserts
+  * @var	Array		$asserts
   */
   public $asserts;
   
@@ -57,7 +61,7 @@ final class MapFilter_TreePattern_SatisfyParam
   *
   * Out variables to get sat user flags.
   *
-  * @var	Array	$flags
+  * @var	Array		$flags
   */
   public $flags;
 }

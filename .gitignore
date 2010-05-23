@@ -1,4 +1,4 @@
 # Ignore generated documentation
-*user/documentation*
+user/doc/
 # Ignore code coverage results
 *Coverage

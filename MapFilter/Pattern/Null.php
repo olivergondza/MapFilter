@@ -41,6 +41,8 @@ require_once ( dirname ( __FILE__ ) . '/ResultInterface.php' );
 *
 * @class	MapFilter_Pattern_Null
 * @author	Oliver Gondža
+*
+* @ingroup	gnullpattern
 * @package	MapFilter
 * @subpackage	NullPattern
 */
@@ -56,7 +58,7 @@ class MapFilter_Pattern_Null implements
   *
   * @since	0.5
   *
-  * @var	Array|Iterator	$query
+  * @var	Array|ArrayAccess	$query
   */
   private $query = Array ();
 
@@ -98,7 +100,7 @@ class MapFilter_Pattern_Null implements
   */
   public function parse ( $query ) {
   
-    assert ( is_array ( $query ) || is_a ( $query, 'Iterator' ) );
+    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
     $this->query = $query;
   }

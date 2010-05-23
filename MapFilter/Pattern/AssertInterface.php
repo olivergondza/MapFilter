@@ -1,6 +1,6 @@
 <?php
 /**
-* MapFilter_Pattern_AssertInterface
+* Interface that provides filtering assertions access.
 *
 * @since	0.5
 *
@@ -13,11 +13,13 @@
 */
 
 /**
-* MapFilter_Pattern_AssertInterface
+* Interface that provides filtering assertions access.
 *
 * @since	0.5
 *
 * @class	MapFilter_Pattern_AssertInterface
+*
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	Filter
 * @author	Oliver Gondža
@@ -31,7 +33,7 @@ interface MapFilter_Pattern_AssertInterface {
   *
   * @since	0.5
   *
-  * @return	Array|Iterator	Parsing asserts
+  * @return	Array|ArrayAccess	Parsing asserts
   */
   public function getAsserts ();
 }

@@ -27,28 +27,28 @@ class PureException extends Exception {
   /**
   * Exception message.
   *
-  * @var	String	$message
+  * @var	String		$message
   */
   protected $message = "";
   
   /**
   * Exception code.
   *
-  * @var	Int	$code
+  * @var	Int		$code
   */
   protected $code = 0;
   
   /**
   * Exception args.
   *
-  * @var	Array	$args
+  * @var	Array		$args
   */
   protected $args = Array ();
 
   /**
   * Message format strings.
   *
-  * @var	Array	$messages
+  * @var	Array		$messages
   */
   protected $messages = Array ();
 
@@ -56,10 +56,12 @@ class PureException extends Exception {
   * Create exception from @code and @args from predefined exceptions
   * and their messages.
   *
-  * @param	code	Exception code
-  * @param	args	Arguments
+  * @param	Int	code	Exception code
+  * @param	Array	args	Arguments
   */
-  public function __construct ( $code, $args = Array () ) {
+  public function __construct ( $code, Array $args = Array () ) {
+
+    assert ( is_int ( $code ) );
 
     $this->code = $code;
     $this->args = $args;
@@ -72,11 +74,13 @@ class PureException extends Exception {
   /**
   * Get formatted message.
   *
-  * @param	code	Exception code
-  * @param	args	Arguments
+  * @param	Int	code	Exception code
+  * @param	Array	args	Arguments
   * @return	String	Exception message
   */
-  protected function formatMessage ( $code, $args ) {
+  protected function formatMessage ( $code, Array $args ) {
+
+    assert ( is_int ( $code ) );
 
     array_unshift ( $args, $this->messages[ $code ] );
 
@@ -95,7 +99,7 @@ class PureException extends Exception {
   */
   public function __toString () {
 
-    return $this->message;
+    return (String) $this->message;
   }
 }
 /** @endcode */

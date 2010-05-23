@@ -1,6 +1,6 @@
 <?php
 
-error_reporting ( E_ALL | E_STRICT );
+error_reporting ( ( E_ALL | E_STRICT ) & ~E_DEPRECATED );
 
 class Test_Source {
   const LOCATION = '../user/examples/location.xml';

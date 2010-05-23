@@ -19,6 +19,7 @@
 *
 * @class	MapFilter_Interface
 * @author	Oliver Gondža
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	Filter
 */
@@ -30,7 +31,7 @@ interface MapFilter_Interface {
   * @since	0.1
   *
   * @param	MapFilter_Pattern_Interface	pattern	A pattern to set
-  * @param	Array|Iterator			query	A query to filter
+  * @param	Array|ArrayAccess		query	A query to filter
   *
   * If no pattern specified an untouched query will be returned:
   *
@@ -74,7 +75,7 @@ interface MapFilter_Interface {
   *
   * @since	0.1
   *
-  * @param	Array|Iterator		query		A query to set
+  * @param	Array|ArrayAccess		query		A query to set
   *
   * @return	MapFilter	Instance of MapFilter with new query
   *
@@ -91,8 +92,8 @@ interface MapFilter_Interface {
   /**
   * Get full filtering results.
   *
-  * Return used pattern to obtain all kind of results to enable user interface
-  * usage.
+  * Return recently used pattern to obtain all kind of results to enable
+  * user interface usage.
   *
   * @since	0.5
   *
@@ -109,7 +110,7 @@ interface MapFilter_Interface {
   *
   * @since	0.2
   *
-  * @return	Array|Iterator	Parsing results
+  * @return	Array|ArrayAccess	Parsing results
   *
   * @see	fetchResult()
   */
@@ -122,7 +123,7 @@ interface MapFilter_Interface {
   *
   * @since	0.4
   *
-  * @return	Array|Iterator	Parsing asserts
+  * @return	Array|ArrayAccess	Parsing asserts
   *
   * @see	fetchResult()
   */
@@ -135,7 +136,7 @@ interface MapFilter_Interface {
   *
   * @since	0.4
   *
-  * @return	Array|Iterator	Parsing flags
+  * @return	Array|ArrayAccess	Parsing flags
   *
   * @see	fetchResult()
   */

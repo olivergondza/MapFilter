@@ -25,13 +25,15 @@ require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 * MapFilter pattern tree attribute leaf
 *
 * @class	MapFilter_TreePattern_Tree_Leaf_Attr
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.4
 */
-final class MapFilter_TreePattern_Tree_Leaf_Attr
-    extends MapFilter_TreePattern_Tree_Leaf
-    implements MapFilter_TreePattern_Tree_Attribute_Interface
+final class MapFilter_TreePattern_Tree_Leaf_Attr extends
+    MapFilter_TreePattern_Tree_Leaf
+implements
+    MapFilter_TreePattern_Tree_Attribute_Interface
 {
 
   /**

@@ -12,12 +12,12 @@
 */
 
 /**
-* @file		MapFilter/Pattern/Tree/Exception.php
+* @file		MapFilter/TreePattern/Tree/Exception.php
 */
 require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
 
 /**
-* @file		MapFilter/Pattern/Tree/Interface.php
+* @file		MapFilter/TreePattern/Tree/Interface.php
 */
 require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
 
@@ -25,12 +25,13 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
 * Internal pattern tree
 *
 * @class	MapFilter_TreePattern_Tree
+* @ingroup	gtreepattern
 * @package	MapFilter
 * @subpackage	TreePattern
 * @since	0.3
 */
-abstract class MapFilter_TreePattern_Tree
-    implements MapFilter_TreePattern_Tree_Interface
+abstract class MapFilter_TreePattern_Tree implements
+    MapFilter_TreePattern_Tree_Interface
 {
   
   /**
@@ -117,6 +118,8 @@ abstract class MapFilter_TreePattern_Tree
   */
   public function setValueFilter ( $valueFilter ) {
 
+    assert ( is_string ( $valueFilter ) );
+
     $this->valueFilter = $valueFilter;
     return $this;
   }
@@ -126,6 +129,8 @@ abstract class MapFilter_TreePattern_Tree
   */
   public function setFlag ( $flag ) {
   
+    assert ( is_string ( $flag ) );
+  
     $this->flag = $flag;
     return $this;
   }
@@ -134,6 +139,8 @@ abstract class MapFilter_TreePattern_Tree
   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAssert()}
   */
   public function setAssert ( $assert ) {
+  
+    assert ( is_string ( $assert ) );
   
     $this->assert = $assert;
     return $this;
@@ -148,7 +155,7 @@ abstract class MapFilter_TreePattern_Tree
   */
   protected function getValueFilter () {
   
-    return $this->valueFilter;
+    return (String) $this->valueFilter;
   }
   
   /**
@@ -168,8 +175,8 @@ abstract class MapFilter_TreePattern_Tree
   *
   * @since	0.3
   *
-  * @param	cond	Bool Satisfy condition
-  * @param	param	Parameter object
+  * @param	Bool				cond	Bool Satisfy condition
+  * @param	MapFilter_TreePattern_SatisfyParam	param
   *
   * @return	Bool	Was or was not satisfied
   */
@@ -177,8 +184,10 @@ abstract class MapFilter_TreePattern_Tree
       $cond,
       MapFilter_TreePattern_SatisfyParam $param
   ) {
+
+    assert ( is_bool ( $cond ) );
   
-    $this->satisfied = (Bool) $cond;
+    $this->satisfied = $cond;
   
     /** Unsatisfied */
     if ( !$this->isSatisfied () ) {
@@ -218,12 +227,15 @@ abstract class MapFilter_TreePattern_Tree
   *
   * @since 0.4
   *
-  * @param	attrName	Name of an attribute
-  * @param	query		Input array
+  * @param	String			attrName	Name of an attribute
+  * @param	Array|ArrayAccess	query		Input array
   *
   * @return	Bool	Attribute present or not
   */
   protected static function attrPresent ( $attrName, $query ) {
+    
+    assert ( is_string ( $attrName ) );
+    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
     
     return array_key_exists (
         $attrName,
@@ -259,14 +271,14 @@ abstract class MapFilter_TreePattern_Tree
   *
   * @since	0.3
   *
-  * @param	valueCandidate	A value to fit
-  * @param	pattern		Value pattern
+  * @param	Mixed		valueCandidate		A value to fit
+  * @param	String|NULL	pattern			Value pattern
   *
   * @return	Bool	Does the value fit
   */
   protected function valueFits ( $valueCandidate, $pattern ) {
 
-    if ( !$pattern ) {
+    if ( $pattern === NULL ) {
 
       return TRUE;
     }

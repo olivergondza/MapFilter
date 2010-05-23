@@ -627,6 +627,41 @@ class TestUser extends PHPUnit_Framework_TestCase {
   /**
   * @dataProvider provideDuration
   */
+  public static function testDurationArrayAccess (
+      $query, $result, $flags, $asserts
+  ) {
+  
+    $filterObject = new MapFilter (
+        MapFilter_TreePattern::fromFile ( Test_Source::DURATION ),
+        new ArrayObject ( $query )
+    );
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::fromFile ( Test_Source::DURATION ),
+        $query
+    );
+    
+    self::assertEquals (
+        $filterObject->getResults (),
+        $filter->getResults ()
+    );
+    
+    self::assertEquals (
+        $filterObject->getFlags (),
+        $filter->getFlags ()
+    );
+    
+    self::assertEquals (
+        $filterObject->getAsserts (),
+        $filter->getAsserts ()
+    );
+  }
+  /**@}*/
+  
+  /**{@*/
+  /**
+  * @dataProvider provideDuration
+  */
   public static function testDurationByFetchResult (
       $query, $result, $flags, $asserts
   ) {

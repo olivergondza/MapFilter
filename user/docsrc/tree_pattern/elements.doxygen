@@ -1,0 +1,100 @@
+/**
+@page	treepatternelements		TreePattern  Elements
+
+	Pattern tree structure consists of several types of nodes and
+currently one type of tree leaf.
+
+@section	leaves			Leaves
+
+	@subsection	attrleaf		Attr leaf
+
+		Attr leave specifies attribute itself, it's valuePattern and
+pattern default value.  Attr leaf is satisfied when it's attribute occurs in
+user query and it's value matches optional pattern defined by valuePattern
+attribute.  When this does not happen this node still can be satisfied if
+it's default value is sat: attribute will have that default value and leaf
+will be satisfied.
+
+@section	nodes			Nodes
+
+	There are four so-called Policy nodes (@ref allnode "All",
+@ref onenode "One", @ref optnode "Opt" and @ref somenode "Some") that
+specifies data attribute relations.  @ref keyattrnode "KeyAttr" node defines
+value-key relations between key attribute and its possible value patterns.
+
+	@subsection 	allnode		 	All node
+
+		The All node needs all it's followers satisfied to get
+satisfied itself.
+
+	@subsection	optnode			Opt node
+
+		The Opt node hasn't any conditions. Occurrence of its
+followers is completely optional.
+
+	@subsection	onenode			One node
+
+		The One node needs exactly one satisfied follower. 
+
+	@subsection	somenode		Some node
+
+		The Some node needs at least one satisfied follower.
+
+	@subsection	keyattrnode		KeyAttr node
+
+		KeyAttr node differs from aforementioned node types. This
+node defines one attribute (<tt>attr</tt>) that must be present, depending
+on value of this attribute one of it's followers will be chosen to satisfy. 
+All it's followers has to define attribute onValue containing regular
+expression to match attribute value.  When matching follower will be
+satisfied, KeyAttr node will be satisfied too.
+
+@section	attributes	TreePattern Common Attributes
+
+
+	Following attributes are shared with all TreePattern elements.
+
+	@subsection	forvalueattr	Attribute forValue
+
+		A "forValue" attribute specifies valueFilter for Key-Attr
+node follower.  According to this filter follower to satisfy is going to be
+chosen.
+
+		@note "filter" in the name of an attribute has nothing to do
+with "filter in the name of the %MapFilter class.
+
+	@subsection	flagattr		Attribute flag
+
+		A "flag" attribute specifies a flag to set for node if the
+node get satisfied
+
+	@subsection	assertattr		Attribute assert
+		
+		An "assert" attribute specifies an assertion to set for node
+if the node won't get satisfied even though it's parent was satisfied.
+
+@section	attrattributes		TreePattern Attr leaf attributes
+
+	Attributes specific for Attr node.
+
+	@subsection	defaultattr	Attribute default
+
+		A "default" attribute determines value that is going to be
+used as a key value in case attribute won't get satisfied.
+
+	@subsection	valuepatternattr	Attribute valuePattern
+
+		A "valuePattern" attribute determines pattern to match for
+key value.
+
+@section	keyattrattributes	TreePattern KeyAttr node attributes
+
+	Attributes specific for KeyAttr node.
+
+	@subsection	attrattr		Attribute attr
+
+		An "attr" attribute specifies key attribute that is going to
+be used to follower determination.
+
+		@note Not to be confused with TreePattern Attr leaf.
+*/

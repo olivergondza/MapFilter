@@ -18,6 +18,7 @@
 * @since	0.5
 *
 * @class	MapFilter_Pattern_Interface
+* @ingroup	gfilter
 * @package	MapFilter
 * @subpackage	Filter
 * @author	Oliver Gondža
@@ -33,7 +34,8 @@ interface MapFilter_Pattern_Interface {
   *
   * @since	0.5
   *
-  * @param	Array|Iterator	$query		A query to parse
+  * @param array $query
+  *   An array of options to control how the query operates.
   */
-  public function parse ( $query );
+  public function parse($query);
 }

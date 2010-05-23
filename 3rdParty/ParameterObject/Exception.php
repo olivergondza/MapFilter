@@ -26,6 +26,11 @@ class ParameterObject_Exception extends PureException {
   * A property value can not be obtained.
   */
   const INVALID_GET = 2;
+  
+  /**
+  * A property reference can not be sat.
+  */
+  const INVALID_REFSET = 6;
 
   /**
   * Invalid magic method called.
@@ -48,6 +53,7 @@ class ParameterObject_Exception extends PureException {
   protected $messages = Array (
       self::INVALID_SET => "Class %s has no value like '%s'.",
       self::INVALID_GET => "Class %s has no value like '%s'.",
+      self::INVALID_REFSET => "Class %s has no value like '%s'.",
       self::INVALID_CALL => "Class %s has no method like '%s'.",
       self::INVALID_ARG_COUNT => "%s::%s () requires %d arguments, %d given.",
       self::INVALID_DECLARATION => "Invalid property declaration. String expected but %s given.",

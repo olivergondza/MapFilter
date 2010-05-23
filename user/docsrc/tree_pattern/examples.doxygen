@@ -1,0 +1,108 @@
+/**
+@page		treepatternexamples	TreePattern usage Examples
+
+@section	exwhitelists	Whitelists
+
+@subsection	exexclusive	Exclusive Whitelist
+
+This simple example shows how to create simple whitelist allowing occurrence
+of just one of defined attributes.  <tt>my_utility -h -v -o a.out</tt>
+
+@code
+$query = Array (
+    '-h' => NULL,
+    '-v' => NULL,
+    '-o' => "a.out"
+);
+
+$pattern = '
+    <pattern>
+      <one>
+        <attr>-h</attr>
+        <attr>-v</attr>
+      </one>
+    </pattern>
+';
+
+$filter = new MapFilter (
+    MapFilter_TreePattern::load ( $pattern ),
+    $query
+);
+
+// Array ( "-h" => NULL );
+var_dump ( $filter->getResults () );
+@endcode
+
+Filtered query now contains just <tt>-h</tt> option since there is nothing
+about <tt>-o</tt> in our pattern and <tt>-v</tt> was preceded by
+<tt>-h</tt>.  If one run the application with reversed order of the options
+(<tt>my_utility -v -h -o a.out</tt>) filtered query will contains nothing
+more than <tt>-v</tt> option.
+
+@subsection	exsimple	Simple Whitelist
+
+Let’s assume the same query with slightly modified pattern.
+
+@code
+$pattern = '
+    <pattern>
+      <some>
+        <attr>-h</attr>
+        <attr>-v</attr>
+      </some>
+    </pattern>
+';
+@endcode
+
+This is the way to enable occurrence of more options (including 0). The same
+query will now contain both <tt>-h</tt> and <tt>-v</tt> option regardless of
+their order.
+
+@subsection	exfullsets	Full Sets
+
+Sometimes it’s useful to specify a group of attributes that all must occur.
+<tt>my_app -f main.c -o a.out</tt>
+
+@code
+$pattern = '
+    <pattern>
+      <all>
+        <attr>-f</attr>
+        <attr>-o</attr>
+      </all>
+    </pattern>
+';
+
+$filter = new MapFilter ( MapFilter_TreePattern::load ( $pattern  ) );
+
+$query = Array (
+    '-f' => "main.c",
+    '-o' => "out.a"
+);
+
+$filter->setQuery ( $query );
+
+// Array (
+//     '-f' => "main.c",
+//     '-o' => "out.a"
+// );
+var_dump ( $filter->getResults () );
+@endcode
+
+Since we have got all the arguments, they all pass our filter. Let’s try to
+run the binary without source file.  <tt>my_app -o a.out</tt>
+
+@code
+$query = Array (
+    '-o' => "out.a"
+);
+
+$filter->setQuery ( $query );
+
+// Array ();
+var_dump ( $filter->getResults () );
+@endcode
+
+Filtered query would be empty because our pattern demand occurrence of both
+(all) options.
+*/
