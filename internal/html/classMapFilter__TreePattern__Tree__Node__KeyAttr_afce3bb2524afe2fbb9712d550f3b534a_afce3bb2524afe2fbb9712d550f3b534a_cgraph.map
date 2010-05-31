@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Tree_a645009680fa2712439482c09f9de8395.html#a645009680fa2712439482c09f9de8395" title="Test whether an argument is present in query." alt="" coords="387,5,640,35"/>
+<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree__Node_aa3b51fdf46fb8bb0b6f133bf34da21d1.html#aa3b51fdf46fb8bb0b6f133bf34da21d1" title="Get node followers." alt="" coords="369,58,657,89"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern__Tree_a93440a7a4d861f3896f00e620682e9a0.html#a93440a7a4d861f3896f00e620682e9a0" title="Satisfy certain node and do all necessary work to get (un)satisfied." alt="" coords="384,111,643,142"/>
+<area shape="rect" id="node11" href="$classMapFilter__TreePattern__Tree_a30edf5fe9f16057ebc7b532fd7174b07.html#a30edf5fe9f16057ebc7b532fd7174b07" title="Test whether a ForValue condition on tree node fits given pattern." alt="" coords="392,165,635,195"/>
+<area shape="rect" id="node9" href="$classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173" title="Determine whether the node is satisfied." alt="" coords="707,111,957,142"/>
+</map>

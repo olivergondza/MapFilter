@@ -1,7 +1,7 @@
 /* The standard CSS for doxygen */
 
 body, table, div, p, dl {
-	font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
+	font-family: Helvetica, Lucida Grande, Verdana, Geneva, Arial, sans-serif;
 	font-size: 12px;
 }
 
@@ -9,19 +9,41 @@ body, table, div, p, dl {
 
 h1 {
 	text-align: center;
-	font-size: 150%;
+	font-size: 200%;
 }
 
 h2 {
-	font-size: 120%;
+	font-size: 140%;
 }
 
 h3 {
-	font-size: 100%;
+	font-size: 120%;
+	margin-left: 20px;
 }
 
-dt {
-	font-weight: bold;
+h4 {
+	font-size: 100%;
+	margin-left: 40px;
+}
+
+dl {
+	border: 1px solid #ccc;
+	background: #f5f5f5;
+	padding: 4px 6px;
+	margin: 4px 8px 4px 2px;
+	overflow: auto;
+	word-wrap: break-word;
+	font-size:  9pt;
+	line-height: 125%;
+}
+
+ul.row {
+	list-style-type: none;
+	padding: 0px;
+}
+
+ul.row li {
+	display: inline;
 }
 
 div.multicol {
