@@ -4,6 +4,9 @@
 */
 require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
 
+/**
+* @group	Unit
+*/
 class TestMapFilter extends PHPUnit_Framework_TestCase {
   
   /** Test whether MapFilter class implements MapFilter_Interface */

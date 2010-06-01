@@ -4,6 +4,9 @@
 */
 require_once ( dirname ( __FILE__ ) . '/../ParameterObject.php' );
 
+/**
+* @group	ParameterObject
+*/
 class TestParameterObject extends PHPUnit_Framework_TestCase {  
 
   /** Call invalid setter and catch an exception */

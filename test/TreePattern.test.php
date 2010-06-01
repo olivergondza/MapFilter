@@ -6,6 +6,9 @@ require_once ( dirname ( __FILE__ ) . '/../MapFilter/TreePattern.php' );
 
 require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern/Null.php' );
 
+/**
+* @group	Unit
+*/
 class TestTreePattern extends PHPUnit_Framework_TestCase {  
   
   /**

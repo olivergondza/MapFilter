@@ -7,6 +7,9 @@ require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
 
 require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern/Null.php' );
 
+/**
+* @group	Unit
+*/
 class TestPattern extends PHPUnit_Framework_TestCase {  
   
   /**

@@ -6,6 +6,9 @@
 /** Require tested class */
 require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
 
+/**
+* @group	User
+*/
 class TestUser extends PHPUnit_Framework_TestCase {
 
   /**@{*/
