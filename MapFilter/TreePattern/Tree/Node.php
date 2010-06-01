@@ -75,19 +75,25 @@ implements
   *
   * @since	0.3
   *
-  * @param	MapFilter_TreePattern_PickUpParam	param
+  * @param	Array		result
   */
-  public function pickUp ( MapFilter_TreePattern_PickUpParam $param ) {
+  public function pickUp ( Array $result ) {
 
     /** Set assert for nodes that hasn't been satisfied and stop recursion */
     if ( !$this->isSatisfied () ) {
-      return;
+
+      return Array ();
     }
   
     foreach ( $this->getContent () as $follower ) {
 
-      $follower->pickUp ( $param );
+      $result = array_merge (
+          $result,
+          $follower->pickUp ( $result )
+      );
     }
+    
+    return $result;
   }
   
   /**

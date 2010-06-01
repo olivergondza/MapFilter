@@ -154,16 +154,17 @@ implements
   /**
   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUp()}
   */
-  public function pickUp ( MapFilter_TreePattern_PickUpParam $param ) {
+  public function pickUp ( Array $result ) {
 
     /** Set assert for nodes that hasn't been satisfied and stop recursion */
     if ( !$this->isSatisfied () ) {
-      return;
+
+      return Array ();
     }
   
-    $param->data[ (String) $this ] = $this->value;
+    $result[ (String) $this ] = $this->value;
 
-    return;
+    return $result;
   }
   
   /**

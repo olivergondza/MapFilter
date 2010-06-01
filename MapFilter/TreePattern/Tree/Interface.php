@@ -144,7 +144,9 @@ interface MapFilter_TreePattern_Tree_Interface {
   *
   * @since	0.4
   *
-  * @param	MapFilter_TreePattern_PickUpParam	param
+  * @param	Array		Result array
+  *
+  * @return	Array		Result array
   */
-  public function pickUp ( MapFilter_TreePattern_PickUpParam $param );
+  public function pickUp ( Array $result );
 }

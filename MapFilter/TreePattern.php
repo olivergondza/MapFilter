@@ -60,11 +60,6 @@ require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Leaf/Attr.php' );
 require_once ( dirname ( __FILE__ ) . '/TreePattern/SatisfyParam.php' );
 
 /**
-* @file		MapFilter/TreePattern/PickUpParam.php
-*/
-require_once ( dirname ( __FILE__ ) . '/TreePattern/PickUpParam.php' );
-
-/**
 * @file		MapFilter/TreePattern/Exception.php
 */
 require_once ( dirname ( __FILE__ ) . '/TreePattern/Exception.php' );
@@ -265,7 +260,10 @@ class MapFilter_TreePattern implements
   */
   public function getResults () {
 
-    return $this->results;
+//    $pickUpParam = new MapFilter_TreePattern_PickUpParam ();
+//    $pickUpParam -> setRefData ( &$this->results );
+
+    return $this->tempTree->pickUp ( Array () );
   }
   
   /**
@@ -308,7 +306,7 @@ class MapFilter_TreePattern implements
   
     $this->cleanup ();
   
-    $tempTree = clone ( $this->patternTree );
+    $this->tempTree = clone ( $this->patternTree );
   
     /** Resolve all dependencies */
     $satisfyParam = new MapFilter_TreePattern_SatisfyParam ();
@@ -318,13 +316,7 @@ class MapFilter_TreePattern implements
         -> setRefFlags ( &$this->flags )
     ;
 
-    $tempTree->satisfy ( $satisfyParam );
-
-    /** Pick up data */
-    $pickUpParam = new MapFilter_TreePattern_PickUpParam ();
-    $pickUpParam -> setRefData ( &$this->results );
-
-    $tempTree->pickUp ( $pickUpParam );
+    $this->tempTree->satisfy ( $satisfyParam );   
   }
   
   /** @endcond */
