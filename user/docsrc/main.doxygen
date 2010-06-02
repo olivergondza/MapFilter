@@ -1,7 +1,7 @@
 /**
 @mainpage	MapFilter
 
-@section	mapfilter	MapFilter
+@section	description	Description
 
 MapFilter is extensible tool to filter key-value data structures such as
 associative arrays (maps or hash tables) in PHP5.
@@ -10,4 +10,12 @@ associative arrays (maps or hash tables) in PHP5.
 MapFilter_TreePattern enables to enforce relations between groups of data
 Keys, Keys and allowed Values or Values and Keys from simple Key or Value
 -based whitelisting to more complex structures.
+
+@section	license		License
+
+GNU GPLv3
+
+@section	author		Author
+
+Oliver Gondža (324706@mail.muni.cz)
 */

@@ -10,6 +10,7 @@ body, table, div, p, dl {
 h1 {
 	text-align: center;
 	font-size: 200%;
+	color: #138;
 }
 
 h2 {
@@ -37,14 +38,59 @@ dl {
 	line-height: 125%;
 }
 
-ul.row {
-	list-style-type: none;
-	padding: 0px;
+.page_footer {
+	text-align: center;
+	padding-top: 30px;
+	font-style: italic;
 }
 
-ul.row li {
-	display: inline;
+/* GitHub specific */
+
+#header {
+	background-color: #153788;
+	height: 85px;
+	margin-bottom: 10px;
 }
+
+#header h1 {
+	padding-top: 15px;
+	font-size: 100%;
+}
+
+#header h1 a {
+	color: #fff;
+	font-size: 3.8em;
+}
+
+#header h1 a:hover {
+	text-decoration: underline;
+}
+
+#container {
+	margin: 0 auto;
+	width: 700px;
+	border: 1px solid #153788;
+	border-width: 0px 1px 0px 1px;
+}
+
+#fork_me {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+}
+
+.download {
+	float: right;
+}
+
+pre.footer {
+	background-color: #153788;
+	color: #fff;
+	padding: 15px;
+}
+
+/* Rest */
 
 div.multicol {
 	-moz-column-gap: 1em;
@@ -108,6 +154,10 @@ a {
 	color: #153788;
 	font-weight: normal;
 	text-decoration: none;
+}
+
+.contents {
+	padding: 15px;
 }
 
 .contents a:visited {
