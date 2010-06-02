@@ -78,22 +78,22 @@ implements
   *
   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy()
   */
-  public function satisfy ( MapFilter_TreePattern_SatisfyParam $param ) {
+  public function satisfy ( &$query, Array &$asserts ) {
 
     $attrName = $this->attribute;
 
-    $attrExists = self::attrPresent ( $attrName, $param->query );
+    $attrExists = self::attrPresent ( $attrName, $query );
 
     if ( !$attrExists ) {
 
-      return $this->setSatisfied ( FALSE, $param );
+      return $this->setSatisfied ( FALSE, $asserts );
     }
     
     /** Find a follower that fits an value filter and let it satisfy */
     foreach ( $this->getContent () as $follower ) {
       
       $fits = self::valueFits (
-          $param->query[ $attrName ],
+          $query[ $attrName ],
           $follower->getValueFilter ()
       );
       
@@ -102,17 +102,17 @@ implements
         continue;
       }
 
-      $satisfied = $follower->satisfy ( $param );
+      $satisfied = $follower->satisfy ( $query, $asserts );
         
       if ( $satisfied ) {
           
-        $this->value = $param->query[ $attrName ];
+        $this->value = $query[ $attrName ];
       }
         
-      return $this->setSatisfied ( $satisfied, $param );
+      return $this->setSatisfied ( $satisfied, $asserts );
     }
 
-    return $this->setSatisfied ( FALSE, $param );
+    return $this->setSatisfied ( FALSE, $asserts );
   }
   
   /**

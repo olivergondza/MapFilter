@@ -37,6 +37,24 @@ abstract class MapFilter_TreePattern_Tree_Leaf
 {
 
   /**
+  * @copyfull{MapFilter_TreePatern_Tree_Interface::pickUpFlags}
+  */
+  public function pickUpFlags ( Array $flags ) {
+  
+    if ( !$this->isSatisfied () ) {
+    
+      return $flags;
+    }
+    
+    if ( $this->flag !== NULL ) {
+
+      $flags[] = $this->flag;
+    }
+    
+    return $flags;
+  }
+  
+  /**
   * @copyfull{MapFilter_TreePattern_Tree_Interface::__clone()}
   * Overwrite MapFilter_Pattern_Tree deep cloning method
   */

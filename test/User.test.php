@@ -237,7 +237,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
-            Array ( 'login' ),
+            Array ( 'login', 'use_https' ),
             Array ()
         ),
         Array (
@@ -248,13 +248,13 @@ class TestUser extends PHPUnit_Framework_TestCase {
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
             Array ( 'login', 'remember' ),
             Array ()
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL, 'user' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'user' => NULL ),
+            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'user' => NULL ),
             Array ( 'login', 'remember' ),
             Array ()
         ),
@@ -273,7 +273,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes", 'remember' => "yes" ),
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
-            Array ( 'login' ),
+            Array ( 'login', 'use_https' ),
             Array ( 'no_remember_method' )
         )
     );

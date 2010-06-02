@@ -4,7 +4,6 @@
   <testsuites>
     <testsuite name="MapFilter">
       <directory suffix=".test.php">.</directory>
-      <directory suffix=".test.php">../3rdParty/test</directory>
     </testsuite>
   </testsuites>
   

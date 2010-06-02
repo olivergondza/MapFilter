@@ -37,13 +37,13 @@ final class MapFilter_TreePattern_Tree_Node_Opt extends
   *
   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy
   */
-  public function satisfy ( MapFilter_TreePattern_SatisfyParam $param ) {
+  public function satisfy ( &$query, Array &$asserts ) {
   
     foreach ( $this->getContent () as $follower ) {
     
-      $follower->satisfy ( $param );
+      $follower->satisfy ( $query, $asserts );
     }
 
-    return $this->setSatisfied ( TRUE, $param );
+    return $this->setSatisfied ( TRUE, $asserts );
   }
 }

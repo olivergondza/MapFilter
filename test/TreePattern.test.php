@@ -255,7 +255,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
                 $attr1 -> setAttribute ( "pass" ) -> setAssert ( "no_password" ),
                 $opt -> setContent (
                     Array (
-                        $attr2 -> setAttribute ( "use-https" ),
+                        $attr2 -> setAttribute ( "use-https" ) -> setFlag ( "use_https" ) -> setValuePattern ( "yes" ),
                         $all1 -> setFlag ( "remember" ) -> setContent (
                             Array (
                                 $attr3 -> setAttribute ( "remember" ),

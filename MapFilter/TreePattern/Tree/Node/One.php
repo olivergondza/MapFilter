@@ -38,16 +38,16 @@ final class MapFilter_TreePattern_Tree_Node_One extends
   *
   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy
   */
-  public function satisfy ( MapFilter_TreePattern_SatisfyParam $param ) {
+  public function satisfy ( &$query, Array &$asserts ) {
 
     foreach ( $this->getContent () as $follower ) {
       
-      if ( $follower->satisfy ( $param ) ) {
+      if ( $follower->satisfy ( $query, $asserts ) ) {
 
-        return $this->setSatisfied ( TRUE, $param );
+        return $this->setSatisfied ( TRUE, $asserts );
       }
     }
     
-    return $this->setSatisfied ( FALSE, $param );
+    return $this->setSatisfied ( FALSE, $asserts );
   }
 }

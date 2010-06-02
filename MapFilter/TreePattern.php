@@ -55,11 +55,6 @@ require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Node/KeyAttr.php' );
 require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Leaf/Attr.php' );
 
 /**
-* @file		MapFilter/TreePattern/SatisfyParam.php
-*/
-require_once ( dirname ( __FILE__ ) . '/TreePattern/SatisfyParam.php' );
-
-/**
 * @file		MapFilter/TreePattern/Exception.php
 */
 require_once ( dirname ( __FILE__ ) . '/TreePattern/Exception.php' );
@@ -260,9 +255,6 @@ class MapFilter_TreePattern implements
   */
   public function getResults () {
 
-//    $pickUpParam = new MapFilter_TreePattern_PickUpParam ();
-//    $pickUpParam -> setRefData ( &$this->results );
-
     return $this->tempTree->pickUp ( Array () );
   }
   
@@ -279,7 +271,7 @@ class MapFilter_TreePattern implements
   */
   public function getFlags () {
   
-    return $this->flags;
+    return $this->tempTree->pickUpFlags ( Array () );
   }
   
   /**
@@ -295,6 +287,7 @@ class MapFilter_TreePattern implements
     $this->results = Array ();
     $this->asserts = Array ();
     $this->flags = Array ();
+    $this->tempTree = NULL;
   }
   
   /**
@@ -308,15 +301,7 @@ class MapFilter_TreePattern implements
   
     $this->tempTree = clone ( $this->patternTree );
   
-    /** Resolve all dependencies */
-    $satisfyParam = new MapFilter_TreePattern_SatisfyParam ();
-    $satisfyParam
-        -> setQuery ( $query )
-        -> setRefAsserts ( &$this->asserts )
-        -> setRefFlags ( &$this->flags )
-    ;
-
-    $this->tempTree->satisfy ( $satisfyParam );   
+    $this->tempTree->satisfy ( $query, $this->asserts );   
   }
   
   /** @endcond */

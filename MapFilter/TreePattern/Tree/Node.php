@@ -97,6 +97,29 @@ implements
   }
   
   /**
+  * @copyfull{MapFilter_TreePatern_Interface::pickUpFlags}
+  */
+  public function pickUpFlags ( Array $flags ) {
+  
+    if ( !$this->isSatisfied () ) {
+    
+      return $flags;
+    }
+    
+    if ( $this->flag !== NULL ) {
+    
+      $flags[] = $this->flag;
+    }
+    
+    foreach ( $this->getContent () as $follower ) {
+
+      $flags = $follower->pickUpFlags ( $flags );
+    }
+    
+    return $flags;
+  }
+  
+  /**
   * Clone node followers
   *
   * @note This method uses deep cloning

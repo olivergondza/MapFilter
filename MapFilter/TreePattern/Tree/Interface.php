@@ -30,6 +30,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	String		attribute	An attribute to set
+  *
   * @return	MapFilter_TreePattern_Tree	A pattern with new attribute
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -43,6 +44,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	String		default		A default value to set
+  *
   * @return	MapFilter_TreePattern_Tree	A pattern with new default value
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -56,6 +58,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	Array		content		A content to set
+  *
   * @return	MapFilter_TreePattern_Tree	A pattern with new content
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -69,6 +72,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	String		valuePattern	A valueFilter to set
+  *
   * @return	MapFilter_TreePattern_Tree	A pattern with new valueFilter
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -82,6 +86,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	String		valueFilter	A valueFilter to set
+  *
   * @return	MapFilter_TreePattern_Tree	New pattern with valueFilter
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -95,6 +100,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	String		flag		A flag to set
+  *
   * @return	MapFilter_TreePattern_Tree	New pattern with flag
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -108,6 +114,7 @@ interface MapFilter_TreePattern_Tree_Interface {
   * @since	0.4
   *
   * @param	String		assert		An assert to set
+  *
   * @return	MapFilter_TreePattern_Tree	New pattern with flag
   * @throws	MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
   */
@@ -134,19 +141,32 @@ interface MapFilter_TreePattern_Tree_Interface {
   *
   * @since	0.4
   *
-  * @param	MapFilter_TreePattern_SatisfyParam	param
-  * @return	Bool					Satisfaction result
+  * @param	Array|ArrayAccess	$query
+  * @param	Array			$asserts
+  *
+  * @return	Bool
   */
-  public function satisfy ( MapFilter_TreePattern_SatisfyParam $param );
+  public function satisfy ( &$query, Array &$asserts );
   
   /**
   * Pick-up satisfaction results.
   *
   * @since	0.4
   *
-  * @param	Array		Result array
+  * @param	Array		$results
   *
-  * @return	Array		Result array
+  * @return	Array		Results array
   */
-  public function pickUp ( Array $result );
+  public function pickUp ( Array $results );
+  
+  /**
+  * Get filtering flags
+  *
+  * @since	0.5.1
+  *
+  * @param	Array		$flags		
+  *
+  * @return	Array		Flags array 
+  */
+  public function pickUpFlags ( Array $flags );
 }

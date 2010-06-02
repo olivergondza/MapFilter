@@ -59,7 +59,7 @@ abstract class MapFilter_TreePattern_Tree implements
   *
   * @var	String	$flag
   */
-  private $flag = NULL;
+  protected $flag = NULL;
   
   /**
   * Node assert
@@ -68,7 +68,7 @@ abstract class MapFilter_TreePattern_Tree implements
   *
   * @var	String	$assert
   */
-  private $assert = NULL;
+  protected $assert = NULL;
   
   /**
   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
@@ -175,38 +175,28 @@ abstract class MapFilter_TreePattern_Tree implements
   *
   * @since	0.3
   *
-  * @param	Bool				cond	Bool Satisfy condition
-  * @param	MapFilter_TreePattern_SatisfyParam	param
+  * @param	Bool		cond		Bool Satisfy condition
+  * @param	Array		asserts		
   *
-  * @return	Bool	Was or was not satisfied
+  * @return	Array		Satisfaction array
   */
   protected function setSatisfied (
       $cond,
-      MapFilter_TreePattern_SatisfyParam $param
+      Array &$asserts
   ) {
 
     assert ( is_bool ( $cond ) );
   
     $this->satisfied = $cond;
   
-    /** Unsatisfied */
     if ( !$this->isSatisfied () ) {
       
       if ( $this->assert !== NULL ) {
       
-        $param->asserts[] = $this->assert;
+        $asserts[] = $this->assert;
       }
-
-    /** Satisfied */
-    } else {
-    
-      if ( $this->flag !== NULL ) {
-      
-        $param->flags[] = $this->flag;
-      }
-      
     }
-  
+    
     return $this->satisfied;
   }
   

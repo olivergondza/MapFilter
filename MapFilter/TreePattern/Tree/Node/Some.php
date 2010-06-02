@@ -37,12 +37,12 @@ final class MapFilter_TreePattern_Tree_Node_Some extends
   *
   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy
   */
-  public function satisfy ( MapFilter_TreePattern_SatisfyParam $param ) {
+  public function satisfy ( &$query, Array &$asserts ) {
 
     $satisfiedFollowers = Array ();
     foreach ( $this->getContent () as $follower ) {
 
-      $satisfiedFollowers[] = $follower->satisfy ( $param );
+      $satisfiedFollowers[] = $follower->satisfy ( $query, $asserts );
     }
     
     $satisfied = in_array (
@@ -50,6 +50,6 @@ final class MapFilter_TreePattern_Tree_Node_Some extends
         $satisfiedFollowers
     );
     
-    return $this->setSatisfied ( $satisfied, $param );
+    return $this->setSatisfied ( $satisfied, $asserts );
   }
 }

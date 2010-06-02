@@ -116,27 +116,27 @@ implements
   *
   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy()
   */
-  public function satisfy ( MapFilter_TreePattern_SatisfyParam $param ) {
+  public function satisfy ( &$query, Array &$asserts ) {
   
     /** If argument exists */
     $present = self::attrPresent (
         $this->attribute,
-        $param->query
+        $query
     );
     
     if ( $present ) {
     
       /** And matches pattern */
       $fitsPattern = self::valueFits (
-          $param->query[ $this->attribute ],
+          $query[ $this->attribute ],
           $this->valuePattern
       );
 
       if ( $fitsPattern ) {
     
-        $this->value = $param->query[ $this->attribute ];
+        $this->value = $query[ $this->attribute ];
     
-        return $this->setSatisfied ( TRUE, $param );
+        return $this->setSatisfied ( TRUE, $asserts );
       }
     }
     
@@ -145,10 +145,10 @@ implements
       
       $this->value = $this->default;
 
-      return $this->setSatisfied ( TRUE, $param );
+      return $this->setSatisfied ( TRUE, $asserts );
     }
     
-    return $this->setSatisfied ( FALSE, $param );
+    return $this->setSatisfied ( FALSE, $asserts );
   }
   
   /**
