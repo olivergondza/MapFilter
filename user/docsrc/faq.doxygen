@@ -27,71 +27,72 @@ TreePattern is default MapFilter_Pattern_Interface implementation.
 
 	@subsection	faqnodes		Nodes
 
-	@subsubsection	faqallnode		What is All node for?
+	@subsubsection	faqallnode		What is the All node for?
 
-This nodes get satisfied when node specific rules are met. @ref allnode
+This nodes get satisfied when node specific rules are met. The @ref allnode
 "All" node get satisfied in case all it’s followers are satisfied.
 
-	@subsubsection	faqonenode		What is One node for?
+	@subsubsection	faqonenode		What is the One node for?
 
-This nodes get satisfied when node specific rules are met. @ref onenode
-"One" node follower must be satisfied.  Only one One node follower can be
-satisfied.
+This nodes get satisfied when node specific rules are met. Only one follower
+of the @ref onenode "One" node can be satisfied for the @ref onenode "One"
+node to get satisfied.
 
-	@subsubsection	faqoptnode		What is Opt node for?
+	@subsubsection	faqoptnode		What is the Opt node for?
 
-This nodes get satisfied when node specific rules are met. @ref optnode
+This nodes get satisfied when node specific rules are met. The @ref optnode
 "Opt" node is satisfied regardless of it’s followers.
 
-	@subsubsection	faqsomenode		What is Some node for?
+	@subsubsection	faqsomenode		What is the Some node for?
 
-This nodes get satisfied when node specific rules are met. @ref somenode
+This nodes get satisfied when node specific rules are met. The @ref somenode
 "Some" node needs at least one satisfied followers to be satisfied itself.
 
-	@subsubsection	faqkeyattrnode		What is KeyAttr node?
+	@subsubsection	faqkeyattrnode		What is the KeyAttr node?
 
-It’s the only @ref treepattern TreePattern node that makes decisions
+It’s the only @ref treepattern "TreePattern" node that makes decisions
 considering attribute value.  Must have exactly one satisfied follower to be
 satisfied itself.  All it’s followers has to have @ref forvalueattr
 "forValue" attribute.
 
 	@subsection	faqleaves		Leaves
 
-	@subsubsection	faqattrleaf		What is Attr leaf?
+	@subsubsection	faqattrleaf		What is the Attr leaf?
 
-@ref attrleaf "Attr" leaf is the only leaf of @ref treepattern "TreePattern".
+The @ref attrleaf "Attr" leaf is the only leaf of @ref treepattern
+"TreePattern".
 
 	@subsection	faqattr			Attributes
 
-	@subsubsection	faqforvalueattr		What is forValue attribute?
+	@subsubsection	faqforvalueattr		What is the forValue attribute?
 
 Attribute @ref forvalueattr "forValue" is allowed for all TreePattern node
 elements that are followers of @ref keyattrnode "KeyAttr" node.  Contains
 regular expression to match by @ref keyattrnode "Key-Attr" value.
 
-	@subsubsection	faqassertattr		What is assert attribute?
+	@subsubsection	faqassertattr		What is the assert attribute?
 
-@ref assertattr "assert" attribute enables to set assertions in case that
+The @ref assertattr "assert" attribute enables to set assertions in case that
 attribute or group of attributes fails in satisfaction process.  This
 attribute is allowed for all pattern elements.  All sat
 assertions can be had by getAsserts() from parsed filter.
 
-	@subsubsection	faqflagattr		What is flag attribute?
+	@subsubsection	faqflagattr		What is the flag attribute?
 
-@ref flagattr "flag" is an universal pattern element attribute to provide
+The @ref flagattr "flag" is a universal pattern element attribute to provide
 some additional information from parsing process.  When pattern node got
 satisfied it’s flag will be sat.  This flags are accessible by getFlags().
 
-	@subsubsection	faqvaluepatternattr	What is valuePattern attribute?
+	@subsubsection	faqvaluepatternattr	What is the valuePattern attribute?
 
-@ref valuepatternattr "valuePattern" in an optional attribute of @ref
+The @ref valuepatternattr "valuePattern" in an optional attribute of @ref
 attrleaf "Attr" leaf.  Defines REGEXP to match for future attribute value. 
 @ref attrleaf "Attr" leaf with this pattern can be satisfied only if both
 attribute is present and it’s value matches pattern.
 
-	@subsubsection	faqdefaultattr		What is default attribute?
+	@subsubsection	faqdefaultattr		What is the default attribute?
 
-@ref defaultattr "default" attribute is an optional @ref attrleaf "Attr"
+The @ref defaultattr "default" attribute is an optional @ref attrleaf "Attr"
 node attribute.  If there is an unsatisfied Attr node with defined default
 attribute, default attribute will be used and node will be considered
 satisfied.

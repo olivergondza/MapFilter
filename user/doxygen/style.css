@@ -78,6 +78,7 @@ dl {
 	top: 0;
 	right: 0;
 	border: 0;
+	z-index: -1;
 }
 
 .download {
@@ -395,9 +396,19 @@ hr.footer {
 	padding: 1px 0 0 8px;
 }
 
+.mdescLeft, .memItemLeft {
+	border-left: 1px solid #ccc;
+}
+
+.memItemRight, .mdescRight {
+	border-right: 1px solid #ccc;
+	padding-right: 5px;
+}
+
 .mdescLeft, .mdescRight {
 	padding: 0px 8px 4px 8px;
 	color: #555;
+	border-bottom: 1px solid #ccc;
 }
 
 .memItemLeft, .memItemRight, .memTemplParams {

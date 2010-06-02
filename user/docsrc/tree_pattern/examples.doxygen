@@ -103,6 +103,6 @@ $filter->setQuery ( $query );
 var_dump ( $filter->getResults () );
 @endcode
 
-Filtered query would be empty because our pattern demand occurrence of both
+A filtered query would be empty because our pattern demands occurrence of both
 (all) options.
 */

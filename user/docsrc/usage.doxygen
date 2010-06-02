@@ -3,7 +3,7 @@
 
 @section	mapfilter	MapFilter
 
-	To use MapFilter there is need to define Pattern
+	To use MapFilter there is need to define the Pattern
 (<tt>MapFilter::setPattern ();</tt>) describing all possible data relations
 and let MapFilter do all the work related with input filtering.  Filtering
 outputs can be had by <tt>@ref MapFilter::fetchResult "fetchResult ()"</tt>. 
