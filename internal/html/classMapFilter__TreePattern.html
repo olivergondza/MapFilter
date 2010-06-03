@@ -10,10 +10,9 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a href="http://github.com/olivergondza/MapFilter"><img id="fork_me"
-          src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
-          alt="Fork me on GitHub"
-    /></a>
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
   
   <div id="container">
   
@@ -94,7 +93,7 @@ Inheritance diagram for MapFilter_TreePattern:</div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_a9f675a05fede5bf743082bfb29604bab.html#a9f675a05fede5bf743082bfb29604bab">__construct</a> (<a class="el" href="classMapFilter__TreePattern__Tree.html">MapFilter_TreePattern_Tree</a> $patternTree)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create Pattern from Pattern_Tree object.  <a href="#a9f675a05fede5bf743082bfb29604bab"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a Pattern from the Pattern_Tree object.  <a href="#a9f675a05fede5bf743082bfb29604bab"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_aca29372b513d600cc4ab1aaf14c7df99.html#aca29372b513d600cc4ab1aaf14c7df99">__clone</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Clone pattern tree recursively.  <a href="#aca29372b513d600cc4ab1aaf14c7df99"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_ab94c88619102dbe6d9ff281331344864.html#ab94c88619102dbe6d9ff281331344864">getResults</a> ()</td></tr>
@@ -104,7 +103,7 @@ Inheritance diagram for MapFilter_TreePattern:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_a4bc3831f13428786109f24518dd534fe.html#a4bc3831f13428786109f24518dd534fe">getFlags</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get flags.   <a href="#a4bc3831f13428786109f24518dd534fe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_a279a4f66acb64f7fed493252c9541d9b.html#a279a4f66acb64f7fed493252c9541d9b">parse</a> ($query)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse pattern against given query.   <a href="#a279a4f66acb64f7fed493252c9541d9b"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse the given query against the pattern.   <a href="#a279a4f66acb64f7fed493252c9541d9b"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_a28456a9356aaf26356ee2f951e8a6ac9.html#a28456a9356aaf26356ee2f951e8a6ac9">load</a> ($xmlSource)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Simple Factory Method to load data from string.  <a href="#a28456a9356aaf26356ee2f951e8a6ac9"></a><br/></td></tr>
@@ -177,7 +176,7 @@ const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 <tr><td class="memItemLeft" align="right" valign="top">static&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_a45de44104d8491bd0620a9ed00c058c2.html#a45de44104d8491bd0620a9ed00c058c2">parseTagAttributes</a> (<a class="el" href="classNotSoSimpleXmlElement.html">NotSoSimpleXmlElement</a> $xml, <a class="el" href="classMapFilter__TreePattern__Tree.html">MapFilter_TreePattern_Tree</a> $node, $tagName)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse attributes of existing tag.  <a href="#a45de44104d8491bd0620a9ed00c058c2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_a3c151dfeffa56bac8dda06cf6abd2089.html#a3c151dfeffa56bac8dda06cf6abd2089">createTreeNode</a> ($tagName, Array $followers)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create node according to tag name.  <a href="#a3c151dfeffa56bac8dda06cf6abd2089"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the node according to tag name.  <a href="#a3c151dfeffa56bac8dda06cf6abd2089"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_aadf3477dbdb2ced140cb956b14319cd9.html#aadf3477dbdb2ced140cb956b14319cd9">parseTree</a> (<a class="el" href="classNotSoSimpleXmlElement.html">NotSoSimpleXmlElement</a> $xml)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse serialized pattern tree to its object implementation.  <a href="#aadf3477dbdb2ced140cb956b14319cd9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern_ac4b9270a47b146332634a68a600ea743.html#ac4b9270a47b146332634a68a600ea743">unwrap</a> (<a class="el" href="classNotSoSimpleXmlElement.html">NotSoSimpleXmlElement</a> $xmlElement)</td></tr>

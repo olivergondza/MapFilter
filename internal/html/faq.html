@@ -10,10 +10,9 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a href="http://github.com/olivergondza/MapFilter"><img id="fork_me"
-          src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
-          alt="Fork me on GitHub"
-    /></a>
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
   
   <div id="container">
   
@@ -90,42 +89,42 @@ TreePattern</a></h2>
 <h3><a class="anchor" id="faqnodes">
 Nodes</a></h3>
 <h4><a class="anchor" id="faqallnode">
-What is All node for?</a></h4>
-<p>This nodes get satisfied when node specific rules are met. <a class="el" href="treepatternelements.html#allnode">All</a> node get satisfied in case all it’s followers are satisfied.</p>
+What is the All node for?</a></h4>
+<p>This nodes get satisfied when node specific rules are met. The <a class="el" href="treepatternelements.html#allnode">All</a> node get satisfied in case all it’s followers are satisfied.</p>
 <h4><a class="anchor" id="faqonenode">
-What is One node for?</a></h4>
-<p>This nodes get satisfied when node specific rules are met. <a class="el" href="treepatternelements.html#onenode">One</a> node follower must be satisfied. Only one One node follower can be satisfied.</p>
+What is the One node for?</a></h4>
+<p>This nodes get satisfied when node specific rules are met. Only one follower of the <a class="el" href="treepatternelements.html#onenode">One</a> node can be satisfied for the <a class="el" href="treepatternelements.html#onenode">One</a> node to get satisfied.</p>
 <h4><a class="anchor" id="faqoptnode">
-What is Opt node for?</a></h4>
-<p>This nodes get satisfied when node specific rules are met. <a class="el" href="treepatternelements.html#optnode">Opt</a> node is satisfied regardless of it’s followers.</p>
+What is the Opt node for?</a></h4>
+<p>This nodes get satisfied when node specific rules are met. The <a class="el" href="treepatternelements.html#optnode">Opt</a> node is satisfied regardless of it’s followers.</p>
 <h4><a class="anchor" id="faqsomenode">
-What is Some node for?</a></h4>
-<p>This nodes get satisfied when node specific rules are met. <a class="el" href="treepatternelements.html#somenode">Some</a> node needs at least one satisfied followers to be satisfied itself.</p>
+What is the Some node for?</a></h4>
+<p>This nodes get satisfied when node specific rules are met. The <a class="el" href="treepatternelements.html#somenode">Some</a> node needs at least one satisfied followers to be satisfied itself.</p>
 <h4><a class="anchor" id="faqkeyattrnode">
-What is KeyAttr node?</a></h4>
-<p>It’s the only <a class="el" href="treepattern.html">TreePattern</a> TreePattern node that makes decisions considering attribute value. Must have exactly one satisfied follower to be satisfied itself. All it’s followers has to have <a class="el" href="treepatternelements.html#forvalueattr">forValue</a> attribute.</p>
+What is the KeyAttr node?</a></h4>
+<p>It’s the only <a class="el" href="treepattern.html">TreePattern</a> node that makes decisions considering attribute value. Must have exactly one satisfied follower to be satisfied itself. All it’s followers has to have <a class="el" href="treepatternelements.html#forvalueattr">forValue</a> attribute.</p>
 <h3><a class="anchor" id="faqleaves">
 Leaves</a></h3>
 <h4><a class="anchor" id="faqattrleaf">
-What is Attr leaf?</a></h4>
-<p><a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf is the only leaf of <a class="el" href="treepattern.html">TreePattern</a>.</p>
+What is the Attr leaf?</a></h4>
+<p>The <a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf is the only leaf of <a class="el" href="treepattern.html">TreePattern</a>.</p>
 <h3><a class="anchor" id="faqattr">
 Attributes</a></h3>
 <h4><a class="anchor" id="faqforvalueattr">
-What is forValue attribute?</a></h4>
+What is the forValue attribute?</a></h4>
 <p>Attribute <a class="el" href="treepatternelements.html#forvalueattr">forValue</a> is allowed for all TreePattern node elements that are followers of <a class="el" href="treepatternelements.html#keyattrnode">KeyAttr</a> node. Contains regular expression to match by <a class="el" href="treepatternelements.html#keyattrnode">Key-Attr</a> value.</p>
 <h4><a class="anchor" id="faqassertattr">
-What is assert attribute?</a></h4>
-<p><a class="el" href="treepatternelements.html#assertattr">assert</a> attribute enables to set assertions in case that attribute or group of attributes fails in satisfaction process. This attribute is allowed for all pattern elements. All sat assertions can be had by getAsserts() from parsed filter.</p>
+What is the assert attribute?</a></h4>
+<p>The <a class="el" href="treepatternelements.html#assertattr">assert</a> attribute enables to set assertions in case that attribute or group of attributes fails in satisfaction process. This attribute is allowed for all pattern elements. All sat assertions can be had by getAsserts() from parsed filter.</p>
 <h4><a class="anchor" id="faqflagattr">
-What is flag attribute?</a></h4>
-<p><a class="el" href="treepatternelements.html#flagattr">flag</a> is an universal pattern element attribute to provide some additional information from parsing process. When pattern node got satisfied it’s flag will be sat. This flags are accessible by getFlags().</p>
+What is the flag attribute?</a></h4>
+<p>The <a class="el" href="treepatternelements.html#flagattr">flag</a> is a universal pattern element attribute to provide some additional information from parsing process. When pattern node got satisfied it’s flag will be sat. This flags are accessible by getFlags().</p>
 <h4><a class="anchor" id="faqvaluepatternattr">
-What is valuePattern attribute?</a></h4>
-<p><a class="el" href="treepatternelements.html#valuepatternattr">valuePattern</a> in an optional attribute of <a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf. Defines REGEXP to match for future attribute value. <a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf with this pattern can be satisfied only if both attribute is present and it’s value matches pattern.</p>
+What is the valuePattern attribute?</a></h4>
+<p>The <a class="el" href="treepatternelements.html#valuepatternattr">valuePattern</a> in an optional attribute of <a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf. Defines REGEXP to match for future attribute value. <a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf with this pattern can be satisfied only if both attribute is present and it’s value matches pattern.</p>
 <h4><a class="anchor" id="faqdefaultattr">
-What is default attribute?</a></h4>
-<p><a class="el" href="treepatternelements.html#defaultattr">default</a> attribute is an optional <a class="el" href="treepatternelements.html#attrleaf">Attr</a> node attribute. If there is an unsatisfied Attr node with defined default attribute, default attribute will be used and node will be considered satisfied. </p>
+What is the default attribute?</a></h4>
+<p>The <a class="el" href="treepatternelements.html#defaultattr">default</a> attribute is an optional <a class="el" href="treepatternelements.html#attrleaf">Attr</a> node attribute. If there is an unsatisfied Attr node with defined default attribute, default attribute will be used and node will be considered satisfied. </p>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"

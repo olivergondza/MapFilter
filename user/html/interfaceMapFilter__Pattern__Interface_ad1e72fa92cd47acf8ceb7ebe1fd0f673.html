@@ -11,8 +11,8 @@
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
 
-    <a href="http://github.com/olivergondza/MapFilter">
-      <img id="fork_me" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
     </a>
   
     <div id="container">
@@ -100,11 +100,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="memdoc">
 
-<p>Parse pattern against given query. </p>
+<p>Parse the given query against the pattern. </p>
 <dl class="since"><dt><b>Since:</b></dt><dd>0.5</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>array</em>&nbsp;</td><td>$query An array of options to control how the query operates. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>Array</em>&nbsp;</td><td>$query A user query </td></tr>
   </table>
   </dd>
 </dl>

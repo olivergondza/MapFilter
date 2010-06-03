@@ -10,10 +10,9 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a href="http://github.com/olivergondza/MapFilter"><img id="fork_me"
-          src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
-          alt="Fork me on GitHub"
-    /></a>
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
   
   <div id="container">
   
@@ -87,7 +86,7 @@ Inheritance diagram for MapFilter_TreePattern_Tree_Interface:</div>
 <div class="dynsection">
 <div class="center"><img src="interfaceMapFilter__TreePattern__Tree__Interface__inherit__graph.png" border="0" usemap="#MapFilter__TreePattern__Tree__Interface_inherit__map" alt="Inheritance graph"/></div>
 <map name="MapFilter__TreePattern__Tree__Interface_inherit__map" id="MapFilter__TreePattern__Tree__Interface_inherit__map">
-<area shape="rect" id="node3" href="classMapFilter__TreePattern__Tree.html" title="Internal pattern tree." alt="" coords="440,331,621,738"/><area shape="rect" id="node5" href="classMapFilter__TreePattern__Tree__Leaf.html" title="Abstract class for pattern tree leaf." alt="" coords="153,815,367,905"/><area shape="rect" id="node9" href="classMapFilter__TreePattern__Tree__Node.html" title="Abstract class for pattern tree node,." alt="" coords="697,787,916,933"/><area shape="rect" id="node7" href="classMapFilter__TreePattern__Tree__Leaf__Attr.html" title="MapFilter pattern tree attribute leaf." alt="" coords="5,982,245,1239"/><area shape="rect" id="node11" href="classMapFilter__TreePattern__Tree__Node__All.html" title="MapFilter pattern tree all node." alt="" coords="269,1066,509,1155"/><area shape="rect" id="node13" href="classMapFilter__TreePattern__Tree__Node__KeyAttr.html" title="MapFilter pattern tree SetAttribute node." alt="" coords="533,1019,800,1202"/><area shape="rect" id="node15" href="classMapFilter__TreePattern__Tree__Node__One.html" title="MapFilter pattern tree one node." alt="" coords="824,1066,1072,1155"/><area shape="rect" id="node17" href="classMapFilter__TreePattern__Tree__Node__Opt.html" title="MapFilter pattern tree opt node." alt="" coords="1096,1066,1341,1155"/><area shape="rect" id="node19" href="classMapFilter__TreePattern__Tree__Node__Some.html" title="MapFilter pattern tree some node." alt="" coords="1365,1066,1624,1155"/></map>
+<area shape="rect" id="node3" href="classMapFilter__TreePattern__Tree.html" title="Internal pattern tree." alt="" coords="440,350,621,757"/><area shape="rect" id="node5" href="classMapFilter__TreePattern__Tree__Leaf.html" title="Abstract class for pattern tree leaf." alt="" coords="153,834,367,942"/><area shape="rect" id="node9" href="classMapFilter__TreePattern__Tree__Node.html" title="Abstract class for pattern tree node,." alt="" coords="697,806,916,970"/><area shape="rect" id="node7" href="classMapFilter__TreePattern__Tree__Leaf__Attr.html" title="MapFilter pattern tree attribute leaf." alt="" coords="5,1019,245,1277"/><area shape="rect" id="node11" href="classMapFilter__TreePattern__Tree__Node__All.html" title="MapFilter pattern tree all node." alt="" coords="269,1103,509,1193"/><area shape="rect" id="node13" href="classMapFilter__TreePattern__Tree__Node__KeyAttr.html" title="MapFilter pattern tree SetAttribute node." alt="" coords="533,1057,800,1239"/><area shape="rect" id="node15" href="classMapFilter__TreePattern__Tree__Node__One.html" title="MapFilter pattern tree one node." alt="" coords="824,1103,1072,1193"/><area shape="rect" id="node17" href="classMapFilter__TreePattern__Tree__Node__Opt.html" title="MapFilter pattern tree opt node." alt="" coords="1096,1103,1341,1193"/><area shape="rect" id="node19" href="classMapFilter__TreePattern__Tree__Node__Some.html" title="MapFilter pattern tree some node." alt="" coords="1365,1103,1624,1193"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classMapFilter__TreePattern__Tree__Interface-members.html">List of all members.</a></p>
@@ -111,10 +110,12 @@ Inheritance diagram for MapFilter_TreePattern_Tree_Interface:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create new tree instance.  <a href="#a515c56508c59a9b3b1bd06989b562506"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_ac95889d15a78fa77b8eb86e60e3246e2.html#ac95889d15a78fa77b8eb86e60e3246e2">__clone</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Make copy of the node.  <a href="#ac95889d15a78fa77b8eb86e60e3246e2"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_af17aa2e9a336c6a663ddbd2c0a16b7fa.html#af17aa2e9a336c6a663ddbd2c0a16b7fa">satisfy</a> (<a class="el" href="classMapFilter__TreePattern__SatisfyParam.html">MapFilter_TreePattern_SatisfyParam</a> $param)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Satisfy certain node type and let it's followers to get satisfied.  <a href="#af17aa2e9a336c6a663ddbd2c0a16b7fa"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_a0fe812fbfb2401451eade2dd2c775f00.html#a0fe812fbfb2401451eade2dd2c775f00">pickUp</a> (Array $result)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pick-up satisfaction results.  <a href="#a0fe812fbfb2401451eade2dd2c775f00"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_af5165a4eaaa608ad14a9a52082a416f4.html#af5165a4eaaa608ad14a9a52082a416f4">satisfy</a> (&amp;$query, Array &amp;$asserts)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Satisfy certain node type and let its followers to get satisfied.  <a href="#af5165a4eaaa608ad14a9a52082a416f4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_a29e03f049e8b2e8762cf75f673131806.html#a29e03f049e8b2e8762cf75f673131806">pickUp</a> (Array $results)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pick-up satisfaction results.  <a href="#a29e03f049e8b2e8762cf75f673131806"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_ab647026c758ff29da61b0c6d1c6493aa.html#ab647026c758ff29da61b0c6d1c6493aa">pickUpFlags</a> (Array $flags)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get filtering flags.  <a href="#ab647026c758ff29da61b0c6d1c6493aa"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p><a class="el" href="classMapFilter__TreePattern__Tree.html" title="Internal pattern tree.">MapFilter_TreePattern_Tree</a> Interface. </p>

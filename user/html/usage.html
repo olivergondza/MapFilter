@@ -11,8 +11,8 @@
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
 
-    <a href="http://github.com/olivergondza/MapFilter">
-      <img id="fork_me" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
     </a>
   
     <div id="container">
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h1><a class="anchor" id="usage">Usage </a></h1><h2><a class="anchor" id="mapfilter">
 MapFilter</a></h2>
-<p>To use <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> there is need to define Pattern (<code><a class="el" href="classMapFilter_a5533d03dcf3b113b747be2d9123982a5.html#a5533d03dcf3b113b747be2d9123982a5" title="Set desired query pattern. ">MapFilter::setPattern</a> ();</code>) describing all possible data relations and let <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> do all the work related with input filtering. Filtering outputs can be had by <code><a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1">fetchResult ()</a></code>. This object implements the same set of interfaces as original Pattern did.</p>
+<p>To use <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> there is need to define the Pattern (<code><a class="el" href="classMapFilter_a5533d03dcf3b113b747be2d9123982a5.html#a5533d03dcf3b113b747be2d9123982a5" title="Set desired query pattern. ">MapFilter::setPattern</a> ();</code>) describing all possible data relations and let <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> do all the work related with input filtering. Filtering outputs can be had by <code><a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1">fetchResult ()</a></code>. This object implements the same set of interfaces as original Pattern did.</p>
 <h2><a class="anchor" id="pattern">
 MapFilter Pattern</a></h2>
 <p><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> Pattern is an arbitrary implementation of <code><a class="el" href="interfaceMapFilter__Pattern__Interface.html" title="MapFilter_Pattern Interface.">MapFilter_Pattern_Interface</a></code>. This pattern is used during the parsing procedure to do all the work needed to obtain all result types specified by implemented interfaces. There is the default implementation of Pattern included in <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> package called TreePattern (<code><a class="el" href="classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree.">MapFilter_TreePattern</a></code>). </p>

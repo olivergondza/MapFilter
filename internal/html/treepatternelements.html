@@ -10,10 +10,9 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a href="http://github.com/olivergondza/MapFilter"><img id="fork_me"
-          src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
-          alt="Fork me on GitHub"
-    /></a>
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
   
   <div id="container">
   
@@ -78,13 +77,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Leaves</a></h2>
 <h3><a class="anchor" id="attrleaf">
 Attr leaf</a></h3>
-<p>Attr leave specifies attribute itself, it's valuePattern and pattern default value. Attr leaf is satisfied when it's attribute occurs in user query and it's value matches optional pattern defined by valuePattern attribute. When this does not happen this node still can be satisfied if it's default value is sat: attribute will have that default value and leaf will be satisfied.</p>
+<p>Attr leave specifies attribute itself, its valuePattern and pattern <a class="el" href="treepatternelements.html#defaultattr">default</a> value. Attr leaf is satisfied when its attribute occurs in user query and its value matches the optional pattern defined by valuePattern attribute. When this does not happen this node still can be satisfied if its default value is sat: attribute will have that default value and leaf will be satisfied.</p>
 <h2><a class="anchor" id="nodes">
 Nodes</a></h2>
 <p>There are four so-called Policy nodes (<a class="el" href="treepatternelements.html#allnode">All</a>, <a class="el" href="treepatternelements.html#onenode">One</a>, <a class="el" href="treepatternelements.html#optnode">Opt</a> and <a class="el" href="treepatternelements.html#somenode">Some</a>) that specifies data attribute relations. <a class="el" href="treepatternelements.html#keyattrnode">KeyAttr</a> node defines value-key relations between key attribute and its possible value patterns.</p>
 <h3><a class="anchor" id="allnode">
 All node</a></h3>
-<p>The All node needs all it's followers satisfied to get satisfied itself.</p>
+<p>The All node needs all its followers satisfied to get satisfied itself.</p>
 <h3><a class="anchor" id="optnode">
 Opt node</a></h3>
 <p>The Opt node hasn't any conditions. Occurrence of its followers is completely optional.</p>
@@ -96,20 +95,20 @@ Some node</a></h3>
 <p>The Some node needs at least one satisfied follower.</p>
 <h3><a class="anchor" id="keyattrnode">
 KeyAttr node</a></h3>
-<p>KeyAttr node differs from aforementioned node types. This node defines one attribute (<code>attr</code>) that must be present, depending on value of this attribute one of it's followers will be chosen to satisfy. All it's followers has to define attribute onValue containing regular expression to match attribute value. When matching follower will be satisfied, KeyAttr node will be satisfied too.</p>
+<p>KeyAttr node differs from aforementioned node types. This node defines one attribute (<code>attr</code>) that must be present, depending on value of this attribute one of its followers will be chosen to satisfy. All its followers can define attribute onValue containing regular expression to match attribute value. When matching follower will be satisfied, KeyAttr node will be satisfied as well.</p>
 <h2><a class="anchor" id="attributes">
 TreePattern Common Attributes</a></h2>
 <p>Following attributes are shared with all TreePattern elements.</p>
 <h3><a class="anchor" id="forvalueattr">
 Attribute forValue</a></h3>
 <p>A "forValue" attribute specifies valueFilter for Key-Attr node follower. According to this filter follower to satisfy is going to be chosen.</p>
-<dl class="note"><dt><b>Note:</b></dt><dd>"filter" in the name of an attribute has nothing to do with "filter in the name of the MapFilter class.</dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>The "filter" in the name of an attribute has nothing to do with "filter" in the name of the MapFilter class.</dd></dl>
 <h3><a class="anchor" id="flagattr">
 Attribute flag</a></h3>
-<p>A "flag" attribute specifies a flag to set for node if the node get satisfied</p>
+<p>A "flag" attribute specifies a flag to set for the node if the node get satisfied.</p>
 <h3><a class="anchor" id="assertattr">
 Attribute assert</a></h3>
-<p>An "assert" attribute specifies an assertion to set for node if the node won't get satisfied even though it's parent was satisfied.</p>
+<p>An "assert" attribute specifies an assertion to set for the node if the node won't get satisfied even though its parent was satisfied.</p>
 <h2><a class="anchor" id="attrattributes">
 TreePattern Attr leaf attributes</a></h2>
 <p>Attributes specific for Attr node.</p>

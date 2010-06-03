@@ -10,10 +10,9 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a href="http://github.com/olivergondza/MapFilter"><img id="fork_me"
-          src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
-          alt="Fork me on GitHub"
-    /></a>
+    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
+      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
   
   <div id="container">
   
@@ -87,12 +86,14 @@ Inheritance diagram for MapFilter_TreePattern_Tree_Leaf:</div>
 <div class="dynsection">
 <div class="center"><img src="classMapFilter__TreePattern__Tree__Leaf__inherit__graph.png" border="0" usemap="#MapFilter__TreePattern__Tree__Leaf_inherit__map" alt="Inheritance graph"/></div>
 <map name="MapFilter__TreePattern__Tree__Leaf_inherit__map" id="MapFilter__TreePattern__Tree__Leaf_inherit__map">
-<area shape="rect" id="node7" href="classMapFilter__TreePattern__Tree__Leaf__Attr.html" title="MapFilter pattern tree attribute leaf." alt="" coords="5,926,245,1183"/><area shape="rect" id="node2" href="classMapFilter__TreePattern__Tree.html" title="Internal pattern tree." alt="" coords="35,331,216,738"/><area shape="rect" id="node4" href="interfaceMapFilter__TreePattern__Tree__Interface.html" title="MapFilter_TreePattern_Tree Interface." alt="" coords="7,6,244,282"/></map>
+<area shape="rect" id="node7" href="classMapFilter__TreePattern__Tree__Leaf__Attr.html" title="MapFilter pattern tree attribute leaf." alt="" coords="5,963,245,1221"/><area shape="rect" id="node2" href="classMapFilter__TreePattern__Tree.html" title="Internal pattern tree." alt="" coords="35,350,216,757"/><area shape="rect" id="node4" href="interfaceMapFilter__TreePattern__Tree__Interface.html" title="MapFilter_TreePattern_Tree Interface." alt="" coords="7,6,244,301"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classMapFilter__TreePattern__Tree__Leaf-members.html">List of all members.</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree__Leaf_ac02a9259a15c84b356aa95ca99468cf3.html#ac02a9259a15c84b356aa95ca99468cf3">pickUpFlags</a> (Array $flags)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">  <a href="#ac02a9259a15c84b356aa95ca99468cf3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree__Leaf_a08730a7ab0fcfc9a4bb0bf15fa9372a2.html#a08730a7ab0fcfc9a4bb0bf15fa9372a2">__clone</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Make copy of the node.   <a href="#a08730a7ab0fcfc9a4bb0bf15fa9372a2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a5ab7f17f6e658469572b9296803ea029.html#a5ab7f17f6e658469572b9296803ea029">setAttribute</a> ($attribute)</td></tr>
@@ -109,10 +110,10 @@ Inheritance diagram for MapFilter_TreePattern_Tree_Leaf:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set Flag.   <a href="#a8758254c6d99ca76f44a3092c8d43bfd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a9271c3c068f011a08f6b7ae9ee3f9062.html#a9271c3c068f011a08f6b7ae9ee3f9062">setAssert</a> ($assert)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set Assert.   <a href="#a9271c3c068f011a08f6b7ae9ee3f9062"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_af17aa2e9a336c6a663ddbd2c0a16b7fa.html#af17aa2e9a336c6a663ddbd2c0a16b7fa">satisfy</a> (<a class="el" href="classMapFilter__TreePattern__SatisfyParam.html">MapFilter_TreePattern_SatisfyParam</a> $param)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Satisfy certain node type and let it's followers to get satisfied.  <a href="#af17aa2e9a336c6a663ddbd2c0a16b7fa"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_a0fe812fbfb2401451eade2dd2c775f00.html#a0fe812fbfb2401451eade2dd2c775f00">pickUp</a> (Array $result)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pick-up satisfaction results.  <a href="#a0fe812fbfb2401451eade2dd2c775f00"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_af5165a4eaaa608ad14a9a52082a416f4.html#af5165a4eaaa608ad14a9a52082a416f4">satisfy</a> (&amp;$query, Array &amp;$asserts)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Satisfy certain node type and let its followers to get satisfied.  <a href="#af5165a4eaaa608ad14a9a52082a416f4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_a29e03f049e8b2e8762cf75f673131806.html#a29e03f049e8b2e8762cf75f673131806">pickUp</a> (Array $results)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pick-up satisfaction results.  <a href="#a29e03f049e8b2e8762cf75f673131806"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a93971b60ff6887b6be425fbc1e292ed3.html#a93971b60ff6887b6be425fbc1e292ed3">FILTER_BOUNDARIES</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Filter boundaries.  <a href="#a93971b60ff6887b6be425fbc1e292ed3"></a><br/></td></tr>
@@ -121,15 +122,20 @@ Inheritance diagram for MapFilter_TreePattern_Tree_Leaf:</div>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_ab41f6ccc465c4b69e4651174ab0c0368.html#ab41f6ccc465c4b69e4651174ab0c0368">getValueFilter</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get valueFilter.  <a href="#ab41f6ccc465c4b69e4651174ab0c0368"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a93440a7a4d861f3896f00e620682e9a0.html#a93440a7a4d861f3896f00e620682e9a0">setSatisfied</a> ($cond, <a class="el" href="classMapFilter__TreePattern__SatisfyParam.html">MapFilter_TreePattern_SatisfyParam</a> $param)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Satisfy certain node and do all necessary work to get (un)satisfied.  <a href="#a93440a7a4d861f3896f00e620682e9a0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a10780bc1993ff3b0854fa76b8f0092e9.html#a10780bc1993ff3b0854fa76b8f0092e9">setSatisfied</a> ($cond, Array &amp;$asserts)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Satisfy the certain node and do all necessary work to get (un)satisfied.  <a href="#a10780bc1993ff3b0854fa76b8f0092e9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173">isSatisfied</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether the node is satisfied.  <a href="#a9395346bee2c37482c0973c84da30173"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a30edf5fe9f16057ebc7b532fd7174b07.html#a30edf5fe9f16057ebc7b532fd7174b07">valueFits</a> ($valueCandidate, $pattern)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test whether a ForValue condition on tree node fits given pattern.  <a href="#a30edf5fe9f16057ebc7b532fd7174b07"></a><br/></td></tr>
 <tr><td colspan="2"><h2>Static Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a645009680fa2712439482c09f9de8395.html#a645009680fa2712439482c09f9de8395">attrPresent</a> ($attrName, $query)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test whether an argument is present in query.  <a href="#a645009680fa2712439482c09f9de8395"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test whether an argument is present in the query.  <a href="#a645009680fa2712439482c09f9de8395"></a><br/></td></tr>
+<tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_adf41d40d3f3231fcfa4a977f26be9301.html#adf41d40d3f3231fcfa4a977f26be9301">$flag</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Node flag.  <a href="#adf41d40d3f3231fcfa4a977f26be9301"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter__TreePattern__Tree_a6fc551feeee3f94a5c67c06c416c9abb.html#a6fc551feeee3f94a5c67c06c416c9abb">$assert</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Node assert.  <a href="#a6fc551feeee3f94a5c67c06c416c9abb"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Abstract class for pattern tree leaf. </p>
