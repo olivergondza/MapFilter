@@ -2,23 +2,23 @@
 /**
  * MapFilter_TreePattern_Tree_Node Interface
  *
- * @author	Oliver Gondža
- * @link	http://github.com/olivergondza/MapFilter
- * @license	GNU GPLv3
- * @copyright	2009-2010 Oliver Gondža
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @author      Oliver Gondža
+ * @link        http://github.com/olivergondza/MapFilter
+ * @license     GNU GPLv3
+ * @copyright   2009-2010 Oliver Gondža
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 
 /**
  * MapFilter_TreePattern_Tree_Node Interface
  *
- * @class	MapFilter_TreePattern_Tree_Node_Interface
- * @ingroup	gtreepattern
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @class       MapFilter_TreePattern_Tree_Node_Interface
+ * @ingroup     gtreepattern
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 interface MapFilter_TreePattern_Tree_Node_Interface {
 
@@ -30,9 +30,9 @@ interface MapFilter_TreePattern_Tree_Node_Interface {
   /**
    * Get node followers reference
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @return	Array	Node followers reference
+   * @return    Array           Node followers reference
    */
   public function &getContent ();
 }

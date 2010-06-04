@@ -2,33 +2,33 @@
 /**
  * KeyAttr Pattern node
  *
- * @author	Oliver Gondža
- * @link	http://github.com/olivergondza/MapFilter
- * @license	GNU GPLv3
- * @copyright	2009-2010 Oliver Gondža
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @author      Oliver Gondža
+ * @link        http://github.com/olivergondza/MapFilter
+ * @license     GNU GPLv3
+ * @copyright   2009-2010 Oliver Gondža
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 
 /**
- * @file		MapFilter/TreePattern/Tree/Node.php
+ * @file        MapFilter/TreePattern/Tree/Node.php
  */
 require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 /**
- * @file		MapFilter/TreePattern/Tree/Attribute/Interface.php
+ * @file        MapFilter/TreePattern/Tree/Attribute/Interface.php
  */
 require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 
 /**
  * MapFilter pattern tree SetAttribute node
  *
- * @class	MapFilter_TreePattern_Tree_Node_KeyAttr
- * @ingroup	gtreepattern
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @class       MapFilter_TreePattern_Tree_Node_KeyAttr
+ * @ingroup     gtreepattern
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 final class MapFilter_TreePattern_Tree_Node_KeyAttr extends
     MapFilter_TreePattern_Tree_Node
@@ -39,18 +39,18 @@ implements
   /**
    * Node attribute
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	String	$attribute
+   * @var       String          $attribute
    */
   public $attribute = "";
   
   /**
    * Attribute value
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	String	$value
+   * @var       String          $value
    */
   public $value = "";
   
@@ -72,11 +72,11 @@ implements
   }
 
   /**
-   * @copybrief		MapFilter_TreePattern_Tree_Interface::satisfy()
+   * @copybrief	        MapFilter_TreePattern_Tree_Interface::satisfy()
    *
    * Find a follower with a valueFilter that fits and try to satisfy it.
    *
-   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy()
+   * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy()
    */
   public function satisfy ( &$query, Array &$asserts ) {
 

@@ -2,19 +2,19 @@
 /**
  * Class for exceptions raised by the MapFilter_TreePattern_Tree.
  *
- * @author	Oliver Gondža
- * @link	http://github.com/olivergondza/MapFilter
- * @license	GNU GPLv3
- * @copyright	2009-2010 Oliver Gondža
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @author      Oliver Gondža
+ * @link        http://github.com/olivergondza/MapFilter
+ * @license     GNU GPLv3
+ * @copyright   2009-2010 Oliver Gondža
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 
-/** @cond	INTERNAL */
+/** @cond       INTERNAL */
 
 /**
- * @file		3rdParty/PureException.php
+ * @file        3rdParty/PureException.php
  */
 require_once ( dirname ( __FILE__ ) . '/../../../3rdParty/PureException.php' );
 
@@ -23,11 +23,11 @@ require_once ( dirname ( __FILE__ ) . '/../../../3rdParty/PureException.php' );
 /**
  * MapFilter_TreePattern_Tree Exceptions
  *
- * @class	MapFilter_TreePattern_Tree_Exception
- * @ingroup	gtreepattern
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @class       MapFilter_TreePattern_Tree_Exception
+ * @ingroup     gtreepattern
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 class MapFilter_TreePattern_Tree_Exception extends PureException {
 

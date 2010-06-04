@@ -2,78 +2,78 @@
 /**
  * Class to filter key-value data structures.
  *
- * @package	MapFilter
- * @subpackage	Filter
- * @author	Oliver Gondža
- * @copyright	2009-2010 Oliver Gondža
- * @license	GNU GPLv3
- * @link	http://github.com/olivergondza/MapFilter
- * @since	0.1
+ * @package     MapFilter
+ * @subpackage  Filter
+ * @author      Oliver Gondža
+ * @copyright   2009-2010 Oliver Gondža
+ * @license     GNU GPLv3
+ * @link        http://github.com/olivergondza/MapFilter
+ * @since       0.1
  */
 
 /**
  * MapFilter Interface
  *
- * @file		MapFilter/Interface.php
+ * @file                MapFilter/Interface.php
  */
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Interface.php' );
 
 /**
  * MapFilter Null Pattern
  *
- * @file		MapFilter/Pattern/Null.php
+ * @file                MapFilter/Pattern/Null.php
  */
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php' );
 
 /**
  * Class to filter key-value data structures.
  *
- * @class	MapFilter
- * @ingroup	gfilter
- * @package	MapFilter
- * @subpackage	Filter
- * @author	Oliver Gondža
- * @since	0.1
+ * @class       MapFilter
+ * @ingroup     gfilter
+ * @package     MapFilter
+ * @subpackage  Filter
+ * @author      Oliver Gondža
+ * @since       0.1
  */
 class MapFilter implements MapFilter_Interface {
 
   /**
    * Pattern.
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	MapFilter_Pattern_Interface	$pattern
-   * @see	setPattern(), __construct()
+   * @var       MapFilter_Pattern_Interface     $pattern
+   * @see       setPattern(), __construct()
    */
   private $pattern = NULL;
   
   /**
    * A Used Pattern.
    *
-   * @since	0.5
+   * @since     0.5
    *
-   * @var	MapFilter_Pattern_Interface	$usedPattern
-   * @see	setPattern(), __construct()
+   * @var       MapFilter_Pattern_Interface     $usedPattern
+   * @see       setPattern(), __construct()
    */
   private $usedPattern = NULL;
 
   /**
    * Read data / Query candidate
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	Array	$query
-   * @see	setQuery(), __construct()
+   * @var       Array                           $query
+   * @see       setQuery(), __construct()
    */
   private $query = Array ();
   
   /**
    * Determine whether the filter configuration has been filtered
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	Bool	$filtered
-   * @see	filter(), setQuery(), setPattern()
+   * @var       Bool    $filtered
+   * @see       filter(), setQuery(), setPattern()
    */
   private $filtered = FALSE;
   
@@ -122,9 +122,9 @@ class MapFilter implements MapFilter_Interface {
   /**
    * Parse filter configuration.
    *
-   * @since	0.5
+   * @since     0.5
    *
-   * @see	fetchResult(), getResults(), getAsserts(), getFlags()
+   * @see       fetchResult(), getResults(), getAsserts(), getFlags()
    */
   private function filter () {
   
@@ -177,10 +177,10 @@ class MapFilter implements MapFilter_Interface {
   /**
    * Alias for getResults(). Just here for maintain backward compatibility
    *
-   * @since	0.1
+   * @since             0.1
    *
-   * @deprecated	since 0.2
-   * @see	getResults()
+   * @deprecated        since 0.2
+   * @see               getResults()
    */
   public function fetch () {
   
@@ -205,9 +205,9 @@ class MapFilter implements MapFilter_Interface {
    * @note There is no replacement for this method since it has become
    * unnecessary
    *
-   * @since	0.1
+   * @since             0.1
    *
-   * @deprecated	since 0.5
+   * @deprecated        since 0.5
    */
   public function parse () {
   

@@ -2,19 +2,19 @@
 /**
  * Class for exceptions raised by the MapFilter_TreePattern class.
  *
- * @author	Oliver Gondža
- * @link	http://github.com/olivergondza/MapFilter
- * @license	GNU GPLv3
- * @copyright	2009-2010 Oliver Gondža
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @author      Oliver Gondža
+ * @link        http://github.com/olivergondza/MapFilter
+ * @license     GNU GPLv3
+ * @copyright   2009-2010 Oliver Gondža
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 
-/** @cond	INTERNAL */
+/** @cond       INTERNAL */
 
 /**
- * @file		3rdParty/PureException.php
+ * @file        3rdParty/PureException.php
  */
 require_once ( dirname ( __FILE__ ) . '/../../3rdParty/PureException.php' );
 
@@ -23,18 +23,18 @@ require_once ( dirname ( __FILE__ ) . '/../../3rdParty/PureException.php' );
 /**
  * MapFilter_TreePattern Exceptions
  *
- * @class	MapFilter_TreePattern_Exception
- * @ingroup	gtreepattern
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @class       MapFilter_TreePattern_Exception
+ * @ingroup     gtreepattern
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 class MapFilter_TreePattern_Exception extends PureException {
 
   /**
    * Invalid pattern element occurred.
    *
-   * @since	0.4
+   * @since     0.4
    *
    * An invalid pattern tag used.
    */
@@ -43,7 +43,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   /**
    * More than one pattern specified in the XML.
    *
-   * @since	0.4
+   * @since     0.4
    *
    * A pattern tree must have exactly one follower whether an optional
    * \<pattern\> tag is used or not.
@@ -53,7 +53,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   /**
    * No such attribute with this type of node.
    *
-   * @since	0.4
+   * @since     0.4
    * 
    * Invalid pattern attribute used.
    */
@@ -62,7 +62,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   /**
    * LibXML internal error
    *
-   * @since	0.5
+   * @since     0.5
    *
    * libXML cannot parse source
    * @{
@@ -75,7 +75,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   /**
    * Invalid xml attribute used.
    *
-   * @since	0.5
+   * @since     0.5
    *
    * Invalid attribute passed to the tag.
    */
@@ -84,7 +84,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   /**
    * Invalid tag content.
    *
-   * @since	0.5
+   * @since     0.5
    *
    * A pattern tree leaf has some content specified.
    */
@@ -93,7 +93,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   /**
    * Missing attribute value.
    *
-   * @since	0.5
+   * @since     0.5
    *
    * An attribute tag has no attr value specified.
    */

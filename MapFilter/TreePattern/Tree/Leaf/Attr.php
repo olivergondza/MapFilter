@@ -2,33 +2,33 @@
 /**
  * Attr Pattern node.
  *
- * @author	Oliver Gondža
- * @link	http://github.com/olivergondza/MapFilter
- * @license	GNU GPLv3
- * @copyright	2009-2010 Oliver Gondža
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @author      Oliver Gondža
+ * @link        http://github.com/olivergondza/MapFilter
+ * @license     GNU GPLv3
+ * @copyright   2009-2010 Oliver Gondža
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 
 /**
- * @file		MapFilter/TreePattern/Tree/Leaf.php
+ * @file        MapFilter/TreePattern/Tree/Leaf.php
  */
 require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
 
 /**
- * @file		MapFilter/TreePattern/Tree/Attribute/Interface.php
+ * @file        MapFilter/TreePattern/Tree/Attribute/Interface.php
  */
 require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 
 /**
  * MapFilter pattern tree attribute leaf.
  *
- * @class	MapFilter_TreePattern_Tree_Leaf_Attr
- * @ingroup	gtreepattern
- * @package	MapFilter
- * @subpackage	TreePattern
- * @since	0.4
+ * @class       MapFilter_TreePattern_Tree_Leaf_Attr
+ * @ingroup     gtreepattern
+ * @package     MapFilter
+ * @subpackage  TreePattern
+ * @since       0.4
  */
 final class MapFilter_TreePattern_Tree_Leaf_Attr extends
     MapFilter_TreePattern_Tree_Leaf
@@ -39,36 +39,36 @@ implements
   /**
    * Node attribute
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	String		$attribute
+   * @var       String          $attribute
    */
   private $attribute = "";
   
   /**
    * Attribute value
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	String		$value
+   * @var       String          $value
    */
   private $value = "";
   
   /**
    * Attr default value
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	String		$default
+   * @var       String          $default
    */
   private $default = NULL;
   
   /**
    * Attr value Pattern
    *
-   * @since	0.4
+   * @since     0.4
    *
-   * @var	String		$valuePattern
+   * @var       String          $valuePattern
    */
   private $valuePattern = NULL;
   
@@ -108,13 +108,13 @@ implements
   }
 
   /**
-   * @copybrief		MapFilter_TreePattern_Tree_Interface::satisfy()
+   * @copybrief 	MapFilter_TreePattern_Tree_Interface::satisfy()
    *
    * Satisfy the node just if there are no unsatisfied follower.  Finding
    * unsatisfied follower may stop mapping since there is no way to satisfy
    * parent by any further potentially satisfied follower.
    *
-   * @copydetails	MapFilter_TreePattern_Tree_Interface::satisfy()
+   * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy()
    */
   public function satisfy ( &$query, Array &$asserts ) {
   

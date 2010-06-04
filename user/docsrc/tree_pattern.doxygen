@@ -1,8 +1,9 @@
 /**
 @page	treepattern		TreePattern
+
 <hr>
-- @subpage treepatternelements 
-- @subpage treepatternexamples
+- @subpage	treepatternelements 
+- @subpage	treepatternexamples
 
 <hr>
 
@@ -47,8 +48,4 @@ contains filtering flags.
 		Asserts array can be obtained by <tt>@ref
 MapFilter_Pattern_AssertInterface::getAsserts "getAsserts ()"</tt>.  Asserts
 array contains filtering assertions.
-
-<hr>
-- @subpage treepatternelements 
-- @subpage treepatternexamples
 */
