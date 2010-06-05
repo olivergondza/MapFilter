@@ -32,12 +32,14 @@ require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
  * @subpackage  TreePattern
  * @since       0.4
  */
-abstract class MapFilter_TreePattern_Tree_Leaf
-    extends MapFilter_TreePattern_Tree
+abstract class
+    MapFilter_TreePattern_Tree_Leaf
+extends
+    MapFilter_TreePattern_Tree
 {
 
   /**
-   * @copyfull{MapFilter_TreePatern_Tree_Interface::pickUpFlags}
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUpFlags()}
    */
   public function pickUpFlags ( Array $flags ) {
   
@@ -47,8 +49,8 @@ abstract class MapFilter_TreePattern_Tree_Leaf
     }
     
     if ( $this->flag !== NULL ) {
-
-      $flags[] = $this->flag;
+  
+        $flags[] = $this->flag;
     }
     
     return $flags;

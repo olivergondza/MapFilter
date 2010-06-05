@@ -32,11 +32,6 @@ interface MapFilter_TreePattern_Tree_Attribute_Interface {
   public function __toString ();
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
-   */
-  public function setAttribute ( $attribute );
-  
-  /**
    * Get node attribute.
    *
    * @since     0.4
@@ -45,4 +40,17 @@ interface MapFilter_TreePattern_Tree_Attribute_Interface {
    * @see       setAttribute()
    */
   public function getAttribute ();
+  
+  /**
+  * Possible iterator Values
+  *
+  * @since      0.5.2
+  *
+  * @var        String
+  * @{
+  */
+  const ARRAY_VALUE_NO = 'no';
+  const ARRAY_VALUE_YES = 'yes';
+  const ARRAY_VALUE_AUTO = 'auto';
+  /**@}*/
 }

@@ -52,7 +52,27 @@ implements
    *
    * @var       String          $value
    */
-  public $value = "";
+  public $value = NULL;
+  
+  /**
+   * Determine whether a value is scalar or an array/iterator.
+   *
+   * Possible values are 'no', 'yes' and 'auto'.
+   *
+   * @since     0.5.2
+   *
+   * @var       String
+   */
+  private $iterator = 'no';
+
+  /**
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
+   */
+  public function setIterator ( $iterator ) {
+
+    $this->iterator = $iterator;
+    return $this;
+  }
   
   /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
@@ -80,22 +100,76 @@ implements
    */
   public function satisfy ( &$query, Array &$asserts ) {
 
-    $attrName = $this->attribute;
+    $present = self::attrPresent ( $this->attribute, $query );
 
-    $attrExists = self::attrPresent ( $attrName, $query );
+    if ( !$present ) {
 
-    if ( !$attrExists ) {
-
-      return $this->setSatisfied ( FALSE, $asserts );
+      $this->setAssertValue ( $asserts );
+      return $this->satisfied = FALSE;
     }
     
-    /** Find a follower that fits a value filter and let it satisfy */
+    $valueCandidate = $query[ $this->attribute ];
+    $valueCandidate = ( $valueCandidate instanceof Iterator )
+        ? iterator_to_array ( $valueCandidate, FALSE )
+        : $valueCandidate
+    ;
+    $currentArrayValue = is_array ( $valueCandidate );
+
+    /**
+     * If there is no match between a declared value type and the current
+     * value type an exception is going to be risen.
+     */
+    if ( ( self::ARRAY_VALUE_NO === $this->iterator ) && $currentArrayValue ) {
+    
+      throw new MapFilter_TreePattern_Tree_Attribute_Exception (
+          MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+          Array ( $this->attribute )
+      );
+    }
+
+    if ( 
+        ( self::ARRAY_VALUE_YES === $this->iterator ) && !$currentArrayValue
+    ) {
+
+      throw new MapFilter_TreePattern_Tree_Attribute_Exception (
+          MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+          Array ( $this->attribute, gettype ( $valueCandidate ) )
+      );
+    }
+
+    /**
+     * Find a follower that fits the only or all the value filters and let
+     * it to be satisfied.
+     */
     foreach ( $this->getContent () as $follower ) {
       
-      $fits = self::valueFits (
-          $query[ $attrName ],
-          $follower->getValueFilter ()
-      );
+      if ( $currentArrayValue ) {
+      
+        $candidateCount = count ( $valueCandidate );
+        $filters = array_pad (
+            Array (),
+            $candidateCount,
+            $follower->getValueFilter ()
+        );
+      
+        $candidatesFit = array_map (
+            'self::valueFits',
+            $valueCandidate,
+            $filters
+        );
+        
+        $fits = ( $candidateCount > 0 )
+            ? !in_array ( FALSE, $candidatesFit )
+            : FALSE
+        ;
+        
+      } else {
+      
+        $fits = self::valueFits (
+            $valueCandidate,
+            $follower->getValueFilter ()
+        );
+      }
       
       if ( !$fits ) {
       
@@ -106,13 +180,17 @@ implements
         
       if ( $satisfied ) {
           
-        $this->value = $query[ $attrName ];
+        $this->value = $valueCandidate;
+      } else {
+      
+        $this->setAssertValue ( $asserts );
       }
         
-      return $this->setSatisfied ( $satisfied, $asserts );
+      return $this->satisfied = $satisfied;
     }
 
-    return $this->setSatisfied ( FALSE, $asserts );
+    $this->setAssertValue ( $asserts );
+    return $this->satisfied = FALSE;
   }
   
   /**

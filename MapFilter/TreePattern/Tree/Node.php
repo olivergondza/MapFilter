@@ -102,7 +102,7 @@ implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePatern_Interface::pickUpFlags}
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUpFlags}
    */
   public function pickUpFlags ( Array $flags ) {
   

@@ -41,7 +41,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @var       Bool            $satisfied
    */
-  private $satisfied = FALSE;
+  protected $satisfied = FALSE;
   
   /**
    * Key-Attr value filter.
@@ -114,6 +114,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
+   */
+  public function setIterator ( $iterator ) {
+  
+    throw new MapFilter_TreePattern_Tree_Exception (
+        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $iterator )
+    );
+  }
+  
+  /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setValueFilter()}
    */
   public function setValueFilter ( $valueFilter ) {
@@ -171,33 +182,26 @@ abstract class MapFilter_TreePattern_Tree implements
   final public function __construct () {}
   
   /**
-   * Satisfy the certain node and do all necessary work to get (un)satisfied
-   *
-   * @since     0.3
-   *
-   * @param     Bool            $cond           Bool Satisfy condition
-   * @param     Array           $asserts		
-   *
-   * @return    Array           Satisfaction array
-   */
-  protected function setSatisfied (
-      $cond,
-      Array &$asserts
-  ) {
-
-    assert ( is_bool ( $cond ) );
+  * Set assertation value
+  *
+  * @since      0.5.2
+  *
+  * @param      Array           $asserts
+  * @param      Mixed           $assertValue            An assert value to set
+  *
+  * @return     NULL
+  */
+  protected function setAssertValue ( Array &$asserts, $assertValue = NULL ) {
   
-    $this->satisfied = $cond;
-  
-    if ( !$this->isSatisfied () ) {
-      
-      if ( $this->assert !== NULL ) {
-      
-        $asserts[] = $this->assert;
-      }
+    if ( $this->assert === NULL ) {
+    
+      return;
     }
     
-    return $this->satisfied;
+    $asserts[ $this->assert ] = ( $assertValue === NULL )
+        ? $this->assert
+        : $assertValue
+    ;
   }
   
   /**

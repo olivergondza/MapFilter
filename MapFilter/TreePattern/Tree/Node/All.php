@@ -44,10 +44,11 @@ final class MapFilter_TreePattern_Tree_Node_All extends
       
       if ( !$follower->satisfy ( $query, $asserts ) ) {
 
-        return $this->setSatisfied ( FALSE, $asserts );
+        $this->setAssertValue ( $asserts );
+        return $this->satisfied = FALSE;
       }
     }
     
-    return $this->setSatisfied ( TRUE, $asserts );
+    return $this->satisfied = TRUE;
   }
 }

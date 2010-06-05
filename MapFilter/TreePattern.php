@@ -397,6 +397,7 @@ class MapFilter_TreePattern implements
   const ATTR_VALUEPATTERN = 'valuePattern';
   const ATTR_FLAG = 'flag';
   const ATTR_ASSERT = 'assert';
+  const ATTR_ITERATOR = 'iterator';
   /**@}*/
   
   /** @endcond */
@@ -430,7 +431,8 @@ class MapFilter_TreePattern implements
       self::ATTR_DEFAULT => 'setDefault',
       self::ATTR_VALUEPATTERN => 'setValuePattern',
       self::ATTR_FLAG => 'setFlag',
-      self::ATTR_ASSERT => 'setAssert'
+      self::ATTR_ASSERT => 'setAssert',
+      self::ATTR_ITERATOR => 'setIterator',
   );
   
   /**
@@ -659,7 +661,7 @@ class MapFilter_TreePattern implements
       }
 
       if ( $available ) {
-        $node -> setAttribute ( (String) $xml[ 0 ] );
+        $node -> setAttribute ( trim ( (String) $xml[ 0 ] ) );
       }
     }
     

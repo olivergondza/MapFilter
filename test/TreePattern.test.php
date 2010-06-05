@@ -1,19 +1,20 @@
 <?php
 /**
-* Require tested class
-*/
+ * Require tested class
+ */
 require_once ( dirname ( __FILE__ ) . '/../MapFilter/TreePattern.php' );
 
 require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern/Null.php' );
 
 /**
-* @group	Unit
-*/
+ * @group	Unit
+ */
 class TestTreePattern extends PHPUnit_Framework_TestCase {  
   
   /**
-  * Test whether MapFilter_TreePattern implements MapFilter_Pattern_Interface
-  */
+   * Test whether MapFilter_TreePattern implements
+   * MapFilter_Pattern_Interface
+   */
   public static function testInterface () {
   
     self::assertTrue (
@@ -85,9 +86,9 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
   }
   
   /**
-  * Rise an exception in case of no attr value
-  * @dataProvider	provideAssertEmptyAttr
-  */
+   * Rise an exception in case of no attr value
+   * @dataProvider	provideAssertEmptyAttr
+   */
   public static function testAssertEmptyAttr ( $pattern ) {
   
     try {
@@ -122,8 +123,8 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
   
   /**@{*/
   /**
-  * @dataProvider provideLoadFromFileComparison
-  */
+   * @dataProvider provideLoadFromFileComparison
+   */
   public static function testLoadFromFileComparison ( $filename ) {
   
     $string = file_get_contents ( $filename );
@@ -375,29 +376,90 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
   public static function provideWrongAttribute () {
   
     return Array (
+        /** An attr attribute */
         Array (
             '<pattern><all attr="attrName" /></pattern>',
             "Node 'all' has no attribute like 'attr'."
+        ),
+        Array (
+            '<pattern><one attr="attrName" /></pattern>',
+            "Node 'one' has no attribute like 'attr'."
+        ),
+        Array (
+            '<pattern><opt attr="attrName" /></pattern>',
+            "Node 'opt' has no attribute like 'attr'."
+        ),
+        Array (
+            '<pattern><some attr="attrName" /></pattern>',
+            "Node 'some' has no attribute like 'attr'."
+        ),
+        
+        /** An valuePattern attribute */
+        Array (
+            '<pattern><all valuePattern="pattern" /></pattern>',
+            "Node 'all' has no attribute like 'valuePattern'."
         ),
         Array (
             '<pattern><one valuePattern="pattern" /></pattern>',
             "Node 'one' has no attribute like 'valuePattern'."
         ),
         Array (
+            '<pattern><opt valuePattern="pattern" /></pattern>',
+            "Node 'opt' has no attribute like 'valuePattern'."
+        ),
+        Array (
+            '<pattern><some valuePattern="pattern" /></pattern>',
+            "Node 'some' has no attribute like 'valuePattern'."
+        ),
+        
+        /** A default attribute */
+        Array (
+            '<pattern><all default="defaultValue" /></pattern>',
+            "Node 'all' has no attribute like 'default'."
+        ),
+        Array (
+            '<pattern><one default="defaultValue" /></pattern>',
+            "Node 'one' has no attribute like 'default'."
+        ),
+        Array (
             '<pattern><opt default="defaultValue" /></pattern>',
             "Node 'opt' has no attribute like 'default'."
         ),
         Array (
+            '<pattern><some default="defaultValue" /></pattern>',
+            "Node 'some' has no attribute like 'default'."
+        ),
+        
+        /** A iterator attribute */
+        Array (
+            '<pattern><all iterator="auto" /></pattern>',
+            "Node 'all' has no attribute like 'iterator'."
+        ),
+        Array (
+            '<pattern><one iterator="auto" /></pattern>',
+            "Node 'one' has no attribute like 'iterator'."
+        ),
+        Array (
+            '<pattern><opt iterator="auto" /></pattern>',
+            "Node 'opt' has no attribute like 'iterator'."
+        ),
+        Array (
+            '<pattern><some iterator="auto" /></pattern>',
+            "Node 'some' has no attribute like 'iterator'."
+        ),
+
+        Array (
             '<pattern><attr><attr>an_attr</attr></attr></pattern>',
             "Node 'attr' has no content."
         ),
+        
     );
   }
   
   /**
-  * Get wrong attribute
-  * @dataProvider provideWrongAttribute
-  */
+   * Get wrong attribute
+   * @dataProvider provideWrongAttribute
+   */
   public static function testWrongAttribute ( $pattern, $exception ) {
 
     try {
@@ -411,6 +473,434 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
     } catch ( Exception $ex ) {
     
       self::fail ( "Wrong exception: " . $ex->getMessage () );
+    }
+  }
+  
+  /**
+   * Test default value for both nodes that support iterator attribute
+   */
+  public static function testDefaultArrayValue () {
+  
+    $patternNoArrayValue =
+        '<pattern><attr iterator="no">an_attr</attr></pattern>'
+    ;
+    $patternDefault = '<pattern><attr>an_attr</attr></pattern>';
+    
+    self::assertEquals (
+        MapFilter_TreePattern::load ( $patternNoArrayValue ),
+        MapFilter_TreePattern::load ( $patternDefault )
+    );
+    
+    $patternNoArrayValue =
+        '<pattern><key_attr iterator="no" attr="an_attr"></key_attr></pattern>'
+    ;
+    $patternDefault = '<pattern><key_attr attr="an_attr"></key_attr></pattern>';
+    
+    self::assertEquals (
+        MapFilter_TreePattern::load ( $patternNoArrayValue ),
+        MapFilter_TreePattern::load ( $patternDefault )
+    );
+  }
+  
+  public static function provideAttrArrayValue () {
+  
+    return Array (
+        Array (
+            Array ( 'an_attr' => Array ( 'val1', 'val2' ) ),
+            Array ( 'an_attr' => Array ( 'val1' ) ),
+            Array ( 'wrong_attr' => Array ( 'val2' ) ),
+            Array ( 'an_attr' )
+        ),
+        Array (
+            Array ( 'an_attr' => Array ( 'val1', 'val1' ) ),
+            Array ( 'an_attr' => Array ( 'val1', 'val1' ) ),
+            Array (),
+            Array ( 'an_attr' )
+        ),
+        Array (
+            Array ( 'an_attr' => Array ( 'val2', 'val2' ) ),
+            Array (),
+            Array ( 'wrong_attr' => Array ( 'val2', 'val2' ) ),
+            Array ()
+        ),
+        Array (
+            Array ( 'an_attr' => Array () ),
+            Array (),
+            Array ( 'wrong_attr' => 'wrong_attr' ),
+            Array (),
+        ),
+        Array (
+            Array (),
+            Array (),
+            Array ( 'wrong_attr' => 'wrong_attr' ),
+            Array ()
+        ),
+    );
+  }
+  
+  /**
+   * Test array filtering
+   *
+   * @dataProvider      provideAttrArrayValue
+   */
+  public static function testAttrArrayValue (
+      $query, $results, $asserts, $flags
+  ) {
+  
+    $pattern = '<pattern>
+        <attr
+            iterator="yes"
+            valuePattern="val1"
+            assert="wrong_attr"
+            flag="an_attr"
+        >an_attr</attr>
+    </pattern>';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $results,
+        $filter->fetchResult ()->getResults ()
+    );
+    
+    self::assertEquals (
+        $asserts,
+        $filter->fetchResult ()->getAsserts ()
+    );
+    
+    self::assertEquals (
+        $flags,
+        $filter->fetchResult ()->getFlags ()
+    );
+  }
+  
+  public static function provideKeyAttrArrayValue () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
+            Array ()
+        ),
+        Array (
+            Array ( 'order' => Array () ),
+            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
+            Array (),
+        ),
+        Array (
+            Array ( 'order' => new ArrayIterator ( Array () ) ),
+            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
+            Array (),
+        ),
+        Array (
+            Array ( 'order' => new EmptyIterator () ),
+            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
+            Array (),
+        ),
+        Array (
+            Array ( 'order' => Array ( 'first' ) ),
+            Array ( 'order' => Array ( 'first' ), 'attr0' => 0 ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => new ArrayIterator ( Array ( 'first' ) ) ),
+            Array ( 'order' => Array ( 'first' ), 'attr0' => 0 ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => Array ( 'first', 'first' ) ),
+            Array ( 'order' => Array ( 'first', 'first' ), 'attr0' => 0 ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => new ArrayIterator (
+                Array ( 'first', 'first' ) )
+            ),
+            Array ( 'order' => Array ( 'first', 'first' ), 'attr0' => 0 ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => Array ( 'first' ), 'attr0' => -1 ),
+            Array ( 'order' => Array ( 'first' ), 'attr0' => -1 ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => new ArrayIterator (
+                Array ( 'first' )
+            ), 'attr0' => -1 ),
+            Array ( 'order' => Array ( 'first' ), 'attr0' => -1 ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => Array ( 'first', 'second' ), 'attrn' => 'n' ),
+            Array ( 'order' => Array ( 'first', 'second' ), 'attrn' => 'n' ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'order' => new ArrayIterator (
+                Array ( 'first', 'second' )
+            ), 'attrn' => 'n' ),
+            Array ( 'order' => Array ( 'first', 'second' ), 'attrn' => 'n' ),
+            Array (),
+            Array ( 'a_keyattr' ),
+        ),
+        Array (
+            Array ( 'auto' => 'attr0' ),
+            Array ( 'auto' => 'attr0' ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => Array ( 'attr0' ) ),
+            Array ( 'auto' => Array ( 'attr0' ) ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => new ArrayIterator ( Array ( 'attr0' ) ) ),
+            Array ( 'auto' => Array ( 'attr0' ) ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => Array ( 'attr0', 'attr1' ) ),
+            Array ( 'auto' => Array ( 'attr0', 'attr1' ) ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => new ArrayIterator (
+                Array ( 'attr0', 'attr1' )
+            ) ),
+            Array ( 'auto' => Array ( 'attr0', 'attr1' ) ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => 'value' ),
+            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => Array ( 'value' ) ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+        Array (
+            Array ( 'auto' => new ArrayIterator ( Array ( 'value' ) ) ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
+            Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
+            Array (),
+        ),
+
+    );
+  }
+  
+  /**
+   * Test array filtering
+   *
+   * @dataProvider      provideKeyAttrArrayValue
+   */
+  public static function testKeyAttrArrayValue (
+      $query, $results, $asserts, $flags
+  ) {
+  
+    $pattern = '
+    <pattern>
+      <one>
+        <key_attr
+            attr="order"
+            iterator="yes"
+            assert="wrong_keyattr"
+            flag="a_keyattr"
+        >
+          <attr forValue="first"  default="0">attr0</attr>
+          <attr forValue="second" default="1">attr1</attr>
+          <attr forValue=".*"  default="n">attrn</attr>
+        </key_attr>
+        <attr
+            iterator="auto"
+            valuePattern="attr."
+            default="defaultValue"
+        >
+          auto
+        </attr>
+      </one>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $results,
+        $filter->fetchResult ()->getResults ()
+    );
+    
+    self::assertEquals (
+        $asserts,
+        $filter->fetchResult ()->getAsserts ()
+    );
+    
+    self::assertEquals (
+        $flags,
+        $filter->fetchResult ()->getFlags ()
+    );
+  }
+  
+  public static function provideAttrArrayValueExceptions () {
+  
+    return Array (
+        Array (
+            Array ( 'arrayAttr' => 'scalarValue' ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+                Array ( 'arrayAttr', 'string' )
+            )
+        ),
+        Array (
+            Array ( 'arrayAttr' => 42 ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+                Array ( 'arrayAttr', 'integer' )
+            )
+        ),
+        Array (
+            Array ( 'scalarAttr' => Array ( 'arrayMember' ) ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+                Array ( 'scalarAttr' )
+            )
+        ),
+        Array (
+            Array ( 'scalarAttr' => new ArrayIterator (
+                Array ( 'arrayMember' )
+            ) ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+                Array ( 'scalarAttr' )
+            )
+        ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideAttrArrayValueExceptions
+   */
+  public static function testAttrArrayValueExceptions ( $query, $expectedException ) {
+  
+    $pattern = '
+    <pattern>
+      <opt>
+        <attr iterator="yes">arrayAttr</attr>
+        <attr iterator="no">scalarAttr</attr>
+      </opt>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern )
+    );
+    
+    $filter->setQuery ( $query );
+
+    try {
+    
+      $filter->fetchResult ()->getResults ();
+      self::fail ( 'No exception risen' );
+    } catch ( MapFilter_TreePattern_Tree_Attribute_Exception $exception ) {
+    
+      self::assertEquals (
+          $expectedException->getMessage (),
+          $exception->getMessage ()
+      );
+    }
+  }
+  
+  public static function provideKeyAttrArrayValueExceptions () {
+  
+    return Array (
+        Array (
+            Array ( 'arrayAttr' => 'scalarValue' ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+                Array ( 'arrayAttr', 'string' )
+            )
+        ),
+        Array (
+            Array ( 'arrayAttr' => 42 ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+                Array ( 'arrayAttr', 'integer' )
+            )
+        ),
+        Array (
+            Array ( 'scalarAttr' => Array ( 'arrayMember' ) ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+                Array ( 'scalarAttr' )
+            )
+        ),
+        Array (
+            Array ( 'scalarAttr' => new ArrayIterator (
+                Array ( 'arrayMember' )
+            ) ),
+            new MapFilter_TreePattern_Tree_Attribute_Exception (
+                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+                Array ( 'scalarAttr' )
+            )
+        ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideKeyAttrArrayValueExceptions
+   */
+  public static function testKeyAttrArrayValueExceptions ( $query, $expectedException ) {
+  
+    $pattern = '
+    <pattern>
+      <opt>
+        <key_attr iterator="yes" attr="arrayAttr"></key_attr>
+        <key_attr iterator="no" attr="scalarAttr"></key_attr>
+      </opt>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern )
+    );
+    
+    $filter->setQuery ( $query );
+
+    try {
+    
+      $filter->fetchResult ()->getResults ();
+      self::fail ( 'No exception risen' );
+    } catch ( MapFilter_TreePattern_Tree_Attribute_Exception $exception ) {
+    
+      self::assertEquals (
+          $expectedException->getMessage (),
+          $exception->getMessage ()
+      );
     }
   }
 }

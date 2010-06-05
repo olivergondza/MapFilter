@@ -22,6 +22,11 @@ require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
 require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 
 /**
+ * @file        MapFilter/TreePattern/Tree/Attribute/Exception.php
+ */
+require_once ( dirname ( __FILE__ ) . '/../Attribute/Exception.php' );
+
+/**
  * MapFilter pattern tree attribute leaf.
  *
  * @class       MapFilter_TreePattern_Tree_Leaf_Attr
@@ -52,7 +57,7 @@ implements
    *
    * @var       String          $value
    */
-  private $value = "";
+  protected $value = NULL;
   
   /**
    * Attr default value
@@ -73,11 +78,40 @@ implements
   private $valuePattern = NULL;
   
   /**
+   * A value for possible assertion
+   *
+   * @since     0.5.2
+   *
+   * @var       Mixed           $assertValue
+   */
+  protected $assertValue = NULL;
+  
+  /**
+   * Determine whether a value is scalar or an array/iterator.
+   *
+   * Possible values are 'no', 'yes' and 'auto'.
+   *
+   * @since     0.5.2
+   *
+   * @var       String
+   */
+  private $iterator = 'no';
+
+  /**
    * @copyfull{MapFilter_TreePattern_Tree_Attribute_Interface::getAttribute()}
    */
   public function getAttribute () {
   
     return $this->attribute;
+  }
+  
+  /**
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
+   */
+  public function setIterator ( $iterator ) {
+
+    $this->iterator = $iterator;
+    return $this;
   }
   
   /**
@@ -106,49 +140,149 @@ implements
     $this->valuePattern = $valuePattern;
     return $this;
   }
+  
+  /**
+   * Determine whether the value is valid or not and possibly set a default
+   * value.
+   *
+   * @since             0.5.2
+   *
+   * @param             Mixed          $valueCandidate
+   *
+   * @return            Bool           Valid or not
+   */
+  private function validateValue ( &$valueCandidate ) {
+  
+    $fitsPattern = self::valueFits (
+        $valueCandidate,
+        $this->valuePattern
+    );
 
+    if ( $fitsPattern ) {
+  
+      return TRUE;
+    }
+    
+    if ( $this->default !== NULL ) {
+      
+      $valueCandidate = $this->default;
+      
+      return TRUE;
+    }
+    
+    return FALSE;
+  }
+  
   /**
    * @copybrief 	MapFilter_TreePattern_Tree_Interface::satisfy()
    *
-   * Satisfy the node just if there are no unsatisfied follower.  Finding
-   * unsatisfied follower may stop mapping since there is no way to satisfy
-   * parent by any further potentially satisfied follower.
+   * Attr leaf is satisfied when its attribute occurs in user query and its
+   * value matches the optional pattern defined by valuePattern attribute. 
+   * When this does not happen this node still can be satisfied if its
+   * default value is sat: attribute will have that default value and leaf
+   * will be satisfied.
    *
    * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy()
    */
   public function satisfy ( &$query, Array &$asserts ) {
   
-    /** If argument exists */
     $present = self::attrPresent (
         $this->attribute,
         $query
     );
-    
-    if ( $present ) {
-    
-      /** And matches pattern */
-      $fitsPattern = self::valueFits (
-          $query[ $this->attribute ],
-          $this->valuePattern
-      );
 
-      if ( $fitsPattern ) {
+    /**
+     * If an attribute is not present and there is a default value defined,
+     * the default value is going to be used as a value and posibly wrapped
+     * into the array if the attribute is flaged as the iterator attribute.
+     */
+    if ( !$present ) {
     
-        $this->value = $query[ $this->attribute ];
+      if ( $this->default === NULL ) {
+      
+        $this->setAssertValue ( $asserts );
+        return $this->satisfied = FALSE;
+      }
+      
+      $this->value = ( self::ARRAY_VALUE_YES === $this->iterator )
+          ? Array ( $this->default )
+          : $this->default
+      ;
+      
+      return $this->satisfied = TRUE;
+    }
     
-        return $this->setSatisfied ( TRUE, $asserts );
+    /**
+     * Satisfy actual attribute value
+     */
+    $valueCandidate = $query[ $this->attribute ];
+    $valueCandidate = ( $valueCandidate instanceof Iterator )
+        ? iterator_to_array ( $valueCandidate, FALSE )
+        : $valueCandidate
+    ;
+    $currentArrayValue = is_array ( $valueCandidate );
+
+    /**
+     * If there is no match between a declared value type and the current
+     * value type an exception is going to be risen.
+     */
+    if ( 
+        ( self::ARRAY_VALUE_NO === $this->iterator ) && $currentArrayValue
+    ) {
+    
+      throw new MapFilter_TreePattern_Tree_Attribute_Exception (
+          MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+          Array ( $this->attribute )
+      );
+    }
+
+    if ( 
+        ( self::ARRAY_VALUE_YES === $this->iterator ) && !$currentArrayValue
+    ) {
+
+      throw new MapFilter_TreePattern_Tree_Attribute_Exception (
+          MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+          Array ( $this->attribute, gettype ( $valueCandidate ) )
+      );
+    }
+
+    /** Dispatch single value */
+    if ( !$currentArrayValue ) {
+    
+      $this->satisfied = $this->validateValue ( $valueCandidate );
+      $this->value = $valueCandidate;
+
+      if ( !$this->satisfied ) {
+      
+        $this->setAssertValue ( $asserts, $this->value );
+      }
+
+      return $this->satisfied;
+    }
+
+    /** Dispatch array value */
+    $assertValue = NULL;
+    foreach ( $valueCandidate as &$singleCandidate ) {
+    
+      $valid = $this->validateValue ( $singleCandidate );
+      
+      if ( $valid ) {
+
+        $this->value[] = $singleCandidate;
+      } else {
+      
+        $assertValue[] = $singleCandidate;
       }
     }
-    
-    /** Set default if defined */
-    if ( $this->default !== NULL ) {
-      
-      $this->value = $this->default;
 
-      return $this->setSatisfied ( TRUE, $asserts );
-    }
+    $this->satisfied = (Bool) count ( $this->value );
+
+    if ( (Bool) count ( $assertValue ) || !$this->satisfied ) {
     
-    return $this->setSatisfied ( FALSE, $asserts );
+      $this->setAssertValue ( $asserts, $assertValue );
+    }
+
+    return $this->satisfied;
   }
   
   /**

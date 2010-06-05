@@ -262,19 +262,19 @@ class TestUser extends PHPUnit_Framework_TestCase {
             Array (),
             Array (),
             Array (),
-            Array ( 'no_name' )
+            Array ( 'no_name' => 'no_name' )
         ),
         Array (
             Array ( 'name' => "me" ),
             Array (),
             Array (),
-            Array ( 'no_password' )
+            Array ( 'no_password' => 'no_password' )
         ),
         Array (
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes", 'remember' => "yes" ),
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
             Array ( 'login', 'use_https' ),
-            Array ( 'no_remember_method' )
+            Array ( 'no_remember_method' => 'no_remember_method' )
         )
     );
   }
@@ -286,22 +286,18 @@ class TestUser extends PHPUnit_Framework_TestCase {
   public static function testParseLogin ( $query, $result, $flags, $asserts ) {
   
     sort ( $flags );
-    sort ( $asserts );
   
     $filter = new MapFilter (
         MapFilter_TreePattern::fromFile ( Test_Source::LOGIN ),
         $query
     );
 
-    $fResult = $filter->getResults();
     $fFlags = $filter->getFlags ();
-    $fAsserts = $filter->getAsserts ();
     sort ( $fFlags );
-    sort ( $fAsserts );
 
     self::assertEquals (
         $result,
-        $fResult
+        $filter->getResults ()
     );
 
     self::assertEquals (
@@ -311,7 +307,7 @@ class TestUser extends PHPUnit_Framework_TestCase {
 
     self::assertEquals (
         $asserts,
-        $fAsserts
+        $filter->getAsserts ()
     );
   }
   
@@ -545,19 +541,21 @@ class TestUser extends PHPUnit_Framework_TestCase {
             Array (),
             Array (),
             Array (),
-            Array ( 'no_beginning_time', 'no_start_hour' )
+            Array (
+                'no_beginning_time' => 'no_beginning_time', 'no_start_hour' => 'no_start_hour'
+            )
         ),
         Array (
             Array ( 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0 ),
             Array (),
             Array (),
-            Array ( 'no_duration_hour', 'no_end_hour', 'no_termination_time' )
+            Array ( 'no_duration_hour' => 'no_duration_hour', 'no_end_hour' => 'no_end_hour', 'no_termination_time' => 'no_termination_time' )
         ),
         Array (
             Array ( 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 'now' ),
             Array (),
             Array (),
-            Array ( 'no_beginning_time', 'no_start_second' )
+            Array ( 'no_beginning_time' => 'no_beginning_time', 'no_start_second' => 'now' )
         ),
         Array (
             Array (
@@ -581,19 +579,19 @@ class TestUser extends PHPUnit_Framework_TestCase {
                 'duration_hour' => 1, 'duration_minute' => 59, 'duration_second' => 59,
             ),
             Array ( 'duration', 'duration_time' ),
-            Array ( 'no_end_hour' )
+            Array ( 'no_end_hour' => 'no_end_hour' )
         ),
         Array (
             Array ( 'start_hour' => -1 ),
             Array (),
             Array (),
-            Array ( 'no_beginning_time', 'no_start_hour' )
+            Array ( 'no_beginning_time' => 'no_beginning_time', 'no_start_hour' => -1 )
         ),
         Array (
             Array ( 'start_hour' => 0, 'start_minute' => 60 ),
             Array (),
             Array (),
-            Array ( 'no_beginning_time', 'no_start_minute' )
+            Array ( 'no_beginning_time' => 'no_beginning_time', 'no_start_minute' => 60 )
         )
     );
   }
@@ -610,8 +608,8 @@ class TestUser extends PHPUnit_Framework_TestCase {
     );
     
     self::assertEquals (
-        array_diff ( $result, $filter->getResults () ),
-        array_diff ( $filter->getResults (), $result )
+        $result,
+        $filter->getResults ()
     );
     
     self::assertEquals (
@@ -620,8 +618,8 @@ class TestUser extends PHPUnit_Framework_TestCase {
     );
     
     self::assertEquals (
-        array_diff ( $asserts, $filter->getAsserts () ),
-        array_diff ( $filter->getAsserts (), $asserts )
+         $asserts,
+         $filter->getAsserts ()
     );
   }
   /**@}*/

@@ -9,9 +9,9 @@ currently one type of tree leaf.
 	@subsection	attrleaf		Attr leaf
 
 		Attr leave specifies attribute itself, its @ref
-valuepatterattr "valuePattern" and pattern @ref defaultattr "default" value. 
+valuepatternattr "valuePattern" and pattern @ref defaultattr "default" value. 
 Attr leaf is satisfied when its attribute occurs in user query and its value
-matches the optional pattern defined by @ref valuepatterattr "valuePattern"
+matches the optional pattern defined by @ref valuepatternattr "valuePattern"
 attribute.  When this does not happen this node still can be satisfied if
 its default value is sat: attribute will have that default value and leaf
 will be satisfied.
@@ -46,7 +46,7 @@ followers is completely optional.
 		KeyAttr node differs from aforementioned node types. This
 node defines one attribute (<tt>attr</tt>) that must be present, depending
 on value of this attribute one of its followers will be chosen to satisfy. 
-All its followers can define attribute @ref onvalueattr "onValue" containing
+All its followers can define attribute @ref forvalueattr "forValue" containing
 regular expression to match attribute value.  When matching follower will be
 satisfied, KeyAttr node will be satisfied as well.
 
@@ -81,21 +81,30 @@ node if the node won't get satisfied even though its parent was satisfied.
 	@subsection	defaultattr	Attribute default
 
 		A "default" attribute determines value that is going to be
-used as a key value in case attribute won't get satisfied.
+used as a key value in case attribute won't get satisfied.  This value is
+going to be wraped into the array if the node was declared to be an @ref
+iteratorattr "array".
 
 	@subsection	valuepatternattr	Attribute valuePattern
 
 		A "valuePattern" attribute determines pattern to match for
 key value.
 
-@section	keyattrattributes	TreePattern KeyAttr node attributes
+@section	attrattributes	TreePattern Attribute attributes
 
-	Attributes specific for KeyAttr node.
+	Attributes specific for Attribute TreePattern elements. Currently it
+involves @ref attrleaf "Attr" leaf and @ref keyattrnode "KeyAttr" node.
 
 	@subsection	attrattr		Attribute attr
 
-		An "attr" attribute specifies key attribute that is going to
-be used to follower determination.
+		An "attr" attribute of @ref keyattrnode "KeyAttr" node
+specifies key attribute that is going to be used to follower determination. 
+As an optional @ref attrleaf "Attr" leaf attribute it specifies attribute name.
 
-		@note Not to be confused with TreePattern Attr leaf.
+        @subsection     iteratorattr            Attribute iterator
+
+                An "iterator" attribute determines that the value of the
+attribute is an array/iterator instead of a scalar value.  Allowed values
+for this attribute are "no" for the scalar value, "yes" for an array or
+"auto" for automatic detection between the two mentioned alternatives.
 */

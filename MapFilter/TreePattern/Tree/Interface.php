@@ -93,6 +93,20 @@ interface MapFilter_TreePattern_Tree_Interface {
   public function setValueFilter ( $valueFilter );
   
   /**
+   * Set iterator
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.2
+   *
+   * @param     String          $iterator       An iterator value to set
+   *
+   * @return    MapFilter_TreePattern_Tree      New pattern with iterator
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setIterator ( $iterator );
+  
+  /**
    * Set Flag.
    *
    * A Fluent Method.
