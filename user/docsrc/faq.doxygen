@@ -48,13 +48,6 @@ This nodes get satisfied when node specific rules are met. The @ref optnode
 This nodes get satisfied when node specific rules are met. The @ref somenode
 "Some" node needs at least one satisfied followers to be satisfied itself.
 
-	@subsubsection	faqkeyattrnode		What is the KeyAttr node?
-
-It’s the only @ref treepattern "TreePattern" node that makes decisions
-considering attribute value.  Must have exactly one satisfied follower to be
-satisfied itself.  All it’s followers has to have @ref forvalueattr
-"forValue" attribute.
-
 	@subsection	faqleaves		Leaves
 
 	@subsubsection	faqattrleaf		What is the Attr leaf?
@@ -62,13 +55,20 @@ satisfied itself.  All it’s followers has to have @ref forvalueattr
 The @ref attrleaf "Attr" leaf is the only leaf of @ref treepattern
 "TreePattern".
 
+	@subsubsection	faqkeyattrleaf		What is the KeyAttr leaf?
+
+It’s the only @ref treepattern "TreePattern" node that makes decisions
+considering attribute value.  Must have exactly one satisfied follower to be
+satisfied itself.  All it’s followers has to have @ref forvalueattr
+"forValue" attribute.
+
 	@subsection	faqattr			Attributes
 
 	@subsubsection	faqforvalueattr		What is the forValue attribute?
 
 Attribute @ref forvalueattr "forValue" is allowed for all TreePattern node
-elements that are followers of @ref keyattrnode "KeyAttr" node.  Contains
-regular expression to match by @ref keyattrnode "Key-Attr" value.
+elements that are followers of @ref keyattrleaf "KeyAttr" node.  Contains
+regular expression to match by @ref keyattrleaf "KeyAttr" value.
 
 	@subsubsection	faqassertattr		What is the assert attribute?
 

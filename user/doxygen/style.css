@@ -13,8 +13,9 @@ h1 {
 	color: #138;
 }
 
-h2 {
+h2, .dynheader {
 	font-size: 140%;
+        font-weight: bold;
 }
 
 h3 {
@@ -42,6 +43,13 @@ dl {
 	text-align: center;
 	padding-top: 30px;
 	font-style: italic;
+}
+
+.dynsection {
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        margin-top: 15px;
+        padding: 5px;
 }
 
 /* GitHub specific */
