@@ -42,129 +42,6 @@ implements
 {
 
   /**
-   * Node attribute
-   *
-   * @since     0.4
-   *
-   * @var       String          $attribute
-   */
-  private $attribute = "";
-  
-  /**
-   * Attribute value
-   *
-   * @since     0.4
-   *
-   * @var       String          $value
-   */
-  private $value = NULL;
-  
-  /**
-   * Attr default value
-   *
-   * @since     0.4
-   *
-   * @var       String          $default
-   */
-  private $default = NULL;
-  
-  /**
-   * Attr value Pattern
-   *
-   * @since     0.4
-   *
-   * @var       String          $valuePattern
-   */
-  private $valuePattern = NULL;
-  
-  /**
-   * Determine whether a value is scalar or an array/iterator.
-   *
-   * Possible values are 'no', 'yes' and 'auto'.
-   *
-   * @since     0.5.2
-   *
-   * @var       String
-   */
-  private $iterator = 'no';
-
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
-   */
-  public function setIterator ( $iterator ) {
-
-    $this->iterator = $iterator;
-    return $this;
-  }
-  
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
-   */
-  public function setAttribute ( $attribute ) {
-
-    $this->attribute = $attribute;
-    return $this;
-  }
-  
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Leaf_Interface::getAttribute()}
-   */
-  public function getAttribute () {
-  
-    return $this->attribute;
-  }
-  
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setDefault()}
-   */
-  public function setDefault ( $default ) {
-
-    $this->default = $default;
-    return $this;
-  }
-
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setValuePattern()}
-   */
-  public function setValuePattern ( $valuePattern ) {
-
-    $this->valuePattern = $valuePattern;
-    return $this;
-  }
-  
-  /**
-   * Determine whether the value is valid or not and possibly set a default
-   * value.
-   *
-   * @since             0.5.2
-   *
-   * @param             Mixed          $valueCandidate
-   *
-   * @return            Bool           Valid or not
-   */
-  private function validateValue ( &$valueCandidate ) {
-  
-    $fitsPattern = self::valueFits (
-        $valueCandidate,
-        $this->valuePattern
-    );
-
-    if ( $fitsPattern ) {
-  
-      return TRUE;
-    }
-    
-    if ( $this->default !== NULL ) {
-      
-      $valueCandidate = $this->default;
-      
-      return TRUE;
-    }
-    
-    return FALSE;
-  }
-  
-  /**
    * @copybrief         MapFilter_TreePattern_Tree_Interface::satisfy()
    *
    * Attr leaf is satisfied when its attribute occurs in user query and its
@@ -213,29 +90,10 @@ implements
 
     $currentArrayValue = is_array ( $valueCandidate );
 
-    /**
-     * If there is no match between a declared value type and the current
-     * value type an exception is going to be risen.
-     */
-    if ( 
-        ( self::ARRAY_VALUE_NO === $this->iterator ) && $currentArrayValue
-    ) {
-    
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
-          Array ( $this->attribute )
-      );
-    }
-
-    if ( 
-        ( self::ARRAY_VALUE_YES === $this->iterator ) && !$currentArrayValue
-    ) {
-
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
-          Array ( $this->attribute, gettype ( $valueCandidate ) )
-      );
-    }
+    $this->assertTypeMismatch (
+        $currentArrayValue,
+        gettype ( $valueCandidate )
+    );
 
     /** Dispatch single value */
     if ( !$currentArrayValue ) {
@@ -274,32 +132,5 @@ implements
     }
 
     return $this->satisfied;
-  }
-  
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUp()}
-   */
-  public function pickUp ( Array $result ) {
-
-    /**
-     * Set assertion for nodes that hasn't been satisfied and stop the
-     * recursion
-     */
-    if ( !$this->isSatisfied () ) {
-
-      return Array ();
-    }
-  
-    $result[ (String) $this ] = $this->value;
-
-    return $result;
-  }
-  
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Leaf_Interface::__toString()}
-   */
-  public function __toString () {
-  
-    return (String) $this->attribute;
   }
 }

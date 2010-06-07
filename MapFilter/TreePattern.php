@@ -172,7 +172,7 @@ class MapFilter_TreePattern implements
    * @return    MapFilter_TreePattern   Pattern created from $xmlSource string
    *
    * fromFile() and load() difference demonstration:
-   * @clip{Pattern.test.php,testLoadFromFileComparison}
+   * @clip{TreePattern.test.php,testLoadFromFileComparison}
    *
    * @see       fromFile(), __construct()
    */
@@ -200,7 +200,7 @@ class MapFilter_TreePattern implements
    * @return    MapFilter_TreePattern   Pattern created from $url file
    * 
    * fromFile() and load() difference demonstration:
-   * @clip{Pattern.test.php,testLoadFromFileComparison}
+   * @clip{TreePattern.test.php,testLoadFromFileComparison}
    *
    * @see       load(), __construct()
    */
