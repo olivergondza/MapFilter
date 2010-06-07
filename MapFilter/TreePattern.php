@@ -45,9 +45,9 @@ require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Node/One.php' );
 require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Node/Some.php' );
 
 /**
- * @file        MapFilter/TreePattern/Tree/Node/KeyAttr.php
+ * @file        MapFilter/TreePattern/Tree/Leaf/KeyAttr.php
  */
-require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Node/KeyAttr.php' );
+require_once ( dirname ( __FILE__ ) . '/TreePattern/Tree/Leaf/KeyAttr.php' );
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/Attr.php
@@ -414,7 +414,7 @@ class MapFilter_TreePattern implements
       self::NODE_ONE => 'MapFilter_TreePattern_Tree_Node_One',
       self::NODE_OPT => 'MapFilter_TreePattern_Tree_Node_Opt',
       self::NODE_SOME => 'MapFilter_TreePattern_Tree_Node_Some',
-      self::NODE_KEYATTR => 'MapFilter_TreePattern_Tree_Node_KeyAttr',
+      self::NODE_KEYATTR => 'MapFilter_TreePattern_Tree_Leaf_KeyAttr',
       self::NODE_ATTR => 'MapFilter_TreePattern_Tree_Leaf_Attr',
   );
   

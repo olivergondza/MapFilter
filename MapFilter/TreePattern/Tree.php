@@ -179,10 +179,10 @@ abstract class MapFilter_TreePattern_Tree implements
    * @see       setAssert(), setFlag(), setValueFilter(), setValuePattern(),
    *            setContent(), setDefault() or setAttribute()
    */
-  final public function __construct () {}
+  public function __construct () {}
   
   /**
-  * Set assertation value
+  * Set assertion value
   *
   * @since      0.5.2
   *
@@ -200,8 +200,7 @@ abstract class MapFilter_TreePattern_Tree implements
     
     $asserts[ $this->assert ] = ( $assertValue === NULL )
         ? $this->assert
-        : $assertValue
-    ;
+        : $assertValue;
   }
   
   /**

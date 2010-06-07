@@ -1,7 +1,6 @@
 <?php
 /**
- * Class for exceptions raised by the
- * MapFilter_TreePattern_Tree_Attribute_Interface providers.
+ * Class for exceptions raised by the MapFilter_TreePattern_Tree_Leaf.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -22,15 +21,15 @@ require_once ( dirname ( __FILE__ ) . '/../../../../3rdParty/PureException.php' 
 /** @endcond */
 
 /**
- * MapFilter_TreePattern_Tree_Attribute Exceptions
+ * MapFilter_TreePattern_Tree_Leaf Exceptions
  *
- * @class       MapFilter_TreePattern_Tree_Attribute_Exception
+ * @class       MapFilter_TreePattern_Tree_Leaf_Exception
  * @ingroup     gtreepattern
  * @package     MapFilter
  * @subpackage  TreePattern
  * @since       0.5.2
  */
-class MapFilter_TreePattern_Tree_Attribute_Exception extends PureException {
+class MapFilter_TreePattern_Tree_Leaf_Exception extends PureException {
 
   /**
    * A value that was declared to be an array was filled with a scalar value.

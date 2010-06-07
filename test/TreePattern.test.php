@@ -11,6 +11,34 @@ require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern/Null.php' );
  */
 class TestTreePattern extends PHPUnit_Framework_TestCase {  
   
+    /** Test whether a fetch get deprecated error */
+  public static function testDeprecatedKeyAttrNode () {
+  
+    require_once (
+        dirname ( __FILE__ )
+        . '/../MapFilter/TreePattern/Tree/Node/KeyAttr.php'
+    );
+  
+    $filter = @ new MapFilter_TreePattern_Tree_Node_KeyAttr ();
+    
+    $error = error_get_last ();
+    
+    self::assertEquals (
+        'MapFilter_TreePattern_Tree_Node_KeyAttr is deprecated. Use MapFilter_TreePattern_Tree_Leaf_KeyAttr instead.',
+        $error[ 'message' ]
+    );
+    
+    $level =  ( defined ( 'E_USER_DEPRECATED' ) )
+        ? E_USER_DEPRECATED
+        : E_USER_NOTICE
+    ;
+
+    self::assertEquals (
+        $level,
+        $error[ 'type' ]
+    );
+  }
+  
   /**
    * Test whether MapFilter_TreePattern implements
    * MapFilter_Pattern_Interface
@@ -66,7 +94,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
   
     $attr = 'An attribute';
     
-    $pattern = new MapFilter_TreePattern_Tree_Node_KeyAttr ();
+    $pattern = new MapFilter_TreePattern_Tree_Leaf_KeyAttr ();
     $pattern -> setAttribute ( $attr );
     
     self::assertEquals (
@@ -291,7 +319,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
   /** Test action.xml parsing */  
   public static function testAction () {
 
-    $keyattr = new MapFilter_TreePattern_Tree_Node_KeyAttr ();
+    $keyattr = new MapFilter_TreePattern_Tree_Leaf_KeyAttr ();
     $all0 = new MapFilter_TreePattern_Tree_Node_All ();
     $all1 = new MapFilter_TreePattern_Tree_Node_All ();
     $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
@@ -771,22 +799,22 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
     return Array (
         Array (
             Array ( 'arrayAttr' => 'scalarValue' ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
                 Array ( 'arrayAttr', 'string' )
             )
         ),
         Array (
             Array ( 'arrayAttr' => 42 ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
                 Array ( 'arrayAttr', 'integer' )
             )
         ),
         Array (
             Array ( 'scalarAttr' => Array ( 'arrayMember' ) ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
                 Array ( 'scalarAttr' )
             )
         ),
@@ -794,8 +822,8 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
             Array ( 'scalarAttr' => new ArrayIterator (
                 Array ( 'arrayMember' )
             ) ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
                 Array ( 'scalarAttr' )
             )
         ),
@@ -826,7 +854,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
     
       $filter->fetchResult ()->getResults ();
       self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Tree_Attribute_Exception $exception ) {
+    } catch ( MapFilter_TreePattern_Tree_Leaf_Exception $exception ) {
     
       self::assertEquals (
           $expectedException->getMessage (),
@@ -840,22 +868,22 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
     return Array (
         Array (
             Array ( 'arrayAttr' => 'scalarValue' ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
                 Array ( 'arrayAttr', 'string' )
             )
         ),
         Array (
             Array ( 'arrayAttr' => 42 ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
                 Array ( 'arrayAttr', 'integer' )
             )
         ),
         Array (
             Array ( 'scalarAttr' => Array ( 'arrayMember' ) ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
                 Array ( 'scalarAttr' )
             )
         ),
@@ -863,8 +891,8 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
             Array ( 'scalarAttr' => new ArrayIterator (
                 Array ( 'arrayMember' )
             ) ),
-            new MapFilter_TreePattern_Tree_Attribute_Exception (
-                MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
+            new MapFilter_TreePattern_Tree_Leaf_Exception (
+                MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
                 Array ( 'scalarAttr' )
             )
         ),
@@ -895,7 +923,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
     
       $filter->fetchResult ()->getResults ();
       self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Tree_Attribute_Exception $exception ) {
+    } catch ( MapFilter_TreePattern_Tree_Leaf_Exception $exception ) {
     
       self::assertEquals (
           $expectedException->getMessage (),

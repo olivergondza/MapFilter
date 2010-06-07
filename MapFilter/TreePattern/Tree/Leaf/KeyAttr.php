@@ -1,6 +1,6 @@
 <?php
 /**
- * Attr Pattern leaf.
+ * KeyAttr Pattern node
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -27,15 +27,20 @@ require_once ( dirname ( __FILE__ ) . '/../Leaf/Interface.php' );
 require_once ( dirname ( __FILE__ ) . '/../Leaf/Exception.php' );
 
 /**
- * MapFilter pattern tree attribute leaf.
+ * MapFilter pattern tree KeyAttribute node
  *
- * @class       MapFilter_TreePattern_Tree_Leaf_Attr
+ * @class       MapFilter_TreePattern_Tree_Leaf_KeyAttr
  * @ingroup     gtreepattern
  * @package     MapFilter
  * @subpackage  TreePattern
  * @since       0.4
+ *
+ * @todo        This class should be declared as final but it must be
+ *              extended by MapFilter_TreePattern_Tree_Node_KeyAttr due to
+ *              maintain backward compatibility.  After KeyAttr *node*
+ *              removal class should remain final.
  */
-final class MapFilter_TreePattern_Tree_Leaf_Attr extends
+class MapFilter_TreePattern_Tree_Leaf_KeyAttr extends
     MapFilter_TreePattern_Tree_Leaf
 implements
     MapFilter_TreePattern_Tree_Leaf_Interface
@@ -62,7 +67,7 @@ implements
   /**
    * Attr default value
    *
-   * @since     0.4
+   * @since     0.5.2
    *
    * @var       String          $default
    */
@@ -71,7 +76,7 @@ implements
   /**
    * Attr value Pattern
    *
-   * @since     0.4
+   * @since     0.5.2
    *
    * @var       String          $valuePattern
    */
@@ -101,7 +106,7 @@ implements
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
    */
   public function setAttribute ( $attribute ) {
-
+  
     $this->attribute = $attribute;
     return $this;
   }
@@ -114,6 +119,33 @@ implements
     return $this->attribute;
   }
   
+  /**
+   * Fluent Method; Set content
+   *
+   * @since     0.5.2
+   *
+   * @param     Array           $content                A content to set
+   *
+   * @return    self
+   */
+  public function setContent ( Array $content ) {
+   
+    $this->content = $content;
+    return $this;
+  }
+
+  /**
+   * Get node followers
+   *
+   * @since     0.5.2
+   *
+   * @return    Array           Node content reference
+   */
+  public function &getContent () {
+  
+    return $this->content;
+  }
+
   /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setDefault()}
    */
@@ -131,7 +163,7 @@ implements
     $this->valuePattern = $valuePattern;
     return $this;
   }
-  
+
   /**
    * Determine whether the value is valid or not and possibly set a default
    * value.
@@ -163,20 +195,16 @@ implements
     
     return FALSE;
   }
-  
+
   /**
    * @copybrief         MapFilter_TreePattern_Tree_Interface::satisfy()
    *
-   * Attr leaf is satisfied when its attribute occurs in user query and its
-   * value matches the optional pattern defined by valuePattern attribute. 
-   * When this does not happen this node still can be satisfied if its
-   * default value is sat: attribute will have that default value and leaf
-   * will be satisfied.
+   * Find a follower with a valueFilter that fits and try to satisfy it.
    *
    * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy()
    */
   public function satisfy ( &$query, Array &$asserts ) {
-  
+
     $present = self::attrPresent (
         $this->attribute,
         $query
@@ -188,36 +216,37 @@ implements
      * into the array if the attribute is flagged as the iterator attribute.
      */
     if ( !$present ) {
-    
+
       if ( $this->default === NULL ) {
       
         $this->setAssertValue ( $asserts );
         return $this->satisfied = FALSE;
       }
       
-      $this->value = ( self::ARRAY_VALUE_YES === $this->iterator )
+      $valueCandidate = $this->value =
+          ( self::ARRAY_VALUE_YES === $this->iterator )
           ? Array ( $this->default )
-          : $this->default;
-          
-      return $this->satisfied = TRUE;
-    }
+          : $this->default
+      ;
+
+    } else {
     
-    /**
-     * Satisfy actual attribute value
-     */
-    $valueCandidate = $query[ $this->attribute ];
+      /**
+       * Satisfy actual attribute value
+       */
+      $valueCandidate = $query[ $this->attribute ];
+    }
     $valueCandidate = ( $valueCandidate instanceof Iterator )
         ? iterator_to_array ( $valueCandidate, FALSE )
         : $valueCandidate
     ;
-
     $currentArrayValue = is_array ( $valueCandidate );
 
     /**
      * If there is no match between a declared value type and the current
      * value type an exception is going to be risen.
      */
-    if ( 
+    if (
         ( self::ARRAY_VALUE_NO === $this->iterator ) && $currentArrayValue
     ) {
     
@@ -237,43 +266,70 @@ implements
       );
     }
 
-    /** Dispatch single value */
-    if ( !$currentArrayValue ) {
-    
-      $this->satisfied = $this->validateValue ( $valueCandidate );
-      $this->value = $valueCandidate;
-
-      if ( !$this->satisfied ) {
-      
-        $this->setAssertValue ( $asserts, $this->value );
+    if ( $currentArrayValue ) {
+     
+      foreach ( $valueCandidate as &$singleCandidate ) {
+          $this->validateValue ( $singleCandidate );
       }
-
-      return $this->satisfied;
+    } else {
+      
+      $this->validateValue ( $valueCandidate );
     }
 
-    /** Dispatch array value */
-    $assertValue = NULL;
-    foreach ( $valueCandidate as &$singleCandidate ) {
-    
-      $valid = $this->validateValue ( $singleCandidate );
+    /**
+     * Find a follower that fits the only or all the value filters and let
+     * it to be satisfied.
+     */
+    foreach ( $this->getContent () as $follower ) {
       
-      if ( $valid ) {
-
-        $this->value[] = $singleCandidate;
+      if ( $currentArrayValue ) {
+      
+        $candidateCount = count ( $valueCandidate );
+        $filters = array_pad (
+            Array (),
+            $candidateCount,
+            $follower->getValueFilter ()
+        );
+      
+        $candidatesFit = array_map (
+            'self::valueFits',
+            $valueCandidate,
+            $filters
+        );
+        
+        $fits = ( $candidateCount > 0 )
+            ? !in_array ( FALSE, $candidatesFit )
+            : FALSE
+        ;
+        
       } else {
       
-        $assertValue[] = $singleCandidate;
+        $fits = self::valueFits (
+            $valueCandidate,
+            $follower->getValueFilter ()
+        );
       }
+      
+      if ( !$fits ) {
+      
+        continue;
+      }
+
+      $satisfied = $follower->satisfy ( $query, $asserts );
+        
+      if ( $satisfied ) {
+          
+        $this->value = $valueCandidate;
+      } else {
+      
+        $this->setAssertValue ( $asserts );
+      }
+        
+      return $this->satisfied = $satisfied;
     }
 
-    $this->satisfied = (Bool) count ( $this->value );
-
-    if ( (Bool) count ( $assertValue ) || !$this->satisfied ) {
-    
-      $this->setAssertValue ( $asserts, $assertValue );
-    }
-
-    return $this->satisfied;
+    $this->setAssertValue ( $asserts );
+    return $this->satisfied = FALSE;
   }
   
   /**
@@ -291,6 +347,14 @@ implements
     }
   
     $result[ (String) $this ] = $this->value;
+
+    foreach ( $this->getContent () as $follower ) {
+
+      $result = array_merge (
+          $result,
+          $follower->pickUp ( $result )
+      );
+    }
 
     return $result;
   }

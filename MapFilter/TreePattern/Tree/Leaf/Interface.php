@@ -1,6 +1,6 @@
 <?php
 /**
- * Every tree node that has an attribute must implement this interface.
+ * Interface for MapFilter pattern tree leaves.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -12,15 +12,15 @@
  */
 
 /**
- * Interface for MapFilter pattern tree nodes that has an attribute.
+ * Interface for MapFilter pattern tree leaves.
  *
- * @class       MapFilter_TreePattern_Tree_Attribute_Interface
+ * @class       MapFilter_TreePattern_Tree_Leaf_Interface
  * @ingroup     gtreepattern
  * @package     MapFilter
  * @subpackage  TreePattern
  * @since       0.4
  */
-interface MapFilter_TreePattern_Tree_Attribute_Interface {
+interface MapFilter_TreePattern_Tree_Leaf_Interface {
 
   /**
    * Convert node to string,

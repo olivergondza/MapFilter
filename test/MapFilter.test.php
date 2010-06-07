@@ -325,7 +325,7 @@ class TestMapFilter extends PHPUnit_Framework_TestCase {
         $attr1 -> setAttribute  ( "tasks") -> setValueFilter ( "schedule" )
     );
   
-    $keyattr = new MapFilter_TreePattern_Tree_Node_KeyAttr ();
+    $keyattr = new MapFilter_TreePattern_Tree_Leaf_KeyAttr ();
     $pattern = new MapFilter_TreePattern (    
         $keyattr -> setContent ( $followers ) -> setAttribute ( "action" )
     );
