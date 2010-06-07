@@ -22,7 +22,12 @@ require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 require_once ( dirname ( __FILE__ ) . '/../Attribute/Interface.php' );
 
 /**
- * MapFilter pattern tree SetAttribute node
+ * @file        MapFilter/TreePattern/Tree/Attribute/Exception.php
+ */
+require_once ( dirname ( __FILE__ ) . '/../Attribute/Exception.php' );
+
+/**
+ * MapFilter pattern tree KeyAttribute node
  *
  * @class       MapFilter_TreePattern_Tree_Node_KeyAttr
  * @ingroup     gtreepattern
@@ -43,7 +48,7 @@ implements
    *
    * @var       String          $attribute
    */
-  public $attribute = "";
+  private $attribute = "";
   
   /**
    * Attribute value
@@ -52,7 +57,25 @@ implements
    *
    * @var       String          $value
    */
-  public $value = NULL;
+  private $value = NULL;
+  
+  /**
+   * Attr default value
+   *
+   * @since     0.5.2
+   *
+   * @var       String          $default
+   */
+  private $default = NULL;
+  
+  /**
+   * Attr value Pattern
+   *
+   * @since     0.5.2
+   *
+   * @var       String          $valuePattern
+   */
+  private $valuePattern = NULL;
   
   /**
    * Determine whether a value is scalar or an array/iterator.
@@ -92,7 +115,57 @@ implements
   }
 
   /**
-   * @copybrief	        MapFilter_TreePattern_Tree_Interface::satisfy()
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setDefault()}
+   */
+  public function setDefault ( $default ) {
+
+    $this->default = $default;
+    return $this;
+  }
+
+  /**
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setValuePattern()}
+   */
+  public function setValuePattern ( $valuePattern ) {
+
+    $this->valuePattern = $valuePattern;
+    return $this;
+  }
+
+  /**
+   * Determine whether the value is valid or not and possibly set a default
+   * value.
+   *
+   * @since             0.5.2
+   *
+   * @param             Mixed          $valueCandidate
+   *
+   * @return            Bool           Valid or not
+   */
+  private function validateValue ( &$valueCandidate ) {
+  
+    $fitsPattern = self::valueFits (
+        $valueCandidate,
+        $this->valuePattern
+    );
+
+    if ( $fitsPattern ) {
+  
+      return TRUE;
+    }
+    
+    if ( $this->default !== NULL ) {
+      
+      $valueCandidate = $this->default;
+      
+      return TRUE;
+    }
+    
+    return FALSE;
+  }
+
+  /**
+   * @copybrief         MapFilter_TreePattern_Tree_Interface::satisfy()
    *
    * Find a follower with a valueFilter that fits and try to satisfy it.
    *
@@ -100,15 +173,37 @@ implements
    */
   public function satisfy ( &$query, Array &$asserts ) {
 
-    $present = self::attrPresent ( $this->attribute, $query );
+    $present = self::attrPresent (
+        $this->attribute,
+        $query
+    );
 
+    /**
+     * If an attribute is not present and there is a default value defined,
+     * the default value is going to be used as a value and posibly wrapped
+     * into the array if the attribute is flaged as the iterator attribute.
+     */
     if ( !$present ) {
 
-      $this->setAssertValue ( $asserts );
-      return $this->satisfied = FALSE;
-    }
+      if ( $this->default === NULL ) {
+      
+        $this->setAssertValue ( $asserts );
+        return $this->satisfied = FALSE;
+      }
+      
+      $valueCandidate = $this->value =
+          ( self::ARRAY_VALUE_YES === $this->iterator )
+          ? Array ( $this->default )
+          : $this->default
+      ;
+
+    } else {
     
-    $valueCandidate = $query[ $this->attribute ];
+      /**
+       * Satisfy actual attribute value
+       */
+      $valueCandidate = $query[ $this->attribute ];
+    }
     $valueCandidate = ( $valueCandidate instanceof Iterator )
         ? iterator_to_array ( $valueCandidate, FALSE )
         : $valueCandidate
@@ -119,7 +214,9 @@ implements
      * If there is no match between a declared value type and the current
      * value type an exception is going to be risen.
      */
-    if ( ( self::ARRAY_VALUE_NO === $this->iterator ) && $currentArrayValue ) {
+    if (
+        ( self::ARRAY_VALUE_NO === $this->iterator ) && $currentArrayValue
+    ) {
     
       throw new MapFilter_TreePattern_Tree_Attribute_Exception (
           MapFilter_TreePattern_Tree_Attribute_Exception::ARRAY_ATTR_VALUE,
@@ -135,6 +232,16 @@ implements
           MapFilter_TreePattern_Tree_Attribute_Exception::SCALAR_ATTR_VALUE,
           Array ( $this->attribute, gettype ( $valueCandidate ) )
       );
+    }
+
+    if ( $currentArrayValue ) {
+     
+      foreach ( $valueCandidate as &$singleCandidate ) {
+          $this->validateValue ( $singleCandidate );
+      }
+    } else {
+      
+      $this->validateValue ( $valueCandidate );
     }
 
     /**

@@ -903,4 +903,109 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
       );
     }
   }
+  
+  public static function provideKeyAttrDefaultValuePattern () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ( 'keyattr' => 'value', 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => 'INVALID_VALUE' ),
+            Array ( 'keyattr' => 'value', 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'INVALID_VALUE' ) ),
+            Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => 'value' ),
+            Array ( 'keyattr' => 'value', 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ('value' ) ),
+            Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => 'value1' ),
+            Array ( 'keyattr' => 'value1', 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value1' ) ),
+            Array ( 'keyattr' => Array ( 'value1' ), 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => 'value0' ),
+            Array ( 'keyattr' => 'value0', 'odd' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value0' ) ),
+            Array ( 'keyattr' => Array ( 'value0' ), 'odd' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => 'value11' ),
+            Array ( 'keyattr' => 'value11', 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value11' ) ),
+            Array ( 'keyattr' => Array ( 'value11' ), 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => 'value10' ),
+            Array ( 'keyattr' => 'value10', 'odd' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value10' ) ),
+            Array ( 'keyattr' => Array ( 'value10' ), 'odd' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value10', 'value42' ) ),
+            Array ( 'keyattr' => Array ( 'value10', 'value42' ), 'odd' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value11', 'value41' ) ),
+            Array ( 'keyattr' => Array ( 'value11', 'value41' ), 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value11', 'value42' ) ),
+            Array ( 'keyattr' => Array ( 'value11', 'value42' ), 'mixed' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value12', 'value41' ) ),
+            Array ( 'keyattr' => Array ( 'value12', 'value41' ), 'mixed' => 'yes' )
+        ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideKeyAttrDefaultValuePattern
+   */
+  public static function testKeyAttrDefaultValuePattern ( $query, $result ) {
+  
+    $pattern = '
+    <pattern>
+      <key_attr
+          iterator="auto"
+          attr="keyattr"
+          default="value"
+          valuePattern="value[0-9]*"
+      >
+        <attr forValue="value([0-9]*[13579])?" default="yes">even</attr>
+        <attr forValue="value([0-9]*[02468])?" default="yes">odd</attr>
+        <attr forValue=".*" default="yes">mixed</attr>
+      </key_attr>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
+  }
 }

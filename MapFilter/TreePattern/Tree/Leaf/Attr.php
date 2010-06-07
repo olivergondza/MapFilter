@@ -1,6 +1,6 @@
 <?php
 /**
- * Attr Pattern node.
+ * Attr Pattern leaf.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -57,7 +57,7 @@ implements
    *
    * @var       String          $value
    */
-  protected $value = NULL;
+  private $value = NULL;
   
   /**
    * Attr default value
@@ -78,15 +78,6 @@ implements
   private $valuePattern = NULL;
   
   /**
-   * A value for possible assertion
-   *
-   * @since     0.5.2
-   *
-   * @var       Mixed           $assertValue
-   */
-  protected $assertValue = NULL;
-  
-  /**
    * Determine whether a value is scalar or an array/iterator.
    *
    * Possible values are 'no', 'yes' and 'auto'.
@@ -97,14 +88,6 @@ implements
    */
   private $iterator = 'no';
 
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Attribute_Interface::getAttribute()}
-   */
-  public function getAttribute () {
-  
-    return $this->attribute;
-  }
-  
   /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
    */
@@ -121,6 +104,14 @@ implements
 
     $this->attribute = $attribute;
     return $this;
+  }
+  
+  /**
+   * @copyfull{MapFilter_TreePattern_Tree_Attribute_Interface::getAttribute()}
+   */
+  public function getAttribute () {
+  
+    return $this->attribute;
   }
   
   /**
@@ -174,7 +165,7 @@ implements
   }
   
   /**
-   * @copybrief 	MapFilter_TreePattern_Tree_Interface::satisfy()
+   * @copybrief         MapFilter_TreePattern_Tree_Interface::satisfy()
    *
    * Attr leaf is satisfied when its attribute occurs in user query and its
    * value matches the optional pattern defined by valuePattern attribute. 
@@ -208,7 +199,6 @@ implements
           ? Array ( $this->default )
           : $this->default
       ;
-      
       return $this->satisfied = TRUE;
     }
     
@@ -220,6 +210,7 @@ implements
         ? iterator_to_array ( $valueCandidate, FALSE )
         : $valueCandidate
     ;
+
     $currentArrayValue = is_array ( $valueCandidate );
 
     /**
