@@ -64,6 +64,49 @@ implements
   }
 
   /**
+   * Find a fitting follower, let it satisfy and set value or assertion.
+   *
+   * @since     0.5.2
+   *
+   * @param     Mixed           &$query                 A query
+   * @param     Array           &$asserts               Assertions
+   * @param     Mixed           $valueCandidate         
+   *
+   * @return    Bool
+   */
+  private function satisfyFittingFollower (
+      &$query,
+      Array &$asserts,
+      $valueCandidate
+  ) {
+  
+    $satisfied = FALSE;
+    foreach ( $this->getContent () as $follower ) {
+    
+      $fits = self::valueFits (
+          $valueCandidate,
+          $follower->getValueFilter ()
+      );
+      
+      if ( !$fits ) continue;
+      
+      $satisfied |= (Bool) $followerSatisfied = $follower->satisfy (
+          $query, $asserts
+      );
+    }
+    
+    if ( $satisfied ) {
+        
+      $this->value = $valueCandidate;
+    } else {
+    
+      $this->setAssertValue ( $asserts );
+    }
+      
+    return $this->satisfied = $satisfied;
+  }
+
+  /**
    * @copybrief         MapFilter_TreePattern_Tree_Interface::satisfy()
    *
    * Find a follower with a valueFilter that fits and try to satisfy it.
@@ -90,23 +133,19 @@ implements
         return $this->satisfied = FALSE;
       }
       
-      $valueCandidate = $this->value =
-          ( self::ARRAY_VALUE_YES === $this->iterator )
+      $this->value = ( self::ITERATOR_VALUE_YES === $this->iterator )
           ? Array ( $this->default )
-          : $this->default
-      ;
+          : $this->default;
 
+      $valueCandidate = self::convertIterator ( $this->value );
     } else {
     
       /**
        * Satisfy actual attribute value
        */
-      $valueCandidate = $query[ $this->attribute ];
+      $valueCandidate = self::convertIterator ( $query[ $this->attribute ] );
     }
-    $valueCandidate = ( $valueCandidate instanceof Iterator )
-        ? iterator_to_array ( $valueCandidate, FALSE )
-        : $valueCandidate
-    ;
+
     $currentArrayValue = is_array ( $valueCandidate );
 
     $this->assertTypeMismatch (
@@ -114,69 +153,35 @@ implements
         gettype ( $valueCandidate )
     );
 
-    if ( $currentArrayValue ) {
+    $this->validateValue ( $valueCandidate );
+
+    /** Dispatch single value */
+    $satisfied = FALSE;
+    if ( !$currentArrayValue ) {
      
-      foreach ( $valueCandidate as &$singleCandidate ) {
-          $this->validateValue ( $singleCandidate );
-      }
+      $satisfied = $this->satisfyFittingFollower (
+          $query, $asserts, $valueCandidate
+      );
+      
+    /** Dispatch iterator */
     } else {
-      
-      $this->validateValue ( $valueCandidate );
+
+      foreach ( $valueCandidate as $singleCandidate ) {
+
+        $satisfied |= (Bool) $this->satisfyFittingFollower (
+            $query, $asserts, $singleCandidate
+        );
+      }
     }
+    
+    if ( $satisfied ) {
+      
+      $this->value = $valueCandidate;
+    } else {
 
-    /**
-     * Find a follower that fits the only or all the value filters and let
-     * it to be satisfied.
-     */
-    foreach ( $this->getContent () as $follower ) {
-      
-      if ( $currentArrayValue ) {
-      
-        $candidateCount = count ( $valueCandidate );
-        $filters = array_pad (
-            Array (),
-            $candidateCount,
-            $follower->getValueFilter ()
-        );
-      
-        $candidatesFit = array_map (
-            'self::valueFits',
-            $valueCandidate,
-            $filters
-        );
-        
-        $fits = ( $candidateCount > 0 )
-            ? !in_array ( FALSE, $candidatesFit )
-            : FALSE
-        ;
-        
-      } else {
-      
-        $fits = self::valueFits (
-            $valueCandidate,
-            $follower->getValueFilter ()
-        );
-      }
-      
-      if ( !$fits ) {
-      
-        continue;
-      }
-
-      $satisfied = $follower->satisfy ( $query, $asserts );
-        
-      if ( $satisfied ) {
-          
-        $this->value = $valueCandidate;
-      } else {
-      
-        $this->setAssertValue ( $asserts );
-      }
-        
-      return $this->satisfied = $satisfied;
+      $this->setAssertValue ( $asserts );
     }
-
-    $this->setAssertValue ( $asserts );
-    return $this->satisfied = FALSE;
+    
+    return $this->satisfied = $satisfied;
   }
 }

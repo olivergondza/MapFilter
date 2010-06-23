@@ -72,21 +72,14 @@ implements
         return $this->satisfied = FALSE;
       }
       
-      $this->value = ( self::ARRAY_VALUE_YES === $this->iterator )
+      $this->value = ( self::ITERATOR_VALUE_YES === $this->iterator )
           ? Array ( $this->default )
           : $this->default;
           
       return $this->satisfied = TRUE;
     }
-    
-    /**
-     * Satisfy actual attribute value
-     */
-    $valueCandidate = $query[ $this->attribute ];
-    $valueCandidate = ( $valueCandidate instanceof Iterator )
-        ? iterator_to_array ( $valueCandidate, FALSE )
-        : $valueCandidate
-    ;
+
+    $valueCandidate = self::convertIterator ( $query[ $this->attribute ] );
 
     $currentArrayValue = is_array ( $valueCandidate );
 
@@ -95,39 +88,27 @@ implements
         gettype ( $valueCandidate )
     );
 
-    /** Dispatch single value */
+    $this->value = $valueCandidate;
+    $setAsserts = !$this->satisfied = $this->validateValue ( $this->value );
+
+    /** Set leaf value as an assertion */
     if ( !$currentArrayValue ) {
-    
-      $this->satisfied = $this->validateValue ( $valueCandidate );
-      $this->value = $valueCandidate;
 
-      if ( !$this->satisfied ) {
+      $assertValue = $this->value;
       
-        $this->setAssertValue ( $asserts, $this->value );
-      }
+    /**
+     * Set leaf values as an assertion, in case that the node is satisfied
+     * and there are some unsatisfied followers assert them as well
+     */
+    } else {
 
-      return $this->satisfied;
+      $setAsserts |= (Bool) $assertValue = array_values (
+          array_diff ( $valueCandidate, $this->value )
+      );
     }
 
-    /** Dispatch array value */
-    $assertValue = NULL;
-    foreach ( $valueCandidate as &$singleCandidate ) {
-    
-      $valid = $this->validateValue ( $singleCandidate );
-      
-      if ( $valid ) {
+    if ( $setAsserts ) {
 
-        $this->value[] = $singleCandidate;
-      } else {
-      
-        $assertValue[] = $singleCandidate;
-      }
-    }
-
-    $this->satisfied = (Bool) count ( $this->value );
-
-    if ( (Bool) count ( $assertValue ) || !$this->satisfied ) {
-    
       $this->setAssertValue ( $asserts, $assertValue );
     }
 

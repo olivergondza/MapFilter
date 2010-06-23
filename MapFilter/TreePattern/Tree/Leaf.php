@@ -153,35 +153,84 @@ implements
   }
 
   /**
+   * Determine whether the value is valid or not
+   *
+   * @since             0.5.2
+   *
+   * @param             Mixed          &$valueCandidate
+   *
+   * @return            Bool           Valid or not
+   */
+  private function validateScalarValue ( &$valueCandidate ) {
+  
+    return self::valueFits (
+        $valueCandidate,
+        $this->valuePattern
+    );
+  }
+
+  /**
    * Determine whether the value is valid or not and possibly set a default
    * value.
    *
    * @since             0.5.2
    *
-   * @param             Mixed          $valueCandidate
+   * @param             Mixed          &$valueCandidate
    *
    * @return            Bool           Valid or not
    */
   protected function validateValue ( &$valueCandidate ) {
   
-    $fitsPattern = self::valueFits (
-        $valueCandidate,
-        $this->valuePattern
-    );
+    $arrayUsed = is_array ( $valueCandidate );
+    if ( $arrayUsed ) {
+    
+      $valueCandidate = array_filter (
+          $valueCandidate,
+          Array ( $this, 'validateScalarValue' )
+      );
 
-    if ( $fitsPattern ) {
-  
+      $validated = !( $valueCandidate === Array () );
+
+    } else {
+    
+      $validated = $this->validateScalarValue ( $valueCandidate );
+    }
+    
+    if ( $validated ) {
+    
       return TRUE;
     }
     
     if ( $this->default !== NULL ) {
       
-      $valueCandidate = $this->default;
-      
+      $valueCandidate = (
+          self::ITERATOR_VALUE_YES === $this->iterator
+          || $arrayUsed
+      )
+          ? Array ( $this->default )
+          : $this->default;
+
       return TRUE;
     }
     
     return FALSE;
+  }
+
+  /**
+   * Convert iterator to an array.
+   *
+   * @since             0.5.2
+   *
+   * @param             Mixed     $valueCandidate
+   * 
+   * @return            Mixed
+   */
+  protected function convertIterator ( $valueCandidate ) {
+
+    return ( $valueCandidate instanceof Iterator )
+        ? iterator_to_array ( $valueCandidate, FALSE )
+        : $valueCandidate
+    ;
   }
 
   /**
@@ -204,7 +253,7 @@ implements
   
     
     if ( 
-        ( self::ARRAY_VALUE_NO === $this->iterator ) && $isIterator
+        ( self::ITERATOR_VALUE_NO === $this->iterator ) && $isIterator
     ) {
     
       throw new MapFilter_TreePattern_Tree_Leaf_Exception (
@@ -214,7 +263,7 @@ implements
     }
 
     if ( 
-        ( self::ARRAY_VALUE_YES === $this->iterator ) && !$isIterator
+        ( self::ITERATOR_VALUE_YES === $this->iterator ) && !$isIterator
     ) {
 
       throw new MapFilter_TreePattern_Tree_Leaf_Exception (

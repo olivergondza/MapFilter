@@ -570,6 +570,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
    * Test array filtering
    *
    * @dataProvider      provideAttrArrayValue
+   * @group             attrArrayValue
    */
   public static function testAttrArrayValue (
       $query, $results, $asserts, $flags
@@ -672,9 +673,9 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
             Array (),
             Array ( 'a_keyattr' ),
         ),
-        Array (
+        10 => Array (
             Array ( 'order' => Array ( 'first', 'second' ), 'attrn' => 'n' ),
-            Array ( 'order' => Array ( 'first', 'second' ), 'attrn' => 'n' ),
+            Array ( 'order' => Array ( 'first', 'second' ), 'attr0' => '0', 'attr1' => '1' ),
             Array (),
             Array ( 'a_keyattr' ),
         ),
@@ -682,7 +683,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
             Array ( 'order' => new ArrayIterator (
                 Array ( 'first', 'second' )
             ), 'attrn' => 'n' ),
-            Array ( 'order' => Array ( 'first', 'second' ), 'attrn' => 'n' ),
+            Array ( 'order' => Array ( 'first', 'second' ), 'attr0' => '0', 'attr1' => '1' ),
             Array (),
             Array ( 'a_keyattr' ),
         ),
@@ -760,15 +761,13 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
         >
           <attr forValue="first"  default="0">attr0</attr>
           <attr forValue="second" default="1">attr1</attr>
-          <attr forValue=".*"  default="n">attrn</attr>
+          <attr forValue="(?!first|second).*"  default="n">attrn</attr>
         </key_attr>
         <attr
             iterator="auto"
             valuePattern="attr."
             default="defaultValue"
-        >
-          auto
-        </attr>
+        >auto</attr>
       </one>
     </pattern>
     ';
@@ -952,7 +951,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
             Array ( 'keyattr' => 'value', 'even' => 'yes' )
         ),
         Array (
-            Array ( 'keyattr' => Array ('value' ) ),
+            Array ( 'keyattr' => Array ( 'value' ) ),
             Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
         ),
         Array (
@@ -997,11 +996,11 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value11', 'value42' ) ),
-            Array ( 'keyattr' => Array ( 'value11', 'value42' ), 'mixed' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value11', 'value42' ), 'odd' => 'yes', 'even' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value12', 'value41' ) ),
-            Array ( 'keyattr' => Array ( 'value12', 'value41' ), 'mixed' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value12', 'value41' ), 'odd' => 'yes', 'even' => 'yes' )
         ),
     );
   }
@@ -1020,8 +1019,7 @@ class TestTreePattern extends PHPUnit_Framework_TestCase {
           valuePattern="value[0-9]*"
       >
         <attr forValue="value([0-9]*[13579])?" default="yes">even</attr>
-        <attr forValue="value([0-9]*[02468])?" default="yes">odd</attr>
-        <attr forValue=".*" default="yes">mixed</attr>
+        <attr forValue="value([0-9]*[02468])" default="yes">odd</attr>
       </key_attr>
     </pattern>
     ';

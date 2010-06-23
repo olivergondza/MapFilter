@@ -42,15 +42,15 @@ interface MapFilter_TreePattern_Tree_Leaf_Interface {
   public function getAttribute ();
   
   /**
-  * Possible iterator Values
+  * Possible iterator values
   *
   * @since      0.5.2
   *
   * @var        String
   * @{
   */
-  const ARRAY_VALUE_NO = 'no';
-  const ARRAY_VALUE_YES = 'yes';
-  const ARRAY_VALUE_AUTO = 'auto';
+  const ITERATOR_VALUE_NO = 'no';
+  const ITERATOR_VALUE_YES = 'yes';
+  const ITERATOR_VALUE_AUTO = 'auto';
   /**@}*/
 }

@@ -9,4 +9,5 @@ class Test_Source {
   const ACTION = '../user/examples/action.xml';
   const FILTER = '../user/examples/filter.xml';
   const DURATION = '../user/examples/duration.xml';
+  const GENERATOR = '../user/examples/generator.xml';
 }

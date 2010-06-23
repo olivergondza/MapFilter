@@ -1,0 +1,33 @@
+<!--
+  Simplified output generator that enables generation in multiple output
+  types (html,man,xml). Declare allowed types and type-specific attibutes.
+  
+  like:
+  {input} -> {input:output_format=html:stylesheet=default.css}
+  {input:output_format=html} -> {input:output_format=html:stylesheet=default.css}
+  {input:output_format=html:stylesheet=default.css} -> {input:output_format=html:stylesheet=default.css}
+  {input:output_format=xml:dtd} -> {input:output_format=xml:dtd=default.dtd}
+  
+-->
+<pattern>
+  <all>
+    <attr iterator="auto" assert="no_source">input</attr>
+    <key_attr
+        attr="output_format" iterator="auto" default="html"
+        valuePattern="html|man|xml" assert="no_output_format"
+    >
+      <attr
+          forValue="html|xml" default="default.css" valuePattern=".+\.css"
+          iterator="auto"
+      >stylesheet</attr>
+
+      <attr
+          forValue="man" default="3" valuePattern="[1-8]"
+      >extension</attr>
+
+      <attr
+          forValue="xml" default="default.dtd" valuePattern=".+\.dtd"
+      >dtd</attr>
+    </key_attr>
+  </all>
+</pattern>

@@ -191,14 +191,16 @@ abstract class MapFilter_TreePattern_Tree implements
   *
   * @return     NULL
   */
-  protected function setAssertValue ( Array &$asserts, $assertValue = NULL ) {
+  protected function setAssertValue ( Array &$asserts, $assertValue = Array () ) {
   
     if ( $this->assert === NULL ) {
     
       return;
     }
     
-    $asserts[ $this->assert ] = ( $assertValue === NULL )
+    $asserts[ $this->assert ] = (
+         $assertValue === Array () || $assertValue === NULL
+    )
         ? $this->assert
         : $assertValue;
   }
