@@ -1,21 +1,23 @@
 <?php
 /**
-* Test Pattern
-*/
+ * Test Pattern
+ */
 
-require_once ( dirname ( __FILE__ ) . '/../MapFilter.php' );
+require_once ( MAP_FILTER_TEST_DIR . '/../MapFilter.php' );
 
-require_once ( dirname ( __FILE__ ) . '/../MapFilter/Pattern/Null.php' );
+require_once ( MAP_FILTER_TEST_DIR . '/../MapFilter/Pattern/Null.php' );
 
 /**
-* @group	Unit
-*/
-class TestPattern extends PHPUnit_Framework_TestCase {  
+ * @group	Unit
+ * @group	Unit::MapFilter
+ * @group	Unit::MapFilter::PAttern
+ */
+class TestMapFilterPattern extends PHPUnit_Framework_TestCase {  
   
   /**
-  * Test MapFilter_Pattern_Null usage
-  */
-  public static function testMock () {
+   * Test MapFilter_Pattern_Null implicit usage
+   */
+  public static function testImplicitMock () {
   
     $filter = new MapFilter (
         new MapFilter_Pattern_Null ()
@@ -26,6 +28,16 @@ class TestPattern extends PHPUnit_Framework_TestCase {
     self::assertEquals (
         $filter,
         $implicitFilter
+    );
+  }
+  
+  /**
+   * Test MapFilter_Pattern_Null usage
+   */
+  public static function testMock () {
+  
+    $filter = new MapFilter (
+        new MapFilter_Pattern_Null ()
     );
     
     $query = Array (
@@ -78,10 +90,10 @@ class TestPattern extends PHPUnit_Framework_TestCase {
   }
   
   /**
-  * Test user defined pattern
-  *
-  * @dataProvider	provideUserPatternFiltering
-  */
+   * Test user defined pattern
+   *
+   * @dataProvider	provideUserPatternFiltering
+   */
   public static function testUserPatternFiltering (
       Array $query, Array $result
   ) {
@@ -102,8 +114,8 @@ class TestPattern extends PHPUnit_Framework_TestCase {
 }
 
 /**
-* User pattern
-*/
+ * User pattern
+ */
 class WhitelistResultPattern implements
     MapFilter_Pattern_Interface,
     MapFilter_Pattern_ResultInterface

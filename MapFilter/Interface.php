@@ -35,13 +35,13 @@ interface MapFilter_Interface {
    *
    * If no pattern specified an untouched query will be returned:
    *
-   * @clip{User.test.php,testEmptyPattern}
+   * @clip{User/MapFilter.test.php,testEmptyPattern}
    *
    * All parsing is done just in time (however it can be triggered manually using
    * MapFilter::parse()) when some of parsing results is accessed (in this case
    * when MapFilter::getResults() is called for the first time):
    *
-   * @clip{User.test.php,testDuration}
+   * @clip{User/TreePattern/Duration.test.php,testDuration}
    *
    * @see       setPattern(), setQuery(), MapFilter_Pattern
    */

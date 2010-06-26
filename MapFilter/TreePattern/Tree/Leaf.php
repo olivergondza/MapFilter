@@ -241,7 +241,7 @@ implements
    *
    * @since     0.5.2
    *
-   * @param     Bool            $isArray                Is iterator or not
+   * @param     Bool            $isIterator             Is iterator or not
    * @param     String          $valueType              Type of given value
    *
    * @return    NULL

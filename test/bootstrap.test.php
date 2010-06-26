@@ -2,6 +2,8 @@
 
 error_reporting ( ( E_ALL | E_STRICT ) & ~E_DEPRECATED );
 
+define ( 'MAP_FILTER_TEST_DIR', dirname ( __FILE__ ) );
+
 class Test_Source {
   const LOCATION = '../user/examples/location.xml';
   const LOGIN = '../user/examples/login.xml';
