@@ -13,14 +13,30 @@ require_once ( MAP_FILTER_TEST_DIR . '/../MapFilter/Pattern/Null.php' );
  */
 class TestTreePatternOne extends PHPUnit_Framework_TestCase {  
   
+  public static function provideSimpleOneNode () {
+  
+    return Array (
+        Array (
+            Array ( 'Attr0' => 0 ),
+            Array ( 'Attr0' => 0 )
+        ),
+        Array (
+            Array ( 'Attr0' => 0, 'Attr1' => 1 ),
+            Array ( 'Attr0' => 0 )
+        ),
+        Array (
+            Array ( 'Attr0' => 0, 'Attr1' => 1, 'Attr2' => 2 ),
+            Array ( 'Attr0' => 0 )
+        )
+    );
+  }
+  
   /**
-  * Test OneNode with simple values
-  */
-  public static function testSimpleOneNode () {
-
-    $accurate = Array ( "Attr0" => 0 );
-    $all = Array ( "Attr0" => 0, "Attr1" => 1 );
-    $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
+   * Test OneNode with simple values
+   *
+   * @dataProvider      provideSimpleOneNode
+   */
+  public static function testSimpleOneNode ( $query, $result ) {
     
     $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
     $attr1 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
@@ -29,35 +45,18 @@ class TestTreePatternOne extends PHPUnit_Framework_TestCase {
     $pattern = new MapFilter_TreePattern (
         $one -> setContent (
             Array (
-                $attr0 -> setAttribute  ( "Attr0" ),
-                $attr1 -> setAttribute  ( "Attr1" )
+                $attr0 -> setAttribute  ( 'Attr0' ),
+                $attr1 -> setAttribute  ( 'Attr1' )
             )
         )
     );
 
     $filter = new MapFilter ( $pattern );
 
-    /** Test accurate */
-    $filter->setQuery ( $accurate );
+    $filter->setQuery ( $query );
 
     self::assertEquals (
-      $accurate,
-      $filter->getResults ()
-    );
-
-    /** Test choose */
-    $filter->setQuery ( $all );
-
-    self::assertEquals (
-      $accurate,
-      $filter->getResults ()
-    );
-    
-    /** Test trim */
-    $filter->setQuery ( $more );
-
-    self::assertEquals (
-      $accurate,
+      $result,
       $filter->getResults ()
     );
   }

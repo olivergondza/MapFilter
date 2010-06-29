@@ -60,22 +60,22 @@ class TestTreePatternKeyAttr extends PHPUnit_Framework_TestCase {
     return Array (
         Array (
             Array (),
-            Array ( 'no' => "action" )
+            Array ( 'no' => 'action' )
         ), Array (
             Array (),
-            Array ( 'action' => "sickAction", 'task' => "sickTask")
+            Array ( 'action' => 'sickAction', 'task' => 'sickTask')
         ), Array (
-            Array ( 'action' => "do", 'task' => "myTask" ),
-            Array ( 'action' => "do", 'task' => "myTask" )
+            Array ( 'action' => 'do', 'task' => 'myTask' ),
+            Array ( 'action' => 'do', 'task' => 'myTask' )
         ), Array (
-            Array ( 'action' => "schedule", 'tasks' => "All My Tasks" ),
-            Array ( 'action' => "schedule", 'tasks' => "All My Tasks" )
+            Array ( 'action' => 'schedule', 'tasks' => 'All My Tasks' ),
+            Array ( 'action' => 'schedule', 'tasks' => 'All My Tasks' )
         ), Array (
-            Array ( 'action' => "do", 'task' => "myTask" ),
-            Array ( 'action' => "do", 'task' => "myTask", 'tasks' => "My Tasks" )
+            Array ( 'action' => 'do', 'task' => 'myTask' ),
+            Array ( 'action' => 'do', 'task' => 'myTask', 'tasks' => 'My Tasks' )
         ), Array (
             Array (),
-            Array ( 'action' => "do", 'nothing' => "All Day" )
+            Array ( 'action' => 'do', 'nothing' => 'All Day' )
         )
     );
   }
@@ -94,13 +94,13 @@ class TestTreePatternKeyAttr extends PHPUnit_Framework_TestCase {
     $attr1 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
 
     $followers = Array (
-        $attr0 -> setAttribute  ( "task" ) -> setValueFilter ( "do" ),
-        $attr1 -> setAttribute  ( "tasks") -> setValueFilter ( "schedule" )
+        $attr0 -> setAttribute  ( 'task' ) -> setValueFilter ( 'do' ),
+        $attr1 -> setAttribute  ( 'tasks') -> setValueFilter ( 'schedule' )
     );
   
     $keyattr = new MapFilter_TreePattern_Tree_Leaf_KeyAttr ();
     $pattern = new MapFilter_TreePattern (    
-        $keyattr -> setContent ( $followers ) -> setAttribute ( "action" )
+        $keyattr -> setContent ( $followers ) -> setAttribute ( 'action' )
     );
 
     $filter = new MapFilter ( $pattern );
@@ -257,27 +257,27 @@ class TestTreePatternKeyAttr extends PHPUnit_Framework_TestCase {
       $query, $results, $asserts, $flags
   ) {
   
-    $pattern = '
+    $pattern = "
     <pattern>
       <one>
         <key_attr
-            attr="order"
-            iterator="yes"
-            assert="wrong_keyattr"
-            flag="a_keyattr"
+            attr='order'
+            iterator='yes'
+            assert='wrong_keyattr'
+            flag='a_keyattr'
         >
-          <attr forValue="first"  default="0">attr0</attr>
-          <attr forValue="second" default="1">attr1</attr>
-          <attr forValue="(?!first|second).*"  default="n">attrn</attr>
+          <attr forValue='first'  default='0'>attr0</attr>
+          <attr forValue='second' default='1'>attr1</attr>
+          <attr forValue='(?!first|second).*'  default='n'>attrn</attr>
         </key_attr>
         <attr
-            iterator="auto"
-            valuePattern="attr."
-            default="defaultValue"
+            iterator='auto'
+            valuePattern='attr.'
+            default='defaultValue'
         >auto</attr>
       </one>
     </pattern>
-    ';
+    ";
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),
@@ -341,14 +341,14 @@ class TestTreePatternKeyAttr extends PHPUnit_Framework_TestCase {
    */
   public static function testKeyAttrArrayValueExceptions ( $query, $expectedException ) {
   
-    $pattern = '
+    $pattern = "
     <pattern>
       <opt>
-        <key_attr iterator="yes" attr="arrayAttr"></key_attr>
-        <key_attr iterator="no" attr="scalarAttr"></key_attr>
+        <key_attr iterator='yes' attr='arrayAttr'></key_attr>
+        <key_attr iterator='no' attr='scalarAttr'></key_attr>
       </opt>
     </pattern>
-    ';
+    ";
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern )
@@ -448,19 +448,19 @@ class TestTreePatternKeyAttr extends PHPUnit_Framework_TestCase {
    */
   public static function testKeyAttrDefaultValuePattern ( $query, $result ) {
   
-    $pattern = '
+    $pattern = "
     <pattern>
       <key_attr
-          iterator="auto"
-          attr="keyattr"
-          default="value"
-          valuePattern="value[0-9]*"
+          iterator='auto'
+          attr='keyattr'
+          default='value'
+          valuePattern='value[0-9]*'
       >
-        <attr forValue="value([0-9]*[13579])?" default="yes">even</attr>
-        <attr forValue="value([0-9]*[02468])" default="yes">odd</attr>
+        <attr forValue='value([0-9]*[13579])?' default='yes'>even</attr>
+        <attr forValue='value([0-9]*[02468])' default='yes'>odd</attr>
       </key_attr>
     </pattern>
-    ';
+    ";
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),

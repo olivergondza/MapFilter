@@ -13,14 +13,38 @@ require_once ( MAP_FILTER_TEST_DIR . '/../MapFilter/Pattern/Null.php' );
  */
 class TestTreePatternSome extends PHPUnit_Framework_TestCase {  
   
+  public static function provideSimpleSomeNode () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( 'Attr0' => 0, 'Attr1' => 1, 'Attr2' => 2 ),
+            Array ( 'Attr0' => 0, 'Attr1' => 1 )
+        ),
+        Array (
+            Array ( 'Attr0' => 0 ),
+            Array ( 'Attr0' => 0 )
+        ),
+        Array (
+            Array ( 'Attr0' => 0, 'Attr1' => 1 ),
+            Array ( 'Attr0' => 0, 'Attr1' => 1 )
+        )
+    );
+  }
+  
   /**
-  * Test OptNode with simple values
-  */
-  public static function testSimpleSomeNode () {
+   * Test OptNode with simple values
+   *
+   * @dataProvider      provideSimpleSomeNode
+   */
+  public static function testSimpleSomeNode ( $query, $result ) {
 
-    $more = Array ( "Attr0" => 0, "Attr1" => 1, "Attr2" => 2 );
-    $one = Array ( "Attr0" => 0 );
-    $all = Array ( "Attr0" => 0, "Attr1" => 1 );
+    $more = Array ( 'Attr0' => 0, 'Attr1' => 1, 'Attr2' => 2 );
+    $one = Array ( 'Attr0' => 0 );
+    $all = Array ( 'Attr0' => 0, 'Attr1' => 1 );
     $nothing = Array ();
     
     $attr0 = new MapFilter_TreePattern_Tree_Leaf_Attr ();
@@ -30,43 +54,18 @@ class TestTreePatternSome extends PHPUnit_Framework_TestCase {
     $pattern = new MapFilter_TreePattern (
         $opt -> setContent (
             Array (
-                $attr0 -> setAttribute  ( "Attr0" ),
-                $attr1 -> setAttribute  ( "Attr1" )
+                $attr0 -> setAttribute  ( 'Attr0' ),
+                $attr1 -> setAttribute  ( 'Attr1' )
             )
         )
     );
 
     $filter = new MapFilter ( $pattern );
 
-    /** Test trim */
-    $filter->setQuery ( $more );
+    $filter->setQuery ( $query );
 
     self::assertEquals (
-      $all,
-      $filter->getResults ()
-    );
-
-    /** Test accurate */
-    $filter->setQuery ( $one );
-
-    self::assertEquals (
-      $one,
-      $filter->getResults ()
-    );
-
-    /** Test All */
-    $filter->setQuery ( $all );
-
-    self::assertEquals (
-      $all,
-      $filter->getResults ()
-    );
-    
-    /** Test nothing */
-    $filter->setQuery ( $nothing );
-
-    self::assertEquals (
-      $nothing,
+      $result,
       $filter->getResults ()
     );
   }
