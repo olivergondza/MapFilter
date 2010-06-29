@@ -23,11 +23,11 @@
 interface MapFilter_TreePattern_Tree_Leaf_Interface {
 
   /**
-   * Convert node to string,
+   * Convert node to string.
    *
    * @since     0.4
    *
-   * @return    String          String representation of node
+   * @return    String          String representation of node.
    */
   public function __toString ();
   
@@ -36,13 +36,13 @@ interface MapFilter_TreePattern_Tree_Leaf_Interface {
    *
    * @since     0.4
    *
-   * @return    String          A node attribute
+   * @return    String          A node attribute.
    * @see       setAttribute()
    */
   public function getAttribute ();
   
   /**
-  * Possible iterator values
+  * Possible iterator values.
   *
   * @since      0.5.2
   *

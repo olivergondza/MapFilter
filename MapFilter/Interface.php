@@ -129,7 +129,7 @@ interface MapFilter_Interface {
   public function getAsserts ();
   
   /**
-   * Get flags
+   * Get flags.
    *
    * Return flags that was sat during latest parsing process.
    *

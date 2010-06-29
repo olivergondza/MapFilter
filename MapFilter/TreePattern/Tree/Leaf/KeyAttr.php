@@ -1,6 +1,6 @@
 <?php
 /**
- * KeyAttr Pattern node
+ * KeyAttr Pattern node.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -27,7 +27,7 @@ require_once ( dirname ( __FILE__ ) . '/../Leaf/Interface.php' );
 require_once ( dirname ( __FILE__ ) . '/../Leaf/Exception.php' );
 
 /**
- * MapFilter pattern tree KeyAttribute node
+ * MapFilter pattern tree KeyAttribute node.
  *
  * @class       MapFilter_TreePattern_Tree_Leaf_KeyAttr
  * @ingroup     gtreepattern
@@ -49,11 +49,11 @@ implements
 {
 
   /**
-   * Fluent Method; Set content
+   * Fluent Method; Set content.
    *
    * @since     0.5.2
    *
-   * @param     Array           $content                A content to set
+   * @param     Array           $content                A content to set.
    *
    * @return    self
    */
@@ -68,8 +68,8 @@ implements
    *
    * @since     0.5.2
    *
-   * @param     Mixed           &$query                 A query
-   * @param     Array           &$asserts               Assertions
+   * @param     Mixed           &$query                 A query.
+   * @param     Array           &$asserts               Assertions.
    * @param     Mixed           $valueCandidate         
    *
    * @return    Bool

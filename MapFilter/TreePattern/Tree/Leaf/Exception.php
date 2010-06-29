@@ -21,7 +21,7 @@ require_once ( dirname ( __FILE__ ) . '/../../../../3rdParty/PureException.php' 
 /** @endcond */
 
 /**
- * MapFilter_TreePattern_Tree_Leaf Exceptions
+ * MapFilter_TreePattern_Tree_Leaf Exceptions.
  *
  * @class       MapFilter_TreePattern_Tree_Leaf_Exception
  * @ingroup     gtreepattern
@@ -46,7 +46,7 @@ class MapFilter_TreePattern_Tree_Leaf_Exception extends PureException {
   const ARRAY_ATTR_VALUE = 2;
   
   /**
-   * Exception messages
+   * Exception messages.
    */
   protected $messages = Array (
       self::SCALAR_ATTR_VALUE =>

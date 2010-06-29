@@ -1,8 +1,8 @@
 <?php
 /**
- * Pattern Leaf
+ * Pattern Leaf.
  *
- * Ancestor of Leaves
+ * Ancestor of Leaves.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -24,7 +24,7 @@ require_once ( dirname ( __FILE__ ) . '/../Tree.php' );
 require_once ( dirname ( __FILE__ ) . '/Leaf/Interface.php' );
 
 /**
- * Abstract class for pattern tree leaf
+ * Abstract class for pattern tree leaf.
  *
  * @class       MapFilter_TreePattern_Tree_Leaf
  * @ingroup     gtreepattern
@@ -41,7 +41,7 @@ implements
 {
 
   /**
-   * Node attribute
+   * Node attribute.
    *
    * @since     0.4
    *
@@ -50,7 +50,7 @@ implements
   protected $attribute = "";
   
   /**
-   * Attribute value
+   * Attribute value.
    *
    * @since     0.4
    *
@@ -59,7 +59,7 @@ implements
   protected $value = NULL;
   
   /**
-   * Attr default value
+   * Attr default value.
    *
    * @since     0.5.2
    *
@@ -68,7 +68,7 @@ implements
   protected $default = NULL;
   
   /**
-   * Attr value Pattern
+   * Attr value Pattern.
    *
    * @since     0.5.2
    *
@@ -88,7 +88,7 @@ implements
   protected $iterator = 'no';
 
   /**
-   * Node content
+   * Node content.
    *
    * @since     0.5.2
    *
@@ -97,7 +97,7 @@ implements
   protected $content = Array ();
 
   /**
-   * Get node followers
+   * Get node followers.
    *
    * @since     0.5.2
    *
@@ -153,13 +153,13 @@ implements
   }
 
   /**
-   * Determine whether the value is valid or not
+   * Determine whether the value is valid or not.
    *
    * @since             0.5.2
    *
    * @param             Mixed          &$valueCandidate
    *
-   * @return            Bool           Valid or not
+   * @return            Bool           Valid or not.
    */
   private function validateScalarValue ( &$valueCandidate ) {
   
@@ -177,7 +177,7 @@ implements
    *
    * @param             Mixed          &$valueCandidate
    *
-   * @return            Bool           Valid or not
+   * @return            Bool           Valid or not.
    */
   protected function validateValue ( &$valueCandidate ) {
   
@@ -234,15 +234,15 @@ implements
   }
 
   /**
-   * Assert type mismatch
+   * Assert type mismatch.
    *
    * If there is no match between a declared value type and the current
    * value type an exception is going to be risen.
    *
    * @since     0.5.2
    *
-   * @param     Bool            $isIterator             Is iterator or not
-   * @param     String          $valueType              Type of given value
+   * @param     Bool            $isIterator             Is iterator or not.
+   * @param     String          $valueType              Type of given value.
    *
    * @return    NULL
    *

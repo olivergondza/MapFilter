@@ -1,6 +1,6 @@
 <?php
 /**
- * Alias for KeyAttr Pattern leaf
+ * Alias for KeyAttr Pattern leaf.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter

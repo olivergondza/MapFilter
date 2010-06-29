@@ -1,6 +1,6 @@
 <?php
 /**
- * Opt Pattern node
+ * Opt Pattern node.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -17,7 +17,7 @@
 require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 
 /**
- * MapFilter pattern tree opt node
+ * MapFilter pattern tree opt node.
  *
  * @class       MapFilter_TreePattern_Tree_Node_Opt
  * @ingroup     gtreepattern

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to load and hold Pattern tree
+ * Class to load and hold Pattern tree.
  *
  * @since       0.1
  *
@@ -82,7 +82,7 @@ require_once ( dirname ( __FILE__ ) . '/Pattern/ResultInterface.php' );
 /** @endcond */
 
 /**
- * Class to load and hold Pattern tree
+ * Class to load and hold Pattern tree.
  *
  * @since       0.1
  *
@@ -101,7 +101,7 @@ class MapFilter_TreePattern implements
 {
 
   /**
-   * Pattern tree itself
+   * Pattern tree itself.
    *
    * @since     0.1
    *
@@ -111,7 +111,7 @@ class MapFilter_TreePattern implements
   private $patternTree = NULL;
 
   /**
-   * Validated data
+   * Validated data.
    *
    * @since     0.5
    *
@@ -121,7 +121,7 @@ class MapFilter_TreePattern implements
   private $results = Array ();
   
   /**
-   * Validation asserts
+   * Validation asserts.
    *
    * @since     0.5
    *
@@ -131,7 +131,7 @@ class MapFilter_TreePattern implements
   private $asserts = Array ();
   
   /**
-   * Validation flags
+   * Validation flags.
    *
    * @since     0.5
    *
@@ -143,7 +143,7 @@ class MapFilter_TreePattern implements
   /** @cond     INTERNAL */
 
   /**
-   * Data is url
+   * Data is url.
    *
    * @since     0.1
    *
@@ -152,7 +152,7 @@ class MapFilter_TreePattern implements
   const DATA_IS_URL = TRUE;
   
   /**
-   * Data is string
+   * Data is string.
    *
    * @since     0.1
    *
@@ -163,7 +163,7 @@ class MapFilter_TreePattern implements
   /** @endcond */
 
   /**
-   * Simple Factory Method to load data from string
+   * Simple Factory Method to load data from string.
    *
    * @since     0.1
    *
@@ -191,7 +191,7 @@ class MapFilter_TreePattern implements
   }
 
   /**
-   * Simple factory method to instantiate with loading the data from file
+   * Simple Factory Method to instantiate with loading the data from file.
    *
    * @since     0.1
    *
@@ -224,6 +224,7 @@ class MapFilter_TreePattern implements
    * Create a Pattern from the Pattern_Tree object.
    *
    * @since     0.1
+   *
    * @note New object is created with @b copy of given patternTree
    *
    * @param     MapFilter_TreePattern_Tree      $patternTree    A tree to use
@@ -307,7 +308,7 @@ class MapFilter_TreePattern implements
   /** @endcond */
   
   /**
-   * LibXml error to MapFilter_TreePattern_Exception mapping
+   * LibXml error to MapFilter_TreePattern_Exception mapping.
    *
    * @since     0.1
    *
@@ -320,7 +321,7 @@ class MapFilter_TreePattern implements
   );
   
   /**
-   * Load Xml source and create XmlElement
+   * Load Xml source and create XmlElement.
    *
    * @since     0.1
    *
@@ -374,7 +375,7 @@ class MapFilter_TreePattern implements
   /** @cond     INTERNAL */
 
   /**
-   * Valid XML structure tag
+   * Valid XML structure tag.
    * @{
    */
   const PATTERN = 'pattern';
@@ -388,7 +389,7 @@ class MapFilter_TreePattern implements
   /**@}*/
   
   /**
-   * Valid XML attribute
+   * Valid XML attribute.
    * @{
    */
   const ATTR_ATTR = 'attr';
@@ -403,7 +404,7 @@ class MapFilter_TreePattern implements
   /** @endcond */
   
   /**
-   * Node name Object type mapping
+   * Node name Object type mapping.
    *
    * @since     0.4
    *
@@ -419,7 +420,7 @@ class MapFilter_TreePattern implements
   );
   
   /**
-   * Attribute name Object setter mapping
+   * Attribute name Object setter mapping.
    *
    * @since     0.4
    *
@@ -436,11 +437,11 @@ class MapFilter_TreePattern implements
   );
   
   /**
-   * Determines whether a tag is valid
+   * Determines whether a tag is valid.
    *
    * @since     0.4
    *
-   * @param     String          $tag            A tag name to test
+   * @param     String          $tag            A tag name to test.
    *
    * @return    Bool            Valid or not
    */
@@ -452,12 +453,12 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Throw when there are some leftover attributes
+   * Throw when there are some leftover attributes.
    *
    * @since     0.4
    *
-   * @param     String          $tagName                A tag with attributes
-   * @param     Array           $attributes             Leftover attributes
+   * @param     String          $tagName                A tag with attributes.
+   * @param     Array           $attributes             Leftover attributes.
    *
    * @throws    MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE
    */
@@ -476,14 +477,14 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Obtain and remove attribute from an array of attributes
+   * Obtain and remove attribute from an array of attributes.
    *
    * @since     0.4
    *
-   * @param     Array   $attributes     Array of all provided attributes
-   * @param     String  $attribute      Attribute to obtain
+   * @param     Array   $attributes     Array of all provided attributes.
+   * @param     String  $attribute      Attribute to obtain.
    *
-   * @return    String|FALSE            Attribute name or false
+   * @return    String|FALSE            Attribute name or false.
    */
   private static function getAttribute ( Array &$attributes, $attribute ) {
   
@@ -501,13 +502,13 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Get tag name
+   * Get tag name.
    *
    * @since     0.4
    *
-   * @param     NotSoSimpleXmlElement   $xml            A node to validate
+   * @param     NotSoSimpleXmlElement   $xml            A node to validate.
    *
-   * @return    String                  New tag name
+   * @return    String                  New tag name.
    *
    * @throws    MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT
    */
@@ -528,15 +529,15 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Parse attributes of existing tag
+   * Parse attributes of existing tag.
    *
    * @since     0.4
    *
-   * @param     NotSoSimpleXmlEmement           $xml    A node to parse
-   * @param     MapFilter_TreePattern_Tree      $node   A pattern node to fill
-   * @param     String                          $tagName        A name of tag
+   * @param     NotSoSimpleXmlEmement           $xml    A node to parse.
+   * @param     MapFilter_TreePattern_Tree      $node   A pattern node to fill.
+   * @param     String                          $tagName        A name of tag.
    *
-   * @return    MapFilter_TreePattern_Tree      A pattern node with attributes
+   * @return    MapFilter_TreePattern_Tree      A pattern node with attributes.
    * @throws    MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE
    */
   private static function parseTagAttributes (
@@ -559,7 +560,7 @@ class MapFilter_TreePattern implements
 
       /**
       * Try to set an attribute or rise an exception when attribute is not
-      * supported
+      * supported.
       */
       try {
 
@@ -583,12 +584,12 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Create the node according to tag name
+   * Create the node according to tag name.
    *
    * @since     0.4
    *
-   * @param     String  $tagName        A tag name
-   * @param     Array   $followers      Set of followers to use as a content
+   * @param     String  $tagName        A tag name.
+   * @param     Array   $followers      Set of followers to use as a content.
    *
    * @return    MapFilter_TreePattern_Tree
    * @throws    MapFilter_TreePattern_Exception::INVALID_XML_CONTENT
@@ -621,13 +622,13 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Parse serialized pattern tree to its object implementation
+   * Parse serialized pattern tree to its object implementation.
    *
    * @since     0.4
    *
-   * @param     NotSoSimpleXmlElement           $xml    An element to parse
+   * @param     NotSoSimpleXmlElement           $xml    An element to parse.
    *
-   * @return    MapFilter_TreePattern_Tree      Parsed pattern
+   * @return    MapFilter_TreePattern_Tree      Parsed pattern.
    */
   private static function parseTree ( NotSoSimpleXmlElement $xml ) {
 
@@ -645,7 +646,7 @@ class MapFilter_TreePattern implements
 
     /**
      * Since Attr node can have its attribute in tag body this special check 
-     * is needed
+     * is needed.
      */
     if ( is_a ( $node, 'MapFilter_TreePattern_Tree_Leaf_Attr' ) ) {
 
@@ -669,13 +670,13 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * Unwrap not necessary \<pattern\> tags from very beginning and end of tree
+   * Unwrap not necessary \<pattern\> tags from very beginning and end of tree.
    *
    * @since     0.4
    *
-   * @param     NotSoSimpleXmlElement   $xmlElement     An element to unwrap
+   * @param     NotSoSimpleXmlElement   $xmlElement     An element to unwrap.
    *
-   * @return    NotSoSimpleXmlElement   Unwrapped element
+   * @return    NotSoSimpleXmlElement   Unwrapped element.
    * @throws    MapFilter_TreePattern_Exception
    */
   private static function unwrap ( NotSoSimpleXmlElement $xmlElement ) {

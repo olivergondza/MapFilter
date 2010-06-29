@@ -1,6 +1,6 @@
 <?php
 /**
- * MapFilter Null pattern
+ * MapFilter Null pattern.
  *
  * @since       0.5
  * 
@@ -13,7 +13,7 @@
  */
 
 /**
- * MapFilter Pattern
+ * MapFilter Pattern.
  *
  * @file        MapFilter/Pattern/Interface.php
  */
@@ -35,7 +35,7 @@ require_once ( dirname ( __FILE__ ) . '/FlagInterface.php' );
 require_once ( dirname ( __FILE__ ) . '/ResultInterface.php' );
 
 /**
- * A mock implementation basic MapFilter_Pattern interfaces
+ * A mock implementation of basic MapFilter_Pattern interfaces.
  *
  * @since       0.5
  *
@@ -54,7 +54,7 @@ class MapFilter_Pattern_Null implements
 {
 
   /**
-   * A parsed query to return by getResults()
+   * A parsed query to return by getResults().
    *
    * @since     0.5
    *
@@ -63,7 +63,7 @@ class MapFilter_Pattern_Null implements
   private $query = Array ();
 
   /**
-   * An empty constructor
+   * An empty constructor.
    *
    * @since     0.5
    *

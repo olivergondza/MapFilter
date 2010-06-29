@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract Pattern node; Ancestor of all pattern nodes
+ * Abstract Pattern node; Ancestor of all pattern nodes.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -22,7 +22,7 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
 require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
 
 /**
- * Internal pattern tree
+ * Internal pattern tree.
  *
  * @class       MapFilter_TreePattern_Tree
  * @ingroup     gtreepattern
@@ -35,7 +35,7 @@ abstract class MapFilter_TreePattern_Tree implements
 {
   
   /**
-   * Determine whether the node was already satisfied
+   * Determine whether the node was already satisfied.
    *
    * @since     0.3
    *
@@ -53,7 +53,7 @@ abstract class MapFilter_TreePattern_Tree implements
   private $valueFilter = NULL;
   
   /**
-   * Node flag
+   * Node flag.
    *
    * @since     0.3
    *
@@ -62,7 +62,7 @@ abstract class MapFilter_TreePattern_Tree implements
   protected $flag = NULL;
   
   /**
-   * Node assert
+   * Node assert.
    *
    * @since     0.3
    *
@@ -158,11 +158,11 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * Get valueFilter
+   * Get valueFilter.
    *
    * @since     0.3
    *
-   * @return    String          Node value filter
+   * @return    String          Node value filter.
    */
   protected function getValueFilter () {
   
@@ -182,12 +182,12 @@ abstract class MapFilter_TreePattern_Tree implements
   public function __construct () {}
   
   /**
-  * Set assertion value
+  * Set assertion value.
   *
   * @since      0.5.2
   *
   * @param      Array           $asserts
-  * @param      Mixed           $assertValue            An assert value to set
+  * @param      Mixed           $assertValue            An assert value to set.
   *
   * @return     NULL
   */
@@ -210,7 +210,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     0.4
    *
-   * @return    Bool            Satisfied or not
+   * @return    Bool            Satisfied or not.
    */
   protected function isSatisfied () {
   
@@ -222,10 +222,10 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     0.4
    *
-   * @param     String                  $attrName       Name of an attribute
-   * @param     Array|ArrayAccess       $query          Input array
+   * @param     String                  $attrName       Name of an attribute.
+   * @param     Array|ArrayAccess       $query          Input array.
    *
-   * @return    Bool                    Attribute present or not
+   * @return    Bool                    Attribute present or not.
    */
   protected static function attrPresent ( $attrName, $query ) {
     
@@ -251,7 +251,7 @@ abstract class MapFilter_TreePattern_Tree implements
   const FILTER_BOUNDARIES = '/^%s$/';
   
   /**
-   * PCRE filter delimiter
+   * PCRE filter delimiter.
    *
    * @since     0.3
    * 
@@ -266,10 +266,10 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     0.3
    *
-   * @param     Mixed           $valueCandidate 	A value to fit
-   * @param     String|NULL     $pattern                Value pattern
+   * @param     Mixed           $valueCandidate 	A value to fit.
+   * @param     String|NULL     $pattern                Value pattern.
    *
-   * @return    Bool            Does the value fit
+   * @return    Bool            Does the value fit.
    */
   protected function valueFits ( $valueCandidate, $pattern ) {
 

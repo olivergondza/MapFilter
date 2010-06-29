@@ -32,7 +32,7 @@ interface MapFilter_Pattern_ResultInterface {
    *
    * @since     0.5
    *
-   * @return    Array|ArrayAccess       Parsing results
+   * @return    Array|ArrayAccess       Parsing results.
    */
   public function getResults ();
 }

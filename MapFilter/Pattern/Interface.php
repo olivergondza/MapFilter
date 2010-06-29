@@ -1,6 +1,6 @@
 <?php
 /**
- * MapFilter_Pattern Interface
+ * MapFilter_Pattern Interface.
  *
  * @since       0.5
  *
@@ -13,7 +13,7 @@
  */
 
 /**
- * MapFilter_Pattern Interface
+ * MapFilter_Pattern Interface.
  *
  * @since       0.5
  *
@@ -34,7 +34,7 @@ interface MapFilter_Pattern_Interface {
    *
    * @since     0.5
    *
-   * @param     Array           $query          A user query
+   * @param     Array           $query          A user query.
    */
   public function parse ( $query );
 }

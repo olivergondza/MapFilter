@@ -22,7 +22,7 @@ require_once ( dirname ( __FILE__ ) . '/../Tree.php' );
 require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
 
 /**
- * Abstract class for pattern tree node,
+ * Abstract class for pattern tree node.
  *
  * @class       MapFilter_TreePattern_Tree_Node
  * @ingroup     gtreepattern
@@ -37,7 +37,7 @@ implements
 {
 
   /**
-   * Node Followers
+   * Node Followers.
    *
    * @since     0.3
    *
@@ -46,11 +46,11 @@ implements
   protected $content = Array ();
 
   /**
-   * Fluent Method; Set content
+   * Fluent Method; Set content.
    *
    * @since     0.3
    *
-   * @param     Array           $content                A content to set
+   * @param     Array           $content                A content to set.
    *
    * @return    self
    */
@@ -61,11 +61,11 @@ implements
   }
 
   /**
-   * Get node followers
+   * Get node followers.
    *
    * @since     0.3
    *
-   * @return    Array           Node content reference
+   * @return    Array           Node content reference.
    */
   public function &getContent () {
   
@@ -73,7 +73,7 @@ implements
   }
   
   /**
-   * PickUp Nodes
+   * PickUp Nodes.
    *
    * @since     0.3
    *
@@ -83,7 +83,7 @@ implements
 
     /**
      * Set an assertion for nodes that hasn't been satisfied and stop the
-     * recursion
+     * recursion.
      */
     if ( !$this->isSatisfied () ) {
 
@@ -125,9 +125,9 @@ implements
   }
   
   /**
-   * Clone node followers
+   * Clone node followers.
    *
-   * @note This method uses deep cloning
+   * @note This method uses deep cloning.
    *
    * @since     0.3
    */

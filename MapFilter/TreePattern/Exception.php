@@ -21,7 +21,7 @@ require_once ( dirname ( __FILE__ ) . '/../../3rdParty/PureException.php' );
 /** @endcond */
 
 /**
- * MapFilter_TreePattern Exceptions
+ * MapFilter_TreePattern Exceptions.
  *
  * @class       MapFilter_TreePattern_Exception
  * @ingroup     gtreepattern
@@ -60,7 +60,7 @@ class MapFilter_TreePattern_Exception extends PureException {
   const INVALID_PATTERN_ATTRIBUTE = 3;
   
   /**
-   * LibXML internal error
+   * LibXML internal error.
    *
    * @since     0.5
    *

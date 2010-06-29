@@ -1,6 +1,6 @@
 <?php
 /**
- * MapFilter_TreePattern_Tree_Node Interface
+ * MapFilter_TreePattern_Tree_Node Interface.
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
@@ -12,7 +12,7 @@
  */
 
 /**
- * MapFilter_TreePattern_Tree_Node Interface
+ * MapFilter_TreePattern_Tree_Node Interface.
  *
  * @class       MapFilter_TreePattern_Tree_Node_Interface
  * @ingroup     gtreepattern
@@ -28,11 +28,11 @@ interface MapFilter_TreePattern_Tree_Node_Interface {
   public function setContent ( Array $content );
 
   /**
-   * Get node followers reference
+   * Get node followers reference.
    *
    * @since     0.4
    *
-   * @return    Array           Node followers reference
+   * @return    Array           Node followers reference.
    */
   public function &getContent ();
 }

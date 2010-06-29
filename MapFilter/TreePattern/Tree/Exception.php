@@ -21,7 +21,7 @@ require_once ( dirname ( __FILE__ ) . '/../../../3rdParty/PureException.php' );
 /** @endcond */
 
 /**
- * MapFilter_TreePattern_Tree Exceptions
+ * MapFilter_TreePattern_Tree Exceptions.
  *
  * @class       MapFilter_TreePattern_Tree_Exception
  * @ingroup     gtreepattern

@@ -12,14 +12,14 @@
  */
 
 /**
- * MapFilter Interface
+ * MapFilter Interface.
  *
  * @file                MapFilter/Interface.php
  */
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Interface.php' );
 
 /**
- * MapFilter Null Pattern
+ * MapFilter Null Pattern.
  *
  * @file                MapFilter/Pattern/Null.php
  */
@@ -58,7 +58,7 @@ class MapFilter implements MapFilter_Interface {
   private $usedPattern = NULL;
 
   /**
-   * Read data / Query candidate
+   * Read data / Query candidate.
    *
    * @since     0.4
    *
@@ -68,7 +68,7 @@ class MapFilter implements MapFilter_Interface {
   private $query = Array ();
   
   /**
-   * Determine whether the filter configuration has been filtered
+   * Determine whether the filter configuration has been filtered.
    *
    * @since     0.4
    *
@@ -175,7 +175,9 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * Alias for getResults(). Just here for maintain backward compatibility
+   * Alias for getResults().
+   *
+   * Used for maintain backward compatibility.
    *
    * @since             0.1
    *
@@ -200,7 +202,7 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * Just here for maintain backward compatibility
+   * Just here for maintain backward compatibility.
    *
    * @note There is no replacement for this method since it has become
    * unnecessary
