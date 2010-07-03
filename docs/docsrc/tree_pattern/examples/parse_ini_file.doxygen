@@ -1,0 +1,6 @@
+/**
+@page           tpexampleparseinifile          Parse .ini file example
+
+@include        sources/parse_ini_file.xml
+@include        sources/parse_ini_file.ini
+*/

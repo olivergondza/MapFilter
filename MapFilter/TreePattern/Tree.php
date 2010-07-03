@@ -2,13 +2,31 @@
 /**
  * Abstract Pattern node; Ancestor of all pattern nodes.
  *
- * @author      Oliver Gondža
- * @link        http://github.com/olivergondza/MapFilter
- * @license     LGPL
- * @copyright   2009-2010 Oliver Gondža
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.3
+ * PHP Version 5.1.0
+ *
+ * This file is part of MapFilter package.
+ *
+ * MapFilter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *                
+ * MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *                              
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
+ *                              
+ * @category Pear
+ * @package  MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.3
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 
 /**
@@ -24,15 +42,28 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
 /**
  * Internal pattern tree.
  *
- * @class       MapFilter_TreePattern_Tree
- * @ingroup     gtreepattern
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.3
+ * @category Pear
+ * @package  MapFilter
+ * @class    MapFilter_TreePattern_Tree
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * @link     http://github.com/olivergondza/MapFilter
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.3
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 abstract class MapFilter_TreePattern_Tree implements
     MapFilter_TreePattern_Tree_Interface
 {
+
+  /**
+   * Tree pattern reference.
+   *
+   * @since     0.5.3
+   *
+   * @var       MapFilter_TreePattern_Interface         $_pattern
+   */
+  private $_pattern = NULL;
   
   /**
    * Determine whether the node was already satisfied.
@@ -69,6 +100,24 @@ abstract class MapFilter_TreePattern_Tree implements
    * @var       String          $assert
    */
   protected $assert = NULL;
+  
+  /**
+   * Node content.
+   *
+   * @since     0.5.2
+   *
+   * @var       Array           $content
+   */
+  protected $content = Array ();
+  
+  /**
+   * Attache pattern.
+   *
+   * @since     0.5.3
+   *
+   * @var       String          $attachPattern
+   */
+  protected $attachPattern = NULL;
   
   /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
@@ -123,7 +172,7 @@ abstract class MapFilter_TreePattern_Tree implements
         Array ( $iterator )
     );
   }
-  
+
   /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setValueFilter()}
    */
@@ -158,6 +207,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttachPattern}
+   */
+  public function setAttachPattern ( $attachPattern ) {
+  
+    assert ( is_string ( $attachPattern ) );
+    
+    $this->attachPattern = $attachPattern;
+    return $this;
+  }
+  
+  /**
    * Get valueFilter.
    *
    * @since     0.3
@@ -170,11 +230,40 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * Empty constructor.
+   * Get node followers.
    *
    * @since     0.3
    *
-   * All setting is done by Fluent Methods.
+   * @return    Array           Node content reference.
+   */
+  public function &getContent () {
+  
+    $this->attachPattern ();
+  
+    return $this->content;
+  }
+  
+  /**
+   * @copyfull{MapFilter_TreePattern_Tree_Interface::setTreePattern}
+   */
+  public function setTreePattern ( MapFilter_TreePattern $pattern ) {
+  
+    $this->_pattern = $pattern;
+    
+    foreach ( $this->content as $follower ) {
+    
+      $follower->setTreePattern ( $pattern );
+    }
+    
+    return $this;
+  }
+  
+  /**
+   * Create new tree instance.
+   *
+   * @since     0.3
+   *
+   * Setting is done by Fluent Methods.
    *
    * @see       setAssert(), setFlag(), setValueFilter(), setValuePattern(),
    *            setContent(), setDefault() or setAttribute()
@@ -299,4 +388,40 @@ abstract class MapFilter_TreePattern_Tree implements
     
     return (Bool) $matchCount;
   }
+  
+  /**
+   * Actually attach a side pattern if needed.
+   *
+   * @since     0.5.3
+   *
+   * @return    NULL
+   */
+  protected function attachPattern () {
+  
+    if ( $this->attachPattern === NULL ) return;
+    
+    if ( $this->content !== Array () ) return;
+
+    $this->content = Array (
+        $this->_pattern->getSidePattern ( $this->attachPattern )
+    );
+  }
+  
+  /**
+   * Convert iterator to an array.
+   *
+   * @since             0.5.2
+   *
+   * @param             Mixed     $valueCandidate
+   * 
+   * @return            Mixed
+   */
+  protected function convertIterator ( $valueCandidate ) {
+
+    return ( $valueCandidate instanceof Iterator )
+        ? iterator_to_array ( $valueCandidate, FALSE )
+        : $valueCandidate
+    ;
+  }
 }
+

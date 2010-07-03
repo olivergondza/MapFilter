@@ -1,0 +1,17 @@
+<!--
+-->
+<patterns>
+  <pattern>
+    <node_attr attr="steps" iterator="yes">
+      <one>
+        <attr valuePattern="left|right">turn</attr>
+        <node_attr attr="walk">
+          <one>
+            <attr valuePattern="\d*">metres</attr>
+            <attr valuePattern="\d*">yards</attr>
+          </one>
+        </node_attr>
+      </one>
+    </node_attr>
+  </pattern>
+</patterns>

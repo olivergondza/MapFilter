@@ -2,23 +2,45 @@
 /**
  * Interface for MapFilter pattern tree leaves.
  *
- * @author      Oliver Gondža
- * @link        http://github.com/olivergondza/MapFilter
- * @license     LGPL
- * @copyright   2009-2010 Oliver Gondža
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.4
+ * PHP Version 5.1.0
+ *
+ * This file is part of MapFilter package.
+ *
+ * MapFilter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *                
+ * MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *                              
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
+ *                              
+ * @category Pear
+ * @package  MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.4
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 
 /**
  * Interface for MapFilter pattern tree leaves.
  *
- * @class       MapFilter_TreePattern_Tree_Leaf_Interface
- * @ingroup     gtreepattern
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.4
+ * @category Pear
+ * @package  MapFilter
+ * @class    MapFilter_TreePattern_Tree_Leaf_Interface
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.4
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 interface MapFilter_TreePattern_Tree_Leaf_Interface {
 
@@ -40,17 +62,4 @@ interface MapFilter_TreePattern_Tree_Leaf_Interface {
    * @see       setAttribute()
    */
   public function getAttribute ();
-  
-  /**
-  * Possible iterator values.
-  *
-  * @since      0.5.2
-  *
-  * @var        String
-  * @{
-  */
-  const ITERATOR_VALUE_NO = 'no';
-  const ITERATOR_VALUE_YES = 'yes';
-  const ITERATOR_VALUE_AUTO = 'auto';
-  /**@}*/
 }

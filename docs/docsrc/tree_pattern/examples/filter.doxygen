@@ -1,0 +1,5 @@
+/**
+@page           tpexamplefilter         Filter example
+
+@include        sources/filter.xml
+*/

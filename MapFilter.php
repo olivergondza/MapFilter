@@ -2,13 +2,31 @@
 /**
  * Class to filter key-value data structures.
  *
- * @package     MapFilter
- * @subpackage  Filter
- * @author      Oliver Gondža
- * @copyright   2009-2010 Oliver Gondža
- * @license     LGPL
- * @link        http://github.com/olivergondza/MapFilter
- * @since       0.1
+ * PHP Version 5.1.0
+ *
+ * This file is part of MapFilter package.
+ *
+ * MapFilter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *                
+ * MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *                              
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Pear
+ * @package  MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ *
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.1
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 
 /**
@@ -26,14 +44,24 @@ require_once ( dirname ( __FILE__ ) . '/MapFilter/Interface.php' );
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php' );
 
 /**
+ * Package Exceptions
+ *
+ * @file                MapFilter/Exception.php
+ */
+require_once ( dirname ( __FILE__ ) . '/MapFilter/Exception.php' );
+
+/**
  * Class to filter key-value data structures.
  *
- * @class       MapFilter
- * @ingroup     gfilter
- * @package     MapFilter
- * @subpackage  Filter
- * @author      Oliver Gondža
- * @since       0.1
+ * @category Pear
+ * @package  MapFilter
+ * @class    MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ *
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.1
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 class MapFilter implements MapFilter_Interface {
 
@@ -172,59 +200,5 @@ class MapFilter implements MapFilter_Interface {
   public function getFlags () {
   
     return $this->fetchResult ()->getFlags();
-  }
-  
-  /**
-   * Alias for getResults().
-   *
-   * Used for maintain backward compatibility.
-   *
-   * @since             0.1
-   *
-   * @deprecated        since 0.2
-   * @see               getResults()
-   */
-  public function fetch () {
-  
-    $level = ( defined ( 'E_USER_DEPRECATED' ) )
-        ? E_USER_DEPRECATED
-        : E_USER_NOTICE
-    ;
-
-    $message = sprintf (
-        '%s::%s () is deprecated. Use %s::getResults () instead.',
-        __CLASS__, __FUNCTION__, __CLASS__
-    );
-  
-    trigger_error ( $message, $level );
-    
-    return $this->getResults ();
-  }
-  
-  /**
-   * Just here for maintain backward compatibility.
-   *
-   * @note There is no replacement for this method since it has become
-   * unnecessary
-   *
-   * @since             0.1
-   *
-   * @deprecated        since 0.5
-   */
-  public function parse () {
-  
-    $level = ( defined ( 'E_USER_DEPRECATED' ) )
-        ? E_USER_DEPRECATED
-        : E_USER_NOTICE
-    ;
-
-    $message = sprintf (
-        '%s::%s () is deprecated.',
-        __CLASS__, __FUNCTION__
-    );
-  
-    trigger_error ( $message, $level );
-    
-    $this->_filter ();
   }
 }

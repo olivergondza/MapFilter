@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>MapFilter</name>
+ <uri>http://olivergondza.github.com/MapFilter/user/html/index.html</uri>
+ <summary>MapFilter is an extensible tool to filter key-value data structures such as associative arrays (maps or hash tables) in PHP5.</summary>
+ <description>MapFilter package is distributed with default Pattern implementation. MapFilter_TreePattern enables to enforce relations between groups of data Keys, Keys and allowed Values or Values and Keys from simple Key or Value -based whitelisting to more complex structures.</description>
+ <lead>
+  <name>Oliver Gondža</name>
+  <user>ogondza</user>
+  <email>324706@mail.muni.cz</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-07-07</date>
+ <time>23:01:54</time>
+ <version>
+  <release>0.5.3</release>
+  <api>0.5.3</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+ <notes>
+First release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/PHP" name="/">
+   <file baseinstalldir="/PHP" md5sum="b6eb87b73e72d0b2c9ec6fb4ccc63c03" name="docs/phpdoc_internal.ini" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="cfdd799f5380894feb27272a47c18909" name="docs/phpdoc_programmer.ini" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="9184c93d05903287868df0a75b3cef11" name="docs/phpdoc_user.ini" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="d986435439c880a0ea396aa2780a1141" name="docs/doc/index.html" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="1291037bedb2d17389d7870380137a2f" name="docs/doc/style.css" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="8a7d7f6b8d703fe3679cebc5f99da5ed" name="docs/docsrc/faq.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="d5d5052317165796f0ff2cc56c80ba98" name="docs/docsrc/groups.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="80be019d158999ca30cec3020b29db7d" name="docs/docsrc/main.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="b672d2b1060e38e50c3bf9671910e795" name="docs/docsrc/tree_pattern.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="edd850cb324dfd9ae689f71d0d4d9fab" name="docs/docsrc/usage.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="84a8a860f9b973b3d91d8d6868d8aaa0" name="docs/docsrc/tree_pattern/elements.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="2ce82b7defc2fe5e34242fa796b86f91" name="docs/docsrc/tree_pattern/syntax.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="eeb3f7067ac535c26fefc620f5593b1c" name="docs/docsrc/tree_pattern/treee_xamples.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="dc2ef70d5a2660ebc8bdc9f9f9dcba24" name="docs/docsrc/tree_pattern/usage_examples.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="8efbfd9479a2acc0493afeff9ae9e4e6" name="docs/docsrc/tree_pattern/examples/action.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="27c7d69a14e8555887a0f839ef2a7860" name="docs/docsrc/tree_pattern/examples/coffee_maker.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="343d2a66e9faab09b05917b4029520bd" name="docs/docsrc/tree_pattern/examples/direction.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="a79e10f37ffaea3b26dffe0977edfd19" name="docs/docsrc/tree_pattern/examples/duration.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="0481651970041afb276d979741fcb0ce" name="docs/docsrc/tree_pattern/examples/filter.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="b9f11c587a928b474f0d6a53936356cd" name="docs/docsrc/tree_pattern/examples/generator.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="97f92693b7111c8fe1bb35cca8ba5463" name="docs/docsrc/tree_pattern/examples/location.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="09d7666f1c878e47d7a4c425e79f68a3" name="docs/docsrc/tree_pattern/examples/login.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="36d8a2f040220cf8a8b60d84c457b86a" name="docs/docsrc/tree_pattern/examples/parse_ini_file.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="5c7b94db5b348e3424649baca0f0ed4e" name="docs/docsrc/tree_pattern/examples/pathway.doxygen" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="aa4172c6979c6ea38984b8969684e8e1" name="docs/doxygen/footer.html" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="2e7a2cbaa77a16229bbdf27e7497c092" name="docs/doxygen/internal.ini" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="8beb4a0d9212bbde6d2e473e7a242ca2" name="docs/doxygen/layout.xml" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="a933914788db8f96b07c0b03db6c405c" name="docs/doxygen/programmer.ini" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="ddbd1deb0c3806c9b5909b20d386de95" name="docs/doxygen/style.css" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="2d7306af3bf1693e37a9fb91c7dbee65" name="docs/doxygen/user.ini" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="e711fd5a5523952d8120d09a76144120" name="docs/doxygen/warn.log" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="8a31bcd7ef68fba85717812cb2cb60d2" name="docs/doxygen/header/internal.html" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="1142135038de89431748ac392ec072f2" name="docs/doxygen/header/programmer.html" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="f32fe4473aa099cfeed77fbd58ea6946" name="docs/doxygen/header/user.html" role="doc" />
+   <file baseinstalldir="/PHP" md5sum="343b84d8a39fa505ec2fb0ac9e0cfa99" name="MapFilter/Exception.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="281ee2d3d0caeef0e2d874e70009448e" name="MapFilter/Interface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="c06e316581838b8973b747b57d7ad273" name="MapFilter/TreePattern.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="9367d2e7978797df5cb519a67367e311" name="MapFilter/Pattern/AssertInterface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="e9aec8a3f3cb1457f0372ca7bff0e061" name="MapFilter/Pattern/FlagInterface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="343226ada8608af3b2e03eb5f6ca81ef" name="MapFilter/Pattern/Interface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="9aed7d001ac2eb68e05f5eb5ba3f4b83" name="MapFilter/Pattern/Null.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="1bb301f89160d29a6b44fd1c8a17a5b4" name="MapFilter/Pattern/ResultInterface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="92ebf73581f888b500c66703c2301fdf" name="MapFilter/TreePattern/Deserialize.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="7328e1ee61bd9ce537dfd6255fffe2d1" name="MapFilter/TreePattern/Exception.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="f1be45e5f7e46e98e330bbda0f289782" name="MapFilter/TreePattern/Tree.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="2a1f64feec9f1ce4c1088666ed88aacb" name="MapFilter/TreePattern/Tree/Exception.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="cb2ff932394b58811b9994183764c612" name="MapFilter/TreePattern/Tree/Interface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="a1d5c877afcfad820c787284d16d95b9" name="MapFilter/TreePattern/Tree/Leaf.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="6031f355e6f6a1f8a6ad0c3a4c18e701" name="MapFilter/TreePattern/Tree/Node.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="2dc9e5c5735afbb172ad0e60d67673a1" name="MapFilter/TreePattern/Tree/Leaf/Attr.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="6b9b6358b6ad65e139856e1d55dd1ef7" name="MapFilter/TreePattern/Tree/Leaf/Exception.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="67910e36ea473084ee0d628dfe08f53c" name="MapFilter/TreePattern/Tree/Leaf/Interface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="b2cdcc419689ad13e3ec9997e7a189c9" name="MapFilter/TreePattern/Tree/Leaf/KeyAttr.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="c4daacea758c97f1b233edc418068309" name="MapFilter/TreePattern/Tree/Node/All.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="9353ebb5312b190b69c1514b50e044c8" name="MapFilter/TreePattern/Tree/Node/Interface.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="3ebc664719267c7a13c5ba314e9778ca" name="MapFilter/TreePattern/Tree/Node/NodeAttr.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="18e3828ecb4a59eafa5d9b6fb4d0585f" name="MapFilter/TreePattern/Tree/Node/One.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="7ea1ac894e7be83c020b864d5d0d5d8d" name="MapFilter/TreePattern/Tree/Node/Opt.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="2a739e2a0c670cc5f1e81d247c948875" name="MapFilter/TreePattern/Tree/Node/Some.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="d57f821c4bb705b42bdc433917da143f" name="tests/bootstrap.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="f3477a8a91c9e6a46a45fa6f848587be" name="tests/phpunit.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="7e96e68526cb264a362420218f812797" name="tests/sources/action.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="acfae79507dc88023510a69719cd2198" name="tests/sources/coffee_maker.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="96391810e655da99800065fc2e18f7cc" name="tests/sources/direction.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="c48fc386769f566e3bf2da69d816faf7" name="tests/sources/duration.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="6ada23e62a4fbac5e57621909ac97593" name="tests/sources/filter.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="48f6bc49bfbd91862de7d601d796530b" name="tests/sources/generator.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="c61bf1293930460c32c9f7be2a36b417" name="tests/sources/location.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="27b6ad0a82e4316e1a72844e396bbf53" name="tests/sources/login.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="b3d89e40769bb8f3b54982927bb9acae" name="tests/sources/parse_ini_file.ini" role="test" />
+   <file baseinstalldir="/PHP" md5sum="5e675357f95d2d09aeaad2a3f5b55b50" name="tests/sources/parse_ini_file.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="656a305776435a340e3f86247c44892e" name="tests/sources/pathway.xml" role="test" />
+   <file baseinstalldir="/PHP" md5sum="b205023ae900e200d5b9c1a2779c9371" name="tests/Unit/MapFilter.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="d73c868deab523373a307fa22dc9b59d" name="tests/Unit/TreePattern.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="0df7db93ffc80e85db6051225d3c9e14" name="tests/Unit/MapFilter/Pattern.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="832fcad8545311efd3f5eeb0128d5a0a" name="tests/Unit/TreePattern/All.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="045e41c41f6ee5c1fbae0e33bc8bc576" name="tests/Unit/TreePattern/Attr.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="d75299d6ac4d31809013f55210cb62c5" name="tests/Unit/TreePattern/KeyAttr.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="17fc7beec1c385a2409c78b6ce984a0d" name="tests/Unit/TreePattern/NodeAttr.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="4ee61e76d06a59cd56d5e488d118f051" name="tests/Unit/TreePattern/One.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="02ca627359ca35355b30bf267eeb3004" name="tests/Unit/TreePattern/Opt.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="314b2370de4e91cedf3743bca57f066e" name="tests/Unit/TreePattern/Some.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="545a804701e44835b9103145b0b21b20" name="tests/User/MapFilter.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="bbb6701c6e3634c8acedb969e2b4141c" name="tests/User/TreePattern.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="40381f20502d487259f2799fbd547f70" name="tests/User/TreePattern/Action.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="d0d467294372dc624676c5d61e571d00" name="tests/User/TreePattern/CofeeMaker.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="e6562bc972dd6f8af91ce788fccd8e70" name="tests/User/TreePattern/Direction.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="d7e5726f78d3049dc64450ed235102c6" name="tests/User/TreePattern/Duration.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="02c16d26e19e042e5cba7b8d29764204" name="tests/User/TreePattern/Filter.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="f3717e73376b3aa6f32d1a98348b3072" name="tests/User/TreePattern/Generator.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="1b210595ea899b9dc13bf26af6c4e647" name="tests/User/TreePattern/Location.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="fcfa467647c95b1f9dccea2ca3cc6cb3" name="tests/User/TreePattern/Login.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="d23fb73cdb63adddae2a7c9ad0cc8bdf" name="tests/User/TreePattern/ParseIniFile.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="321a75be4be99d6ab9a1b84d525e2acd" name="tests/User/TreePattern/Pathway.test.php" role="test" />
+   <file baseinstalldir="/PHP" md5sum="fc27c0a79ee0861f8d2022d28fc69988" name="MapFilter.php" role="php" />
+   <file baseinstalldir="/PHP" md5sum="7cce75cb213ed24181151d64620c4b0d" name="README" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.5.3</release>
+    <api>0.5.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-07-07</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+First release.
+   </notes>
+  </release>
+ </changelog>
+</package>

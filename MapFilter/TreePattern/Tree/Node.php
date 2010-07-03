@@ -2,13 +2,31 @@
 /**
  * Ancestor of pattern tree nodes.
  *
- * @author      Oliver Gondža
- * @link        http://github.com/olivergondza/MapFilter
- * @license     LGPL
- * @copyright   2009-2010 Oliver Gondža
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.3
+ * PHP Version 5.1.0
+ *
+ * This file is part of MapFilter package.
+ *
+ * MapFilter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *                
+ * MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *                              
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Pear
+ * @package  MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.3
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 
 /**
@@ -24,26 +42,21 @@ require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
 /**
  * Abstract class for pattern tree node.
  *
- * @class       MapFilter_TreePattern_Tree_Node
- * @ingroup     gtreepattern
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.3
+ * @category Pear
+ * @package  MapFilter
+ * @class    MapFilter_TreePattern_Tree_Node
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.3
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 abstract class MapFilter_TreePattern_Tree_Node extends
     MapFilter_TreePattern_Tree
 implements
     MapFilter_TreePattern_Tree_Node_Interface
 {
-
-  /**
-   * Node Followers.
-   *
-   * @since     0.3
-   *
-   * @var       Array           $content
-   */
-  protected $content = Array ();
 
   /**
    * Fluent Method; Set content.
@@ -59,18 +72,6 @@ implements
     $this->content = $content;
     return $this;
   }
-
-  /**
-   * Get node followers.
-   *
-   * @since     0.3
-   *
-   * @return    Array           Node content reference.
-   */
-  public function &getContent () {
-  
-    return $this->content;
-  }
   
   /**
    * PickUp Nodes.
@@ -81,14 +82,7 @@ implements
    */
   public function pickUp ( Array $result ) {
 
-    /**
-     * Set an assertion for nodes that hasn't been satisfied and stop the
-     * recursion.
-     */
-    if ( !$this->isSatisfied () ) {
-
-      return Array ();
-    }
+    if ( !$this->isSatisfied () ) return Array ();
   
     foreach ( $this->getContent () as $follower ) {
 
@@ -106,14 +100,14 @@ implements
    */
   public function pickUpFlags ( Array $flags ) {
   
-    if ( !$this->isSatisfied () ) {
-    
-      return $flags;
-    }
+    if ( !$this->isSatisfied () ) return $flags;
     
     if ( $this->flag !== NULL ) {
     
-      $flags[] = $this->flag;
+      if ( !in_array ( $this->flag, $flags ) ) {
+       
+        $flags[] = $this->flag;
+      }
     }
     
     foreach ( $this->getContent () as $follower ) {
@@ -133,9 +127,8 @@ implements
    */
   public function __clone () {
   
-    $content = $this->getContent ();
-    foreach ( $content as &$follower ) {
-    
+    foreach ( $this->content as &$follower ) {
+
       $follower = clone ( $follower );
     }
   }

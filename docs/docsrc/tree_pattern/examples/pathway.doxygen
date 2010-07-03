@@ -1,0 +1,5 @@
+/**
+@page           tpexamplepathway                Pathway example
+
+@include        sources/pathway.xml
+*/

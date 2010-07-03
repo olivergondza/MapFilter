@@ -1,0 +1,5 @@
+/**
+@page           tpexampleaction         Action Example
+
+@include        sources/action.xml
+*/

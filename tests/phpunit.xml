@@ -1,0 +1,9 @@
+<phpunit
+    colors="true"
+    bootstrap="bootstrap.test.php">
+  <testsuites>
+    <testsuite name="MapFilter">
+      <directory suffix=".test.php">.</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

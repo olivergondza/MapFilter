@@ -1,0 +1,5 @@
+/**
+@page           tpexamplelocation               Location exmple
+
+@include        sources/location.xml
+*/

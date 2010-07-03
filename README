@@ -16,7 +16,20 @@ Keys, Keys and allowed Values or Values and Keys from simple Key or Value
 License
 -------
 
-GNU GPLv3
+LGPL
+
+MapFilter is free software: you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at
+your option) any later version.
+
+MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
 
 
 Author
@@ -37,20 +50,20 @@ supporting classes can be found in doc/internal/ directory.
 Use:
 
 
-$ cd user/
-$ doxygen doxygen_user.ini
+$ cd docs/
+$ doxygen doxygen/user.ini
 
     To generate doc/user/html/
 
 
-$ cd user/
-$ doxygen doxygen_programmer.ini
+$ cd docs/
+$ doxygen doxygen/programmer.ini
 
     To generate doc/programmer/html/
 
 
-$ cd user/
-$ doxygen doxygen_internal.ini
+$ cd docs/
+$ doxygen doxygen/internal.ini
 
     To generate doc/internal/html/
 

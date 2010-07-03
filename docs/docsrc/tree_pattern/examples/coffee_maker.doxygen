@@ -1,0 +1,5 @@
+/**
+@page           tpexamplecoffeemaker    Coffee maker example
+
+@include        sources/coffee_maker.xml
+*/

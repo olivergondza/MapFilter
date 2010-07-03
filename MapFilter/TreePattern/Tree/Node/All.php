@@ -2,13 +2,31 @@
 /**
  * All Pattern node.
  *
- * @author      Oliver Gondža
- * @link        http://github.com/olivergondza/MapFilter
- * @license     LGPL
- * @copyright   2009-2010 Oliver Gondža
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.4
+ * PHP Version 5.1.0
+ *
+ * This file is part of MapFilter package.
+ *
+ * MapFilter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *                
+ * MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *                              
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Pear
+ * @package  MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.4
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 
 /**
@@ -19,11 +37,15 @@ require_once ( dirname ( __FILE__ ) . '/../Node.php' );
 /**
  * MapFilter pattern tree all node.
  *
- * @class       MapFilter_TreePattern_Tree_Node_All
- * @ingroup     gtreepattern
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.4
+ * @category Pear
+ * @package  MapFilter
+ * @class    MapFilter_TreePattern_Tree_Node_All
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.4
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 final class MapFilter_TreePattern_Tree_Node_All extends
     MapFilter_TreePattern_Tree_Node
@@ -40,6 +62,8 @@ final class MapFilter_TreePattern_Tree_Node_All extends
    */
   public function satisfy ( &$query, Array &$asserts ) {
   
+    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
+
     foreach ( $this->getContent () as $follower ) {
       
       if ( !$follower->satisfy ( $query, $asserts ) ) {

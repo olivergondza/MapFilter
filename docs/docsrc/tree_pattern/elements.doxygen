@@ -1,0 +1,121 @@
+/**
+@page	        treepatternelements     TreePattern  Elements
+
+	Pattern tree structure consists of several types of nodes and
+currently one type of tree leaf.
+
+@section	leaves			Leaves
+
+	@subsection	attrleaf		Attr leaf
+
+		Attr leave specifies attribute itself, its @ref
+valuepatternattr "valuePattern" and pattern @ref defaultattr "default" value. 
+Attr leaf is satisfied when its attribute occurs in user query and its value
+matches the optional pattern defined by @ref valuepatternattr "valuePattern"
+attribute.  When this does not happen this node still can be satisfied if
+its default value is sat: attribute will have that default value and leaf
+will be satisfied.
+
+        @subsection	keyattrleaf		KeyAttr leaf
+
+		This attribute defines one attribute (<tt>attr</tt>) that
+must be present, depending on value of this attribute one of its followers
+will be chosen to satisfy.  All its followers can define attribute @ref
+forvalueattr "forValue" containing regular expression to match attribute
+value.  When matching follower will be satisfied, KeyAttr node will be
+satisfied as well.
+
+@section	nodes			Nodes
+
+	There are four so-called Policy nodes (@ref allnode "All", @ref
+onenode "One", @ref optnode "Opt" and @ref somenode "Some") that specifies
+data attribute relations.  @ref keyattrleaf "KeyAttr" node defines value-key
+relations between key attribute and its possible value patterns.  @ref
+nodeattrnode "NodeAttr" node defines an attribute its value is an another
+array/iterator.
+
+	@subsection 	allnode		 	All node
+
+		The @c All node needs all its followers satisfied to get
+satisfied itself.
+
+	@subsection	optnode			Opt node
+
+		The @c Opt node hasn't any conditions. Occurrence of its
+followers is completely optional.
+
+	@subsection	onenode			One node
+
+		The @c One node needs exactly one satisfied follower. 
+
+	@subsection	somenode		Some node
+
+		The @c Some node needs at least one satisfied follower.
+
+        @subsection     nodeattrnode            NodeAttr node
+
+                The @c NodeAttr node decalres an attribute is's value in
+user query must be an associative array (or array of associtve array in case
+iterator attribute is set to 'yes').  Using this structure enables filtering
+of structures with tree-like topology.
+
+@section	attributes	TreePattern Common Attributes
+
+
+	Following attributes are shared with all TreePattern elements.
+
+	@subsection	forvalueattr	        Attribute forValue
+
+		A @c forValue attribute specifies @c valueFilter for @ref
+keyattrleaf "KeyAttr" node follower.  According to this filter follower to
+satisfy is going to be chosen.
+
+		@note The @c filter in the name of an attribute has nothing
+to do with @c filter in the name of the %MapFilter class.
+
+	@subsection	flagattr		Attribute flag
+
+		A @c flag attribute specifies a flag to set for the node if the
+node get satisfied.
+
+	@subsection	assertattr		Attribute assert
+		
+		An @c assert attribute specifies an assertion to set for the
+node if the node won't get satisfied even though its parent was satisfied.
+
+        @subsection     attachpatternattr       Attribute attachPattern
+
+                A @c attachPattern attribute specifies a pattern to attach
+into the node to become its regular content.
+
+@section	attrattributes	        TreePattern Attr leaf attributes
+
+	Attributes specific for Attribute TreePattern elements. Currently it
+involves @ref attrleaf "Attr" leaf and @ref keyattrleaf "KeyAttr" node.
+
+	@subsection	attrattr		Attribute attr
+
+		An @c attr attribute of @ref keyattrleaf "KeyAttr" node
+specifies key attribute that is going to be used to follower determination. 
+As an optional @ref attrleaf "Attr" leaf attribute it specifies attribute name.
+
+        @subsection     iteratorattr            Attribute iterator
+
+                An @c iterator attribute determines that the value of the
+attribute is an array/iterator instead of a scalar value.  Allowed values
+for this attribute are @c no for the scalar value, @c yes
+for an array or @c auto for automatic detection between the two mentioned
+alternatives.
+
+	@subsection	defaultattr	        Attribute default
+
+		A @c default attribute determines value that is going to be
+used as a key value in case attribute won't get satisfied.  This value is
+going to be wraped into the array if the node was declared to be an @ref
+iteratorattr "iterator".
+
+	@subsection	valuepatternattr	Attribute valuePattern
+
+		A @c valuePattern attribute determines pattern to match for
+key value.
+*/

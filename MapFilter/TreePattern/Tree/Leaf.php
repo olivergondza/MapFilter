@@ -2,15 +2,33 @@
 /**
  * Pattern Leaf.
  *
- * Ancestor of Leaves.
+ * PHP Version 5.1.0
  *
- * @author      Oliver Gondža
- * @link        http://github.com/olivergondza/MapFilter
- * @license     LGPL
- * @copyright   2009-2010 Oliver Gondža
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.4
+ * This file is part of MapFilter package.
+ *
+ * This file is part of MapFilter package.
+ *
+ * MapFilter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *                
+ * MapFilter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *                              
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Pear
+ * @package  MapFilter
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.4
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 
 /**
@@ -26,11 +44,15 @@ require_once ( dirname ( __FILE__ ) . '/Leaf/Interface.php' );
 /**
  * Abstract class for pattern tree leaf.
  *
- * @class       MapFilter_TreePattern_Tree_Leaf
- * @ingroup     gtreepattern
- * @package     MapFilter
- * @subpackage  TreePattern
- * @since       0.4
+ * @category Pear
+ * @package  MapFilter
+ * @class    MapFilter_TreePattern_Tree_Leaf
+ * @author   Oliver Gondža <324706@mail.muni.cz>
+ * 
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @since    0.4
+ *
+ * @link     http://github.com/olivergondza/MapFilter
  */
 abstract class
     MapFilter_TreePattern_Tree_Leaf
@@ -75,7 +97,7 @@ implements
    * @var       String          $valuePattern
    */
   protected $valuePattern = NULL;
-  
+
   /**
    * Determine whether a value is scalar or an array/iterator.
    *
@@ -86,27 +108,6 @@ implements
    * @var       String          $iterator
    */
   protected $iterator = 'no';
-
-  /**
-   * Node content.
-   *
-   * @since     0.5.2
-   *
-   * @var       Array           $content
-   */
-  protected $content = Array ();
-
-  /**
-   * Get node followers.
-   *
-   * @since     0.5.2
-   *
-   * @return    Array           Node content reference
-   */
-  public function &getContent () {
-  
-    return $this->content;
-  }
 
   /**
    * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
@@ -153,23 +154,6 @@ implements
   }
 
   /**
-   * Determine whether the value is valid or not.
-   *
-   * @since             0.5.2
-   *
-   * @param             Mixed          &$valueCandidate
-   *
-   * @return            Bool           Valid or not.
-   */
-  private function _validateScalarValue ( &$valueCandidate ) {
-  
-    return self::valueFits (
-        $valueCandidate,
-        $this->valuePattern
-    );
-  }
-
-  /**
    * Determine whether the value is valid or not and possibly set a default
    * value.
    *
@@ -196,41 +180,35 @@ implements
       $validated = $this->_validateScalarValue ( $valueCandidate );
     }
     
-    if ( $validated ) {
+    if ( $validated ) return TRUE;
     
-      return TRUE;
-    }
-    
-    if ( $this->default !== NULL ) {
-      
-      $valueCandidate = (
-          self::ITERATOR_VALUE_YES === $this->iterator
-          || $arrayUsed
-      )
-          ? Array ( $this->default )
-          : $this->default;
+    if ( $this->default === NULL ) return FALSE;
 
-      return TRUE;
-    }
-    
-    return FALSE;
+    $valueCandidate = (
+        self::ITERATOR_VALUE_YES === $this->iterator
+        || $arrayUsed
+    )
+        ? Array ( $this->default )
+        : $this->default;
+
+    return TRUE;
   }
 
   /**
-   * Convert iterator to an array.
+   * Determine whether the value is valid or not.
    *
    * @since             0.5.2
    *
-   * @param             Mixed     $valueCandidate
-   * 
-   * @return            Mixed
+   * @param             Mixed          &$valueCandidate
+   *
+   * @return            Bool           Valid or not.
    */
-  protected function convertIterator ( $valueCandidate ) {
-
-    return ( $valueCandidate instanceof Iterator )
-        ? iterator_to_array ( $valueCandidate, FALSE )
-        : $valueCandidate
-    ;
+  private function _validateScalarValue ( &$valueCandidate ) {
+  
+    return self::valueFits (
+        $valueCandidate,
+        $this->valuePattern
+    );
   }
 
   /**
@@ -246,15 +224,15 @@ implements
    *
    * @return    NULL
    *
-   * @throws    MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE
-   *            MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE
+   * @throws    MapFilter_TreePattern_Tree_Exception::ARRAY_ATTR_VALUE
+   *            MapFilter_TreePattern_Tree_Exception::SCALAR_ATTR_VALUE
    */
   protected function assertTypeMismatch ( $isIterator, $valueType ) {
   
+    $wantIterator = self::ITERATOR_VALUE_YES === $this->iterator;
+    $wantScalar = self::ITERATOR_VALUE_NO === $this->iterator;
     
-    if ( 
-        ( self::ITERATOR_VALUE_NO === $this->iterator ) && $isIterator
-    ) {
+    if ( $wantScalar && $isIterator ) {
     
       throw new MapFilter_TreePattern_Tree_Leaf_Exception (
           MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
@@ -262,9 +240,7 @@ implements
       );
     }
 
-    if ( 
-        ( self::ITERATOR_VALUE_YES === $this->iterator ) && !$isIterator
-    ) {
+    if ( $wantIterator && !$isIterator ) {
 
       throw new MapFilter_TreePattern_Tree_Leaf_Exception (
           MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
@@ -278,10 +254,7 @@ implements
    */
   public function pickUp ( Array $result ) {
 
-    if ( !$this->isSatisfied () ) {
-
-      return Array ();
-    }
+    if ( !$this->isSatisfied () ) return Array ();
   
     $result[ (String) $this ] = $this->value;
 
@@ -301,14 +274,13 @@ implements
    */
   public function pickUpFlags ( Array $flags ) {
   
-    if ( !$this->isSatisfied () ) {
-    
-      return $flags;
-    }
+    if ( !$this->isSatisfied () ) return $flags;
     
     if ( $this->flag !== NULL ) {
   
+      if ( !in_array ( $this->flag, $flags ) ) {
         $flags[] = $this->flag;
+      }
     }
     
     return $flags;

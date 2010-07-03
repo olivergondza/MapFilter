@@ -1,0 +1,17 @@
+/**
+@page		treepatterntreeexamples	TreePattern Tree examples
+
+<hr>
+- @subpage      tpexampleaction
+- @subpage      tpexamplecoffeemaker
+- @subpage      tpexampledirection
+- @subpage      tpexampleduration
+- @subpage      tpexamplefilter
+- @subpage      tpexamplegenerator
+- @subpage      tpexamplelocation
+- @subpage      tpexamplelogin
+- @subpage      tpexampleparseinifile
+- @subpage      tpexamplepathway
+
+<hr>
+*/

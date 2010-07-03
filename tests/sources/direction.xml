@@ -1,0 +1,24 @@
+<!--
+-->
+<patterns>
+
+  <pattern>
+    <some>
+      <one>
+        <node_attr attr="top" attachPattern="distance" />
+        <node_attr attr="bottom" attachPattern="distance" />
+      </one>
+      <one>
+        <node_attr attr="right" attachPattern="distance" />
+        <node_attr attr="left" attachPattern="distance" />
+      </one>
+    </some>
+  </pattern>
+
+  <pattern name="distance">
+    <all>
+      <attr valuePattern="\d*">count</attr>
+      <attr valuePattern="meter|yard">unit</attr>
+    </all>
+  </pattern>
+</patterns>

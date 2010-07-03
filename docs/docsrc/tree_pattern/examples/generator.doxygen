@@ -1,0 +1,5 @@
+/**
+@page           tpexamplegenerator              Generator example
+
+@include        sources/generator.xml
+*/

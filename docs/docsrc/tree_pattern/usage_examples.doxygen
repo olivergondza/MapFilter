@@ -1,0 +1,41 @@
+/**
+@page		treepatternusageexamples	TreePattern Usage Examples
+
+@section	exwhitelists	Whitelists
+
+@subsection	exexclusive	Exclusive Whitelist
+
+This simple example shows how to create simple whitelist allowing occurrence
+of just one of defined attributes.  <tt>my_utility -h -v -o a.out</tt>
+
+@clip{User/TreePattern.test.php,testSimpleOneWhitelist}
+
+Filtered query now contains just <tt>-h</tt> option since there is nothing
+about <tt>-o</tt> in our pattern and <tt>-v</tt> was preceded by
+<tt>-h</tt>.  If one run the application with reversed order of the options
+(<tt>my_utility -v -h -o a.out</tt>) filtered query will contains nothing
+more than <tt>-v</tt> option.
+
+@subsection	exsimple	Simple Whitelist
+
+Let’s assume the same query with slightly modified pattern.
+
+@clip{User/TreePattern.test.php,testSimpleOptWhitelist}
+
+This is the way to enable occurrence of more options (including 0). The same
+query will now contain both <tt>-h</tt> and <tt>-v</tt> option regardless of
+their order.
+
+@subsection	exfullsets	Full Sets
+
+Sometimes it’s useful to specify a group of attributes that all must occur.
+<tt>my_app -f main.c -o a.out</tt>
+
+@clip{User/TreePattern.test.php,testSimpleAllWhitelist}
+
+Since we have got all the arguments, they all pass our filter. Let’s try to
+run the binary without source file.  <tt>my_app -o a.out</tt>
+
+A filtered query would be empty because our pattern demands occurrence of both
+(all) options.
+*/
