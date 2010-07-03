@@ -48,9 +48,9 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     0.3
    *
-   * @var       String          $valueFilter
+   * @var       String          $_valueFilter
    */
-  private $valueFilter = NULL;
+  private $_valueFilter = NULL;
   
   /**
    * Node flag.
@@ -131,7 +131,7 @@ abstract class MapFilter_TreePattern_Tree implements
 
     assert ( is_string ( $valueFilter ) );
 
-    $this->valueFilter = $valueFilter;
+    $this->_valueFilter = $valueFilter;
     return $this;
   }
   
@@ -166,7 +166,7 @@ abstract class MapFilter_TreePattern_Tree implements
    */
   protected function getValueFilter () {
   
-    return (String) $this->valueFilter;
+    return (String) $this->_valueFilter;
   }
   
   /**

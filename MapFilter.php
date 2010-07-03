@@ -42,40 +42,40 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.4
    *
-   * @var       MapFilter_Pattern_Interface     $pattern
+   * @var       MapFilter_Pattern_Interface     $_pattern
    * @see       setPattern(), __construct()
    */
-  private $pattern = NULL;
+  private $_pattern = NULL;
   
   /**
    * A Used Pattern.
    *
    * @since     0.5
    *
-   * @var       MapFilter_Pattern_Interface     $usedPattern
+   * @var       MapFilter_Pattern_Interface     $_usedPattern
    * @see       setPattern(), __construct()
    */
-  private $usedPattern = NULL;
+  private $_usedPattern = NULL;
 
   /**
    * Read data / Query candidate.
    *
    * @since     0.4
    *
-   * @var       Array                           $query
+   * @var       Array                           $_query
    * @see       setQuery(), __construct()
    */
-  private $query = Array ();
+  private $_query = Array ();
   
   /**
    * Determine whether the filter configuration has been filtered.
    *
    * @since     0.4
    *
-   * @var       Bool    $filtered
-   * @see       filter(), setQuery(), setPattern()
+   * @var       Bool    $_filtered
+   * @see       _filter(), setQuery(), setPattern()
    */
-  private $filtered = FALSE;
+  private $_filtered = FALSE;
   
   /**
    * @copyfull{MapFilter_Interface::__construct()}
@@ -97,9 +97,9 @@ class MapFilter implements MapFilter_Interface {
    */
   public function setPattern ( MapFilter_Pattern_Interface $pattern = NULL) {
 
-    $this->filtered = FALSE;
+    $this->_filtered = FALSE;
 
-    $this->pattern = ( $pattern === NULL )
+    $this->_pattern = ( $pattern === NULL )
         ? new MapFilter_Pattern_Null ()
         : clone ( $pattern );
     
@@ -113,9 +113,9 @@ class MapFilter implements MapFilter_Interface {
   
     assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
-    $this->filtered = FALSE;
+    $this->_filtered = FALSE;
   
-    $this->query = $query;
+    $this->_query = $query;
     return $this;
   }
   
@@ -126,18 +126,18 @@ class MapFilter implements MapFilter_Interface {
    *
    * @see       fetchResult(), getResults(), getAsserts(), getFlags()
    */
-  private function filter () {
+  private function _filter () {
   
-    if ( $this->filtered ) {
+    if ( $this->_filtered ) {
       
       return;
     }
   
-    $this->filtered = TRUE;
+    $this->_filtered = TRUE;
   
-    $this->usedPattern = clone ( $this->pattern );
+    $this->_usedPattern = clone ( $this->_pattern );
     
-    $this->usedPattern->parse ( $this->query );
+    $this->_usedPattern->parse ( $this->_query );
   }
   
   /**
@@ -145,9 +145,9 @@ class MapFilter implements MapFilter_Interface {
    */
   public function fetchResult () {
   
-    $this->filter ();
+    $this->_filter ();
   
-    return $this->usedPattern;
+    return $this->_usedPattern;
   }
   
   /**
@@ -225,6 +225,6 @@ class MapFilter implements MapFilter_Interface {
   
     trigger_error ( $message, $level );
     
-    $this->filter ();
+    $this->_filter ();
   }
 }

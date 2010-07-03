@@ -58,9 +58,9 @@ class MapFilter_Pattern_Null implements
    *
    * @since     0.5
    *
-   * @var       Array|ArrayAccess       $query
+   * @var       Array|ArrayAccess       $_query
    */
-  private $query = Array ();
+  private $_query = Array ();
 
   /**
    * An empty constructor.
@@ -76,7 +76,7 @@ class MapFilter_Pattern_Null implements
    */
   public function getResults () {
   
-    return $this->query;
+    return $this->_query;
   }
   
   /**
@@ -102,6 +102,6 @@ class MapFilter_Pattern_Null implements
   
     assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
-    $this->query = $query;
+    $this->_query = $query;
   }
 }

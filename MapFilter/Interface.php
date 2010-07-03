@@ -30,8 +30,8 @@ interface MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set
-   * @param     Array|ArrayAccess               $query	A query to filter
+   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set.
+   * @param     Array|ArrayAccess               $query	        A query to filter.
    *
    * If no pattern specified an untouched query will be returned:
    *

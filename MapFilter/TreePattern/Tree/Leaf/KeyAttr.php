@@ -74,7 +74,7 @@ implements
    *
    * @return    Bool
    */
-  private function satisfyFittingFollower (
+  private function _satisfyFittingFollower (
       &$query,
       Array &$asserts,
       $valueCandidate
@@ -159,7 +159,7 @@ implements
     $satisfied = FALSE;
     if ( !$currentArrayValue ) {
      
-      $satisfied = $this->satisfyFittingFollower (
+      $satisfied = $this->_satisfyFittingFollower (
           $query, $asserts, $valueCandidate
       );
       
@@ -168,7 +168,7 @@ implements
 
       foreach ( $valueCandidate as $singleCandidate ) {
 
-        $satisfied |= (Bool) $this->satisfyFittingFollower (
+        $satisfied |= (Bool) $this->_satisfyFittingFollower (
             $query, $asserts, $singleCandidate
         );
       }

@@ -161,7 +161,7 @@ implements
    *
    * @return            Bool           Valid or not.
    */
-  private function validateScalarValue ( &$valueCandidate ) {
+  private function _validateScalarValue ( &$valueCandidate ) {
   
     return self::valueFits (
         $valueCandidate,
@@ -186,14 +186,14 @@ implements
     
       $valueCandidate = array_filter (
           $valueCandidate,
-          Array ( $this, 'validateScalarValue' )
+          Array ( $this, '_validateScalarValue' )
       );
 
       $validated = !( $valueCandidate === Array () );
 
     } else {
     
-      $validated = $this->validateScalarValue ( $valueCandidate );
+      $validated = $this->_validateScalarValue ( $valueCandidate );
     }
     
     if ( $validated ) {

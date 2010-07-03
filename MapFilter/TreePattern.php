@@ -105,40 +105,50 @@ class MapFilter_TreePattern implements
    *
    * @since     0.1
    *
-   * @var       MapFilter_TreePattern_Tree      $patternTree
+   * @var       MapFilter_TreePattern_Tree      $_patternTree
    * @see       __construct()
    */
-  private $patternTree = NULL;
+  private $_patternTree = NULL;
+
+  /**
+   * Used tree.
+   *
+   * @since     0.5
+   *
+   * @var       MapFilter_TreePattern_Tree      $_tempTree
+   * @see       parse()
+   */
+  private $_tempTree = NULL;
 
   /**
    * Validated data.
    *
    * @since     0.5
    *
-   * @var       Array|ArrayAccess               $results
+   * @var       Array|ArrayAccess               $_results
    * @see       getResults(), parse()
    */
-  private $results = Array ();
+  private $_results = Array ();
   
   /**
    * Validation asserts.
    *
    * @since     0.5
    *
-   * @var       Array|ArrayAccess               $asserts
+   * @var       Array|ArrayAccess               $_asserts
    * @see       getAsserts(), parse()
    */
-  private $asserts = Array ();
+  private $_asserts = Array ();
   
   /**
    * Validation flags.
    *
    * @since     0.5
    *
-   * @var       Array|ArrayAccess               $flags
+   * @var       Array|ArrayAccess               $_flags
    * @see       getFlags(), parse()
    */
-  private $flags = Array ();
+  private $_flags = Array ();
 
   /** @cond     INTERNAL */
 
@@ -167,7 +177,7 @@ class MapFilter_TreePattern implements
    *
    * @since     0.1
    *
-   * @param     String                  $xmlSource      pattern string
+   * @param     String                  $xmlSource      Pattern string.
    *
    * @return    MapFilter_TreePattern   Pattern created from $xmlSource string
    *
@@ -180,13 +190,13 @@ class MapFilter_TreePattern implements
     
     assert ( is_string ( $xmlSource ) );
     
-    $xmlElement = self::loadXML (
+    $xmlElement = self::_loadXml (
         $xmlSource,
         self::DATA_IS_STRING
     );
     
     return new MapFilter_TreePattern (
-        self::parseTree ( $xmlElement )
+        self::_parseTree ( $xmlElement )
     );
   }
 
@@ -208,13 +218,13 @@ class MapFilter_TreePattern implements
   
     assert ( is_string ( $url ) );
   
-    $xmlElement = self::loadXML (
+    $xmlElement = self::_loadXml (
         $url,
         self::DATA_IS_URL
     );
     
     return new MapFilter_TreePattern (
-        self::parseTree ( $xmlElement )
+        self::_parseTree ( $xmlElement )
     );
   }
   
@@ -235,7 +245,7 @@ class MapFilter_TreePattern implements
    */
   public function __construct ( MapFilter_TreePattern_Tree $patternTree ) {
   
-    $this->patternTree = clone ( $patternTree );
+    $this->_patternTree = clone ( $patternTree );
   }
 
   /**
@@ -248,7 +258,7 @@ class MapFilter_TreePattern implements
    */
   public function __clone () {
 
-    $this->patternTree = clone ( $this->patternTree );
+    $this->_patternTree = clone ( $this->_patternTree );
   }
   
   /**
@@ -256,7 +266,7 @@ class MapFilter_TreePattern implements
    */
   public function getResults () {
 
-    return $this->tempTree->pickUp ( Array () );
+    return $this->_tempTree->pickUp ( Array () );
   }
   
   /**
@@ -264,7 +274,7 @@ class MapFilter_TreePattern implements
    */
   public function getAsserts () {
   
-    return $this->asserts;
+    return $this->_asserts;
   }
   
   /**
@@ -272,7 +282,7 @@ class MapFilter_TreePattern implements
    */
   public function getFlags () {
   
-    return $this->tempTree->pickUpFlags ( Array () );
+    return $this->_tempTree->pickUpFlags ( Array () );
   }
   
   /**
@@ -283,12 +293,12 @@ class MapFilter_TreePattern implements
    * This enables to parse multiple queries with the same pattern with no need 
    * to re-instantiate the object.
    */
-  private function cleanup () {
+  private function _cleanup () {
   
-    $this->results = Array ();
-    $this->asserts = Array ();
-    $this->flags = Array ();
-    $this->tempTree = NULL;
+    $this->_results = Array ();
+    $this->_asserts = Array ();
+    $this->_flags = Array ();
+    $this->_tempTree = NULL;
   }
   
   /**
@@ -298,11 +308,11 @@ class MapFilter_TreePattern implements
   
     assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
-    $this->cleanup ();
+    $this->_cleanup ();
   
-    $this->tempTree = clone ( $this->patternTree );
+    $this->_tempTree = clone ( $this->_patternTree );
   
-    $this->tempTree->satisfy ( $query, $this->asserts );   
+    $this->_tempTree->satisfy ( $query, $this->_asserts );   
   }
   
   /** @endcond */
@@ -312,9 +322,9 @@ class MapFilter_TreePattern implements
    *
    * @since     0.1
    *
-   * @var       Array           $errorToException
+   * @var       Array           $_errorToException
    */
-  private static $errorToException = Array (
+  private static $_errorToException = Array (
       LIBXML_ERR_WARNING => MapFilter_TreePattern_Exception::LIBXML_WARNING,
       LIBXML_ERR_ERROR => MapFilter_TreePattern_Exception::LIBXML_ERROR,
       LIBXML_ERR_FATAL => MapFilter_TreePattern_Exception::LIBXML_FATAL
@@ -331,7 +341,7 @@ class MapFilter_TreePattern implements
    * @return    NotSoSimpleXmlElement           XmlElement of input.
    * @throws    MapFilter_TreePattern_Exception
    */
-  private static function loadXML ( $xml, $isUrl ) {
+  private static function _loadXml ( $xml, $isUrl ) {
   
     assert ( is_string ( $xml ) );
     assert ( is_bool ( $isUrl ) );
@@ -358,7 +368,7 @@ class MapFilter_TreePattern implements
       if ( $error ) {
         
         $exception = new MapFilter_TreePattern_Exception (
-            self::$errorToException[ $error->level ],
+            self::$_errorToException[ $error->level ],
             Array ( $error->message, $error->line, $error->file )
         );
       }
@@ -367,7 +377,7 @@ class MapFilter_TreePattern implements
     }
 
     /** Sanitize pattern tag */
-    $XmlElement = self::unwrap ( $XmlElement );
+    $XmlElement = self::_unwrap ( $XmlElement );
     
     return $XmlElement;
   }
@@ -408,9 +418,9 @@ class MapFilter_TreePattern implements
    *
    * @since     0.4
    *
-   * @var       Array           $tagToNode
+   * @var       Array           $_tagToNode
    */
-  private static $tagToNode = Array (
+  private static $_tagToNode = Array (
       self::NODE_ALL => 'MapFilter_TreePattern_Tree_Node_All',
       self::NODE_ONE => 'MapFilter_TreePattern_Tree_Node_One',
       self::NODE_OPT => 'MapFilter_TreePattern_Tree_Node_Opt',
@@ -424,9 +434,9 @@ class MapFilter_TreePattern implements
    *
    * @since     0.4
    *
-   * @var       Array           $attrToSetter
+   * @var       Array           $_attrToSetter
    */
-  private static $attrToSetter = Array (
+  private static $_attrToSetter = Array (
       self::ATTR_ATTR => 'setAttribute',
       self::ATTR_VALUEFILTER => 'setValueFilter',
       self::ATTR_DEFAULT => 'setDefault',
@@ -445,11 +455,11 @@ class MapFilter_TreePattern implements
    *
    * @return    Bool            Valid or not
    */
-  private static function isValidTag ( $tag ) {
+  private static function _isValidTag ( $tag ) {
   
     assert ( is_string ( $tag ) );
   
-    return array_key_exists ( $tag, self::$tagToNode );
+    return array_key_exists ( $tag, self::$_tagToNode );
   }
   
   /**
@@ -462,7 +472,7 @@ class MapFilter_TreePattern implements
    *
    * @throws    MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE
    */
-  private static function assertLeftoverAttrs ( $tagName, Array $attributes ) {
+  private static function _assertLeftoverAttrs ( $tagName, Array $attributes ) {
   
     assert ( is_string ( $tagName ) );
   
@@ -481,12 +491,12 @@ class MapFilter_TreePattern implements
    *
    * @since     0.4
    *
-   * @param     Array   $attributes     Array of all provided attributes.
+   * @param     Array   &$attributes    Array of all provided attributes.
    * @param     String  $attribute      Attribute to obtain.
    *
    * @return    String|FALSE            Attribute name or false.
    */
-  private static function getAttribute ( Array &$attributes, $attribute ) {
+  private static function _getAttribute ( Array &$attributes, $attribute ) {
   
     assert ( is_string ( $attribute ) );
   
@@ -512,12 +522,12 @@ class MapFilter_TreePattern implements
    *
    * @throws    MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT
    */
-  private static function validateTagName ( NotSoSimpleXmlElement $xml ) {
+  private static function _validateTagName ( NotSoSimpleXmlElement $xml ) {
   
     $tagName = $xml->getName ();
 
     /** Validate tag name */
-    if ( ! self::isValidTag ( $tagName ) ) {
+    if ( ! self::_isValidTag ( $tagName ) ) {
 
       throw new MapFilter_TreePattern_Exception (
           MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
@@ -540,7 +550,7 @@ class MapFilter_TreePattern implements
    * @return    MapFilter_TreePattern_Tree      A pattern node with attributes.
    * @throws    MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE
    */
-  private static function parseTagAttributes (
+  private static function _parseTagAttributes (
       NotSoSimpleXmlElement $xml,
       MapFilter_TreePattern_Tree $node,
       $tagName
@@ -550,10 +560,10 @@ class MapFilter_TreePattern implements
   
     /** Obtain all attributes and set them using a bunch of soft setters */
     $attributes = $xml->getAttributes ();
-    foreach ( self::$attrToSetter as $attr => $setter ) {
+    foreach ( self::$_attrToSetter as $attr => $setter ) {
 
       /** Reset loop if attribute does not exist */
-      $attrValue = self::getAttribute ( $attributes, $attr );
+      $attrValue = self::_getAttribute ( $attributes, $attr );
       if ( $attrValue === FALSE ) {
         continue;
       }
@@ -578,7 +588,7 @@ class MapFilter_TreePattern implements
     }
     
     /** Unset attributes and make sure that none of them left over */
-    self::assertLeftoverAttrs ( $tagName, $attributes );
+    self::_assertLeftoverAttrs ( $tagName, $attributes );
 
     return $node;
   }
@@ -594,12 +604,12 @@ class MapFilter_TreePattern implements
    * @return    MapFilter_TreePattern_Tree
    * @throws    MapFilter_TreePattern_Exception::INVALID_XML_CONTENT
    */
-  private static function createTreeNode ( $tagName, Array $followers ) {
+  private static function _createTreeNode ( $tagName, Array $followers ) {
   
     assert ( is_string ( $tagName ) );
   
     /** Instantiate pattern node */
-    $class = self::$tagToNode[ $tagName ];
+    $class = self::$_tagToNode[ $tagName ];
     $node = new $class ();
 
     if ( $followers === Array () ) {
@@ -630,19 +640,19 @@ class MapFilter_TreePattern implements
    *
    * @return    MapFilter_TreePattern_Tree      Parsed pattern.
    */
-  private static function parseTree ( NotSoSimpleXmlElement $xml ) {
+  private static function _parseTree ( NotSoSimpleXmlElement $xml ) {
 
     /** Parse followers recursively */
     $followers = array_map (
-        Array ( __CLASS__, 'parseTree' ),
+        Array ( __CLASS__, '_parseTree' ),
         $xml->getChildren ()
     );
 
-    $tagName = self::validateTagName ( $xml );
+    $tagName = self::_validateTagName ( $xml );
     
-    $node = self::createTreeNode ( $tagName, $followers );
+    $node = self::_createTreeNode ( $tagName, $followers );
 
-    $node = self::parseTagAttributes ( $xml, $node, $tagName );
+    $node = self::_parseTagAttributes ( $xml, $node, $tagName );
 
     /**
      * Since Attr node can have its attribute in tag body this special check 
@@ -650,7 +660,7 @@ class MapFilter_TreePattern implements
      */
     if ( is_a ( $node, 'MapFilter_TreePattern_Tree_Leaf_Attr' ) ) {
 
-      $alreadySet = (Bool) ( $node->getAttribute() );
+      $alreadySet = (Bool) ( $node->getAttribute () );
 
       $available = (Bool) ( (String) $xml[ 0 ] );
 
@@ -679,12 +689,12 @@ class MapFilter_TreePattern implements
    * @return    NotSoSimpleXmlElement   Unwrapped element.
    * @throws    MapFilter_TreePattern_Exception
    */
-  private static function unwrap ( NotSoSimpleXmlElement $xmlElement ) {
+  private static function _unwrap ( NotSoSimpleXmlElement $xmlElement ) {
    
     $tagName = $xmlElement->getName ();
    
     /** Tree is not wrapped */
-    if ( self::isValidTag ( $tagName ) ) {
+    if ( self::_isValidTag ( $tagName ) ) {
 
       return $xmlElement;
     }
