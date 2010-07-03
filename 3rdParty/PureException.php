@@ -3,7 +3,7 @@
  * Class to handle exceptions less ugly way.
  *
  * @author	Oliver Gondža
- * @license	GNU GPLv3
+ * @license	LGPL
  * @copyright	2009-2010 Oliver Gondža
  * @package	3rdParty
  */

@@ -6,7 +6,7 @@
  * @subpackage  Filter
  * @author      Oliver Gondža
  * @copyright   2009-2010 Oliver Gondža
- * @license     GNU GPLv3
+ * @license     LGPL
  * @link        http://github.com/olivergondza/MapFilter
  * @since       0.1
  */

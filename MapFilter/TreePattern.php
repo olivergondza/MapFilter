@@ -6,7 +6,7 @@
  *
  * @author      Oliver Gondža
  * @link        http://github.com/olivergondza/MapFilter
- * @license     GNU GPLv3
+ * @license     LGPL
  * @copyright   2009-2010 Oliver Gondža
  *
  * @package     MapFilter
@@ -172,7 +172,7 @@ class MapFilter_TreePattern implements
    * @return    MapFilter_TreePattern   Pattern created from $xmlSource string
    *
    * fromFile() and load() difference demonstration:
-   * @clip{TreePattern.test.php,testLoadFromFileComparison}
+   * @clip{Unit/TreePattern.test.php,testLoadFromFileComparison}
    *
    * @see       fromFile(), __construct()
    */
@@ -200,7 +200,7 @@ class MapFilter_TreePattern implements
    * @return    MapFilter_TreePattern   Pattern created from $url file
    * 
    * fromFile() and load() difference demonstration:
-   * @clip{TreePattern.test.php,testLoadFromFileComparison}
+   * @clip{Unit/TreePattern.test.php,testLoadFromFileComparison}
    *
    * @see       load(), __construct()
    */
@@ -325,10 +325,10 @@ class MapFilter_TreePattern implements
    *
    * @since     0.1
    *
-   * @param     String          $xml            XML source
-   * @param     Bool            $isUrl          URL or String
+   * @param     String          $xml            XML source.
+   * @param     Bool            $isUrl          URL or String.
    *
-   * @return    NotSoSimpleXmlElement           XmlElement of input
+   * @return    NotSoSimpleXmlElement           XmlElement of input.
    * @throws    MapFilter_TreePattern_Exception
    */
   private static function loadXML ( $xml, $isUrl ) {
