@@ -48,6 +48,11 @@ dl {
 	font-style: italic;
 }
 
+code {
+        font-family: licida console;
+        font-weight: bold;
+}
+
 .dynsection {
 	margin-bottom: 10px;
         background: #f5f5f5;

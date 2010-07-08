@@ -4,15 +4,15 @@
 @section	mapfilter	        MapFilter
 
 	To use MapFilter there is need to define the Pattern (and attach it
-by <tt>MapFilter::setPattern ();</tt>) describing all possible data
-relations and let MapFilter do all the work related with input filtering. 
-Filtering outputs can be had by <tt>@ref MapFilter::fetchResult "fetchResult
-()"</tt>.  This returned object implements the same set of interfaces as
-original Pattern did.
+by <tt>MapFilter::setPattern()</tt>) describing all possible data relations
+and let MapFilter do all the work related with input filtering.  Filtering
+outputs can be had by <tt>MapFilter::fetchResult()</tt>. 
+This returned object implements the same set of interfaces as original
+Pattern did.
 
 @section	pattern			MapFilter Pattern
 
-	MapFilter Pattern is an arbitrary implementation of
+	A Pattern is an arbitrary implementation of
 <tt>MapFilter_Pattern_Interface</tt>.  This pattern is used during the
 parsing procedure to do all the work needed to obtain all result types
 specified by implemented interfaces.  There is the default implementation of

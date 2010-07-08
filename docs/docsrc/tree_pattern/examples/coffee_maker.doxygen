@@ -1,5 +1,30 @@
 /**
 @page           tpexamplecoffeemaker    Coffee maker example
 
+Following pattern defines input filter example of "not so stupid" coffee
+maker that enables setting sugar level or own cup usage.
+
+There are three attributes in the pattern; <tt>beverage</tt> being mandatory,
+and optional <tt>cup</tt> and <tt>sugar</tt> attributes.
+
+Allowed values of all three attributes are restricted by regular expresions
+to set of meaningfull values.  <tt>cup</tt> and <tt>sugar</tt> have its
+default values sat (that's why the are not mandatory even if they are
+enclosed in @ref allnode "all" tag)
+  
 @include        sources/coffee_maker.xml
+
+There is a list of input arrays on the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() on the second.
+
+@clip{User/TreePattern/CofeeMaker.test.php,provideParseCoffeeMaker}
 */
+
+
+
+
+
+
+
+
+

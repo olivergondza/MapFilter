@@ -2,37 +2,35 @@
 @page	        treepatternelements     TreePattern  Elements
 
 	Pattern tree structure consists of several types of nodes and
-currently one type of tree leaf.
+ tree leaves.
 
 @section	leaves			Leaves
 
 	@subsection	attrleaf		Attr leaf
 
-		Attr leave specifies attribute itself, its @ref
-valuepatternattr "valuePattern" and pattern @ref defaultattr "default" value. 
-Attr leaf is satisfied when its attribute occurs in user query and its value
-matches the optional pattern defined by @ref valuepatternattr "valuePattern"
-attribute.  When this does not happen this node still can be satisfied if
-its default value is sat: attribute will have that default value and leaf
-will be satisfied.
+		Attr leave specifies attribute (array key) itself, its @ref
+valuepatternattr "valuePattern" and pattern @ref defaultattr "default"
+value.  Attr leaf is satisfied when its attribute occurs in user query and
+its value matches the optional pattern defined by @ref valuepatternattr
+"valuePattern" attribute.  When this does not happen and its default value
+is sat, the node will be satisfied and the default value will be assigned to
+that attribute.
 
         @subsection	keyattrleaf		KeyAttr leaf
 
 		This attribute defines one attribute (<tt>attr</tt>) that
-must be present, depending on value of this attribute one of its followers
-will be chosen to satisfy.  All its followers can define attribute @ref
-forvalueattr "forValue" containing regular expression to match attribute
-value.  When matching follower will be satisfied, KeyAttr node will be
-satisfied as well.
+must be present in user query.  Depending on value of this attribute all its
+followers that match condition defined by @ref forvalueattr "forValue"
+attribute will be chosen to satisfy.  A forValue attribute is mandatory for
+all its followers.  When there is a satisfied matching follower the KeyAttr
+node will be satisfied as well.
 
 @section	nodes			Nodes
 
 	There are four so-called Policy nodes (@ref allnode "All", @ref
 onenode "One", @ref optnode "Opt" and @ref somenode "Some") that specifies
-data attribute relations.  @ref keyattrleaf "KeyAttr" node defines value-key
-relations between key attribute and its possible value patterns.  @ref
-nodeattrnode "NodeAttr" node defines an attribute its value is an another
-array/iterator.
+data attribute relations.  @ref nodeattrnode "NodeAttr" node defines an
+attribute its value is an another array/iterator.
 
 	@subsection 	allnode		 	All node
 
@@ -41,7 +39,7 @@ satisfied itself.
 
 	@subsection	optnode			Opt node
 
-		The @c Opt node hasn't any conditions. Occurrence of its
+		The @c Opt node hasn't got any conditions. Occurrence of its
 followers is completely optional.
 
 	@subsection	onenode			One node
@@ -54,8 +52,8 @@ followers is completely optional.
 
         @subsection     nodeattrnode            NodeAttr node
 
-                The @c NodeAttr node decalres an attribute is's value in
-user query must be an associative array (or array of associtve array in case
+                The @c NodeAttr node decalres an attribute Its value in
+user query must be an associative array (or array of associative arrays in case
 iterator attribute is set to 'yes').  Using this structure enables filtering
 of structures with tree-like topology.
 
@@ -66,12 +64,16 @@ of structures with tree-like topology.
 
 	@subsection	forvalueattr	        Attribute forValue
 
-		A @c forValue attribute specifies @c valueFilter for @ref
-keyattrleaf "KeyAttr" node follower.  According to this filter follower to
-satisfy is going to be chosen.
-
 		@note The @c filter in the name of an attribute has nothing
 to do with @c filter in the name of the %MapFilter class.
+
+		A @c forValue attribute specifies @c valueFilter for @ref
+keyattrleaf "KeyAttr" node followers.  According to this filter follower to
+satisfy is going to be chosen.
+
+                @note This attribute is mandatory for all nodes that are
+followers of the KeyAttr element not the KayAttr element itself unless it is
+a follower of another KeyAttr name.
 
 	@subsection	flagattr		Attribute flag
 
@@ -111,7 +113,7 @@ alternatives.
 
 		A @c default attribute determines value that is going to be
 used as a key value in case attribute won't get satisfied.  This value is
-going to be wraped into the array if the node was declared to be an @ref
+going to be wrapped into the array if the node was declared to be an @ref
 iteratorattr "iterator".
 
 	@subsection	valuepatternattr	Attribute valuePattern

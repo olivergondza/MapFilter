@@ -15,21 +15,30 @@ require_once ( PHP_MAPFILTER_CLASS );
 */
 class MapFilter_Test_User_TreePattern_CoffeeMaker extends PHPUnit_Framework_TestCase {
 
+  /*@}*/
   public static function provideParseCoffeeMaker () {
   
     return Array (
         Array (
+            Array (),
+            Array ()
+        ),
+        // default values will be assigned
+        Array (
             Array ( 'beverage' => 'coffee' ),
             Array ( 'beverage' => 'coffee', 'cup' => 'yes', 'sugar' => 0 )
         ),
+        // invalid value will be replaced by default
         Array (
             Array ( 'beverage' => 'tea', 'cup' => 2 ),
             Array ( 'beverage' => 'tea', 'cup' => 'yes', 'sugar' => 0 )
         ),
+        // invalid value will be replaced by default
         Array (
             Array ( 'beverage' => 'cacao', 'sugar' => 'a lot' ),
             Array ( 'beverage' => 'cacao', 'cup' => 'yes', 'sugar' => 0 )
         ),
+        // invalid values will be replaced by defaults
         Array (
             Array ( 'beverage' => 'coffee', 'cup' => 'none', 'sugar' => 'a lot' ),
             Array ( 'beverage' => 'coffee', 'cup' => 'yes', 'sugar' => 0 )
@@ -37,9 +46,15 @@ class MapFilter_Test_User_TreePattern_CoffeeMaker extends PHPUnit_Framework_Test
         Array (
             Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5 ),
             Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5 )
+        ),
+        // dissallowed attribute will be truncated
+        Array (
+            Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5, 'spoon' => 'please'),
+            Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5 )
         )
     );
   }
+  /*@}*/
   
   /**
    * @dataProvider      provideParseCoffeeMaker

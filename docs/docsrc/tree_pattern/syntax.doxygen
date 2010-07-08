@@ -2,10 +2,10 @@
 @page           treepatternsyntax       TreePattern Syntax
 
         The pattern is represented by XML file or string with following
-sintax.  All allowed elements and its attributes are decared in this
+sintax.  All allowed elements and its attributes are declared in this
 document.
 
-There are some groups declared to facilitate further declaretions.
+There are some groups declared to facilitate further declarations.
 
 -       ANY             = <i>Any "Tree element".</i>
 -       NONE            = <i>No element an all.</i>
@@ -54,7 +54,7 @@ is the same as
         @tag{attributes,name?}
         @tag{children,ANY}
 
-        The \<pattern\> tag is used to agregate the pattern tree itself. In
+        The \<pattern\> tag is used to aggregate the pattern tree itself. In
 case there is just one pattern in the file this tag become optional.
 
 @code

@@ -17,6 +17,7 @@ class MapFilter_Test_User_TreePattern_Action extends
     PHPUnit_Framework_TestCase
 {
 
+  /*@{*/
   public static function provideParseAction () {
   
     return Array (
@@ -24,6 +25,7 @@ class MapFilter_Test_User_TreePattern_Action extends
             Array (),
             Array ()
         ),
+        // invalid action will be truncated
         Array (
             Array ( 'action' => "noSuchAction" ),
             Array ()
@@ -36,10 +38,12 @@ class MapFilter_Test_User_TreePattern_Action extends
             Array ( 'action' => "delete", 'file_name' => "myFile" ),
             Array ( 'action' => "delete", 'file_name' => "myFile" )
         ),
+        // action without mandatory attribute (id or delete) will be truncated
         Array (
             Array ( 'action' => "delete", 'wrongAttr' => NULL ),
             Array ()
         ),
+        // earlier defined value will be kept the rest will be truncated
         Array (
             Array ( 'action' => "delete", 'id' => 42, 'file_name' => "myFile" ),
             Array ( 'action' => "delete", 'id' => 42 )
@@ -60,14 +64,17 @@ class MapFilter_Test_User_TreePattern_Action extends
             Array ( 'action' => "rename", 'old_name' => "myFile", 'new_name' => "myFile" ),
             Array ( 'action' => "rename", 'old_name' => "myFile", 'new_name' => "myFile" )
         ),
+        // action that lacks mandatory attribute (id and old_name) will be truncated
         Array (
             Array ( 'action' => "rename", 'new_name' => "myFile" ),
             Array ()
         ),
+        // action that lacks mandatory attribute (new_name) will be truncated
         Array (
             Array ( 'action' => "rename", 'old_name' => "myFile" ),
             Array ()
         ),
+        // action that lacks mandatory attribute will be truncated
         Array (
             Array ( 'action' => "rename" ),
             Array ()
@@ -76,16 +83,19 @@ class MapFilter_Test_User_TreePattern_Action extends
             Array ( 'action' => "report", 'id' => 42 ),
             Array ( 'action' => "report", 'id' => 42 )
         ),
+        // action that lacks mandatory attribute (id) will be truncated
         Array (
             Array ( 'action' => "report" ),
             Array ()
         ),
+        // action that lacks mandatory attribute (id) will be truncated
         Array (
             Array ( 'action' => "report", 'file_name' => "myName" ),
             Array ()
         )
     );
   }
+  /*@}*/
   
   /**
    * Test parse external source and validate

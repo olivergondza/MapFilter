@@ -1,17 +1,63 @@
 /**
 @page		treepatterntreeexamples	TreePattern Tree examples
 
-<hr>
-- @subpage      tpexampleaction
-- @subpage      tpexamplecoffeemaker
-- @subpage      tpexampledirection
-- @subpage      tpexampleduration
-- @subpage      tpexamplefilter
-- @subpage      tpexamplegenerator
-- @subpage      tpexamplelocation
-- @subpage      tpexamplelogin
-- @subpage      tpexampleparseinifile
-- @subpage      tpexamplepathway
+@subpage      tpexampleaction
 
+@tag{Concerned elements,@ref allnode "all"\, @ref keyattrleaf "key_attr"\, @ref onenode "one"\, @ref optnode "opt"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref attrattr "attr"\, @ref forvalueattr "forValue"}
+<hr>
+
+@subpage      tpexamplecoffeemaker
+
+@tag{Concerned elements,@ref allnode "all"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref defaultattr "default"\, @ref valuepatternattr "valuepattern"}
+<hr>
+
+@subpage      tpexampledirection
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexampleduration
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexamplefilter
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexamplegenerator
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexamplelocation
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexamplelogin
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexampleparseinifile
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
+<hr>
+
+@subpage      tpexamplepathway
+
+@tag{Concerned elements,...}
+@tag{Concerned attributes,...}
 <hr>
 */

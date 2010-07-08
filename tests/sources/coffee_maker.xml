@@ -1,18 +1,3 @@
-<!--
-
-Structure of not so stupid coffee maker;
-  Enable setting sugar level or having own cup;
-  Cup and sugar has implicit values.
-
-Testing default and valuePattern
-  
-like:
-  {beverage} -> {beverage:cup=yes:sugar=0}
-  {beverage:cup} -> {beverage:cup:sugar=0}
-  {beverage:sugar} -> {beverage:cup=yes:sugar}
-  {beverage:cup:sugar}
-
--->
 <pattern>
   <all>
 
