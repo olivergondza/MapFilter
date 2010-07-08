@@ -1,5 +1,6 @@
 digraph G
 {
+  bgcolor="transparent";
   edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
   node [fontname="FreeSans",fontsize="10",shape=record];
   Node9 [shape="box",label="Inherited",fontsize="10",height=0.2,width=0.4,fontname="FreeSans",fillcolor="grey75",style="filled" fontcolor="black"];

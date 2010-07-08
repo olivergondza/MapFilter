@@ -1,14 +1,3 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$interfaceMapFilter__TreePattern__Tree__Attribute__Interface.html" title="Interface for MapFilter pattern tree nodes that has an attribute." alt="" coords="620,58,913,89"/>
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Tree__Leaf__Attr.html" title="MapFilter pattern tree attribute leaf." alt="" coords="977,5,1217,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree__Node__KeyAttr.html" title="MapFilter pattern tree SetAttribute node." alt="" coords="964,58,1231,89"/>
-<area shape="rect" id="node6" href="$interfaceMapFilter__TreePattern__Tree__Interface.html" title="MapFilter_TreePattern_Tree Interface." alt="" coords="7,31,244,62"/>
-<area shape="rect" id="node8" href="$classMapFilter__TreePattern__Tree.html" title="Internal pattern tree." alt="" coords="341,31,523,62"/>
-<area shape="rect" id="node10" href="$classMapFilter__TreePattern__Tree__Leaf.html" title="Abstract class for pattern tree leaf." alt="" coords="660,5,873,35"/>
-<area shape="rect" id="node13" href="$classMapFilter__TreePattern__Tree__Node.html" title="Abstract class for pattern tree node,." alt="" coords="657,138,876,169"/>
-<area shape="rect" id="node15" href="$classMapFilter__TreePattern__Tree__Node__All.html" title="MapFilter pattern tree all node." alt="" coords="977,111,1217,142"/>
-<area shape="rect" id="node18" href="$classMapFilter__TreePattern__Tree__Node__One.html" title="MapFilter pattern tree one node." alt="" coords="973,165,1221,195"/>
-<area shape="rect" id="node20" href="$classMapFilter__TreePattern__Tree__Node__Opt.html" title="MapFilter pattern tree opt node." alt="" coords="975,218,1220,249"/>
-<area shape="rect" id="node22" href="$classMapFilter__TreePattern__Tree__Node__Some.html" title="MapFilter pattern tree some node." alt="" coords="968,271,1227,302"/>
-<area shape="rect" id="node23" href="$interfaceMapFilter__TreePattern__Tree__Node__Interface.html" title="MapFilter_TreePattern_Tree_Node Interface." alt="" coords="295,138,569,169"/>
+<area shape="rect" id="node1" href="$classMapFilter__Pattern__Deserialize.html" title="MapFilter_Pattern_Deserialize" alt="" coords="5,5,200,35"/>
 </map>

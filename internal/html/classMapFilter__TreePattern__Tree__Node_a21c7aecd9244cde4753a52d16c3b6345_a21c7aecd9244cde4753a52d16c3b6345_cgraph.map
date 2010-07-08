@@ -1,4 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Tree__Node_aa3b51fdf46fb8bb0b6f133bf34da21d1.html#aa3b51fdf46fb8bb0b6f133bf34da21d1" title="Get node followers." alt="" coords="321,5,609,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173" title="Determine whether the node is satisfied." alt="" coords="340,58,591,89"/>
+<area shape="rect" id="node3" href="$interfaceMapFilter__TreePattern__Tree__Node__Interface_aa91bc8544e65dfe1a22d2fc0720159fd.html#aa91bc8544e65dfe1a22d2fc0720159fd" title="Get node followers reference." alt="" coords="320,5,667,35"/>
+<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173" title="Determine whether the node is satisfied." alt="" coords="368,58,619,89"/>
 </map>

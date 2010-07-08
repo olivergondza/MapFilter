@@ -75,17 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
    <td valign="top">
       <div class="navtab">
         <table>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a0bd0b1e170d6db35db6f4f6a12755307.html#a0bd0b1e170d6db35db6f4f6a12755307">$attribute</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_ac958090fadde92e3203899170f8c8174.html#ac958090fadde92e3203899170f8c8174">$default</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a7c82ef2f5b079ce126616bef2d349072.html#a7c82ef2f5b079ce126616bef2d349072">$value</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a0ff2c1f32b2f2966f2e46ad4c3fa98c7.html#a0ff2c1f32b2f2966f2e46ad4c3fa98c7">$valuePattern</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a5ff0a8309b2d0f4a5f9612b090d90d92.html#a5ff0a8309b2d0f4a5f9612b090d90d92">__toString</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a24956e0efdc23880ad035440d77b9f3c.html#a24956e0efdc23880ad035440d77b9f3c">getAttribute</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a47d861b5b128f6a4d0020fca8251c514.html#a47d861b5b128f6a4d0020fca8251c514">pickUp</a></td></tr>
           <tr><td class="navtab"><a class="qindexHL" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a60c579e3e32beb5cb88a133d6b2055e2.html#a60c579e3e32beb5cb88a133d6b2055e2">satisfy</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_aa38fe27773340ab4d955f1867a2b14a0.html#aa38fe27773340ab4d955f1867a2b14a0">setAttribute</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a9a62e02c2b9a38131835eef18f8d6a59.html#a9a62e02c2b9a38131835eef18f8d6a59">setDefault</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a8416f55e34032ad133715cf825c7f5b1.html#a8416f55e34032ad133715cf825c7f5b1">setValuePattern</a></td></tr>
         </table>
       </div>
    </td>
@@ -116,7 +106,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="memdoc">
 
 <p>Satisfy certain node type and let its followers to get satisfied.  </p>
-<p>Satisfy the node just if there are no unsatisfied follower. Finding unsatisfied follower may stop mapping since there is no way to satisfy parent by any further potentially satisfied follower.</p>
+<p>Attr leaf is satisfied when its attribute occurs in user query and its value matches the optional pattern defined by valuePattern attribute. When this does not happen this node still can be satisfied if its default value is sat: attribute will have that default value and leaf will be satisfied.</p>
 <p><dl class="since"><dt><b>Since:</b></dt><dd>0.4</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -128,11 +118,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <dl class="return"><dt><b>Returns:</b></dt><dd>Bool </dd></dl>
  </p>
 
-<p><p>If argument exists</p>
-<p>And matches pattern</p>
-<p>Set default if defined </p>
-</p>
-
 <p>Reimplemented from <a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_af5165a4eaaa608ad14a9a52082a416f4.html#af5165a4eaaa608ad14a9a52082a416f4">MapFilter_TreePattern_Tree_Interface</a>.</p>
 
 <p><div class="dynheader">
@@ -140,7 +125,7 @@ Here is the call graph for this function:</div>
 <div class="dynsection">
 <div class="center"><img src="classMapFilter__TreePattern__Tree__Leaf__Attr_a60c579e3e32beb5cb88a133d6b2055e2_a60c579e3e32beb5cb88a133d6b2055e2_cgraph.png" border="0" usemap="#classMapFilter__TreePattern__Tree__Leaf__Attr_a60c579e3e32beb5cb88a133d6b2055e2_a60c579e3e32beb5cb88a133d6b2055e2_cgraph_map" alt=""></div>
 <map name="classMapFilter__TreePattern__Tree__Leaf__Attr_a60c579e3e32beb5cb88a133d6b2055e2_a60c579e3e32beb5cb88a133d6b2055e2_cgraph_map" id="classMapFilter__TreePattern__Tree__Leaf__Attr_a60c579e3e32beb5cb88a133d6b2055e2_a60c579e3e32beb5cb88a133d6b2055e2_cgraph">
-<area shape="rect" id="node3" href="classMapFilter__TreePattern__Tree_a645009680fa2712439482c09f9de8395.html#a645009680fa2712439482c09f9de8395" title="Test whether an argument is present in the query." alt="" coords="344,5,597,35"/><area shape="rect" id="node5" href="classMapFilter__TreePattern__Tree_a10780bc1993ff3b0854fa76b8f0092e9.html#a10780bc1993ff3b0854fa76b8f0092e9" title="Satisfy the certain node and do all necessary work to get (un)satisfied." alt="" coords="341,58,600,89"/><area shape="rect" id="node9" href="classMapFilter__TreePattern__Tree_a30edf5fe9f16057ebc7b532fd7174b07.html#a30edf5fe9f16057ebc7b532fd7174b07" title="Test whether a ForValue condition on tree node fits given pattern." alt="" coords="349,111,592,142"/><area shape="rect" id="node7" href="classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173" title="Determine whether the node is satisfied." alt="" coords="648,58,899,89"/></map>
+<area shape="rect" id="node3" href="classMapFilter__TreePattern__Tree__Leaf_a25a4f8c23b6c98bdf3c0c63716b28ef5.html#a25a4f8c23b6c98bdf3c0c63716b28ef5" title="Assert type mismatch." alt="" coords="343,5,684,35"/><area shape="rect" id="node5" href="classMapFilter__TreePattern__Tree_a645009680fa2712439482c09f9de8395.html#a645009680fa2712439482c09f9de8395" title="Test whether an argument is present in the query." alt="" coords="387,58,640,89"/><area shape="rect" id="node7" href="classMapFilter__TreePattern__Tree_ae89481bd5e3871cb1d97dbbfb32d5ef9.html#ae89481bd5e3871cb1d97dbbfb32d5ef9" title="Convert iterator to an array." alt="" coords="377,111,649,142"/><area shape="rect" id="node9" href="classMapFilter__TreePattern__Tree_a6beec9f878715143db38c3e8412f7cca.html#a6beec9f878715143db38c3e8412f7cca" title="Set assertion value." alt="" coords="375,165,652,195"/><area shape="rect" id="node11" href="classMapFilter__TreePattern__Tree__Leaf_a51ec28fa401e81c9071a1a9a3a1eaf7d.html#a51ec28fa401e81c9071a1a9a3a1eaf7d" title="Determine whether the value is valid or not and possibly set a default value." alt="" coords="364,218,663,249"/></map>
 </div>
 </p>
 

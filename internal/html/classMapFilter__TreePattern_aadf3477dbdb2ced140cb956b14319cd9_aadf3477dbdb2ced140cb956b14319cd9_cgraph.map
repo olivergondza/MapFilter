@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern_a3c151dfeffa56bac8dda06cf6abd2089.html#a3c151dfeffa56bac8dda06cf6abd2089" title="Create the node according to tag name." alt="" coords="279,5,527,35"/>
-<area shape="rect" id="node5" href="$classNotSoSimpleXmlElement_a6426f442525ddd4c71b25b261da42f37.html#a6426f442525ddd4c71b25b261da42f37" title="Obtain all children of an elements." alt="" coords="283,58,523,89"/>
-<area shape="rect" id="node7" href="$classMapFilter__TreePattern_a45de44104d8491bd0620a9ed00c058c2.html#a45de44104d8491bd0620a9ed00c058c2" title="Parse attributes of existing tag." alt="" coords="269,111,536,142"/>
-<area shape="rect" id="node15" href="$classMapFilter__TreePattern_ad28dfb4d499bbff7cb4bd3e72af20ca8.html#ad28dfb4d499bbff7cb4bd3e72af20ca8" title="Get tag name." alt="" coords="275,165,531,195"/>
-<area shape="rect" id="node9" href="$classMapFilter__TreePattern_af9e63d445a92aa6d2a835bf64e3410ef.html#af9e63d445a92aa6d2a835bf64e3410ef" title="Throw when there are some leftover attributes." alt="" coords="585,58,852,89"/>
-<area shape="rect" id="node11" href="$classMapFilter__TreePattern_ac0959b6ba3f09177b9bb976192357e85.html#ac0959b6ba3f09177b9bb976192357e85" title="Obtain and remove attribute from an array of attributes." alt="" coords="607,111,831,142"/>
-<area shape="rect" id="node13" href="$classNotSoSimpleXmlElement_a1c3113595d15495f817d5f48beda16f9.html#a1c3113595d15495f817d5f48beda16f9" title="Get array of node attributes." alt="" coords="593,165,844,195"/>
-</map>

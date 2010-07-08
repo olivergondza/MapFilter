@@ -66,16 +66,143 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div class="navpath"><a class="el" href="index.html">MapFilter</a>
+  </div>
 </div>
 <div class="contents">
 
 
-<h1><a class="anchor" id="usage">Usage </a></h1><h2><a class="anchor" id="mapfilter">
+<h1><a class="anchor" id="usage"><a class="el" href="classMapFilter.html">MapFilter</a> Usage </a></h1><h2><a class="anchor" id="mapfilter">
 MapFilter</a></h2>
-<p>To use <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> there is need to define the Pattern (<code><a class="el" href="classMapFilter_a5533d03dcf3b113b747be2d9123982a5.html#a5533d03dcf3b113b747be2d9123982a5" title="Set desired query pattern. ">MapFilter::setPattern</a> ();</code>) describing all possible data relations and let <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> do all the work related with input filtering. Filtering outputs can be had by <code><a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1">fetchResult ()</a></code>. This object implements the same set of interfaces as original Pattern did.</p>
+<p>To use <a class="el" href="classMapFilter.html">MapFilter</a> there is need to define the Pattern (and attach it by <code><a class="el" href="classMapFilter_a5533d03dcf3b113b747be2d9123982a5.html#a5533d03dcf3b113b747be2d9123982a5" title="Set desired query pattern. ">MapFilter::setPattern()</a></code>) describing all possible data relations and let <a class="el" href="classMapFilter.html">MapFilter</a> do all the work related with input filtering. Filtering outputs can be had by <code><a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1" title="Get full filtering results. ">MapFilter::fetchResult()</a></code>. This returned object implements the same set of interfaces as original Pattern did.</p>
 <h2><a class="anchor" id="pattern">
 MapFilter Pattern</a></h2>
-<p><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> Pattern is an arbitrary implementation of <code><a class="el" href="interfaceMapFilter__Pattern__Interface.html" title="MapFilter_Pattern Interface.">MapFilter_Pattern_Interface</a></code>. This pattern is used during the parsing procedure to do all the work needed to obtain all result types specified by implemented interfaces. There is the default implementation of Pattern included in <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> package called TreePattern (<code><a class="el" href="classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree.">MapFilter_TreePattern</a></code>). </p>
+<p>A Pattern is an arbitrary implementation of <code><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a></code>. This pattern is used during the parsing procedure to do all the work needed to obtain all result types specified by implemented interfaces. There is the default implementation of Pattern included in <a class="el" href="classMapFilter.html">MapFilter</a> package called TreePattern (<code><a class="el" href="classMapFilter__TreePattern.html">MapFilter_TreePattern</a></code>).</p>
+<h2><a class="anchor" id="examples">
+Examples</a></h2>
+<h3><a class="anchor" id="examplesmapfilter">
+MapFilter</a></h3>
+<p>Creation of <code><a class="el" href="classMapFilter.html">MapFilter</a></code> using three different ways:  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testInvocation () {
+  
+    $pattern = <span class="keyword">new</span> <a class="code" href="classMapFilter__Pattern__Null.html">MapFilter_Pattern_Null</a> ();
+    
+    $query = Array ( <span class="stringliteral">&#39;attr0&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span>, <span class="stringliteral">&#39;attr1&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
+
+    <span class="comment">// Configure filter using constructor.</span>
+    $filter0 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ( $pattern, $query );
+    
+    <span class="comment">// Create empty filter and configure it using fluent methods.</span>
+    $filter1 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ();
+    $filter1 -&gt; setPattern ( $pattern ) -&gt; setQuery ( $query );
+
+    <span class="comment">// Optional combination of both can be used as well</span>
+    $filter2 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ( $pattern );
+    $filter2 -&gt; setQuery ( $query );
+
+    self::assertEquals (
+        $filter0,
+        $filter1
+    );
+    
+    self::assertEquals (
+        $filter0,
+        $filter2
+    );
+  }
+</pre></div> All three <code>filters</code> are completely same.</p>
+<h3><a class="anchor" id="examplestreepattern">
+TreePattern</a></h3>
+<p>Using <code><a class="el" href="classMapFilter__TreePattern.html">MapFilter_TreePattern</a></code>:  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testSimpleOneWhitelist ( $query, $result ) {
+  
+    $pattern = <span class="stringliteral">&quot;</span>
+<span class="stringliteral">    &lt;pattern&gt;</span>
+<span class="stringliteral">      &lt;one&gt;</span>
+<span class="stringliteral">        &lt;attr&gt;-h&lt;/attr&gt;</span>
+<span class="stringliteral">        &lt;attr&gt;-v&lt;/attr&gt;</span>
+<span class="stringliteral">      &lt;/one&gt;</span>
+<span class="stringliteral">    &lt;/pattern&gt;</span>
+<span class="stringliteral">    &quot;</span>;
+    
+    <span class="comment">// Instantiate MapFilter with pattent and query</span>
+    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> (
+        <a class="code" href="classMapFilter__TreePattern_a28456a9356aaf26356ee2f951e8a6ac9.html#a28456a9356aaf26356ee2f951e8a6ac9" title="Simple Factory Method to load data from string.">MapFilter_TreePattern::load</a> ( $pattern ),
+        $query
+    );
+    
+    <span class="comment">// Get desired result</span>
+    self::assertEquals (
+        $result,
+        $filter-&gt;fetchResult ()-&gt;getResults ()
+    );
+  }
+</pre></div></p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classMapFilter_a139add23886402fefefd8e9031fdfbca.html#a139add23886402fefefd8e9031fdfbca" title="Get results. ">MapFilter::getResults()</a> </dd>
+<dd>
+<a class="el" href="interfaceMapFilter__Pattern__ResultInterface.html">MapFilter_Pattern_ResultInterface</a></dd></dl>
+<h3><a class="anchor" id="examplesuserpattern">
+User Pattern</a></h3>
+<p>Declaration of an simple user pattern to perform whitelist filtering:  <div class="fragment"><pre class="fragment">
+<span class="keyword">class </span>MapFilter_WhitelistResultPattern <span class="keyword">implements</span>
+    <a class="code" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a>,
+    <a class="code" href="interfaceMapFilter__Pattern__ResultInterface.html">MapFilter_Pattern_ResultInterface</a>
+{
+
+  <span class="comment">// Filtering whitelist</span>
+  <span class="keyword">private</span> $_whitelist = Array ();
+  
+  <span class="comment">// Result cache</span>
+  <span class="keyword">private</span> $_results = Array ();
+
+  <span class="comment">// Create user pattern</span>
+  <span class="keyword">public</span> function __construct ( Array $whitelist ) {
+  
+    $this-&gt;_whitelist = $whitelist;
+  }
+  
+  <span class="comment">// Perform a filtering</span>
+  <span class="keyword">public</span> function parse ( $query ) {
+  
+    <span class="keywordflow">foreach</span> ( $this-&gt;_whitelist as $validValue ) {
+    
+      <span class="keywordflow">if</span> ( array_key_exists ( $validValue, $query ) ) {
+  
+        $this-&gt;_results[ $validValue ] = $query[ $validValue ];
+      }
+    }
+  }
+  
+  <span class="comment">// Get filtering results</span>
+  <span class="keyword">public</span> function getResults () {
+  
+    <span class="keywordflow">return</span> $this-&gt;_results;
+  }
+}
+</pre></div> Using of the pattern is very simple:  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testWhitelistResultPatternFiltering (
+      Array $query, Array $result
+  ) {
+  
+    <span class="comment">// &#39;attr1&#39; and &#39;attr2&#39; will be excluded from result</span>
+    $pattern = <span class="keyword">new</span> MapFilter_WhitelistResultPattern(
+        Array ( <span class="stringliteral">&#39;attr1&#39;</span>, <span class="stringliteral">&#39;attr2&#39;</span> )
+    );
+
+    <span class="comment">// Configure filter </span>
+    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> (
+        $pattern,
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter-&gt;fetchResult ()-&gt;getResults ()
+    );
+  }
+</pre></div></p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a> </dd>
+<dd>
+<a class="el" href="interfaceMapFilter__Pattern__ResultInterface.html">MapFilter_Pattern_ResultInterface</a> </dd>
+<dd>
+<a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1" title="Get full filtering results. ">MapFilter::fetchResult()</a> </dd></dl>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"

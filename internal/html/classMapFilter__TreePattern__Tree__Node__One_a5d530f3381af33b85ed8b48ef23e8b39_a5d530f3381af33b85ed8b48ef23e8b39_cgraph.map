@@ -1,5 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Tree__Node_aa3b51fdf46fb8bb0b6f133bf34da21d1.html#aa3b51fdf46fb8bb0b6f133bf34da21d1" title="Get node followers." alt="" coords="351,5,639,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree_a10780bc1993ff3b0854fa76b8f0092e9.html#a10780bc1993ff3b0854fa76b8f0092e9" title="Satisfy the certain node and do all necessary work to get (un)satisfied." alt="" coords="365,58,624,89"/>
-<area shape="rect" id="node7" href="$classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173" title="Determine whether the node is satisfied." alt="" coords="688,58,939,89"/>
+<area shape="rect" id="node3" href="$interfaceMapFilter__TreePattern__Tree__Node__Interface_aa91bc8544e65dfe1a22d2fc0720159fd.html#aa91bc8544e65dfe1a22d2fc0720159fd" title="Get node followers reference." alt="" coords="349,5,696,35"/>
+<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree_a6beec9f878715143db38c3e8412f7cca.html#a6beec9f878715143db38c3e8412f7cca" title="Set assertion value." alt="" coords="384,58,661,89"/>
 </map>

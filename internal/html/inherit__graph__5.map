@@ -1,6 +1,3 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$classPureException.html" title="Enhanced exception handling class." alt="" coords="5,58,112,89"/>
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Exception.html" title="MapFilter_TreePattern Exceptions." alt="" coords="177,5,391,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree__Exception.html" title="MapFilter_TreePattern_Tree Exceptions." alt="" coords="161,58,407,89"/>
-<area shape="rect" id="node7" href="$classParameterObject__Exception.html" title="ParameterObject exception." alt="" coords="192,111,376,142"/>
+<area shape="rect" id="node1" href="$classMapFilter__TreePattern__Deserialize.html" title="MapFilter_TreePattern_Deserialize" alt="" coords="7,5,225,35"/>
 </map>

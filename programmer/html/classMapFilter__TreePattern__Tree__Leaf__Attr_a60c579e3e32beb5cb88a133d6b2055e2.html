@@ -18,11 +18,11 @@
   
   <div id="header">
   
-  <div class="download"> <a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"> <img
+  <div class="download"><a
+  href="http://github.com/olivergondza/MapFilter/zipball/master"><img
   border="0" width="90"
   src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"> <img
+  href="http://github.com/olivergondza/MapFilter/tarball/master"><img
   border="0" width="90"
   src="http://github.com/images/modules/download/tar.png"></a> </div>
   
@@ -74,13 +74,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
    <td valign="top">
       <div class="navtab">
         <table>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a5ff0a8309b2d0f4a5f9612b090d90d92.html#a5ff0a8309b2d0f4a5f9612b090d90d92">__toString</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a24956e0efdc23880ad035440d77b9f3c.html#a24956e0efdc23880ad035440d77b9f3c">getAttribute</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a47d861b5b128f6a4d0020fca8251c514.html#a47d861b5b128f6a4d0020fca8251c514">pickUp</a></td></tr>
           <tr><td class="navtab"><a class="qindexHL" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a60c579e3e32beb5cb88a133d6b2055e2.html#a60c579e3e32beb5cb88a133d6b2055e2">satisfy</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_aa38fe27773340ab4d955f1867a2b14a0.html#aa38fe27773340ab4d955f1867a2b14a0">setAttribute</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a9a62e02c2b9a38131835eef18f8d6a59.html#a9a62e02c2b9a38131835eef18f8d6a59">setDefault</a></td></tr>
-          <tr><td class="navtab"><a class="qindex" href="classMapFilter__TreePattern__Tree__Leaf__Attr_a8416f55e34032ad133715cf825c7f5b1.html#a8416f55e34032ad133715cf825c7f5b1">setValuePattern</a></td></tr>
         </table>
       </div>
    </td>
@@ -111,7 +105,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="memdoc">
 
 <p>Satisfy certain node type and let its followers to get satisfied.  </p>
-<p>Satisfy the node just if there are no unsatisfied follower. Finding unsatisfied follower may stop mapping since there is no way to satisfy parent by any further potentially satisfied follower.</p>
+<p>Attr leaf is satisfied when its attribute occurs in user query and its value matches the optional pattern defined by valuePattern attribute. When this does not happen this node still can be satisfied if its default value is sat: attribute will have that default value and leaf will be satisfied.</p>
 <p><dl class="since"><dt><b>Since:</b></dt><dd>0.4</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -122,11 +116,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Bool </dd></dl>
  </p>
-
-<p><p>If argument exists</p>
-<p>And matches pattern</p>
-<p>Set default if defined </p>
-</p>
 
 <p>Reimplemented from <a class="el" href="interfaceMapFilter__TreePattern__Tree__Interface_af5165a4eaaa608ad14a9a52082a416f4.html#af5165a4eaaa608ad14a9a52082a416f4">MapFilter_TreePattern_Tree_Interface</a>.</p>
 

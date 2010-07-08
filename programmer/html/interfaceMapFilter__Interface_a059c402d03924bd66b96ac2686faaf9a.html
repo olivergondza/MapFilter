@@ -18,11 +18,11 @@
   
   <div id="header">
   
-  <div class="download"> <a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"> <img
+  <div class="download"><a
+  href="http://github.com/olivergondza/MapFilter/zipball/master"><img
   border="0" width="90"
   src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"> <img
+  href="http://github.com/olivergondza/MapFilter/tarball/master"><img
   border="0" width="90"
   src="http://github.com/images/modules/download/tar.png"></a> </div>
   
@@ -106,34 +106,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="interfaceMapFilter__Pattern__Interface.html" title="MapFilter_Pattern Interface.">MapFilter_Pattern_Interface</a></em>&nbsp;</td><td>$pattern A pattern to set</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a></em>&nbsp;</td><td>$pattern A pattern to set</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> Instance of <a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> with new pattern</dd></dl>
-<p><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> can be configured using both constructor and specialized fluent methods <a class="el" href="interfaceMapFilter__Interface_a059c402d03924bd66b96ac2686faaf9a.html#a059c402d03924bd66b96ac2686faaf9a" title="Set desired query pattern.">setPattern()</a> and <a class="el" href="interfaceMapFilter__Interface_aaa5d59e65566555f7e4359c711baa263.html#aaa5d59e65566555f7e4359c711baa263" title="Set a query to filter.">setQuery()</a>:</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="classMapFilter.html">MapFilter</a> Instance of <a class="el" href="classMapFilter.html">MapFilter</a> with new pattern</dd></dl>
+<p><a class="el" href="classMapFilter.html">MapFilter</a> can be configured using both constructor and specialized fluent methods <a class="el" href="interfaceMapFilter__Interface_a059c402d03924bd66b96ac2686faaf9a.html#a059c402d03924bd66b96ac2686faaf9a" title="Set desired query pattern.">setPattern()</a> and <a class="el" href="interfaceMapFilter__Interface_aaa5d59e65566555f7e4359c711baa263.html#aaa5d59e65566555f7e4359c711baa263" title="Set a query to filter.">setQuery()</a>:</p>
  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testInvocation () {
   
-    $pattern = <a class="code" href="classMapFilter__TreePattern_a28456a9356aaf26356ee2f951e8a6ac9.html#a28456a9356aaf26356ee2f951e8a6ac9" title="Simple Factory Method to load data from string.">MapFilter_TreePattern::load</a> (
-        <span class="stringliteral">&#39;&lt;pattern&gt;</span>
-<span class="stringliteral">          &lt;some&gt;</span>
-<span class="stringliteral">            &lt;attr&gt;attr0&lt;/attr&gt;</span>
-<span class="stringliteral">            &lt;attr&gt;attr1&lt;/attr&gt;</span>
-<span class="stringliteral">          &lt;/some&gt;</span>
-<span class="stringliteral">        &lt;/pattern&gt;&#39;</span>
-    );
+    $pattern = <span class="keyword">new</span> <a class="code" href="classMapFilter__Pattern__Null.html">MapFilter_Pattern_Null</a> ();
     
     $query = Array ( <span class="stringliteral">&#39;attr0&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span>, <span class="stringliteral">&#39;attr1&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
 
     <span class="comment">// Configure filter using constructor.</span>
-    $filter0 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> ( $pattern, $query );
+    $filter0 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ( $pattern, $query );
     
     <span class="comment">// Create empty filter and configure it using fluent methods.</span>
-    $filter1 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> ();
+    $filter1 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ();
     $filter1 -&gt; <a class="code" href="interfaceMapFilter__Interface_a059c402d03924bd66b96ac2686faaf9a.html#a059c402d03924bd66b96ac2686faaf9a" title="Set desired query pattern.">setPattern</a> ( $pattern ) -&gt; <a class="code" href="interfaceMapFilter__Interface_aaa5d59e65566555f7e4359c711baa263.html#aaa5d59e65566555f7e4359c711baa263" title="Set a query to filter.">setQuery</a> ( $query );
 
     <span class="comment">// Optional combination of both can be used as well</span>
-    $filter2 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> ( $pattern );
+    $filter2 = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ( $pattern );
     $filter2 -&gt; <a class="code" href="interfaceMapFilter__Interface_aaa5d59e65566555f7e4359c711baa263.html#aaa5d59e65566555f7e4359c711baa263" title="Set a query to filter.">setQuery</a> ( $query );
 
     self::assertEquals (

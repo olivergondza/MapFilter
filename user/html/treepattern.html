@@ -21,11 +21,9 @@
   
         <div class="download">
           <a href="http://github.com/olivergondza/MapFilter/zipball/master">
-            <img border="0" width="90" src="http://github.com/images/modules/download/zip.png">
-          </a>
+            <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
           <a href="http://github.com/olivergondza/MapFilter/tarball/master">
-            <img border="0" width="90" src="http://github.com/images/modules/download/tar.png">
-          </a>
+            <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
         </div>
   
         <h1 class="main">
@@ -69,21 +67,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div class="navpath"><a class="el" href="index.html">MapFilter</a>
+  </div>
 </div>
 <div class="contents">
 
 
 <h1><a class="anchor" id="treepattern">TreePattern </a></h1><hr/>
 <ul>
+<li><a class="el" href="treepatternsyntax.html">TreePattern Syntax</a></li>
 <li><a class="el" href="treepatternelements.html">TreePattern Elements</a></li>
-<li><a class="el" href="treepatternexamples.html">TreePattern usage Examples</a></li>
+<li><a class="el" href="treepatternusageexamples.html">TreePattern Usage Examples</a></li>
+<li><a class="el" href="treepatterntreeexamples.html">TreePattern Tree examples</a></li>
 </ul>
 <hr/>
-<p>MapFilter TreePattern (<code><a class="el" href="classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree.">MapFilter_TreePattern</a></code>) consists of groups of arguments (special kind of such group may be a single argument), creating tree structure of groups as nodes and arguments as it's leaves. A new Pattern can be created from xml file (<code><a class="el" href="classMapFilter__TreePattern_abc37977cf3b426fbef0de3f9586b2973.html#abc37977cf3b426fbef0de3f9586b2973" title="Simple factory method to instantiate with loading the data from file.">MapFilter_TreePattern::fromFile</a> ( $url );</code>) or xml in String (<code><a class="el" href="classMapFilter__TreePattern_a28456a9356aaf26356ee2f951e8a6ac9.html#a28456a9356aaf26356ee2f951e8a6ac9" title="Simple Factory Method to load data from string.">MapFilter_TreePattern::load</a> ( $xmlString );</code>).</p>
-<p>During the filtering process algorithm walk through the tree starting from its root and evaluating all defined argument groups. So-called 'satisfaction' of the argument group is determined by its rules and satisfaction of it's followers. Single argument is considered 'satisfied' when it's present and when it matches the pattern. In result will be found all satisfied arguments from all satisfied groups. <a class="el" href="treepattern.html#flags">Flags</a> will contain all defined flags from satisfied groups and <a class="el" href="treepattern.html#asserts">Asserts</a> will contain all defined asserts from adjacent unsatisfied groups.</p>
+<p>MapFilter TreePattern (<code><a class="el" href="classMapFilter__TreePattern.html">MapFilter_TreePattern</a></code>) consists of groups of arguments (special kind of such group may be a single argument), creating tree structure of groups as nodes and arguments as it's leaves. A new <code><a class="el" href="classMapFilter__TreePattern.html">Pattern</a></code> can be created from xml file (<code><a class="el" href="classMapFilter__TreePattern_abc37977cf3b426fbef0de3f9586b2973.html#abc37977cf3b426fbef0de3f9586b2973" title="Simple Factory Method to instantiate with loading the data from file.">MapFilter_TreePattern::fromFile</a> ( $url );</code>) or xml in String (<code><a class="el" href="classMapFilter__TreePattern_a28456a9356aaf26356ee2f951e8a6ac9.html#a28456a9356aaf26356ee2f951e8a6ac9" title="Simple Factory Method to load data from string.">MapFilter_TreePattern::load</a> ( $xmlString );</code>).</p>
+<p>During the filtering process algorithm walk through the tree starting from its root and evaluating all defined argument groups. So-called 'satisfaction' of the argument group is determined by its rules and satisfaction of it's followers. Single argument is considered 'satisfied' when it's present and when it matches the <a class="el" href="treepatternelements.html#valuepatternattr">valuePattern</a> of the <a class="el" href="treepatternelements.html#defaultattr">default</a> attribute is sat. In result will be found all satisfied arguments from all satisfied groups. <a class="el" href="treepattern.html#flags">Flags</a> will contain all defined flags from satisfied groups and <a class="el" href="treepattern.html#asserts">Asserts</a> will contain all defined asserts from adjacent unsatisfied groups.</p>
 <h2><a class="anchor" id="result">
 TreePattern Result</a></h2>
-<p>TreePattern currently provides three different types of results. Result object can be obtained by fetchResult(). Individual results can be obtained by get<em>MyResultType</em>() (<code>$filter -&gt; <a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1">fetchResult ()</a> -&gt; <a class="el" href="classMapFilter_a3f05a7d9705e4bfe46ba07a732715718.html#a3f05a7d9705e4bfe46ba07a732715718">getAsserts ()</a>;</code>).</p>
+<p>TreePattern currently provides three different types of results. Result object can be obtained by fetchResult(). Individual results can be obtained by get<em>MyResultType</em>() (i.e. <code>$filter-&gt;<a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1">fetchResult ()</a>-&gt;<a class="el" href="classMapFilter_a3f05a7d9705e4bfe46ba07a732715718.html#a3f05a7d9705e4bfe46ba07a732715718">getAsserts ()</a>;</code>).</p>
 <h3><a class="anchor" id="results">
 Results</a></h3>
 <p>Results array can be obtained by <code><a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c">getResults ()</a></code>. Results array contains filtering result.</p>

@@ -1,6 +1,7 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Tree_a645009680fa2712439482c09f9de8395.html#a645009680fa2712439482c09f9de8395" title="Test whether an argument is present in the query." alt="" coords="344,5,597,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree_a10780bc1993ff3b0854fa76b8f0092e9.html#a10780bc1993ff3b0854fa76b8f0092e9" title="Satisfy the certain node and do all necessary work to get (un)satisfied." alt="" coords="341,58,600,89"/>
-<area shape="rect" id="node9" href="$classMapFilter__TreePattern__Tree_a30edf5fe9f16057ebc7b532fd7174b07.html#a30edf5fe9f16057ebc7b532fd7174b07" title="Test whether a ForValue condition on tree node fits given pattern." alt="" coords="349,111,592,142"/>
-<area shape="rect" id="node7" href="$classMapFilter__TreePattern__Tree_a9395346bee2c37482c0973c84da30173.html#a9395346bee2c37482c0973c84da30173" title="Determine whether the node is satisfied." alt="" coords="648,58,899,89"/>
+<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Tree__Leaf_a25a4f8c23b6c98bdf3c0c63716b28ef5.html#a25a4f8c23b6c98bdf3c0c63716b28ef5" title="Assert type mismatch." alt="" coords="343,5,684,35"/>
+<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree_a645009680fa2712439482c09f9de8395.html#a645009680fa2712439482c09f9de8395" title="Test whether an argument is present in the query." alt="" coords="387,58,640,89"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern__Tree_ae89481bd5e3871cb1d97dbbfb32d5ef9.html#ae89481bd5e3871cb1d97dbbfb32d5ef9" title="Convert iterator to an array." alt="" coords="377,111,649,142"/>
+<area shape="rect" id="node9" href="$classMapFilter__TreePattern__Tree_a6beec9f878715143db38c3e8412f7cca.html#a6beec9f878715143db38c3e8412f7cca" title="Set assertion value." alt="" coords="375,165,652,195"/>
+<area shape="rect" id="node11" href="$classMapFilter__TreePattern__Tree__Leaf_a51ec28fa401e81c9071a1a9a3a1eaf7d.html#a51ec28fa401e81c9071a1a9a3a1eaf7d" title="Determine whether the value is valid or not and possibly set a default value." alt="" coords="364,218,663,249"/>
 </map>

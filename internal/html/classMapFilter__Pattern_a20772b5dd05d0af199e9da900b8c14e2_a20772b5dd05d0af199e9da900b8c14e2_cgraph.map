@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter__Pattern_a481b508bcd1fdc615f37530b9a5eca97.html#a481b508bcd1fdc615f37530b9a5eca97" title="Load Xml source and create XmlElement." alt="" coords="233,5,415,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__Pattern_afe5ab14bbf461d6fb698cc626e2ac7d9.html#afe5ab14bbf461d6fb698cc626e2ac7d9" title="Unwrap not necessary &lt;pattern&gt; tags from very beginning and end of tree." alt="" coords="464,5,637,35"/>
-<area shape="rect" id="node7" href="$classNotSoSimpleXmlElement_a6426f442525ddd4c71b25b261da42f37.html#a6426f442525ddd4c71b25b261da42f37" title="Obtain all children of an elements." alt="" coords="687,5,927,35"/>
-</map>

@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Deserialize_a1e82fe3141bbf5591b48a4473db31618.html#a1e82fe3141bbf5591b48a4473db31618" title="Create the node according to tag name." alt="" coords="348,5,673,35"/>
+<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Deserialize_abf3693ea2fabfe3e2dd4d4b4b0313722.html#abf3693ea2fabfe3e2dd4d4b4b0313722" title="Parse attributes of existing tag." alt="" coords="339,58,683,89"/>
+<area shape="rect" id="node11" href="$classMapFilter__TreePattern__Deserialize_afd91ba863059dc339dbfa98cdabd024b.html#afd91ba863059dc339dbfa98cdabd024b" title="Get tag name." alt="" coords="344,111,677,142"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern__Deserialize_abefbb25a5bcea5a202e1561077b315f8.html#abefbb25a5bcea5a202e1561077b315f8" title="Throw when there are some leftover attributes." alt="" coords="731,31,1077,62"/>
+<area shape="rect" id="node9" href="$classMapFilter__TreePattern__Deserialize_afa23a3a735619b4f20b6249393fbacd4.html#afa23a3a735619b4f20b6249393fbacd4" title="Obtain and remove attribute from an array of attributes." alt="" coords="753,85,1055,115"/>
+</map>

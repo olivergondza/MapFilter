@@ -1,3 +1,3 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter.html" title="Class to filter key&#45;value data structures." alt="" coords="17,257,127,570"/>
+<area shape="rect" id="node3" href="$classMapFilter.html" title="{MapFilter\n|&#45; $_pattern\l&#45; $_usedPattern\l&#45; $_query\l&#45; $_filtered\l|+ __construct()\l+ setPattern()\l+ setQuery()\l+ fetchResult()\l+ getResults()\l+ getAsserts()\l+ getFlags()\l&#45; _filter()\l}" alt="" coords="16,257,128,533"/>
 </map>

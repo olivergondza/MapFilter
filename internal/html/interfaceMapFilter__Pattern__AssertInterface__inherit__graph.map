@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$classMapFilter__Pattern__Null.html" title="A mock implementation basic MapFilter_Pattern interfaces." alt="" coords="5,583,157,747"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree." alt="" coords="181,145,355,1186"/>
+<area shape="rect" id="node5" href="$classMapFilter__Pattern__Null.html" title="{MapFilter_Pattern_Null\n|&#45; $_query\l|+ __construct()\l+ getResults()\l+ getAsserts()\l+ getFlags()\l+ parse()\l}" alt="" coords="5,414,157,578"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern.html" title="{MapFilter_TreePattern\n|+ DATA_IS_URL\l+ DATA_IS_STRING\l&#45; $_patternTree\l&#45; $_tempTree\l&#45; $_sidePatterns\l&#45; $_results\l&#45; $_asserts\l&#45; $_flags\l|+ __construct()\l+ __clone()\l+ getResults()\l+ getAsserts()\l+ getFlags()\l+ setPattern()\l+ setSidePatterns()\l+ getSidePattern()\l+ parse()\l+ load()\l+ fromFile()\l&#45; _cleanup()\l}" alt="" coords="181,283,331,709"/>
+<area shape="rect" id="node2" href="$interfaceMapFilter__Pattern__Interface.html" title="{MapFilter_Pattern_Interface\n||+ parse()\l}" alt="" coords="77,6,259,95"/>
 </map>

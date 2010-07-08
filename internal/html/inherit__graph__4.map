@@ -1,5 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$classPureException.html" title="Enhanced exception handling class." alt="" coords="5,31,112,62"/>
-<area shape="rect" id="node3" href="$classMapFilter__TreePattern__Exception.html" title="MapFilter_TreePattern Exceptions." alt="" coords="177,5,391,35"/>
-<area shape="rect" id="node5" href="$classMapFilter__TreePattern__Tree__Exception.html" title="MapFilter_TreePattern_Tree Exceptions." alt="" coords="161,58,407,89"/>
+<area shape="rect" id="node1" href="$interfaceMapFilter__Pattern__Interface.html" title="MapFilter_Pattern_Interface" alt="" coords="7,58,188,89"/>
+<area shape="rect" id="node3" href="$interfaceMapFilter__Pattern__AssertInterface.html" title="MapFilter_Pattern_AssertInterface" alt="" coords="239,5,457,35"/>
+<area shape="rect" id="node9" href="$interfaceMapFilter__Pattern__FlagInterface.html" title="MapFilter_Pattern_FlagInterface" alt="" coords="245,58,451,89"/>
+<area shape="rect" id="node13" href="$interfaceMapFilter__Pattern__ResultInterface.html" title="MapFilter_Pattern_ResultInterface" alt="" coords="239,111,457,142"/>
+<area shape="rect" id="node5" href="$classMapFilter__Pattern__Null.html" title="MapFilter_Pattern_Null" alt="" coords="508,31,660,62"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern.html" title="MapFilter_TreePattern" alt="" coords="509,85,659,115"/>
 </map>
