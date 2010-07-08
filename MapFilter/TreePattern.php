@@ -77,7 +77,6 @@ require_once ( dirname ( __FILE__ ) . '/Pattern/ResultInterface.php' );
  * @link     http://github.com/olivergondza/MapFilter
  */
 class MapFilter_TreePattern implements
-    MapFilter_Pattern_Interface,
     MapFilter_Pattern_AssertInterface,
     MapFilter_Pattern_FlagInterface,
     MapFilter_Pattern_ResultInterface
