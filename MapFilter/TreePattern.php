@@ -240,6 +240,7 @@ class MapFilter_TreePattern implements
    * @note New object is created with @b copy of given patternTree
    *
    * @param     MapFilter_TreePattern_Tree      $patternTree    A tree to use
+   * @param     Array                           $sidePatterns   A side patterns to attach.
    *
    * @return    MapFilter_TreePattern           Created Pattern
    *
@@ -314,7 +315,7 @@ class MapFilter_TreePattern implements
    *
    * @since     0.5.3
    *
-   * @param     Array           $patterns           Pattern to set.
+   * @param     Array           $pattern        Pattern to set.
    *
    * @return    MapFilter_TreePattern
    */

@@ -168,7 +168,7 @@ interface MapFilter_TreePattern_Tree_Interface {
    * @return    MapFilter_TreePattern_Tree      New pattern with attachPattern.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
-  public function setAttachPattern ( $attechPattern );
+  public function setAttachPattern ( $attachPattern );
   
   /**
    * Set TreePattern.
@@ -212,11 +212,11 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @since     0.4
    *
-   * @param     Array           $results
+   * @param     Array           $result
    *
    * @return    Array           Results array
    */
-  public function pickUp ( Array $results );
+  public function pickUp ( Array $result );
   
   /**
    * Get filtering flags.

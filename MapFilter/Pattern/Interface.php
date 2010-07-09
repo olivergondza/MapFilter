@@ -49,7 +49,7 @@ interface MapFilter_Pattern_Interface {
    *
    * @since     0.5
    *
-   * @param     Array           $query          A user query.
+   * @param     Array|ArrayAccess       $query          A user query.
    */
   public function parse ( $query );
 }

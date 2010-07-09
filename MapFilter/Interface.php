@@ -83,7 +83,7 @@ interface MapFilter_Interface {
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
    *
-   * @clip{MapFilter.test.php,testInvocation}
+   * @clip{Unit/MapFilter.test.php,testInvocation}
    *
    * @see       __construct()
    */
@@ -101,7 +101,7 @@ interface MapFilter_Interface {
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
    *
-   * @clip{MapFilter.test.php,testInvocation}
+   * @clip{Unit/MapFilter.test.php,testInvocation}
    *
    * @see       __construct()
    */

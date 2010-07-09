@@ -46,7 +46,7 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
  * @package  MapFilter
  * @class    MapFilter_TreePattern_Tree
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * @link     http://github.com/olivergondza/MapFilter
+ * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @since    0.3
  *
