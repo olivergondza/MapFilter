@@ -4,3 +4,4 @@ user/doc/
 *Coverage
 *Profiled
 *.log
+*phpCompatibilityFilter/
