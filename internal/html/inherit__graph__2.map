@@ -1,3 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$classMapFilter__Pattern__Deserialize.html" title="MapFilter_Pattern_Deserialize" alt="" coords="5,5,200,35"/>
+<area shape="rect" id="node1" href="$interfaceMapFilter__Pattern__Interface.html" title="MapFilter_Pattern Interface." alt="" coords="7,58,188,89"/>
+<area shape="rect" id="node3" href="$interfaceMapFilter__Pattern__AssertInterface.html" title="Interface that provides filtering assertions access." alt="" coords="239,5,457,35"/>
+<area shape="rect" id="node9" href="$interfaceMapFilter__Pattern__FlagInterface.html" title="Interface that provides filtering flags access." alt="" coords="245,58,451,89"/>
+<area shape="rect" id="node13" href="$interfaceMapFilter__Pattern__ResultInterface.html" title="Interface that provides filtering results access." alt="" coords="239,111,457,142"/>
+<area shape="rect" id="node5" href="$classMapFilter__Pattern__Null.html" title="A mock implementation of basic MapFilter_Pattern interfaces." alt="" coords="508,31,660,62"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree." alt="" coords="509,85,659,115"/>
 </map>

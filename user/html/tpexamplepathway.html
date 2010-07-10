@@ -90,7 +90,113 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     &lt;/node_attr&gt;
   &lt;/pattern&gt;
 &lt;/patterns&gt;
-</pre></div> </div>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
+ <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function provideParse () {
+  
+    <span class="keywordflow">return</span> Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+
+        Array (
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> )
+                )
+            ),
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> )
+                )
+            )
+        ),
+
+        Array (
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;metres&#39;</span> =&gt; 1 )
+                    ),
+                )
+            ),
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;metres&#39;</span> =&gt; 1 )
+                    )
+                )
+            )
+        ),
+
+        Array (
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;yards&#39;</span> =&gt; 1 )
+                    ),
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> ),
+                )
+            ),
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;yards&#39;</span> =&gt; 1 )
+                    ),
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> ),
+                    
+                )
+            )
+        ),
+
+        Array (
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> ),
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;metres&#39;</span> =&gt; 1 )
+                    ),
+                )
+            ),
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> ),
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;metres&#39;</span> =&gt; 1 )
+                    )
+                )
+            )
+        ),
+
+        Array (
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;yards&#39;</span> =&gt; 1 )
+                    ),
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> ),
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;metres&#39;</span> =&gt; 1 )
+                    ),
+                )
+            ),
+            Array ( <span class="stringliteral">&#39;steps&#39;</span> =&gt;
+                Array (
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;yards&#39;</span> =&gt; 1 )
+                    ),
+                    Array ( <span class="stringliteral">&#39;turn&#39;</span> =&gt; <span class="stringliteral">&#39;left&#39;</span> ),
+                    Array (
+                        <span class="stringliteral">&#39;walk&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;metres&#39;</span> =&gt; 1 )
+                    ),
+                )
+            )
+        ),
+    );
+  }
+  
+</pre></div> </p>
+</div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

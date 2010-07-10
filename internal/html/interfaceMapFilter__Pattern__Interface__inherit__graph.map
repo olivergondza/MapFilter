@@ -1,7 +1,7 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$interfaceMapFilter__Pattern__AssertInterface.html" title="{MapFilter_Pattern_AssertInterface\n||+ getAsserts()\l}" alt="" coords="5,145,224,234"/>
-<area shape="rect" id="node9" href="$interfaceMapFilter__Pattern__FlagInterface.html" title="{MapFilter_Pattern_FlagInterface\n||+ getFlags()\l}" alt="" coords="248,145,453,234"/>
-<area shape="rect" id="node13" href="$interfaceMapFilter__Pattern__ResultInterface.html" title="{MapFilter_Pattern_ResultInterface\n||+ getResults()\l}" alt="" coords="477,145,696,234"/>
-<area shape="rect" id="node5" href="$classMapFilter__Pattern__Null.html" title="{MapFilter_Pattern_Null\n|&#45; $_query\l|+ __construct()\l+ getResults()\l+ getAsserts()\l+ getFlags()\l+ parse()\l}" alt="" coords="187,414,339,578"/>
-<area shape="rect" id="node7" href="$classMapFilter__TreePattern.html" title="{MapFilter_TreePattern\n|+ DATA_IS_URL\l+ DATA_IS_STRING\l&#45; $_patternTree\l&#45; $_tempTree\l&#45; $_sidePatterns\l&#45; $_results\l&#45; $_asserts\l&#45; $_flags\l|+ __construct()\l+ __clone()\l+ getResults()\l+ getAsserts()\l+ getFlags()\l+ setPattern()\l+ setSidePatterns()\l+ getSidePattern()\l+ parse()\l+ load()\l+ fromFile()\l&#45; _cleanup()\l}" alt="" coords="363,283,512,709"/>
+<area shape="rect" id="node3" href="$interfaceMapFilter__Pattern__AssertInterface.html" title="Interface that provides filtering assertions access." alt="" coords="5,145,224,234"/>
+<area shape="rect" id="node9" href="$interfaceMapFilter__Pattern__FlagInterface.html" title="Interface that provides filtering flags access." alt="" coords="248,145,453,234"/>
+<area shape="rect" id="node13" href="$interfaceMapFilter__Pattern__ResultInterface.html" title="Interface that provides filtering results access." alt="" coords="477,145,696,234"/>
+<area shape="rect" id="node5" href="$classMapFilter__Pattern__Null.html" title="A mock implementation of basic MapFilter_Pattern interfaces." alt="" coords="187,414,339,578"/>
+<area shape="rect" id="node7" href="$classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree." alt="" coords="363,283,512,709"/>
 </map>

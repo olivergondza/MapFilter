@@ -116,7 +116,31 @@ phpversion[] = <span class="stringliteral">&quot;5.0&quot;</span>
 phpversion[] = <span class="stringliteral">&quot;5.1&quot;</span>
 phpversion[] = <span class="stringliteral">&quot;5.2&quot;</span>
 phpversion[] = <span class="stringliteral">&quot;5.3&quot;</span>
-</pre></div> </div>
+</pre></div> <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testParse () {
+  
+    $content = parse_ini_file (
+        PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::PARSEINIFILE_INI,
+        self::EXPAND_SECTIONS
+    );
+
+    $pattern = <a class="code" href="classMapFilter__TreePattern_abc37977cf3b426fbef0de3f9586b2973.html#abc37977cf3b426fbef0de3f9586b2973" title="Simple Factory Method to instantiate with loading the data from file.">MapFilter_TreePattern::fromFile</a> (
+        PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::PARSEINIFILE_XML
+    );
+    
+    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> (
+        $pattern,
+        $content
+    );
+    
+    $result = $filter-&gt;fetchResult ();
+
+    self::assertEquals (
+        $content,
+        $result-&gt;getResults ()
+    );
+  }
+</pre></div> </p>
+</div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

@@ -120,15 +120,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p><dl class="since"><dt><b>Since:</b></dt><dd>0.1</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a></em>&nbsp;</td><td>$pattern A pattern to set. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>Array|ArrayAccess</em>&nbsp;</td><td>$query A query to filter.</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>$pattern</em>&nbsp;</td><td>A pattern to set. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>$query</em>&nbsp;</td><td>A query to filter.</td></tr>
   </table>
   </dd>
 </dl>
 <p>If no pattern specified an untouched query will be returned: <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testEmptyPattern  () {
   
     $query = Array ( <span class="stringliteral">&#39;attr&#39;</span> =&gt; <span class="stringliteral">&#39;value&#39;</span> );
-    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> ();
+    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> ();
     $filter-&gt;setQuery (
         $query
     );
@@ -140,7 +140,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   }
 </pre></div>All parsing is done just in time (however it can be triggered manually using MapFilter::parse()) when some of parsing results is accessed (in this case when <a class="el" href="classMapFilter_a139add23886402fefefd8e9031fdfbca.html#a139add23886402fefefd8e9031fdfbca" title="Get results. ">MapFilter::getResults()</a> is called for the first time): <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function testDuration ( $query, $result, $flags, $asserts ) {
   
-    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html">MapFilter</a> (
+    $filter = <span class="keyword">new</span> <a class="code" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> (
         <a class="code" href="classMapFilter__TreePattern_abc37977cf3b426fbef0de3f9586b2973.html#abc37977cf3b426fbef0de3f9586b2973" title="Simple Factory Method to instantiate with loading the data from file.">MapFilter_TreePattern::fromFile</a> (
             PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::DURATION
         ),
@@ -166,15 +166,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  </p>
 
 <p>Reimplemented from <a class="el" href="interfaceMapFilter__Interface_a8d5f4373a14f06bbffb4ea36e1fa3e31.html#a8d5f4373a14f06bbffb4ea36e1fa3e31">MapFilter_Interface</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dynsection">
-<div class="center"><img src="classMapFilter_af0d4602fc72d31a622a192ef90d526b9_af0d4602fc72d31a622a192ef90d526b9_cgraph.png" border="0" usemap="#classMapFilter_af0d4602fc72d31a622a192ef90d526b9_af0d4602fc72d31a622a192ef90d526b9_cgraph_map" alt=""></div>
-<map name="classMapFilter_af0d4602fc72d31a622a192ef90d526b9_af0d4602fc72d31a622a192ef90d526b9_cgraph_map" id="classMapFilter_af0d4602fc72d31a622a192ef90d526b9_af0d4602fc72d31a622a192ef90d526b9_cgraph">
-<area shape="rect" id="node3" href="classMapFilter_a5533d03dcf3b113b747be2d9123982a5.html#a5533d03dcf3b113b747be2d9123982a5" title="Set desired query pattern. " alt="" coords="207,5,348,35"/><area shape="rect" id="node5" href="classMapFilter_a74302285077635681386481ea5ad532b.html#a74302285077635681386481ea5ad532b" title="Set a query to filter. " alt="" coords="209,58,345,89"/></map>
-</div>
-</p>
 
 </div>
 </div>

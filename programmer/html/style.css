@@ -49,8 +49,9 @@ dl {
 }
 
 code {
-        font-family: licida console;
+        font-family: Lucida Console, monospace;
         font-weight: bold;
+        color: #222
 }
 
 .dynsection {

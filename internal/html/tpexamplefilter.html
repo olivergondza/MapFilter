@@ -106,7 +106,35 @@ but nothing <span class="keywordflow">else</span>
     &lt;/one&gt;
   &lt;/all&gt;
 &lt;/pattern&gt;
-</pre></div> </div>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
+ <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function provideParseFilterUtility () {
+  
+    <span class="keywordflow">return</span> Array (
+        Array (
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;-a&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-a&#39;</span> =&gt; NULL )
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL )
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL )
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL )
+        )
+    );
+  }
+  
+</pre></div> </p>
+</div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

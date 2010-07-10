@@ -104,7 +104,164 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     &lt;/key_attr&gt;
   &lt;/all&gt;
 &lt;/pattern&gt;
-</pre></div> </div>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
+ <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function provideGenerator () {
+  
+    <span class="keywordflow">return</span> Array (
+        Array (
+            Array (),
+            Array (),
+            Array (),
+            Array ( <span class="stringliteral">&#39;no_source&#39;</span> =&gt; <span class="stringliteral">&#39;no_source&#39;</span> )
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span> ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;a.css&#39;</span>, <span class="stringliteral">&#39;b.css&#39;</span> )
+            ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;a.css&#39;</span>, <span class="stringliteral">&#39;b.css&#39;</span> )
+            ),
+            Array (),
+            Array ()
+        ),
+        3 =&gt; Array (
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;html&#39;</span>, <span class="stringliteral">&#39;man&#39;</span> )
+            ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;html&#39;</span>, <span class="stringliteral">&#39;man&#39;</span> ),
+                <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;3&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;pdf&#39;</span>, <span class="stringliteral">&#39;text&#39;</span> )
+            ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;html&#39;</span> ),
+                <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;a.sss&#39;</span>, <span class="stringliteral">&#39;b.sss&#39;</span> )
+            ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;default.css&#39;</span> )
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;a.sss&#39;</span>
+            ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;html&#39;</span>,
+                    <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;man&#39;</span> ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;man&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;3&#39;</span> ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;man&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;2&#39;</span> ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;man&#39;</span>,
+                    <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;2&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;man&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="stringliteral">&#39;info&#39;</span> ),
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;man&#39;</span>,
+                    <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;3&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span> ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;default.dtd&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.dtd&#39;</span> ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.dtd&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.ddd&#39;</span> ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;default.dtd&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;1&#39;</span> ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;default.dtd&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        Array (
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span> =&gt; <span class="charliteral">&#39;1&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.dtd&#39;</span>
+            ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;default.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.dtd&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+        <span class="comment">/* Enable multiple case competence */</span>
+        Array (
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;a.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.dtd&#39;</span>
+            ),
+            Array (
+                <span class="stringliteral">&#39;input&#39;</span> =&gt; <span class="stringliteral">&#39;a.out&#39;</span>, <span class="stringliteral">&#39;output_format&#39;</span> =&gt; <span class="stringliteral">&#39;xml&#39;</span>, <span class="stringliteral">&#39;stylesheet&#39;</span> =&gt; <span class="stringliteral">&#39;a.css&#39;</span>,
+                <span class="stringliteral">&#39;dtd&#39;</span> =&gt; <span class="stringliteral">&#39;a.dtd&#39;</span>
+            ),
+            Array (),
+            Array ()
+        ),
+    );
+  }
+  
+</pre></div> </p>
+</div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

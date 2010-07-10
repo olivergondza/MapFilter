@@ -73,9 +73,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 
 
-<h1><a class="anchor" id="tpexampledirection">Direction example </a></h1><div class="fragment"><pre class="fragment">&lt;!--
---&gt;
-&lt;patterns&gt;
+<h1><a class="anchor" id="tpexampledirection">Direction example </a></h1><p>In the following example there is a structure describing movement ("top", "bottom", "right" and "left") and the distance defining a vector together.</p>
+<p>Movement is described by one or two non-opposite directions. The distance can be determined by a "unit" and the amount of those units.</p>
+<div class="fragment"><pre class="fragment">&lt;patterns&gt;
 
   &lt;pattern&gt;
     &lt;some&gt;
@@ -96,8 +96,94 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       &lt;attr valuePattern=<span class="stringliteral">&quot;meter|yard&quot;</span>&gt;unit&lt;/attr&gt;
     &lt;/all&gt;
   &lt;/pattern&gt;
+
 &lt;/patterns&gt;
-</pre></div> </div>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
+ <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function provideParse () {
+  
+    <span class="keywordflow">return</span> Array (
+        <span class="comment">// Single direction</span>
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+            ),
+        ),
+        <span class="comment">// Two compatible directions</span>
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;left&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;left&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+        ),
+        <span class="comment">// Two incompatible directions; one will be trimmed</span>
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;bottom&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+            ),
+        ),
+        <span class="comment">// Three directions; one will be trimmed</span>
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;bottom&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+                <span class="stringliteral">&#39;left&#39;</span>   =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;left&#39;</span>   =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+        ),
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;right&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+                <span class="stringliteral">&#39;left&#39;</span>   =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;right&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+        ),
+        <span class="comment">// Four directions; two will be trimmed</span>
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;bottom&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+                <span class="stringliteral">&#39;right&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+                <span class="stringliteral">&#39;left&#39;</span>   =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;right&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+        ),
+        Array (
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;left&#39;</span>   =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+                <span class="stringliteral">&#39;bottom&#39;</span> =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+                <span class="stringliteral">&#39;right&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+            Array (
+                <span class="stringliteral">&#39;top&#39;</span>    =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;meter&#39;</span>, <span class="stringliteral">&#39;count&#39;</span> =&gt; 2 ),
+                <span class="stringliteral">&#39;right&#39;</span>  =&gt; Array ( <span class="stringliteral">&#39;unit&#39;</span> =&gt; <span class="stringliteral">&#39;yard&#39;</span>,  <span class="stringliteral">&#39;count&#39;</span> =&gt; 1 ),
+            ),
+        ),
+    );
+  }
+</pre></div> </p>
+</div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

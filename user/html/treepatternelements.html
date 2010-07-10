@@ -116,7 +116,8 @@ Attribute assert</a></h3>
 <p>An <code>assert</code> attribute specifies an assertion to set for the node if the node won't get satisfied even though its parent was satisfied.</p>
 <h3><a class="anchor" id="attachpatternattr">
 Attribute attachPattern</a></h3>
-<p>A <code>attachPattern</code> attribute specifies a pattern to attach into the node to become its regular content.</p>
+<p>A <code>attachPattern</code> attribute specifies a pattern to attach into the node to become its regular content. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="treepatternelements.html#nameattr">name</a></dd></dl>
 <h2><a class="anchor" id="attrattributes">
 TreePattern Attr leaf attributes</a></h2>
 <p>Attributes specific for Attribute TreePattern elements. Currently it involves <a class="el" href="treepatternelements.html#attrleaf">Attr</a> leaf and <a class="el" href="treepatternelements.html#keyattrleaf">KeyAttr</a> node.</p>
@@ -131,7 +132,14 @@ Attribute default</a></h3>
 <p>A <code>default</code> attribute determines value that is going to be used as a key value in case attribute won't get satisfied. This value is going to be wrapped into the array if the node was declared to be an <a class="el" href="treepatternelements.html#iteratorattr">iterator</a>.</p>
 <h3><a class="anchor" id="valuepatternattr">
 Attribute valuePattern</a></h3>
-<p>A <code>valuePattern</code> attribute determines pattern to match for key value. </p>
+<p>A <code>valuePattern</code> attribute determines pattern to match for key value.</p>
+<h2><a class="anchor" id="patternattributes">
+TreePattern Pattern attributes</a></h2>
+<p>Attributes specific for pattern node.</p>
+<h3><a class="anchor" id="nameattr">
+Attribute name</a></h3>
+<p>A <code>name</code> attribute specifies a name of certain pattern. The name is used when the pattern is attached to the node. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="treepatternelements.html#attachpatternattr">attachPattern</a> </dd></dl>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"

@@ -1,5 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$classMapFilter__TreePattern__Tree__Exception.html" title="{MapFilter_TreePattern_Tree_Exception\n|+ INVALID_XML_ATTRIBUTE\l+ INVALID_XML_CONTENT\l# $messages\l|}" alt="" coords="21,507,267,634"/>
-<area shape="rect" id="node4" href="$classMapFilter__TreePattern__Exception.html" title="{MapFilter_TreePattern_Exception\n|+ INVALID_PATTERN_ELEMENT\l+ HAS_NOT_ONE_FOLLOWER\l+ INVALID_PATTERN_ATTRIBUTE\l+ INVALID_XML_ATTRIBUTE\l+ INVALID_XML_CONTENT\l+ MISSING_ATTRIBUTE_VALUE\l+ INVALID_PATTERN_NAME\l+ LIBXML_WARNING\l+ LIBXML_ERROR\l+ LIBXML_FATAL\l# $messages\l|* LIBXML_WARNING\l* LIBXML_ERROR\l* LIBXML_FATAL\l}" alt="" coords="29,145,259,458"/>
-<area shape="rect" id="node6" href="$classMapFilter__Exception.html" title="{MapFilter_Exception\n||}" alt="" coords="73,6,215,95"/>
+<area shape="rect" id="node2" href="$classMapFilter__TreePattern__Tree__Exception.html" title="MapFilter_TreePattern_Tree Exceptions." alt="" coords="21,507,267,634"/>
+<area shape="rect" id="node4" href="$classMapFilter__TreePattern__Exception.html" title="MapFilter_TreePattern Exceptions." alt="" coords="29,145,259,458"/>
+<area shape="rect" id="node6" href="$classMapFilter__Exception.html" title="Enhanced exception handling class." alt="" coords="73,6,215,95"/>
 </map>
