@@ -58,7 +58,7 @@ require_once ( dirname ( __FILE__ ) . '/MapFilter/Exception.php' );
  * @class    MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
  *
- * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL
  * @since    0.1
  *
  * @link     http://github.com/olivergondza/MapFilter

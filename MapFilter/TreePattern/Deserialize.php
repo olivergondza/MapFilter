@@ -73,7 +73,7 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php' );
  *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_Pattern_Deserialize
+ * @class    MapFilter_TreePattern_Deserialize
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License

@@ -39,7 +39,7 @@ require_once ( dirname ( __FILE__ ) . '/../Exception.php' );
  *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_Pattern_Exception
+ * @class    MapFilter_TreePattern_Exception
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License

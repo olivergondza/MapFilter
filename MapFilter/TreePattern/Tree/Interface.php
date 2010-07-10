@@ -87,6 +87,15 @@ interface MapFilter_TreePattern_Tree_Interface {
   public function setContent ( Array $content );
   
   /**
+   * Get node followers reference.
+   *
+   * @since     0.4
+   *
+   * @return    Array           Node followers reference.
+   */
+  public function &getContent ();
+  
+  /**
    * Set valueFilter.
    *
    * A Fluent Method.

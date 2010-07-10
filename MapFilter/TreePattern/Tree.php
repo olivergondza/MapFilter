@@ -230,7 +230,7 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * Get node followers.
+   * Get node followers reference.
    *
    * @since     0.3
    *

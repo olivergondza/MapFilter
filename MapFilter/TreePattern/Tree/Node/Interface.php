@@ -42,19 +42,4 @@
  *
  * @link     http://github.com/olivergondza/MapFilter
  */
-interface MapFilter_TreePattern_Tree_Node_Interface {
-
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setContent()}
-   */
-  public function setContent ( Array $content );
-
-  /**
-   * Get node followers reference.
-   *
-   * @since     0.4
-   *
-   * @return    Array           Node followers reference.
-   */
-  public function &getContent ();
-}
+interface MapFilter_TreePattern_Tree_Node_Interface { }

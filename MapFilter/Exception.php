@@ -128,3 +128,4 @@ class MapFilter_Exception extends Exception {
     return (String) $this->message;
   }
 }
+/** @endcode */
