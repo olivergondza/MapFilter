@@ -49,7 +49,9 @@ class MapFilter_Test_User_TreePattern_CoffeeMaker extends PHPUnit_Framework_Test
         ),
         // dissallowed attribute will be truncated
         Array (
-            Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5, 'spoon' => 'please'),
+            Array (
+                'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5, 'spoon' => 'please'
+            ),
             Array ( 'beverage' => 'coffee', 'cup' => 'no', 'sugar' => 5 )
         )
     );

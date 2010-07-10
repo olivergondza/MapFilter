@@ -2,4 +2,10 @@
 @page           tpexamplelocation               Location exmple
 
 @include        sources/location.xml
+
+There is a list of input arrays on the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() on the
+second.
+
+@clip{User/TreePattern/Location.test.php,provideParseLocation}
 */

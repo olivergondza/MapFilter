@@ -3,4 +3,6 @@
 
 @include        sources/parse_ini_file.xml
 @include        sources/parse_ini_file.ini
+
+@clip{User/TreePattern/ParseIniFile.test.php,testParse}
 */

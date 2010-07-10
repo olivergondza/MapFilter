@@ -19,6 +19,7 @@ class MapFilter_Test_User_TreePattern_ParseIniFile extends
 
   const EXPAND_SECTIONS = TRUE;
  
+  /**@{*/
   public static function testParse () {
   
     $content = parse_ini_file (
@@ -42,4 +43,5 @@ class MapFilter_Test_User_TreePattern_ParseIniFile extends
         $result->getResults ()
     );
   }
+  /**@}*/
 }

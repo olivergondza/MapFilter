@@ -1,5 +1,3 @@
-<!--
--->
 <patterns>
 
   <pattern>
@@ -21,4 +19,5 @@
       <attr valuePattern="meter|yard">unit</attr>
     </all>
   </pattern>
+
 </patterns>

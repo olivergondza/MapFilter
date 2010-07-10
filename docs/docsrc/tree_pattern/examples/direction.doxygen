@@ -1,5 +1,15 @@
 /**
 @page           tpexampledirection      Direction example
 
+In the following example there is a structure describing movement ("top",
+"bottom", "right" and "left") and the distance defining a vector together. 
+Movement is described by one or two non-opposite directions.  The distance
+can be determined by a "unit" and the amount of those units.
+
 @include        sources/direction.xml
+
+There is a list of input arrays on the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() on the second.
+
+@clip{User/TreePattern/Direction.test.php,provideParse}
 */

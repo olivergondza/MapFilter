@@ -2,4 +2,10 @@
 @page           tpexamplegenerator              Generator example
 
 @include        sources/generator.xml
+
+There is a list of input arrays on the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() on the
+second.
+
+@clip{User/TreePattern/Generator.test.php,provideGenerator}
 */

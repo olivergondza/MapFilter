@@ -15,12 +15,11 @@ class MapFilter_Test_User_TreePattern_Direction extends
     PHPUnit_Framework_TestCase
 {
   
+  /**@{*/
   public static function provideParse () {
   
     return Array (
-        /**
-         * Single direction
-         */
+        // Single direction
         Array (
             Array (
                 'top' => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -29,9 +28,7 @@ class MapFilter_Test_User_TreePattern_Direction extends
                 'top' => Array ( 'unit' => 'meter', 'count' => 2 ),
             ),
         ),
-        /**
-         * Two compatible directions
-         */
+        // Two compatible directions
         Array (
             Array (
                 'top'  => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -42,9 +39,7 @@ class MapFilter_Test_User_TreePattern_Direction extends
                 'left' => Array ( 'unit' => 'yard',  'count' => 1 ),
             ),
         ),
-        /**
-         * Two incompatible directions
-         */
+        // Two incompatible directions; one will be trimmed
         Array (
             Array (
                 'top'    => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -54,9 +49,7 @@ class MapFilter_Test_User_TreePattern_Direction extends
                 'top'    => Array ( 'unit' => 'meter', 'count' => 2 ),
             ),
         ),
-        /**
-         * Three directions
-         */
+        // Three directions; one will be trimmed
         Array (
             Array (
                 'top'    => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -68,9 +61,6 @@ class MapFilter_Test_User_TreePattern_Direction extends
                 'left'   => Array ( 'unit' => 'meter', 'count' => 1 ),
             ),
         ),
-        /**
-         * Three directions
-         */
         Array (
             Array (
                 'top'    => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -82,9 +72,7 @@ class MapFilter_Test_User_TreePattern_Direction extends
                 'right'  => Array ( 'unit' => 'yard',  'count' => 1 ),
             ),
         ),
-        /**
-         * Four directions
-         */
+        // Four directions; two will be trimmed
         Array (
             Array (
                 'top'    => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -97,9 +85,6 @@ class MapFilter_Test_User_TreePattern_Direction extends
                 'right'  => Array ( 'unit' => 'yard',  'count' => 1 ),
             ),
         ),
-        /**
-         * Four directions
-         */
         Array (
             Array (
                 'top'    => Array ( 'unit' => 'meter', 'count' => 2 ),
@@ -114,6 +99,7 @@ class MapFilter_Test_User_TreePattern_Direction extends
         ),
     );
   }
+  /**@}*/
   
   /**
    * test parse

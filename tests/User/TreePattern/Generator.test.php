@@ -113,38 +113,62 @@ class MapFilter_Test_User_TreePattern_Generator extends
         ),
         Array (
             Array ( 'input' => 'a.out', 'output_format' => 'xml' ),
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css', 'dtd' => 'default.dtd' ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css',
+                'dtd' => 'default.dtd'
+            ),
             Array (),
             Array ()
         ),
         Array (
             Array ( 'input' => 'a.out', 'output_format' => 'xml', 'dtd' => 'a.dtd' ),
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css', 'dtd' => 'a.dtd' ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css',
+                'dtd' => 'a.dtd'
+            ),
             Array (),
             Array ()
         ),
         Array (
             Array ( 'input' => 'a.out', 'output_format' => 'xml', 'dtd' => 'a.ddd' ),
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css', 'dtd' => 'default.dtd' ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css',
+                'dtd' => 'default.dtd'
+            ),
             Array (),
             Array ()
         ),
         Array (
             Array ( 'input' => 'a.out', 'output_format' => 'xml', 'extension' => '1' ),
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css', 'dtd' => 'default.dtd' ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css',
+                'dtd' => 'default.dtd'
+            ),
             Array (),
             Array ()
         ),
         Array (
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'extension' => '1', 'dtd' => 'a.dtd' ),
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css', 'dtd' => 'a.dtd' ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'extension' => '1',
+                'dtd' => 'a.dtd'
+            ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'default.css',
+                'dtd' => 'a.dtd'
+            ),
             Array (),
             Array ()
         ),
         /* Enable multiple case competence */
         Array (
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'a.css', 'dtd' => 'a.dtd' ),
-            Array ( 'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'a.css', 'dtd' => 'a.dtd' ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'a.css',
+                'dtd' => 'a.dtd'
+            ),
+            Array (
+                'input' => 'a.out', 'output_format' => 'xml', 'stylesheet' => 'a.css',
+                'dtd' => 'a.dtd'
+            ),
             Array (),
             Array ()
         ),

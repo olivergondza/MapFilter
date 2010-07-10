@@ -17,29 +17,41 @@ class MapFilter_Test_User_TreePattern_Duration extends
     PHPUnit_Framework_TestCase
 {
 
+    /**@{*/
     public static function provideDuration () {
   
     return Array (
+        // An absence of query set related assertions
         Array (
             Array (),
             Array (),
             Array (),
             Array (
-                'no_beginning_time' => 'no_beginning_time', 'no_start_hour' => 'no_start_hour'
+                'no_beginning_time' => 'no_beginning_time',
+                'no_start_hour' => 'no_start_hour'
             )
         ),
+        // An absence of termination time set related assertions
         Array (
             Array ( 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0 ),
             Array (),
             Array (),
-            Array ( 'no_duration_hour' => 'no_duration_hour', 'no_end_hour' => 'no_end_hour', 'no_termination_time' => 'no_termination_time' )
+            Array (
+                'no_duration_hour' => 'no_duration_hour',
+                'no_end_hour' =>'no_end_hour',
+                'no_termination_time' => 'no_termination_time'
+            )
         ),
+        // An invalid value sets an assertion
         Array (
             Array ( 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 'now' ),
             Array (),
             Array (),
-            Array ( 'no_beginning_time' => 'no_beginning_time', 'no_start_second' => 'now' )
+            Array (
+                'no_beginning_time' => 'no_beginning_time', 'no_start_second' => 'now'
+            )
         ),
+        // Query OK; Nothing get trimmed; Appropriate flags are set
         Array (
             Array (
                 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
@@ -55,21 +67,25 @@ class MapFilter_Test_User_TreePattern_Duration extends
         Array (
             Array (
                 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
-                'duration_hour' => 1, 'duration_minute' => 59, 'duration_second' => 59,
+                'duration_hour' => 1, 'duration_minute' => 59,
+                'duration_second' => 59,
             ),
             Array (
                 'start_hour' => 0, 'start_minute' => 0, 'start_second' => 0,
-                'duration_hour' => 1, 'duration_minute' => 59, 'duration_second' => 59,
+                'duration_hour' => 1, 'duration_minute' => 59,
+                'duration_second' => 59,
             ),
             Array ( 'duration', 'duration_time' ),
             Array ( 'no_end_hour' => 'no_end_hour' )
         ),
+        // Invalid value for start_hour set an assertion
         Array (
             Array ( 'start_hour' => -1 ),
             Array (),
             Array (),
-            Array ( 'no_beginning_time' => 'no_beginning_time', 'no_start_hour' => -1 )
+            Array ('no_beginning_time' => 'no_beginning_time', 'no_start_hour' => -1 )
         ),
+        // Invalid value for set_minute set an assertion
         Array (
             Array ( 'start_hour' => 0, 'start_minute' => 60 ),
             Array (),
@@ -78,6 +94,7 @@ class MapFilter_Test_User_TreePattern_Duration extends
         )
     );
   }
+  /**@}*/
   
   /**@{*/
   /**

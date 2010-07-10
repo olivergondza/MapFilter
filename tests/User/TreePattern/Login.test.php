@@ -33,20 +33,34 @@ class MapFilter_Test_User_TreePattern_Login extends
             Array ()
         ),
         Array (
-            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL
+            ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL
+            ),
             Array ( 'login', 'remember' ),
             Array ()
         ),
         Array (
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'use-https' => "no",
+                'remember' => "yes", 'server' => NULL
+            ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'server' => NULL
+            ),
             Array ( 'login', 'remember' ),
             Array ()
         ),
         Array (
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "no", 'remember' => "yes", 'server' => NULL, 'user' => NULL ),
-            Array ( 'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'user' => NULL ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'use-https' => "no",
+                'remember' => "yes", 'server' => NULL, 'user' => NULL
+            ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'remember' => "yes", 'user' => NULL
+            ),
             Array ( 'login', 'remember' ),
             Array ()
         ),
@@ -63,7 +77,10 @@ class MapFilter_Test_User_TreePattern_Login extends
             Array ( 'no_password' => 'no_password' )
         ),
         Array (
-            Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes", 'remember' => "yes" ),
+            Array (
+                'name' => "me", 'pass' => "myPass", 'use-https' => "yes",
+                'remember' => "yes"
+            ),
             Array ( 'name' => "me", 'pass' => "myPass", 'use-https' => "yes" ),
             Array ( 'login', 'use_https' ),
             Array ( 'no_remember_method' => 'no_remember_method' )

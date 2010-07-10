@@ -15,14 +15,14 @@
 
 @subpage      tpexampledirection
 
-@tag{Concerned elements,...}
-@tag{Concerned attributes,...}
+@tag{Concerned elements,@ref allnode "all"\, @ref nodeattrnode "node_attr"\, @ref onenode "one"\, @ref somenode "some"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref attachpatternattr "attachPattern"\,@ref attrattr "attr"\, @ref nameattr "name"\, @ref valuepatternattr "valuePattern"}
 <hr>
 
 @subpage      tpexampleduration
 
-@tag{Concerned elements,...}
-@tag{Concerned attributes,...}
+@tag{Concerned elements,@ref allnode "all"\, @ref onenode "one"}
+@tag{Concerned attributes,@ref assertattr "assert"\, @ref flagattr "flag"\, @ref valuepatternattr "valuePattern"}
 <hr>
 
 @subpage      tpexamplefilter

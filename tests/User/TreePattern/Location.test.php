@@ -45,7 +45,9 @@ class MapFilter_Test_User_TreePattern_Location extends
             Array ()
         ),
         Array (
-            Array ( 'action' => "delete", 'nick' => "myLocation", 'duration' => "permanent" ),
+            Array (
+                'action' => "delete", 'nick' => "myLocation", 'duration' => "permanent"
+            ),
             Array ( 'action' => "delete", 'nick' => "myLocation" )
         )
     );
