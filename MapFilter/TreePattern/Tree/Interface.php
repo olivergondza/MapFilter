@@ -209,10 +209,10 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @since     0.4
    *
-   * @param     Array|ArrayAccess       $query
-   * @param     Array                   $asserts
+   * @param     Array|ArrayAccess       &$query
+   * @param     Array                   &$asserts
    *
-   * @return    Bool
+   * @return    Bool                    Satisfied or not
    */
   public function satisfy ( &$query, Array &$asserts );
   

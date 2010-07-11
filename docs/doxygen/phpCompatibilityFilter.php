@@ -39,42 +39,42 @@
  * into doxygen.ini file. All files (that match given pattern) will be
  * parsed by this filter.
  *
- * @file    phpCompatibilityFilter.php
- *
  * @author  Oliver Gondža <324706@mail.muni.cz>
  * @license http://www.gnu.org/copyleft/lesser.html  LGPL License
  */
 
 /**
- * Copy type from @@param and @@return annotation to function header.
+ * Copy type from @@param, @@returnand @@throws/@@exception annotation to
+ * function header.
  *
  * Turns
  *
  * @code
  * // @param    int     $a      My int
  * // @param    string  $s      My string
- * // @return   bool    My result
+ * // @return   bool            My result
+ * // @throws   exception       My exception
  * //
- * function func ( $a, $s ) { ... }
+ * function &func ( $a, &$s ) { ... }
  * @endcode
  *
  * into:
  *
  * @code
- * // @param    $a      My int
- * // @param    $s      My string
- * // @return   My result
+ * // @param            $a      My int
+ * // @param            $s      My string
+ * // @return                   My result
+ * // @throws   exception       My exception
  * //
- * function bool func ( int $a, string $s ) { ... }
+ * function &bool func ( int $a, string &$s ) throw ( MyException ) { ... }
  * @endcode
  *
- * All methods or functions with header to fix must have own @@param and
- * @@return annotations.
+ * All methods or functions with header to fix must have own @@param,
+ * @@return and @@throws/@@exception annotations.
  *
- * @warning     Does not work with copied @@param/@@return tags (@@copydoc,
- * @@copybrief, @@copydetails) and with inherited tags (INHERIT_DOCS). 
- * Since the original method can lie in different file so tags are
- * unavailable.
+ * @warning     Does not work with copied @@param/@@return/@@throws tags
+ * (@@copydoc, @@copydetails) and with inherited tags (INHERIT_DOCS).  Since
+ * the original method can lie in different file so tags are unavailable.
  * 
  * @param       Array   $data   Lines of original file
  *
@@ -83,9 +83,11 @@
 function fix_function_header ( Array $data ) {
 
   $params = Array ();
-  $return = '';
+  $exceptions = Array ();
+  $return = 'void';
   
   $prevLine = '';
+  $inFunction = FALSE;
   foreach ( $data as &$line ) {
 
     /**
@@ -93,7 +95,7 @@ function fix_function_header ( Array $data ) {
      */
     $fullline = $prevLine . substr ( $line, strpos ( $line, '* ' ) + 2 );
     $match = preg_match (
-        '/(:?\\\|@)param\s*(?P<type>\S+)\s*(?P<name>\S+)/',
+        '/(?:\\\|@)param\s+(?P<type>\S+)\s+(?P<name>\S+)/',
         $fullline,
         $matches
     );
@@ -131,7 +133,7 @@ function fix_function_header ( Array $data ) {
      */
     $fullline = $prevLine . substr ( $line, strpos ( $line, '* ' ) + 2 );
     $match = preg_match (
-        '/(:?\\\|@)return\s*(?P<type>\S+)/',
+        '/(?:\\\|@)return\s+(?P<type>\S+)/',
         $fullline,
         $matches
     );
@@ -151,34 +153,76 @@ function fix_function_header ( Array $data ) {
     }
 
     /**
+     * Find exception types
+     */
+    $match = preg_match (
+        '/^\s*\*\s*(?:\\\|@)(?:throws|exception)\s+(?P<type>\S+)/',
+        $line,
+        $matches
+    );
+
+    if ( $match ) {
+
+      if ( array_key_exists ( 'type', $matches ) ) {
+      
+        $exceptions[] = $matches[ 'type' ];
+      }
+
+      continue;
+    }
+
+    /**
      * Modify header
      */
     $token = $inFunction = preg_match (
-        '/ function\s+\S+/',
-        $fullline
+        '/function\s+\S+/',
+        $line
     );
-    
+
     if ( $inFunction ) {
-    
+
       if ( $token ) {
     
-        $line = str_replace ( 'function', "$return function", $line );
-        $return = '';
+        $line = preg_replace (
+            '/function(\s+)(&)?/',
+            "function \\2$return\\1",
+            $line,
+            1
+        );
+        $return = 'void';
       }
 
       foreach ( $params as $paramName => $paramType ) {
-       
+          
         $line = str_replace ( $paramName, "$paramType $paramName", $line );
       }
+      
       $params = Array ();
     }
 
     /**
-     * Prepare for new process
+     * Flush exceptions
      */
-    if ( is_int ( strpos ( ')', $line ) ) ) {
+    if ( is_int ( strpos ( $line, ')' ) ) ) {
+
+      if ( $exceptions !== Array () ) {
+
+        $exceptionString = sprintf (
+            'throw ( %s )',
+            implode ( ', ', $exceptions )
+        );
+        
+        $line = str_replace ( ')', ") $exceptionString", $line);
+        
+        $exceptions = Array ();
+      }
     
       $inFunction = FALSE;
+    }
+    
+    if ( is_int ( strpos ( $line, '()' ) ) ) {
+    
+      $line = str_replace ( '()', '( void )', $line );
     }
   }
   
@@ -204,6 +248,20 @@ function addFileTag ( Array $data ) {
   } 
   
   return $data;
+}
+
+if ( !array_key_exists ( 1, $argv ) ) {
+
+  trigger_error ( 'No filename specified.', E_USER_ERROR );
+} elseif ( !is_readable ( $argv[ 1 ] ) ) {
+
+  trigger_error (
+      sprintf (
+          'Filename %s is not readable.',
+          $argv[ 1 ]
+      ),
+      E_USER_ERROR
+  );
 }
 
 /** Read file data */
@@ -232,8 +290,8 @@ $data = addFileTag ( $data );
  * for it.
  */
 $data = preg_replace (
-    '/\*\s(\\\|@)license\s*(\S+)\s*(.*)/',
-    "\\1par License: \n      \\2 \\3",
+    '/^(\s*\*\s*)(\\\|@)license\s*(\S+)\s*(.*)/',
+    "\\1\\2par License:\n\\1  \\3 \\4",
     $data
 );
 
@@ -243,8 +301,8 @@ $data = preg_replace (
  * A @@package tag is usable only in java.
  */
 $data = preg_replace (
-    '/\*\s(\\\|@)package\s*(\S+)/',
-    "\\1par Package: \n     %\\2",
+    '/^(\s*\*\s*)(\\\|@)package\s*(\S+)/',
+    "\\1\\2par Package:\n\\1  %\\3",
     $data
 );
 
@@ -254,8 +312,8 @@ $data = preg_replace (
  * A @@category tag does exist in doxygen but it is used for Objective-C only.
  */
 $data = preg_replace (
-    '/\*\s(\\\|@)category\s*(\S+)/',
-    "\\1par Category: \n     %\\2",
+    '/^(\s*\*\s*)(\\\|@)category\s*(\S+)/',
+    "\\1\\2par Category:\n\\1  %\\3",
     $data
 );
 
@@ -266,8 +324,8 @@ $data = preg_replace (
  * tag.
  */
 $data = preg_replace (
-    '/\*\s((\\\|@)link\s+\S+)/',
-    "\\2par URL: \n    \\1 \\2endlink",
+    '/^(\s*\*\s*)((\\\|@)link\s+\S+)/',
+    "\\1\\3par URL:\n\\1  \\2 \\3endlink",
     $data
 );
 
@@ -278,8 +336,8 @@ $data = preg_replace (
  * doxygen.
  */
 $data = preg_replace (
-    '/\*\s(\\\|@)param\s+\S+(.*)/',
-    "* \\1param \\2",
+    '/^(\s*\*\s*)(\\\|@)param\s+\S+\s+(.*)$/',
+    "\\1\\2param \\3",
     $data
 );
 
@@ -289,6 +347,10 @@ $data = preg_replace (
  * A type annotation in @@return tag (mandatory in php) is prohibited in
  * doxygen.
  */
-$data = preg_replace ( '/\*\s(\\\|@)return\s+\S+/', "* \\1return", $data );
+$data = preg_replace (
+    '/^(\s*\*\s*)(\\\|@)return\s+\S+/',
+    "\\1\\2return",
+    $data
+);
 
 echo implode ( $data );

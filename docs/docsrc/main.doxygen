@@ -15,6 +15,21 @@ Keys, Keys and allowed Values or Values and Keys from simple Key or Value
 
 - @subpage      treepattern
 - @subpage      usage
+- @subpage      faq
+
+@section        download        Download
+
+@subsection     current         Current version
+
+$ git clone git://github.com/olivergondza/MapFilter
+
+or compressed
+(@link{zip,http://github.com/olivergondza/MapFilter/zipball/master} or
+@link{tar,http://github.com/olivergondza/MapFilter/tarball/master}).
+
+@subsection     packages        Packages
+
+@link{MapFilter-0.5.3.tgz,http://olivergondza.github.com/MapFilter/MapFilter-0.5.3.tgz}
 
 @section	license		License
 
