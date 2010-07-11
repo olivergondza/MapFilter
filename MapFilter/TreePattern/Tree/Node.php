@@ -35,11 +35,6 @@
 require_once ( dirname ( __FILE__ ) . '/../Tree.php' );
 
 /**
- * @file        MapFilter/TreePattern/Tree/Node/Interface.php
- */
-require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
-
-/**
  * Abstract class for pattern tree node.
  *
  * @category Pear
@@ -54,8 +49,6 @@ require_once ( dirname ( __FILE__ ) . '/Node/Interface.php' );
  */
 abstract class MapFilter_TreePattern_Tree_Node extends
     MapFilter_TreePattern_Tree
-implements
-    MapFilter_TreePattern_Tree_Node_Interface
 {
 
   /**
@@ -65,7 +58,7 @@ implements
    *
    * @param     Array           $content                A content to set.
    *
-   * @return    self
+   * @return    MapFilter_TreePattern_Tree_Node
    */
   public function setContent ( Array $content ) {
    
@@ -74,11 +67,12 @@ implements
   }
   
   /**
-   * PickUp Nodes.
+   * Pick-up satisfaction results.
    *
    * @since     0.3
    *
    * @param     Array           $result
+   * @return    Array
    */
   public function pickUp ( Array $result ) {
 
@@ -96,7 +90,13 @@ implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUpFlags}
+   * Get filtering flags.
+   *
+   * @since     0.5.1
+   *
+   * @param     Array           $flags
+   *
+   * @return    Array
    */
   public function pickUpFlags ( Array $flags ) {
   
@@ -116,20 +116,5 @@ implements
     }
     
     return $flags;
-  }
-  
-  /**
-   * Clone node followers.
-   *
-   * @note This method uses deep cloning.
-   *
-   * @since     0.3
-   */
-  public function __clone () {
-  
-    foreach ( $this->content as &$follower ) {
-
-      $follower = clone ( $follower );
-    }
   }
 }

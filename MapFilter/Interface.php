@@ -52,6 +52,8 @@ interface MapFilter_Interface {
    * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set.
    * @param     Array|ArrayAccess               $query	        A query to filter.
    *
+   * @return    MapFilter_Interface
+   *
    * If no pattern specified an untouched query will be returned:
    *
    * @clip{User/MapFilter.test.php,testEmptyPattern}
@@ -65,8 +67,7 @@ interface MapFilter_Interface {
    * @see       setPattern(), setQuery(), MapFilter_Pattern
    */
   public function __construct (
-      MapFilter_Pattern_Interface $pattern = NULL,
-      $query = Array ()
+      MapFilter_Pattern_Interface $pattern = NULL, $query = Array ()
   );
 
   /**
@@ -78,7 +79,7 @@ interface MapFilter_Interface {
    *
    * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set
    *
-   * @return    MapFilter       Instance of MapFilter with new pattern
+   * @return    MapFilter       Instance of MapFilter with new pattern.
    *
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
@@ -96,7 +97,7 @@ interface MapFilter_Interface {
    *
    * @param     Array|ArrayAccess              $query           A query to set
    *
-   * @return    MapFilter               Instance of MapFilter with new query
+   * @return    MapFilter               Instance of MapFilter with new query.
    *
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
@@ -110,12 +111,12 @@ interface MapFilter_Interface {
   /**
    * Get full filtering results.
    *
-   * Return recently used pattern to obtain all kind of results to enable
-   * user interface usage.
-   *
    * @since     0.5
    *
    * @return    MapFilter_Pattern_Interface     Parsing results
+   *
+   * Return recently used pattern to obtain all kind of results to enable
+   * user interface usage.
    *
    * @see       __construct(), setPattern()
    */
@@ -124,11 +125,11 @@ interface MapFilter_Interface {
   /**
    * Get results.
    *
-   * Get parsed query from latest parsing process.
-   *
    * @since     0.2
    *
-   * @return    Array|ArrayAccess               Parsing results
+   * @return    Array|ArrayAccess               Parsing results.
+   *
+   * Get parsed query from latest parsing process.
    *
    * @see       fetchResult()
    */
@@ -137,11 +138,11 @@ interface MapFilter_Interface {
   /**
    * Get validation assertions.
    *
-   * Return validation asserts that was raised during latest parsing process.
-   *
    * @since     0.4
    *
-   * @return    Array|ArrayAccess               Parsing asserts
+   * @return    Array|ArrayAccess               Parsing asserts.
+   *
+   * Return validation asserts that was raised during latest parsing process.
    *
    * @see       fetchResult()
    */
@@ -150,11 +151,11 @@ interface MapFilter_Interface {
   /**
    * Get flags.
    *
-   * Return flags that was sat during latest parsing process.
-   *
    * @since     0.4
    *
-   * @return    Array|ArrayAccess               Parsing flags
+   * @return    Array|ArrayAccess               Parsing flags.
+   *
+   * Return flags that was sat during latest parsing process.
    *
    * @see       fetchResult()
    */

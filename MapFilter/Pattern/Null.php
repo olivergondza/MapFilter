@@ -89,7 +89,13 @@ class MapFilter_Pattern_Null implements
   public function __construct () {}
 
   /**
-   * @copyfull{MapFilter_Pattern_ResultInterface::getResults()}
+   * Get results.
+   *
+   * Get parsed query from latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Array|ArrayAccess       Parsing results.
    */
   public function getResults () {
   
@@ -97,7 +103,13 @@ class MapFilter_Pattern_Null implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_AssertInterface::getAsserts()}
+   * Get validation assertions.
+   *
+   * Return validation asserts that was raised during latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Array|ArrayAccess       Parsing asserts.
    */
   public function getAsserts () {
     
@@ -105,7 +117,13 @@ class MapFilter_Pattern_Null implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_FlagInterface::getFlags()}
+   * Get flags
+   *
+   * Return flags that was sat during latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Array|ArrayAccess	Parsing flags.
    */
   public function getFlags () {
   
@@ -113,7 +131,11 @@ class MapFilter_Pattern_Null implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_Interface::parse()}
+   * Parse the given query against the pattern.
+   *
+   * @since     0.5
+   *
+   * @param     Array|ArrayAccess       $query          A user query.
    */
   public function parse ( $query ) {
   

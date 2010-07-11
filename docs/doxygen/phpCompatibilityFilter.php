@@ -174,7 +174,7 @@ function fix_function_header ( Array $data ) {
     /**
      * Modify header
      */
-    $token = $inFunction = preg_match (
+    $inFunction |= $token = preg_match (
         '/function\s+\S+/',
         $line
     );
@@ -184,8 +184,8 @@ function fix_function_header ( Array $data ) {
       if ( $token ) {
     
         $line = preg_replace (
-            '/function(\s+)(&)?/',
-            "function \\2$return\\1",
+            '/^([^\*]*)function(\s+)(&)?/',
+            "\\1function \\3$return\\2",
             $line,
             1
         );
@@ -193,11 +193,9 @@ function fix_function_header ( Array $data ) {
       }
 
       foreach ( $params as $paramName => $paramType ) {
-          
+
         $line = str_replace ( $paramName, "$paramType $paramName", $line );
       }
-      
-      $params = Array ();
     }
 
     /**
@@ -217,15 +215,75 @@ function fix_function_header ( Array $data ) {
         $exceptions = Array ();
       }
     
+      $params = Array ();
       $inFunction = FALSE;
     }
     
-    if ( is_int ( strpos ( $line, '()' ) ) ) {
-    
-      $line = str_replace ( '()', '( void )', $line );
-    }
   }
   
+  return $data;
+}
+
+/**
+ * Fix valiable/property declaration.
+ *
+ * Turns
+ *
+ * @code
+ * // @var      Bool    $_myVar         My var
+ * private $_myVar = FALSE;
+ * @endcode
+ *
+ * into:
+ *
+ * @code
+ * // @var      Bool    $_myVar         My var
+ * private Bool $_myVar = FALSE;
+ * @endcode
+ *
+ * @param       Array   $data   Input lines.
+ *
+ * @result      Array   Array of output.
+ */
+function fix_var_declaration ( $data ) {
+
+  $name = '';
+  $type = '';
+
+  foreach ( $data as &$line ) {
+  
+    $match = preg_match (
+        '/(\\\|@)var\s+(?P<type>\S+)\s+(?P<name>\S+)/',
+        $line,
+        $matches
+    );
+    
+    if ( $match ) {
+      
+      $name = $matches[ 'name' ];
+      $type = $matches[ 'type' ];
+      
+      continue;
+    }
+
+    $replaced = FALSE;
+    if ( $name && $type ) {
+
+      $quotedName = preg_quote ( $name );
+      $line = preg_replace (
+          "/^([^\*]*)$quotedName/",
+          "\\1$type $name",
+          $line,
+          1,
+          $replaced
+      );
+
+      if ( $replaced ) {
+        $name = $type = '';
+      }
+    }
+  }
+
   return $data;
 }
 
@@ -250,6 +308,9 @@ function addFileTag ( Array $data ) {
   return $data;
 }
 
+/**
+ * Validate input filename.
+ */
 if ( !array_key_exists ( 1, $argv ) ) {
 
   trigger_error ( 'No filename specified.', E_USER_ERROR );
@@ -264,6 +325,13 @@ if ( !array_key_exists ( 1, $argv ) ) {
   );
 }
 
+/**
+ * File data.
+ *
+ * @var         Array           $data           Lines of code.
+ */
+$data = Array ();
+
 /** Read file data */
 $data = file ( $argv[ 1 ] );
 
@@ -273,7 +341,14 @@ $data = file ( $argv[ 1 ] );
  * PHP disallow type hinting of scalar values in type header. On the other
  * hand doxygen mandate this behavior to generate correct documentation.
  */
-//$data = fix_function_header ( $data );
+$data = fix_function_header ( $data );
+
+/**
+ * Copy type annotation from @@var to member declaration.
+ *
+ * PHP disallow type declaration.
+ */
+$data = fix_var_declaration ( $data );
 
 /**
  * Add @@file tag.

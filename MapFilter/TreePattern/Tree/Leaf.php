@@ -110,16 +110,17 @@ implements
   protected $iterator = 'no';
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
-   */
-  public function setIterator ( $iterator ) {
-
-    $this->iterator = $iterator;
-    return $this;
-  }
-
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
+   * Set attribute.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $attribute              An attribute to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new attribute.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttribute ( $attribute ) {
 
@@ -128,7 +129,50 @@ implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Leaf_Interface::getAttribute()}
+   * Set default value.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $default        A default value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setDefault ( $default ) {
+
+    $this->default = $default;
+    return $this;
+  }
+  
+  /**
+   * Set valueFilter.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $valuePattern   A valueFilter to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new valueFilter.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValuePattern ( $valuePattern ) {
+
+    $this->valuePattern = $valuePattern;
+    return $this;
+  }
+  
+  /**
+   * Get node attribute.
+   *
+   * @since     0.4
+   *
+   * @return    String          A node attribute.
+   * @see       setAttribute()
    */
   public function getAttribute () {
   
@@ -136,20 +180,21 @@ implements
   }
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setDefault()}
+   * Set iterator.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.2
+   *
+   * @param     String          $iterator       An iterator value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with iterator.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
-  public function setDefault ( $default ) {
+  public function setIterator ( $iterator ) {
 
-    $this->default = $default;
-    return $this;
-  }
-
-  /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setValuePattern()}
-   */
-  public function setValuePattern ( $valuePattern ) {
-
-    $this->valuePattern = $valuePattern;
+    $this->iterator = $iterator;
     return $this;
   }
 
@@ -250,7 +295,12 @@ implements
   }
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUp()}
+   * Pick-up satisfaction results.
+   *
+   * @since     0.3
+   *
+   * @param     Array           $result
+   * @return    Array
    */
   public function pickUp ( Array $result ) {
 
@@ -270,7 +320,13 @@ implements
   }
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::pickUpFlags()}
+   * Get filtering flags.
+   *
+   * @since     0.5.1
+   *
+   * @param     Array           $flags
+   *
+   * @return    Array
    */
   public function pickUpFlags ( Array $flags ) {
   
@@ -287,13 +343,22 @@ implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::__clone()}
+   * Clone node followers.
+   *
+   * @since     0.3
+   * 
    * Overwrite MapFilter_Pattern_Tree deep cloning method
+   *
+   * @return    MapFilter_TreePattern_Tree_Leaf
    */
   public function __clone () {}
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Leaf_Interface::__toString()}
+   * Convert node to string.
+   *
+   * @since     0.4
+   *
+   * @return    String          String representation of node.
    */
   public function __toString () {
   

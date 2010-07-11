@@ -83,7 +83,17 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
   private $_follower = NULL;
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
+   * Set attribute.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $attribute              An attribute to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new attribute.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttribute ( $attribute ) {
   
@@ -95,7 +105,17 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
   }
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
+   * Set iterator.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.2
+   *
+   * @param     String          $iterator       An iterator value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with iterator.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setIterator ( $iterator ) {
   
@@ -151,11 +171,14 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
   }
 
   /**
-   * @copybrief 	MapFilter_TreePattern_Tree_Interface::satisfy
+   * Satisfy certain node type and let its followers to get satisfied.
    *
-   * @since             0.5.3
+   * @since     0.5.3
    *
-   * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy
+   * @param     Array|ArrayAccess       &$query         A query to filter.
+   * @param     Array                   &$asserts       Asserts.
+   *
+   * @return    Bool                    Satisfied or not.
    */
   public function satisfy ( &$query, Array &$asserts ) {
 
@@ -222,11 +245,13 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
   }
   
   /**
-   * @copybrief         MapFilter_TreePattern_Tree_Interface::pickUp
+   * Pick-up satisfaction results.
    *
-   * @since             0.5.3
+   * @since     0.5.3
    *
-   * @copydetails       MapFilter_TreePattern_Tree_Interface::pickUp
+   * @param     Array           $result
+   *
+   * @return    Array
    */
   public function pickUp ( Array $result ) {
 

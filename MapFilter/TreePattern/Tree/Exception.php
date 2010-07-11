@@ -51,16 +51,13 @@ class MapFilter_TreePattern_Tree_Exception extends
     MapFilter_TreePattern_Exception
 {
 
-  /**
-   * @copyfull{MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE}
-   */
   const INVALID_XML_ATTRIBUTE = 1;
   
-  /**
-   * @copyfull{MapFilter_TreePattern_Exception::INVALID_XML_CONTENT}
-   */
   const INVALID_XML_CONTENT = 2;
   
+  /**
+   * @var       Array           $messages
+   */
   protected $messages = Array (
       self::INVALID_XML_ATTRIBUTE => "Unknown attribute '%s'.",
       self::INVALID_XML_CONTENT => "Node has no content.",

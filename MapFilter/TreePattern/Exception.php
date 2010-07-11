@@ -125,6 +125,9 @@ class MapFilter_TreePattern_Exception extends MapFilter_Exception {
    */
   const INVALID_PATTERN_NAME = 12;
   
+  /**
+   * @var       Array           $messages
+   */
   protected $messages = Array (
       self::INVALID_PATTERN_ELEMENT => "Invalid pattern element '%s'.",
       self::HAS_NOT_ONE_FOLLOWER => "A %s node must have exactly one follower but %d given.",

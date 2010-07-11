@@ -52,13 +52,18 @@ final class MapFilter_TreePattern_Tree_Node_All extends
 {
 
   /**
-   * @copybrief 	MapFilter_TreePattern_Tree_Interface::satisfy
+   * Satisfy certain node type and let its followers to get satisfied.
+   *
+   * @since     0.4
+   *
+   * @param     Array|ArrayAccess       &$query         A query to filter.
+   * @param     Array                   &$asserts       Asserts.
+   *
+   * @return    Bool                    Satisfied or not.
    *
    * Satisfy the node just if there are no unsatisfied follower.  Finding
    * unsatisfied follower may stop mapping since there is no way to satisfy
    * parent by any further potentially satisfied follower.
-   *
-   * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy
    */
   public function satisfy ( &$query, Array &$asserts ) {
   

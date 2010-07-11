@@ -53,7 +53,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $attribute              An attribute to set.
    *
-   * @return    MapFilter_TreePattern_Tree      A pattern with new attribute.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new attribute.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttribute ( $attribute );
@@ -67,7 +68,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $default        A default value to set.
    *
-   * @return    MapFilter_TreePattern_Tree      A pattern with new default value.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setDefault ( $default );
@@ -81,7 +83,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     Array           $content        A content to set.
    *
-   * @return    MapFilter_TreePattern_Tree      A pattern with new content.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new content.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setContent ( Array $content );
@@ -91,7 +94,7 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @since     0.4
    *
-   * @return    Array           Node followers reference.
+   * @return    Array           Node content reference.
    */
   public function &getContent ();
   
@@ -104,25 +107,12 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $valuePattern   A valueFilter to set.
    *
-   * @return    MapFilter_TreePattern_Tree      A pattern with new valueFilter.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new valueFilter.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setValuePattern ( $valuePattern );
 
-  /**
-   * Set valueFilter.
-   *
-   * A Fluent Method.
-   *
-   * @since     0.4
-   *
-   * @param     String          $valueFilter    A valueFilter to set.
-   *
-   * @return    MapFilter_TreePattern_Tree      New pattern with valueFilter.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setValueFilter ( $valueFilter );
-  
   /**
    * Set iterator.
    *
@@ -132,10 +122,26 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $iterator       An iterator value to set.
    *
-   * @return    MapFilter_TreePattern_Tree      New pattern with iterator.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with iterator.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setIterator ( $iterator );
+  
+  /**
+   * Set valueFilter.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $valueFilter    A valueFilter to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with valueFilter.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValueFilter ( $valueFilter );
   
   /**
    * Set Flag.
@@ -146,7 +152,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $flag           A flag to set.
    *
-   * @return    MapFilter_TreePattern_Tree      New pattern with flag.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with flag.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setFlag ( $flag );
@@ -160,7 +167,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $assert         An assert to set.
    *
-   * @return    MapFilter_TreePattern_Tree      New pattern with flag.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with flag.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAssert ( $assert );
@@ -174,7 +182,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @param     String          $attachPattern  A pattern name to attach.
    *
-   * @return    MapFilter_TreePattern_Tree      New pattern with attachPattern.
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with attachPattern.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttachPattern ( $attachPattern );
@@ -183,6 +192,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    * Set TreePattern.
    *
    * @since     0.5.3
+   *
+   * @param     MapFilter_TreePattern   $pattern        A pattern to set.
    *
    * @return    MapFilter_TreePattern
    */
@@ -193,7 +204,12 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @since     0.4
    *
-   * @return    MapFilter_TreePattern_Tree_Interface    New instance.
+   * Setting is done by Fluent Methods.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *
+   * @see       setAssert(), setFlag(), setValueFilter(), setValuePattern(),
+   *            setContent(), setDefault() or setAttribute()
    */
   public function __construct ();
   
@@ -201,6 +217,8 @@ interface MapFilter_TreePattern_Tree_Interface {
    * Make copy of the node.
    *
    * @since     0.4
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
    */
   public function __clone ();
   
@@ -209,21 +227,21 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @since     0.4
    *
-   * @param     Array|ArrayAccess       &$query
-   * @param     Array                   &$asserts
+   * @param     Array|ArrayAccess       &$query         A query to filter.
+   * @param     Array                   &$asserts       Asserts.
    *
-   * @return    Bool                    Satisfied or not
+   * @return    Bool                    Satisfied or not.
    */
   public function satisfy ( &$query, Array &$asserts );
   
   /**
    * Pick-up satisfaction results.
    *
-   * @since     0.4
+   * @since     0.3
    *
    * @param     Array           $result
    *
-   * @return    Array           Results array
+   * @return    Array
    */
   public function pickUp ( Array $result );
   
@@ -232,9 +250,9 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @since     0.5.1
    *
-   * @param     Array           $flags		
+   * @param     Array           $flags
    *
-   * @return    Array           Flags array 
+   * @return    Array
    */
   public function pickUpFlags ( Array $flags );
   

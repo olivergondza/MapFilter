@@ -120,7 +120,17 @@ abstract class MapFilter_TreePattern_Tree implements
   protected $attachPattern = NULL;
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttribute()}
+   * Set attribute.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $attribute              An attribute to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new attribute.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttribute ( $attribute ) {
   
@@ -131,7 +141,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setDefault()}
+   * Set default value.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $default        A default value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setDefault ( $default ) {
   
@@ -142,7 +162,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setContent()}
+   * Set content.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     Array           $content        A content to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new content.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setContent ( Array $content ) {
   
@@ -152,7 +182,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setValuePattern()}
+   * Set valueFilter.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $valuePattern   A valueFilter to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new valueFilter.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setValuePattern ( $valuePattern ) {
   
@@ -163,7 +203,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setIterator()}
+   * Set iterator.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.2
+   *
+   * @param     String          $iterator       An iterator value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with iterator.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setIterator ( $iterator ) {
   
@@ -174,7 +224,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
 
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setValueFilter()}
+   * Set valueFilter.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $valueFilter    A valueFilter to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with valueFilter.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setValueFilter ( $valueFilter ) {
 
@@ -185,7 +245,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setFlag()}
+   * Set Flag.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $flag           A flag to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with flag.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setFlag ( $flag ) {
   
@@ -196,7 +266,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAssert()}
+   * Set Assert.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.4
+   *
+   * @param     String          $assert         An assert to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with flag.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAssert ( $assert ) {
   
@@ -207,7 +287,17 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setAttachPattern}
+   * Set attachPattern.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.3
+   *
+   * @param     String          $attachPattern  A pattern name to attach.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with attachPattern.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttachPattern ( $attachPattern ) {
   
@@ -244,7 +334,13 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * @copyfull{MapFilter_TreePattern_Tree_Interface::setTreePattern}
+   * Set TreePattern.
+   *
+   * @since     0.5.3
+   *
+   * @param     MapFilter_TreePattern   $pattern        A pattern to set.
+   *
+   * @return    MapFilter_TreePattern
    */
   public function setTreePattern ( MapFilter_TreePattern $pattern ) {
   
@@ -264,6 +360,8 @@ abstract class MapFilter_TreePattern_Tree implements
    * @since     0.3
    *
    * Setting is done by Fluent Methods.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
    *
    * @see       setAssert(), setFlag(), setValueFilter(), setValuePattern(),
    *            setContent(), setDefault() or setAttribute()
@@ -422,6 +520,23 @@ abstract class MapFilter_TreePattern_Tree implements
         ? iterator_to_array ( $valueCandidate, FALSE )
         : $valueCandidate
     ;
+  }
+  
+  /**
+   * Clone node followers.
+   *
+   * @note This method uses deep cloning.
+   *
+   * @since     0.3
+   *
+   * @return    MapFilter_TreePattern_Tree
+   */
+  public function __clone () {
+  
+    foreach ( $this->content as &$follower ) {
+
+      $follower = clone ( $follower );
+    }
   }
 }
 

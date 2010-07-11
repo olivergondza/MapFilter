@@ -106,7 +106,26 @@ class MapFilter implements MapFilter_Interface {
   private $_filtered = FALSE;
   
   /**
-   * @copyfull{MapFilter_Interface::__construct()}
+   * Create new filter instance.
+   *
+   * @since     0.1
+   *
+   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set.
+   * @param     Array|ArrayAccess               $query	        A query to filter.
+   *
+   * @return    MapFilter_Interface
+   *
+   * If no pattern specified an untouched query will be returned:
+   *
+   * @clip{User/MapFilter.test.php,testEmptyPattern}
+   *
+   * All parsing is done just in time (however it can be triggered manually using
+   * MapFilter::parse()) when some of parsing results is accessed (in this case
+   * when MapFilter::getResults() is called for the first time):
+   *
+   * @clip{User/TreePattern/Duration.test.php,testDuration}
+   *
+   * @see       setPattern(), setQuery(), MapFilter_Pattern
    */
   public function __construct (
       MapFilter_Pattern_Interface $pattern = NULL,
@@ -121,7 +140,22 @@ class MapFilter implements MapFilter_Interface {
   }
 
   /**
-   * @copyfull{MapFilter_Interface::setPattern()}
+   * Set desired query pattern.
+   *
+   * Fluent Method
+   *
+   * @since     0.1
+   *
+   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set
+   *
+   * @return    MapFilter       Instance of MapFilter with new pattern.
+   *
+   * MapFilter can be configured using both constructor and specialized fluent
+   * methods setPattern() and setQuery():
+   *
+   * @clip{Unit/MapFilter.test.php,testInvocation}
+   *
+   * @see       __construct()
    */
   public function setPattern ( MapFilter_Pattern_Interface $pattern = NULL) {
 
@@ -135,7 +169,20 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * @copyfull{MapFilter_Interface::setQuery()}
+   * Set a query to filter.
+   *
+   * @since     0.1
+   *
+   * @param     Array|ArrayAccess              $query           A query to set
+   *
+   * @return    MapFilter               Instance of MapFilter with new query.
+   *
+   * MapFilter can be configured using both constructor and specialized fluent
+   * methods setPattern() and setQuery():
+   *
+   * @clip{Unit/MapFilter.test.php,testInvocation}
+   *
+   * @see       __construct()
    */
   public function setQuery ( $query ) {
   
@@ -169,7 +216,16 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * @copyfull{MapFilter_Interface::fetchResult()}
+   * Get full filtering results.
+   *
+   * @since     0.5
+   *
+   * @return    MapFilter_Pattern_Interface     Parsing results
+   *
+   * Return recently used pattern to obtain all kind of results to enable
+   * user interface usage.
+   *
+   * @see       __construct(), setPattern()
    */
   public function fetchResult () {
   
@@ -179,7 +235,15 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * @copyfull{MapFilter_Interface::getResults()}
+   * Get results.
+   *
+   * @since     0.2
+   *
+   * @return    Array|ArrayAccess               Parsing results.
+   *
+   * Get parsed query from latest parsing process.
+   *
+   * @see       fetchResult()
    */
   public function getResults () {
 
@@ -187,7 +251,15 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * @copyfull{MapFilter_Interface::getAsserts()}
+   * Get validation assertions.
+   *
+   * @since     0.4
+   *
+   * @return    Array|ArrayAccess               Parsing asserts.
+   *
+   * Return validation asserts that was raised during latest parsing process.
+   *
+   * @see       fetchResult()
    */
   public function getAsserts () {
   
@@ -195,7 +267,15 @@ class MapFilter implements MapFilter_Interface {
   }
   
   /**
-   * @copyfull{MapFilter_Interface::getFlags()}
+   * Get flags.
+   *
+   * @since     0.4
+   *
+   * @return    Array|ArrayAccess               Parsing flags.
+   *
+   * Return flags that was sat during latest parsing process.
+   *
+   * @see       fetchResult()
    */
   public function getFlags () {
   

@@ -175,9 +175,6 @@ class MapFilter_TreePattern implements
    *
    * @return    MapFilter_TreePattern   Pattern created from $xmlSource string
    *
-   * fromFile() and load() difference demonstration:
-   * @clip{Unit/TreePattern.test.php,testLoadFromFileComparison}
-   *
    * @see       fromFile(), __construct()
    */
   public static function load ( $xmlSource ) {
@@ -208,9 +205,6 @@ class MapFilter_TreePattern implements
    *
    * @return    MapFilter_TreePattern   Pattern created from $url file
    * 
-   * fromFile() and load() difference demonstration:
-   * @clip{Unit/TreePattern.test.php,testLoadFromFileComparison}
-   *
    * @see       load(), __construct()
    */
   public static function fromFile ( $url ) {
@@ -270,6 +264,8 @@ class MapFilter_TreePattern implements
    *
    * @note Deep cloning is used thus new copy of patternTree is going to be
    * created
+   *
+   * @return    MapFilter_TreePattern   A new clone.
    */
   public function __clone () {
 
@@ -287,7 +283,13 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_ResultInterface::getResults()}
+   * Get results.
+   *
+   * Get parsed query from latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Array|ArrayAccess       Parsing results.
    */
   public function getResults () {
 
@@ -295,7 +297,13 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_AssertInterface::getAsserts()}
+   * Get validation assertions.
+   *
+   * Return validation asserts that was raised during latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Array|ArrayAccess       Parsing asserts.
    */
   public function getAsserts () {
   
@@ -303,7 +311,13 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_FlagInterface::getFlags()}
+   * Get flags
+   *
+   * Return flags that was sat during latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Array|ArrayAccess	Parsing flags.
    */
   public function getFlags () {
   
@@ -397,7 +411,11 @@ class MapFilter_TreePattern implements
   }
   
   /**
-   * @copyfull{MapFilter_Pattern_Interface::parse()}
+   * Parse the given query against the pattern.
+   *
+   * @since     0.5
+   *
+   * @param     Array|ArrayAccess       $query          A user query.
    */
   public function parse ( $query ) {
   

@@ -124,11 +124,16 @@ implements
   }
 
   /**
-   * @copybrief         MapFilter_TreePattern_Tree_Interface::satisfy()
+   * Satisfy certain node type and let its followers to get satisfied.
+   *
+   * @since     0.4
+   *
+   * @param     Array|ArrayAccess       &$query         A query to filter.
+   * @param     Array                   &$asserts       Asserts.
+   *
+   * @return    Bool                    Satisfied or not.
    *
    * Find a follower with a valueFilter that fits and try to satisfy it.
-   *
-   * @copydetails       MapFilter_TreePattern_Tree_Interface::satisfy()
    */
   public function satisfy ( &$query, Array &$asserts ) {
   
