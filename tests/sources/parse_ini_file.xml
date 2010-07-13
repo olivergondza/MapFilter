@@ -1,26 +1,26 @@
-<!--
-  parse_ini_file () example from:
-  http://www.php.net/manual/en/function.parse-ini-file.php
-  
-  There is an anitialization file parse_ini_file.ini with following content:
--->
 <pattern>
   <all>
     <node_attr attr="first_section">
+
       <all assert="no_any_of_that">
         <attr assert="no_one">one</attr>
         <attr assert="no_five">five</attr>
         <attr assert="no_animal">animal</attr>
       </all>
+
     </node_attr>
     <node_attr attr="second_section">
+
       <all>
         <attr>path</attr>
         <attr>URL</attr>
       </all>
+
     </node_attr>
     <node_attr attr="third_section">
+
       <attr iterator="auto">phpversion</attr>
+
     </node_attr>
   </all>
 </pattern>

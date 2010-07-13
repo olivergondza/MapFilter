@@ -16,7 +16,7 @@ new <tt>@ref MapFilter_TreePattern "Pattern"</tt> can be created from xml
 file (<tt>MapFilter_TreePattern::fromFile ( $url );</tt>) or xml in String
 (<tt>MapFilter_TreePattern::load ( $xmlString );</tt>).
 
-	During the filtering process algorithm walk through the tree
+	During the filtering process algorithm walks through the tree
 starting from its root and evaluating all defined argument groups. 
 So-called 'satisfaction' of the argument group is determined by its rules
 and satisfaction of it's followers.  Single argument is considered

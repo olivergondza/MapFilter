@@ -1,6 +1,19 @@
 /**
 @page           tpexamplegenerator              Generator example
 
+Following example shows structure of parser for fictive configuration file
+of utility to generate some outcome of its input files.  There is a mandatory
+<tt>input</tt> attribute that holds eather single or array of input values. 
+The other common mandatory attribute is <tt>output_format</tt> that defines
+eather one or several output formats to generate, a whitelist for allowed
+output types and the default output type.
+
+There are some mandatory attributes that are utilized with certain output
+types.  Whereas the <tt>dtd</tt> attribute is specific for the <tt>xml</tt>
+output type the <tt>stylesheet</tt> attribute is allowed for <tt>html</tt>
+output type too.  An <tt>extension</tt> is an attribute dedicated to
+<tt>man</tt> output format.
+
 @include        sources/generator.xml
 
 There is a list of input arrays on the first row of each set and the output

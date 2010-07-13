@@ -22,6 +22,16 @@ class MapFilter_TestUserFilter extends PHPUnit_Framework_TestCase {
             Array (),
             Array ()
         ),
+        // Valid input queries
+        Array (
+            Array ( '-h' => NULL ),
+            Array ( '-h' => NULL )
+        ),
+        Array (
+            Array ( '-v' => NULL ),
+            Array ( '-v' => NULL )
+        ),
+        
         Array (
             Array ( '-a' => NULL ),
             Array ( '-a' => NULL )
@@ -31,13 +41,38 @@ class MapFilter_TestUserFilter extends PHPUnit_Framework_TestCase {
             Array ( '-c' => NULL )
         ),
         Array (
+            Array ( '-l' => NULL ),
+            Array ( '-l' => NULL )
+        ),
+        Array (
             Array ( '-c' => NULL, '-l' => NULL ),
             Array ( '-c' => NULL, '-l' => NULL )
         ),
+        // Truncate invalid option
+        Array (
+            Array ( '-m' => NULL ),
+            Array ()
+        ),
+        // Truncate redundant argument
+        Array (
+            Array ( '-h' => NULL, '-v' => NULL ),
+            Array ( '-h' => NULL )
+        ),
+        // -a is truncated since -c and -l is defined earlier
+        Array (
+            Array ( '-c' => NULL, '-l' => NULL, '-a' => NULL ),
+            Array ( '-c' => NULL, '-l' => NULL )
+        ),
+        // -c and -l are truncated since -h is defined earlier
         Array (
             Array ( '-c' => NULL, '-l' => NULL, '-h' => NULL ),
-            Array ( '-c' => NULL, '-l' => NULL, '-h' => NULL )
-        )
+            Array ( '-h' => NULL )
+        ),
+        // -a is truncated since -v is defined earlier
+        Array (
+            Array ( '-a' => NULL, '-v' => NULL ),
+            Array ( '-v' => NULL )
+        ),
     );
   }
   

@@ -1,0 +1,63 @@
+/**
+@page		treepatterntreeexamples	TreePattern Tree examples
+
+@subpage      tpexamplelocation
+
+@tag{Concerned elements,@ref allnode "all"\, @ref onenode "one"\, @ref optnode "opt"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,NONE}
+<hr>
+
+@subpage      tpexamplefilter
+
+@tag{Concerned elements,@ref allnode "all"\, @ref onenode "one"\, @ref onenode "one"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,NONE}
+<hr>
+
+@subpage      tpexampleaction
+
+@tag{Concerned elements,@ref allnode "all"\, @ref keyattrleaf "key_attr"\, @ref onenode "one"\, @ref optnode "opt"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref attrattr "attr"\, @ref forvalueattr "forValue"}
+<hr>
+
+@subpage      tpexamplecoffeemaker
+
+@tag{Concerned elements,@ref allnode "all"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref defaultattr "default"\, @ref valuepatternattr "valuepattern"}
+<hr>
+
+@subpage      tpexampledirection
+
+@tag{Concerned elements,@ref allnode "all"\, @ref nodeattrnode "node_attr"\, @ref onenode "one"\, @ref somenode "some"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref attachpatternattr "attachPattern"\, @ref attrattr "attr"\, @ref nameattr "name"\, @ref valuepatternattr "valuePattern"}
+<hr>
+
+@subpage      tpexampleduration
+
+@tag{Concerned elements,@ref allnode "all"\, @ref onenode "one"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref assertattr "assert"\, @ref flagattr "flag"\, @ref valuepatternattr "valuePattern"}
+<hr>
+
+@subpage      tpexamplegenerator
+
+@tag{Concerned elements,@ref allnode "all"\, @ref keyattrleaf "key_attr"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref assertattr "assert"\, @ref attrattr "attr"\, @ref forvalueattr "forValue"\, @ref iteratorattr "iterator"\, @ref valuepatternattr "valuePattern"}
+<hr>
+
+@subpage      tpexamplelogin
+
+@tag{Concerned elements,@ref allnode "all"\, @ref onenode "one"\, @ref optnode "opt"\, @ref onenode "one"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref assertattr "assert"\, @ref flagattr "flag"\, @ref valuepatternattr "valuePattern"}
+<hr>
+
+@subpage      tpexampleparseinifile
+
+@tag{Concerned elements,@ref allnode "all"\, @ref nodeattrnode "node_attr"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref assertattr "assert"\, @ref attrattr "attr"\, @ref iteratorattr "iterator"}
+<hr>
+
+@subpage      tpexamplepathway
+
+@tag{Concerned elements,@ref nodeattrnode "node_attr"\, @ref onenode "one"\, @ref attrleaf "attr"}
+@tag{Concerned attributes,@ref attrattr "attr"\, @ref iteratorattr "iterator"\, @ref valuepatternattr "valuePattern"}
+<hr>
+*/

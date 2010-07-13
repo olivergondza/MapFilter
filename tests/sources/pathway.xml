@@ -1,5 +1,3 @@
-<!--
--->
 <patterns>
   <pattern>
     <node_attr attr="steps" iterator="yes">

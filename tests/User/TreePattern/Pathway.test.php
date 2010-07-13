@@ -15,13 +15,12 @@ class MapFilter_Test_User_TreePattern_Pathway extends
   public static function provideParse () {
   
     return Array (
-        /** Empty */
+        // Empty; Mandatory attribute "steps" is missing
         Array (
             Array (),
             Array ()
         ),
-
-        /** Just turn */
+        // Just turn
         Array (
             Array ( 'steps' =>
                 Array (
@@ -34,8 +33,7 @@ class MapFilter_Test_User_TreePattern_Pathway extends
                 )
             )
         ),
-
-        /** Just walk */
+        // Just walk
         Array (
             Array ( 'steps' =>
                 Array (
@@ -52,8 +50,7 @@ class MapFilter_Test_User_TreePattern_Pathway extends
                 )
             )
         ),
-
-        /** Walk and turn */
+        // Walk and turn
         Array (
             Array ( 'steps' =>
                 Array (
@@ -73,8 +70,7 @@ class MapFilter_Test_User_TreePattern_Pathway extends
                 )
             )
         ),
-
-        /** Turn and walk */
+        // Turn and walk
         Array (
             Array ( 'steps' =>
                 Array (

@@ -1,6 +1,17 @@
 /**
 @page           tpexamplefilter         Filter example
 
+Structure of filter utility.
+
+-h and -v are completely optional options.
+
+-c reverses column order
+-l reverses line order
+-a reverse character order in whole file.
+
+when -c and -l can occur simultaneously -a is completely incompatible with
+other types of modifications.
+
 @include        sources/filter.xml
 
 There is a list of input arrays on the first row of each set and the output
