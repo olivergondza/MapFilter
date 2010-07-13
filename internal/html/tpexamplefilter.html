@@ -10,26 +10,25 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-    </a>
   
   <div id="container">
   
   <div id="header">
   
-  <div class="download"> <a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/tar.png"></a> </div>
-  
-  <h1 class="main">
-    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>  
+  <h1>
+    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>
   </h1>
   
+  <div class="left">
+    <pre>$ git clone git://github.com/olivergondza/MapFilter</pre>
+  </div>
+  
+  <div class="right">
+    <pre>Download: <a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a
+    > | <a href="http://github.com/olivergondza/MapFilter/tarball/master">tag</a
+    > | <a href="http://github.com/olivergondza/MapFilter">git</a></pre>
+  </div>
+
   </div>
 <div class="navigation">
   <div class="tabs">  
@@ -48,7 +47,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li class="current"><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
@@ -72,41 +70,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 
 
-<h1><a class="anchor" id="tpexamplefilter">Filter example </a></h1><div class="fragment"><pre class="fragment">&lt;!--
-Structure of filter utility
+<h1><a class="anchor" id="tpexamplefilter">Filter example </a></h1><p>Structure of filter utility.</p>
+<p>-h and -v are completely optional options.</p>
+<p>-c reverses column order -l reverses line order -a reverse character order in whole file.</p>
+<p>when -c and -l can occur simultaneously -a is completely incompatible with other types of modifications.</p>
+<div class="fragment"><pre class="fragment">&lt;pattern&gt;
+  &lt;one&gt;
 
--h and -v are completely optional options (as it use to be).
--c reverses column order
--l reverses line order
+    &lt;attr&gt;-h&lt;/attr&gt;
+    &lt;attr&gt;-v&lt;/attr&gt;
 
--a, reverse character order in whole file.
-when -c and -l can occur simultaneously -a is completely incompatible with
-other types of modifications.
+    &lt;some&gt;
+      &lt;attr&gt;-c&lt;/attr&gt;
+      &lt;attr&gt;-l&lt;/attr&gt;
+    &lt;/some&gt;
 
-like (-h and -v are omitted):
-  {}
-  {-a}
-  {-c}
-  {-l}
-  {-c:-l}
-but nothing <span class="keywordflow">else</span>
---&gt;
-&lt;pattern&gt;
-  &lt;all&gt;
-    &lt;opt&gt;
-      &lt;attr&gt;-h&lt;/attr&gt;
-      &lt;attr&gt;-v&lt;/attr&gt;
-    &lt;/opt&gt;
-    &lt;one&gt;
-      &lt;some&gt;
-        &lt;attr&gt;-c&lt;/attr&gt;
-        &lt;attr&gt;-l&lt;/attr&gt;
-      &lt;/some&gt;
-      &lt;attr&gt;-a&lt;/attr&gt;
-    &lt;/one&gt;
-  &lt;/all&gt;
+    &lt;attr&gt;-a&lt;/attr&gt;
+
+  &lt;/one&gt;
 &lt;/pattern&gt;
-</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_aeb15e7e100650fd51d193dd4eff70ede.html#aeb15e7e100650fd51d193dd4eff70ede" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function provideParseFilterUtility () {
   
     <span class="keywordflow">return</span> Array (
@@ -114,6 +97,16 @@ but nothing <span class="keywordflow">else</span>
             Array (),
             Array ()
         ),
+        <span class="comment">// Valid input queries</span>
+        Array (
+            Array ( <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL )
+        ),
+        Array (
+            Array ( <span class="stringliteral">&#39;-v&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-v&#39;</span> =&gt; NULL )
+        ),
+        
         Array (
             Array ( <span class="stringliteral">&#39;-a&#39;</span> =&gt; NULL ),
             Array ( <span class="stringliteral">&#39;-a&#39;</span> =&gt; NULL )
@@ -123,13 +116,38 @@ but nothing <span class="keywordflow">else</span>
             Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL )
         ),
         Array (
+            Array ( <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL )
+        ),
+        Array (
             Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL ),
             Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL )
         ),
+        <span class="comment">// Truncate invalid option</span>
+        Array (
+            Array ( <span class="stringliteral">&#39;-m&#39;</span> =&gt; NULL ),
+            Array ()
+        ),
+        <span class="comment">// Truncate redundant argument</span>
+        Array (
+            Array ( <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-v&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL )
+        ),
+        <span class="comment">// -a is truncated since -c and -l is defined earlier</span>
+        Array (
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-a&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL )
+        ),
+        <span class="comment">// -c and -l are truncated since -h is defined earlier</span>
         Array (
             Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL ),
-            Array ( <span class="stringliteral">&#39;-c&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-l&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL )
-        )
+            Array ( <span class="stringliteral">&#39;-h&#39;</span> =&gt; NULL )
+        ),
+        <span class="comment">// -a is truncated since -v is defined earlier</span>
+        Array (
+            Array ( <span class="stringliteral">&#39;-a&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;-v&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;-v&#39;</span> =&gt; NULL )
+        ),
     );
   }
   
@@ -140,7 +158,7 @@ but nothing <span class="keywordflow">else</span>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

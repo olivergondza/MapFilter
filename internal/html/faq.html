@@ -10,26 +10,25 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-    </a>
   
   <div id="container">
   
   <div id="header">
   
-  <div class="download"> <a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/tar.png"></a> </div>
-  
-  <h1 class="main">
-    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>  
+  <h1>
+    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>
   </h1>
   
+  <div class="left">
+    <pre>$ git clone git://github.com/olivergondza/MapFilter</pre>
+  </div>
+  
+  <div class="right">
+    <pre>Download: <a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a
+    > | <a href="http://github.com/olivergondza/MapFilter/tarball/master">tag</a
+    > | <a href="http://github.com/olivergondza/MapFilter">git</a></pre>
+  </div>
+
   </div>
 <div class="navigation">
   <div class="tabs">  
@@ -48,7 +47,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li class="current"><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
@@ -66,6 +64,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div class="navpath"><a class="el" href="index.html">MapFilter</a>
+  </div>
 </div>
 <div class="contents">
 
@@ -82,7 +82,7 @@ What is MapFilter Query?</a></h4>
 <p>Query is a user Key-Value storage intended to filter.</p>
 <h4><a class="anchor" id="faqmapfilterresult">
 What is MapFilter Result?</a></h4>
-<p>Result is a complex outcome of the filtering procedure provided by <a class="el" href="classMapFilter_aed231544d09856f7eeff2eaef975c6d1.html#aed231544d09856f7eeff2eaef975c6d1" title="Get full filtering results. ">MapFilter::fetchResult()</a>. This result is provider of the same set of interfaces as given filtering <a class="el" href="usage.html#pattern">Pattern</a>.</p>
+<p>Result is a complex outcome of the filtering procedure provided by <a class="el" href="classMapFilter_ae19bec87bc82ffa0fd42723de2f858aa.html#ae19bec87bc82ffa0fd42723de2f858aa" title="Get full filtering results.">MapFilter::fetchResult()</a>. This result is provider of the same set of interfaces as given filtering <a class="el" href="usage.html#pattern">Pattern</a>.</p>
 <h2><a class="anchor" id="faqtreepatternnodes">
 TreePattern</a></h2>
 <p>TreePattern is default <a class="el" href="interfaceMapFilter__Pattern__Interface.html" title="MapFilter_Pattern Interface.">MapFilter_Pattern_Interface</a> implementation.</p>
@@ -131,7 +131,7 @@ What is the default attribute?</a></h4>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

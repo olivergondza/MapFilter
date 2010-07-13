@@ -62,17 +62,18 @@ code {
         padding: 5px;
 }
 
-/* GitHub specific */
-
 #header {
 	background-color: #153788;
 	height: 85px;
 	margin-bottom: 10px;
+        color: #fff;
 }
 
 #header h1 {
-	padding-top: 15px;
+	margin-top: 15px;
 	font-size: 100%;
+        margin: 0 auto;
+clear: none;
 }
 
 #header h1 a {
@@ -84,22 +85,26 @@ code {
 	text-decoration: underline;
 }
 
+#header .left {
+        clear: left;
+        float: left;
+        margin-left: 15px;
+}
+
+#header .right {
+        clear: right;
+        float: right;
+        margin-right: 15px;
+}
+
 #container {
 	margin: 0 auto;
-	width: 700px;
 	border: 1px solid #153788;
 	border-width: 0px 1px 0px 1px;
 }
 
-#fork_me {
-	position: absolute;
-	top: 0;
-	right: 0;
-	border: 0;
-}
-
-.download {
-	float: right;
+#header a {
+        color: #fff;
 }
 
 pre.footer {

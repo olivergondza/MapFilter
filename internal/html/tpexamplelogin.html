@@ -10,26 +10,25 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-    </a>
   
   <div id="container">
   
   <div id="header">
   
-  <div class="download"> <a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/tar.png"></a> </div>
-  
-  <h1 class="main">
-    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>  
+  <h1>
+    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>
   </h1>
   
+  <div class="left">
+    <pre>$ git clone git://github.com/olivergondza/MapFilter</pre>
+  </div>
+  
+  <div class="right">
+    <pre>Download: <a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a
+    > | <a href="http://github.com/olivergondza/MapFilter/tarball/master">tag</a
+    > | <a href="http://github.com/olivergondza/MapFilter">git</a></pre>
+  </div>
+
   </div>
 <div class="navigation">
   <div class="tabs">  
@@ -48,7 +47,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li class="current"><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
@@ -72,102 +70,89 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 
 
-<h1><a class="anchor" id="tpexamplelogin">Login example </a></h1><div class="fragment"><pre class="fragment">&lt;!--
-Structure of login service
-
-like:
-  {}
-  {name:pass}
-  {name:pass:use-https}
-  {name:pass:remember:user}
-  {name:pass:remember:server}
-  {name:pass:remember:use-https:user}
-  {name:pass:remember:use-https:server}
-  
-  
-but nothing <span class="keywordflow">else</span>
---&gt;
-&lt;pattern&gt;
+<h1><a class="anchor" id="tpexamplelogin">Login example </a></h1><p>Example of a fictive login service.</p>
+<p>There are mandatory attributes <code>name</code> and <code>pass</code> that may be followed by optional attribute <code>use-https</code>. Optionally a <code>remember</code> attribute can be used but must be accompanied with eather <code>user</code> or <code>server</code> attribute.</p>
+<div class="fragment"><pre class="fragment">&lt;pattern&gt;
   &lt;all flag=<span class="stringliteral">&quot;login&quot;</span>&gt;
+
     &lt;attr assert=<span class="stringliteral">&quot;no_name&quot;</span>&gt;name&lt;/attr&gt;
     &lt;attr assert=<span class="stringliteral">&quot;no_password&quot;</span>&gt;pass&lt;/attr&gt;
+
     &lt;opt&gt;
+
       &lt;attr flag=<span class="stringliteral">&quot;use_https&quot;</span> valuePattern=<span class="stringliteral">&quot;yes&quot;</span>&gt;use-https&lt;/attr&gt;
       &lt;all flag=<span class="stringliteral">&quot;remember&quot;</span>&gt;
+
         &lt;attr&gt;remember&lt;/attr&gt;
         &lt;one assert=<span class="stringliteral">&quot;no_remember_method&quot;</span>&gt;
+
           &lt;attr&gt;user&lt;/attr&gt;
           &lt;attr&gt;server&lt;/attr&gt;
+
         &lt;/one&gt;
+
       &lt;/all&gt;
+
     &lt;/opt&gt;
+
   &lt;/all&gt;
 &lt;/pattern&gt;
-</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second.</p>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_aeb15e7e100650fd51d193dd4eff70ede.html#aeb15e7e100650fd51d193dd4eff70ede" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second. Flags (<a class="el" href="interfaceMapFilter__Pattern__FlagInterface_a756c07039ef3121425cffea92197d1d5.html#a756c07039ef3121425cffea92197d1d5" title="Get flags.">MapFilter_Pattern_FlagInterface::getFlags()</a>) are on the third and assertions (<a class="el" href="interfaceMapFilter__Pattern__AssertInterface_a7f8d187b06aada3e6ff83100a938eea8.html#a7f8d187b06aada3e6ff83100a938eea8" title="Get validation assertions.">MapFilter_Pattern_AssertInterface::getAsserts()</a>) are on the fourth row.</p>
  <div class="fragment"><pre class="fragment">  <span class="keyword">public</span> <span class="keyword">static</span> function provideParseLogin () {
   
     <span class="keywordflow">return</span> Array (
+        <span class="comment">// Valid set; &#39;login&#39; flag will be set</span>
         Array (
             Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span> ),
             Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span> ),
             Array ( <span class="stringliteral">&#39;login&#39;</span> ),
             Array ()
         ),
+        <span class="comment">// Valid set; &#39;login&#39; and &#39;use_https&#39; flags will be set</span>
         Array (
             Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span> ),
             Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span> ),
             Array ( <span class="stringliteral">&#39;login&#39;</span>, <span class="stringliteral">&#39;use_https&#39;</span> ),
             Array ()
         ),
+        <span class="comment">// Valid set; &#39;login&#39; and &#39;remember&#39; flags will be set</span>
         Array (
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL
-            ),
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL
-            ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL ),
             Array ( <span class="stringliteral">&#39;login&#39;</span>, <span class="stringliteral">&#39;remember&#39;</span> ),
             Array ()
         ),
+        <span class="comment">// &#39;use-https&#39; has got an invalid value</span>
         Array (
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;no&quot;</span>,
-                <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL
-            ),
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL
-            ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;no&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL ),
             Array ( <span class="stringliteral">&#39;login&#39;</span>, <span class="stringliteral">&#39;remember&#39;</span> ),
             Array ()
         ),
+        <span class="comment">// &#39;use-https&#39; has got an invalid value and one of &#39;user&#39; and &#39;server&#39; attributes is redundant</span>
         Array (
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;no&quot;</span>,
-                <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;user&#39;</span> =&gt; NULL
-            ),
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;user&#39;</span> =&gt; NULL
-            ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;no&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;server&#39;</span> =&gt; NULL, <span class="stringliteral">&#39;user&#39;</span> =&gt; NULL ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;user&#39;</span> =&gt; NULL ),
             Array ( <span class="stringliteral">&#39;login&#39;</span>, <span class="stringliteral">&#39;remember&#39;</span> ),
             Array ()
         ),
+        <span class="comment">// Since &#39;name&#39; is a mandatory attributes the following set is invalid</span>
         Array (
             Array (),
             Array (),
             Array (),
             Array ( <span class="stringliteral">&#39;no_name&#39;</span> =&gt; <span class="stringliteral">&#39;no_name&#39;</span> )
         ),
+        <span class="comment">// Since &#39;password&#39; is a mandatory attributes the following set is invalid</span>
         Array (
             Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span> ),
             Array (),
             Array (),
             Array ( <span class="stringliteral">&#39;no_password&#39;</span> =&gt; <span class="stringliteral">&#39;no_password&#39;</span> )
         ),
+        <span class="comment">// None of &#39;user&#39; and &#39;server&#39; attributes was found;</span>
         Array (
-            Array (
-                <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>,
-                <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>
-            ),
+            Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span>, <span class="stringliteral">&#39;remember&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span> ),
             Array ( <span class="stringliteral">&#39;name&#39;</span> =&gt; <span class="stringliteral">&quot;me&quot;</span>, <span class="stringliteral">&#39;pass&#39;</span> =&gt; <span class="stringliteral">&quot;myPass&quot;</span>, <span class="stringliteral">&#39;use-https&#39;</span> =&gt; <span class="stringliteral">&quot;yes&quot;</span> ),
             Array ( <span class="stringliteral">&#39;login&#39;</span>, <span class="stringliteral">&#39;use_https&#39;</span> ),
             Array ( <span class="stringliteral">&#39;no_remember_method&#39;</span> =&gt; <span class="stringliteral">&#39;no_remember_method&#39;</span> )
@@ -182,7 +167,7 @@ but nothing <span class="keywordflow">else</span>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

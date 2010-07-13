@@ -10,25 +10,25 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-    </a>
   
   <div id="container">
   
   <div id="header">
   
-  <div class="download"><a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"><img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"><img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/tar.png"></a> </div>
-  
-  <h1 class="main">
-    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>  
+  <h1>
+    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>
   </h1>
+  
+  <div class="left">
+    <pre>$ git clone git://github.com/olivergondza/MapFilter</pre>
+  </div>
+  
+  <div class="right">
+    <pre>Download: <a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a
+    > | <a href="http://github.com/olivergondza/MapFilter/tarball/master">tag</a
+    > | <a href="http://github.com/olivergondza/MapFilter">git</a></pre>
+  </div>
+  
   </div>
 <div class="navigation">
   <div class="tabs">  
@@ -47,7 +47,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li class="current"><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
@@ -100,7 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   &lt;/all&gt;
 &lt;/pattern&gt;
-</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_a2912170777beb142972f90f86d6f712c.html#a2912170777beb142972f90f86d6f712c" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second. Flags (<a class="el" href="interfaceMapFilter__Pattern__FlagInterface_ab84ce36fbf017c95518c74b29ac13e0e.html#ab84ce36fbf017c95518c74b29ac13e0e" title="Get flags.">MapFilter_Pattern_FlagInterface::getFlags()</a>) are on the third and assertions (<a class="el" href="interfaceMapFilter__Pattern__AssertInterface_a4689312633f430e2cea7d60bb23ff5d5.html#a4689312633f430e2cea7d60bb23ff5d5" title="Get validation assertions.">MapFilter_Pattern_AssertInterface::getAsserts()</a>) are on the fourth row.</p>
+</pre></div><p>There is a list of input arrays on the first row of each set and the output array obtained by <a class="el" href="interfaceMapFilter__Pattern__ResultInterface_aeb15e7e100650fd51d193dd4eff70ede.html#aeb15e7e100650fd51d193dd4eff70ede" title="Get results.">MapFilter_Pattern_ResultInterface::getResults()</a> on the second. Flags (<a class="el" href="interfaceMapFilter__Pattern__FlagInterface_a756c07039ef3121425cffea92197d1d5.html#a756c07039ef3121425cffea92197d1d5" title="Get flags.">MapFilter_Pattern_FlagInterface::getFlags()</a>) are on the third and assertions (<a class="el" href="interfaceMapFilter__Pattern__AssertInterface_a7f8d187b06aada3e6ff83100a938eea8.html#a7f8d187b06aada3e6ff83100a938eea8" title="Get validation assertions.">MapFilter_Pattern_AssertInterface::getAsserts()</a>) are on the fourth row.</p>
  <div class="fragment"><pre class="fragment">    <span class="keyword">public</span> <span class="keyword">static</span> function provideDuration () {
   
     <span class="keywordflow">return</span> Array (
@@ -109,55 +108,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
             Array (),
             Array (),
             Array (),
-            Array (
-                <span class="stringliteral">&#39;no_beginning_time&#39;</span> =&gt; <span class="stringliteral">&#39;no_beginning_time&#39;</span>,
-                <span class="stringliteral">&#39;no_start_hour&#39;</span> =&gt; <span class="stringliteral">&#39;no_start_hour&#39;</span>
-            )
+            Array ( <span class="stringliteral">&#39;no_beginning_time&#39;</span> =&gt; <span class="stringliteral">&#39;no_beginning_time&#39;</span>, <span class="stringliteral">&#39;no_start_hour&#39;</span> =&gt; <span class="stringliteral">&#39;no_start_hour&#39;</span> )
         ),
         <span class="comment">// An absence of termination time set related assertions</span>
         Array (
             Array ( <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0 ),
             Array (),
             Array (),
-            Array (
-                <span class="stringliteral">&#39;no_duration_hour&#39;</span> =&gt; <span class="stringliteral">&#39;no_duration_hour&#39;</span>,
-                <span class="stringliteral">&#39;no_end_hour&#39;</span> =&gt;<span class="stringliteral">&#39;no_end_hour&#39;</span>,
-                <span class="stringliteral">&#39;no_termination_time&#39;</span> =&gt; <span class="stringliteral">&#39;no_termination_time&#39;</span>
-            )
+            Array ( <span class="stringliteral">&#39;no_duration_hour&#39;</span> =&gt; <span class="stringliteral">&#39;no_duration_hour&#39;</span>, <span class="stringliteral">&#39;no_end_hour&#39;</span> =&gt;<span class="stringliteral">&#39;no_end_hour&#39;</span>, <span class="stringliteral">&#39;no_termination_time&#39;</span> =&gt; <span class="stringliteral">&#39;no_termination_time&#39;</span> )
         ),
         <span class="comment">// An invalid value sets an assertion</span>
         Array (
             Array ( <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; <span class="stringliteral">&#39;now&#39;</span> ),
             Array (),
             Array (),
-            Array (
-                <span class="stringliteral">&#39;no_beginning_time&#39;</span> =&gt; <span class="stringliteral">&#39;no_beginning_time&#39;</span>, <span class="stringliteral">&#39;no_start_second&#39;</span> =&gt; <span class="stringliteral">&#39;now&#39;</span>
-            )
+            Array ( <span class="stringliteral">&#39;no_beginning_time&#39;</span> =&gt; <span class="stringliteral">&#39;no_beginning_time&#39;</span>, <span class="stringliteral">&#39;no_start_second&#39;</span> =&gt; <span class="stringliteral">&#39;now&#39;</span> )
         ),
         <span class="comment">// Query OK; Nothing get trimmed; Appropriate flags are set</span>
         Array (
-            Array (
-                <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0,
-                <span class="stringliteral">&#39;end_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;end_minute&#39;</span> =&gt; 59, <span class="stringliteral">&#39;end_second&#39;</span> =&gt; 59,
-            ),
-            Array (
-                <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0,
-                <span class="stringliteral">&#39;end_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;end_minute&#39;</span> =&gt; 59, <span class="stringliteral">&#39;end_second&#39;</span> =&gt; 59,
-            ),
+            Array ( <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0, <span class="stringliteral">&#39;end_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;end_minute&#39;</span> =&gt; 59, <span class="stringliteral">&#39;end_second&#39;</span> =&gt; 59 ),
+            Array ( <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0, <span class="stringliteral">&#39;end_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;end_minute&#39;</span> =&gt; 59, <span class="stringliteral">&#39;end_second&#39;</span> =&gt; 59 ),
             Array ( <span class="stringliteral">&#39;duration&#39;</span>, <span class="stringliteral">&#39;ending_time&#39;</span> ),
             Array ()
         ),
         Array (
-            Array (
-                <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0,
-                <span class="stringliteral">&#39;duration_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;duration_minute&#39;</span> =&gt; 59,
-                <span class="stringliteral">&#39;duration_second&#39;</span> =&gt; 59,
-            ),
-            Array (
-                <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0,
-                <span class="stringliteral">&#39;duration_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;duration_minute&#39;</span> =&gt; 59,
-                <span class="stringliteral">&#39;duration_second&#39;</span> =&gt; 59,
-            ),
+            Array ( <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0, <span class="stringliteral">&#39;duration_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;duration_minute&#39;</span> =&gt; 59, <span class="stringliteral">&#39;duration_second&#39;</span> =&gt; 59 ),
+            Array ( <span class="stringliteral">&#39;start_hour&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_minute&#39;</span> =&gt; 0, <span class="stringliteral">&#39;start_second&#39;</span> =&gt; 0, <span class="stringliteral">&#39;duration_hour&#39;</span> =&gt; 1, <span class="stringliteral">&#39;duration_minute&#39;</span> =&gt; 59, <span class="stringliteral">&#39;duration_second&#39;</span> =&gt; 59 ),
             Array ( <span class="stringliteral">&#39;duration&#39;</span>, <span class="stringliteral">&#39;duration_time&#39;</span> ),
             Array ( <span class="stringliteral">&#39;no_end_hour&#39;</span> =&gt; <span class="stringliteral">&#39;no_end_hour&#39;</span> )
         ),
@@ -184,7 +160,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

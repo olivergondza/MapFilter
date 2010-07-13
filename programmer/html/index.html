@@ -10,25 +10,25 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-    </a>
   
   <div id="container">
   
   <div id="header">
   
-  <div class="download"><a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"><img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"><img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/tar.png"></a> </div>
-  
-  <h1 class="main">
-    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>  
+  <h1>
+    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>
   </h1>
+  
+  <div class="left">
+    <pre>$ git clone git://github.com/olivergondza/MapFilter</pre>
+  </div>
+  
+  <div class="right">
+    <pre>Download: <a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a
+    > | <a href="http://github.com/olivergondza/MapFilter/tarball/master">tag</a
+    > | <a href="http://github.com/olivergondza/MapFilter">git</a></pre>
+  </div>
+  
   </div>
 <div class="navigation">
   <div class="tabs">  
@@ -47,7 +47,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul>
       <li class="current"><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
@@ -69,14 +68,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <h1><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> </h1><h2><a class="anchor" id="description">
 Description</a></h2>
-<p><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> is an extensible tool to filter key-value data structures such as associative arrays (maps or hash tables) in PHP5.</p>
-<p>MapFilter package is distributed with default Pattern implementation. <a class="el" href="classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree.">MapFilter_TreePattern</a> enables to enforce relations between groups of data Keys, Keys and allowed Values or Values and Keys from simple Key or Value -based whitelisting to more complex structures.</p>
+<p><a class="el" href="classMapFilter.html" title="Class to filter key-value data structures.">MapFilter</a> is an extensible tool to filter key-value data structures such as associative arrays (maps or hash tables) or iterators in PHP5.</p>
+<p>MapFilter package is distributed along with default Pattern implementation. <a class="el" href="classMapFilter__TreePattern.html" title="Class to load and hold Pattern tree.">MapFilter_TreePattern</a> enables to enforce dependencies between groups of data Keys, Keys and allowed Values or Values and Keys from simple Key or Value -based whitelisting to more complex structures.</p>
 <h2><a class="anchor" id="documentation">
 Documentation</a></h2>
 <ul>
 <li><a class="el" href="treepattern.html">TreePattern</a></li>
 <li><a class="el" href="usage.html">MapFilter Usage</a></li>
+<li><a class="el" href="faq.html">FAQ</a></li>
 </ul>
+<h2><a class="anchor" id="download">
+Download</a></h2>
+<h3><a class="anchor" id="current">
+Current version</a></h3>
+<p>$ git clone git://github.com/olivergondza/MapFilter</p>
+<p>or compressed (<a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a> or <a href="http://github.com/olivergondza/MapFilter/tarball/master">tar</a>).</p>
+<h3><a class="anchor" id="packages">
+Packages</a></h3>
+<p><a href="http://olivergondza.github.com/MapFilter/MapFilter-0.5.3.tgz">MapFilter-0.5.3.tgz</a></p>
 <h2><a class="anchor" id="license">
 License</a></h2>
 <p>LGPL</p>
@@ -92,7 +101,7 @@ Author</a></h2>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

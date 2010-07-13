@@ -10,26 +10,25 @@
     <link href="style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body onload='searchBox.OnSelectItem(0);'>
-    <a id="fork_me" href="http://github.com/olivergondza/MapFilter">
-      <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-    </a>
   
   <div id="container">
   
   <div id="header">
   
-  <div class="download"> <a
-  href="http://github.com/olivergondza/MapFilter/zipball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/zip.png"></a> <a
-  href="http://github.com/olivergondza/MapFilter/tarball/master"> <img
-  border="0" width="90"
-  src="http://github.com/images/modules/download/tar.png"></a> </div>
-  
-  <h1 class="main">
-    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>  
+  <h1>
+    <a href="http://github.com/olivergondza/MapFilter">MapFilter</a>
   </h1>
   
+  <div class="left">
+    <pre>$ git clone git://github.com/olivergondza/MapFilter</pre>
+  </div>
+  
+  <div class="right">
+    <pre>Download: <a href="http://github.com/olivergondza/MapFilter/zipball/master">zip</a
+    > | <a href="http://github.com/olivergondza/MapFilter/tarball/master">tag</a
+    > | <a href="http://github.com/olivergondza/MapFilter">git</a></pre>
+  </div>
+
   </div>
 <div class="navigation">
   <div class="tabs">  
@@ -48,7 +47,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul>
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
@@ -80,19 +78,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#_details">More...</a></p>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__Pattern__AssertInterface_a4689312633f430e2cea7d60bb23ff5d5.html#a4689312633f430e2cea7d60bb23ff5d5">getAsserts</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get validation assertions.  <a href="#a4689312633f430e2cea7d60bb23ff5d5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__Pattern__Interface_ad1e72fa92cd47acf8ceb7ebe1fd0f673.html#ad1e72fa92cd47acf8ceb7ebe1fd0f673">parse</a> ($query)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse the given query against the pattern.  <a href="#ad1e72fa92cd47acf8ceb7ebe1fd0f673"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Array ArrayAccess&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__Pattern__AssertInterface_a7f8d187b06aada3e6ff83100a938eea8.html#a7f8d187b06aada3e6ff83100a938eea8">getAsserts</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get validation assertions.  <a href="#a7f8d187b06aada3e6ff83100a938eea8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceMapFilter__Pattern__Interface_aa043f9ea2856439fd91e74170e285da0.html#aa043f9ea2856439fd91e74170e285da0">parse</a> (Array|ArrayAccess $query)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse the given query against the pattern.  <a href="#aa043f9ea2856439fd91e74170e285da0"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Description</h2>
 <p>Interface that provides filtering assertions access. </p>
-<dl class="user"><dt><b>Category: </b></dt><dd>Pear </dd></dl>
-<dl class="user"><dt><b>Package: </b></dt><dd>MapFilter</dd></dl>
+<dl class="user"><dt><b>Category:</b></dt><dd>Pear </dd></dl>
+<dl class="user"><dt><b>Package:</b></dt><dd>MapFilter</dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Oliver Gondža &lt;<a href="mailto:324706@mail.muni.cz">324706@mail.muni.cz</a>&gt;</dd></dl>
-<dl class="user"><dt><b>License: </b></dt><dd><a href="http://www.gnu.org/copyleft/lesser.html">http://www.gnu.org/copyleft/lesser.html</a> LGPL License </dd></dl>
+<dl class="user"><dt><b>License:</b></dt><dd><a href="http://www.gnu.org/copyleft/lesser.html">http://www.gnu.org/copyleft/lesser.html</a> LGPL License </dd></dl>
 <dl class="since"><dt><b>Since:</b></dt><dd>0.5</dd></dl>
-<dl class="user"><dt><b>URL: </b></dt><dd><a class="el" href="">http://github.com/olivergondza/MapFilter</a> </dd></dl>
+<dl class="user"><dt><b>URL:</b></dt><dd><a class="el" href="">http://github.com/olivergondza/MapFilter</a> </dd></dl>
 
 <p><a href="classMapFilter__Pattern__AssertInterface-members.html">List of all members.</a></p>
 <div class="dynheader">
@@ -108,7 +106,7 @@ Inheritance diagram for MapFilter_Pattern_AssertInterface:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
