@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.3
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.3
  */
 
 /**
@@ -41,11 +39,9 @@ require_once ( dirname ( __FILE__ ) . '/../Tree.php' );
  * @package  MapFilter
  * @class    MapFilter_TreePattern_Tree_Node
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.3
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.3
  */
 abstract class MapFilter_TreePattern_Tree_Node extends
     MapFilter_TreePattern_Tree

@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.4
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.4
  */
 
 /**
@@ -51,11 +49,9 @@ require_once ( dirname ( __FILE__ ) . '/../Leaf/Exception.php' );
  * @package  MapFilter
  * @class    MapFilter_TreePattern_Tree_Leaf_KeyAttr
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.4
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.4
  */
 final class
     MapFilter_TreePattern_Tree_Leaf_KeyAttr

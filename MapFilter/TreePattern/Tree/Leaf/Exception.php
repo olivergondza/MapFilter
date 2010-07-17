@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.5.2
- *
  * @link     http://github.com/olivergondza/MapFilter
+ 
  */
 
 /**
@@ -41,11 +39,9 @@ require_once ( dirname ( __FILE__ ) . '/../Exception.php' );
  * @package  MapFilter
  * @class    MapFilter_TreePattern_Tree_Leaf_Exception
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.5.2
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.5.2
  */
 class MapFilter_TreePattern_Tree_Leaf_Exception extends
     MapFilter_TreePattern_Tree_Exception

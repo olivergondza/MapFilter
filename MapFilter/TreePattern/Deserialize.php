@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.5.3
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.5.3
  */
 
 /** @cond       PROGRAMMER */
@@ -75,11 +73,9 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php' );
  * @package  MapFilter
  * @class    MapFilter_TreePattern_Deserialize
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.5.3
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.5.3
  */
 class MapFilter_TreePattern_Deserialize {
 

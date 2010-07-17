@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- *
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.4
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.4
  */
 
 /**
@@ -36,11 +34,9 @@
  * @package  MapFilter
  * @class    MapFilter_Exception
  * @author   Oliver Gondža <324706@mail.muni.cz>
- *
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.4
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.4
  */
 class MapFilter_Exception extends Exception {
 

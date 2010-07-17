@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.5
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.5
  */
 
 /**
@@ -36,11 +34,9 @@
  * @package  MapFilter
  * @class    MapFilter_Pattern_Interface
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * 
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.5
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.5
  */
 interface MapFilter_Pattern_Interface {
 

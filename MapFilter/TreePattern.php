@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- *
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.1
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.1
  */
 
 /** @cond       PROGRAMMER */
@@ -70,11 +68,9 @@ require_once ( dirname ( __FILE__ ) . '/Pattern/ResultInterface.php' );
  * @package  MapFilter
  * @class    MapFilter_TreePattern
  * @author   Oliver Gondža <324706@mail.muni.cz>
- *
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.1
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.1
  */
 class MapFilter_TreePattern implements
     MapFilter_Pattern_AssertInterface,

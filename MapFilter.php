@@ -22,11 +22,9 @@
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- *
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
- * @since    0.1
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.1
  */
 
 /**
@@ -57,11 +55,9 @@ require_once ( dirname ( __FILE__ ) . '/MapFilter/Exception.php' );
  * @package  MapFilter
  * @class    MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- *
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL
- * @since    0.1
- *
  * @link     http://github.com/olivergondza/MapFilter
+ * @since    0.1
  */
 class MapFilter implements MapFilter_Interface {
 
