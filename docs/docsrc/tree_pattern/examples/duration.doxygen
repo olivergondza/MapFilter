@@ -3,7 +3,7 @@
 
 Simple structure of time interval validator. The time of beginning is
 determined by <tt>start_hour</tt>, <tt>start_minute</tt> and
-<tt>start_second</tt>.  The time of the end is determined eather absolutely
+<tt>start_second</tt>.  The time of the end is determined either absolutely
 (<tt>end_hour</tt>, <tt>end_minute</tt>, <tt>end_second</tt>) or relatively
 (<tt>duration_hour</tt>, <tt>duration_minute</tt>,
 <tt>duration_second</tt>).  The way of the end time specification can be

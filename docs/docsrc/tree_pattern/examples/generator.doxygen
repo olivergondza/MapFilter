@@ -3,9 +3,9 @@
 
 Following example shows structure of parser for fictive configuration file
 of utility to generate some outcome of its input files.  There is a mandatory
-<tt>input</tt> attribute that holds eather single or array of input values. 
+<tt>input</tt> attribute that holds either single or array of input values. 
 The other common mandatory attribute is <tt>output_format</tt> that defines
-eather one or several output formats to generate, a whitelist for allowed
+either one or several output formats to generate, a whitelist for allowed
 output types and the default output type.
 
 There are some mandatory attributes that are utilized with certain output

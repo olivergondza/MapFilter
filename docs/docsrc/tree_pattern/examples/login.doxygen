@@ -4,7 +4,7 @@
 Example of a fictive login service. There are mandatory attributes
 <tt>name</tt> and <tt>pass</tt> that may be followed by optional attribute
 <tt>use-https</tt>.  Optionally a <tt>remember</tt> attribute can be used
-but must be accompanied with eather <tt>user</tt> or <tt>server</tt>
+but must be accompanied with either <tt>user</tt> or <tt>server</tt>
 attribute.
 
 @include        sources/login.xml
