@@ -118,8 +118,6 @@ abstract class MapFilter_TreePattern_Tree implements
   /**
    * Set attribute.
    *
-   * A Fluent Method.
-   *
    * @since     0.4
    *
    * @param     String          $attribute              An attribute to set.
@@ -139,8 +137,6 @@ abstract class MapFilter_TreePattern_Tree implements
   /**
    * Set default value.
    *
-   * A Fluent Method.
-   *
    * @since     0.4
    *
    * @param     String          $default        A default value to set.
@@ -158,9 +154,45 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * Set content.
+   * Set existence default value.
    *
-   * A Fluent Method.
+   * @since     0.5.4
+   *
+   * @param     String          $default        A default value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setExistenceDefault ( $default ) {
+  
+    throw new MapFilter_TreePattern_Tree_Exception (
+        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $default )
+    );
+  }
+  
+  /**
+   * Set validation default value.
+   *
+   * @since     0.5.4
+   *
+   * @param     String          $default        A default value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValidationDefault ( $default ) {
+  
+    throw new MapFilter_TreePattern_Tree_Exception (
+        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $default )
+    );
+  }
+  
+  /**
+   * Set content.
    *
    * @since     0.4
    *
@@ -179,8 +211,6 @@ abstract class MapFilter_TreePattern_Tree implements
   
   /**
    * Set valueFilter.
-   *
-   * A Fluent Method.
    *
    * @since     0.4
    *
@@ -201,8 +231,6 @@ abstract class MapFilter_TreePattern_Tree implements
   /**
    * Set iterator.
    *
-   * A Fluent Method.
-   *
    * @since     0.5.2
    *
    * @param     String          $iterator       An iterator value to set.
@@ -221,8 +249,6 @@ abstract class MapFilter_TreePattern_Tree implements
 
   /**
    * Set valueFilter.
-   *
-   * A Fluent Method.
    *
    * @since     0.4
    *
@@ -243,8 +269,6 @@ abstract class MapFilter_TreePattern_Tree implements
   /**
    * Set Flag.
    *
-   * A Fluent Method.
-   *
    * @since     0.4
    *
    * @param     String          $flag           A flag to set.
@@ -264,8 +288,6 @@ abstract class MapFilter_TreePattern_Tree implements
   /**
    * Set Assert.
    *
-   * A Fluent Method.
-   *
    * @since     0.4
    *
    * @param     String          $assert         An assert to set.
@@ -284,8 +306,6 @@ abstract class MapFilter_TreePattern_Tree implements
   
   /**
    * Set attachPattern.
-   *
-   * A Fluent Method.
    *
    * @since     0.5.3
    *
@@ -400,88 +420,7 @@ abstract class MapFilter_TreePattern_Tree implements
     return $this->satisfied;
   }
   
-  /**
-   * Test whether an argument is present in the query.
-   *
-   * @since     0.4
-   *
-   * @param     String                  $attrName       Name of an attribute.
-   * @param     Array|ArrayAccess       $query          Input array.
-   *
-   * @return    Bool                    Attribute present or not.
-   */
-  protected static function attrPresent ( $attrName, $query ) {
-    
-    assert ( is_string ( $attrName ) );
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
-    
-    return array_key_exists (
-        $attrName,
-        $query
-    );
-  }
-  
   /** @cond     INTERNAL */
-  
-  /**
-   * Filter boundaries.
-   *
-   * @since     0.3
-   *
-   * A format string to enclose the pattern with begin and end mark to ensure
-   * that the strings are completely (not partially) equal. 
-   */
-  const FILTER_BOUNDARIES = '/^%s$/';
-  
-  /**
-   * PCRE filter delimiter.
-   *
-   * @since     0.3
-   * 
-   * Special char to enclose PCRE filter.
-   */
-  const FILTER_DELIMITER = '/';
-  
-  /** @endcond */
-  
-  /**
-   * Test whether a ForValue condition on tree node fits given pattern.
-   *
-   * @since     0.3
-   *
-   * @param     Mixed           $valueCandidate 	A value to fit.
-   * @param     String|NULL     $pattern                Value pattern.
-   *
-   * @return    Bool            Does the value fit.
-   */
-  protected function valueFits ( $valueCandidate, $pattern ) {
-
-    if ( $pattern === NULL ) {
-
-      return TRUE;
-    }
-
-    /** Sanitize inputted PCRE */
-    $valueCandidate = preg_quote (
-        $valueCandidate,
-        self::FILTER_DELIMITER
-    );
-  
-    $pattern = sprintf (
-        self::FILTER_BOUNDARIES,
-        $pattern
-    );
-
-    $matchCount = preg_match (
-        $pattern,
-        $valueCandidate
-    );
-
-    /** Assumed match count is 1 (Equals) or 0 (Differs) */
-    assert ( $matchCount < 2 );
-    
-    return (Bool) $matchCount;
-  }
   
   /**
    * Actually attach a side pattern if needed.

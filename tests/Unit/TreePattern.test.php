@@ -121,21 +121,57 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
             "Node 'some' has no attribute like 'default'."
         ),
         
+        /** A validationDefault attribute */
+        Array (
+            '<pattern><all validationDefault="defaultValue" /></pattern>',
+            "Node 'all' has no attribute like 'validationDefault'."
+        ),
+        Array (
+            '<pattern><one validationDefault="defaultValue" /></pattern>',
+            "Node 'one' has no attribute like 'validationDefault'."
+        ),
+        Array (
+            '<pattern><opt validationDefault="defaultValue" /></pattern>',
+            "Node 'opt' has no attribute like 'validationDefault'."
+        ),
+        Array (
+            '<pattern><some validationDefault="defaultValue" /></pattern>',
+            "Node 'some' has no attribute like 'validationDefault'."
+        ),
+        
+        /** A existenceDefault attribute */
+        Array (
+            '<pattern><all existenceDefault="defaultValue" /></pattern>',
+            "Node 'all' has no attribute like 'existenceDefault'."
+        ),
+        Array (
+            '<pattern><one existenceDefault="defaultValue" /></pattern>',
+            "Node 'one' has no attribute like 'existenceDefault'."
+        ),
+        Array (
+            '<pattern><opt existenceDefault="defaultValue" /></pattern>',
+            "Node 'opt' has no attribute like 'existenceDefault'."
+        ),
+        Array (
+            '<pattern><some existenceDefault="defaultValue" /></pattern>',
+            "Node 'some' has no attribute like 'existenceDefault'."
+        ),
+        
         /** A iterator attribute */
         Array (
-            '<pattern><all iterator="auto" /></pattern>',
+            '<pattern><all iterator="yes" /></pattern>',
             "Node 'all' has no attribute like 'iterator'."
         ),
         Array (
-            '<pattern><one iterator="auto" /></pattern>',
+            '<pattern><one iterator="yes" /></pattern>',
             "Node 'one' has no attribute like 'iterator'."
         ),
         Array (
-            '<pattern><opt iterator="auto" /></pattern>',
+            '<pattern><opt iterator="yes" /></pattern>',
             "Node 'opt' has no attribute like 'iterator'."
         ),
         Array (
-            '<pattern><some iterator="auto" /></pattern>',
+            '<pattern><some iterator="yes" /></pattern>',
             "Node 'some' has no attribute like 'iterator'."
         ),
 

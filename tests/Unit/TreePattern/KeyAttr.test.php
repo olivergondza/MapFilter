@@ -89,25 +89,25 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
     return Array (
         Array (
             Array (),
-            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
             Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
             Array ()
         ),
         Array (
             Array ( 'order' => Array () ),
-            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
             Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
             Array (),
         ),
         Array (
             Array ( 'order' => new ArrayIterator ( Array () ) ),
-            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
             Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
             Array (),
         ),
         Array (
             Array ( 'order' => new EmptyIterator () ),
-            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
             Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
             Array (),
         ),
@@ -166,8 +166,8 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
             Array ( 'a_keyattr' ),
         ),
         Array (
-            Array ( 'auto' => 'attr0' ),
-            Array ( 'auto' => 'attr0' ),
+            Array ( 'auto' => Array ( 'attr0' ) ),
+            Array ( 'auto' => Array ( 'attr0' ) ),
             Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
             Array (),
         ),
@@ -198,8 +198,8 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
             Array (),
         ),
         Array (
-            Array ( 'auto' => 'value' ),
-            Array ( 'auto' => 'defaultValue' ),
+            Array ( 'auto' => Array ( 'value' ) ),
+            Array ( 'auto' => Array ( 'defaultValue' ) ),
             Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
             Array (),
         ),
@@ -215,7 +215,6 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
             Array ( 'wrong_keyattr' => 'wrong_keyattr'  ),
             Array (),
         ),
-
     );
   }
   
@@ -223,6 +222,7 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
    * Test array filtering
    *
    * @dataProvider      provideKeyAttrArrayValue
+   * @group             Unit::TreePattern::KeyAttr::testKeyAttrArrayValue
    */
   public static function testKeyAttrArrayValue (
       $query, $results, $asserts, $flags
@@ -242,7 +242,7 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
           <attr forValue='(?!first|second).*'  default='n'>attrn</attr>
         </key_attr>
         <attr
-            iterator='auto'
+            iterator='yes'
             valuePattern='attr.'
             default='defaultValue'
         >auto</attr>
@@ -345,51 +345,51 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
     return Array (
         Array (
             Array (),
-            Array ( 'keyattr' => 'value', 'even' => 'yes' )
-        ),
-        Array (
-            Array ( 'keyattr' => 'INVALID_VALUE' ),
-            Array ( 'keyattr' => 'value', 'even' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'INVALID_VALUE' ) ),
             Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
         ),
         Array (
-            Array ( 'keyattr' => 'value' ),
-            Array ( 'keyattr' => 'value', 'even' => 'yes' )
+            Array ( 'keyattr' => Array ( 'INVALID_VALUE' ) ),
+            Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value' ) ),
             Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
         ),
         Array (
-            Array ( 'keyattr' => 'value1' ),
-            Array ( 'keyattr' => 'value1', 'even' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value' ) ),
+            Array ( 'keyattr' => Array ( 'value' ), 'even' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value1' ) ),
             Array ( 'keyattr' => Array ( 'value1' ), 'even' => 'yes' )
         ),
         Array (
-            Array ( 'keyattr' => 'value0' ),
-            Array ( 'keyattr' => 'value0', 'odd' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value1' ) ),
+            Array ( 'keyattr' => Array ( 'value1' ), 'even' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value0' ) ),
             Array ( 'keyattr' => Array ( 'value0' ), 'odd' => 'yes' )
         ),
         Array (
-            Array ( 'keyattr' => 'value11' ),
-            Array ( 'keyattr' => 'value11', 'even' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value0' ) ),
+            Array ( 'keyattr' => Array ( 'value0' ), 'odd' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value11' ) ),
             Array ( 'keyattr' => Array ( 'value11' ), 'even' => 'yes' )
         ),
         Array (
-            Array ( 'keyattr' => 'value10' ),
-            Array ( 'keyattr' => 'value10', 'odd' => 'yes' )
+            Array ( 'keyattr' => Array ( 'value11' ) ),
+            Array ( 'keyattr' => Array ( 'value11' ), 'even' => 'yes' )
+        ),
+        Array (
+            Array ( 'keyattr' => Array ( 'value10' ) ),
+            Array ( 'keyattr' => Array ( 'value10' ), 'odd' => 'yes' )
         ),
         Array (
             Array ( 'keyattr' => Array ( 'value10' ) ),
@@ -422,7 +422,7 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
     $pattern = "
     <pattern>
       <key_attr
-          iterator='auto'
+          iterator='yes'
           attr='keyattr'
           default='value'
           valuePattern='value[0-9]*'
@@ -432,6 +432,68 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
       </key_attr>
     </pattern>
     ";
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
+  }
+  
+  public static function provideValidationAndAssertationDefault () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ( 'number' => '0', 'even' => '1' )
+        ),
+        Array (
+            Array ( 'number' => '3', 'odd' => '1' ),
+            Array ( 'number' => '1', 'odd' => '1' )
+        ),
+        Array (
+            Array ( 'number' => '0', 'even' => TRUE ),
+            Array ( 'number' => '0', 'even' => TRUE )
+        ),
+        Array (
+            Array ( 'number' => '1', 'odd' => TRUE ),
+            Array ( 'number' => '1', 'odd' => TRUE )
+        ),
+        Array (
+            Array ( 'number' => '0' ),
+            Array ( 'number' => '0', 'even' => '1' )
+        ),
+        Array (
+            Array ( 'number' => '1' ),
+            Array ( 'number' => '1', 'odd' => '1' )
+        )
+    );
+  }
+  
+  /**
+   * @dataProvider      provideValidationAndAssertationDefault
+   */
+  public static function testValidationAndAssertationDefault (
+      $query, $result
+  ) {
+  
+    $pattern = '
+    <pattern>
+      <key_attr
+          attr="number"
+          validationDefault="1"
+          existenceDefault="0"
+          valuePattern="[01]+"
+      >
+        <attr forValue="[01]*0" existenceDefault="1">even</attr>
+        <attr forValue="[01]*1" existenceDefault="1">odd</attr>
+      </key_attr>
+    </pattern>
+    ';
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),

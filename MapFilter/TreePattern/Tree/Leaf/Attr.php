@@ -28,6 +28,11 @@
  */
 
 /**
+ * @file        MapFilter/TreePattern/Tree/Attribute.php
+ */
+require_once ( dirname ( __FILE__ ) . '/../Attribute.php' );
+
+/**
  * @file        MapFilter/TreePattern/Tree/Leaf.php
  */
 require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
@@ -78,65 +83,53 @@ implements
   public function satisfy ( &$query, Array &$asserts ) {
   
     assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
-  
-    $present = self::attrPresent (
-        $this->attribute,
-        $query
-    );
 
-    /**
-     * If an attribute is not present and there is a default value defined,
-     * the default value is going to be used as a value and possibly wrapped
-     * into the array if the attribute is flagged as the iterator attribute.
-     */
-    if ( !$present ) {
+    $this->attribute->setQuery ( $query );
+
+    if ( !$this->attribute->isPresent () ) {
     
-      if ( $this->default === NULL ) {
-      
-        $this->setAssertValue ( $asserts );
-        return $this->satisfied = FALSE;
-      }
-      
-      $this->value = ( self::ITERATOR_VALUE_YES === $this->iterator )
-          ? Array ( $this->default )
-          : $this->default;
-          
-      return $this->satisfied = TRUE;
+      // Set existence assertion
+      $this->setAssertValue ( $asserts );
+
+      return $this->satisfied = FALSE;
     }
-
-    $valueCandidate = self::convertIterator ( $query[ $this->attribute ] );
-
-    $currentArrayValue = is_array ( $valueCandidate );
-
-    $this->assertTypeMismatch (
-        $currentArrayValue,
-        gettype ( $valueCandidate )
-    );
-
-    $this->value = $valueCandidate;
-    $setAsserts = !$this->satisfied = $this->validateValue ( $this->value );
-
-    /** Set leaf value as an assertion */
-    if ( !$currentArrayValue ) {
-
-      $assertValue = $this->value;
-      
-    /**
-     * Set leaf values as an assertion, in case that the node is satisfied
-     * and there are some unsatisfied followers assert them as well
-     */
-    } else {
-
-      $setAsserts |= (Bool) $assertValue = array_values (
-          array_diff ( $valueCandidate, $this->value )
+    
+    if ( !$this->attribute->isValid () ) {
+    
+      $this->setAssertValue (
+          $asserts, $query[ (String) $this->attribute ]
       );
+    
+      // Set validation assertion
+      return $this->satisfied = FALSE;
     }
 
-    if ( $setAsserts ) {
+    $value = $this->attribute->getValue ();
 
-      $this->setAssertValue ( $asserts, $assertValue );
+    $attrName = (String) $this->attribute;
+    if ( 
+        array_key_exists ( $attrName, $query )
+        && is_array ( $value )
+    ) {
+
+      $oldValue = self::convertIterator ( $query[ $attrName ] );
+
+      $oldValue = ( is_array ( $oldValue ) )
+          ? $oldValue
+          : Array ()
+      ;
+
+      $setAsserts = (Bool) $assertValue = array_values (
+          array_diff ( $oldValue, $value )
+      );
+
+      if ( $setAsserts ) {
+
+        $this->setAssertValue ( $asserts, $assertValue );
+      }
     }
 
-    return $this->satisfied;
+    $this->value = $this->attribute->getValue ();
+    return $this->satisfied = TRUE;
   }
 }

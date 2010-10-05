@@ -186,6 +186,8 @@ class MapFilter_TreePattern_Deserialize {
   const ATTR_ATTR = 'attr';
   const ATTR_VALUEFILTER = 'forValue';
   const ATTR_DEFAULT = 'default';
+  const ATTR_EXISTENCEDEFAULT = 'existenceDefault';
+  const ATTR_VALICATIONDEFAULT = 'validationDefault';
   const ATTR_VALUEPATTERN = 'valuePattern';
   const ATTR_FLAG = 'flag';
   const ATTR_ASSERT = 'assert';
@@ -223,6 +225,8 @@ class MapFilter_TreePattern_Deserialize {
       self::ATTR_ATTR => 'setAttribute',
       self::ATTR_VALUEFILTER => 'setValueFilter',
       self::ATTR_DEFAULT => 'setDefault',
+      self::ATTR_EXISTENCEDEFAULT => 'setExistenceDefault',
+      self::ATTR_VALICATIONDEFAULT => 'setValidationDefault',
       self::ATTR_VALUEPATTERN => 'setValuePattern',
       self::ATTR_FLAG => 'setFlag',
       self::ATTR_ASSERT => 'setAssert',
@@ -370,10 +374,17 @@ class MapFilter_TreePattern_Deserialize {
 
       } catch ( MapFilter_TreePattern_Tree_Exception $exception ) {
         
-        throw new MapFilter_TreePattern_Exception (
-            MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE,
-            Array ( $tagName, $attr )
-        );
+        $translate = $exception->getCode ()
+             === MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+        ;
+        
+        throw ( $translate )
+            ? new MapFilter_TreePattern_Exception (
+                MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE,
+                Array ( $tagName, $attr )
+            )
+            : $exception
+        ;
       }
     }
 

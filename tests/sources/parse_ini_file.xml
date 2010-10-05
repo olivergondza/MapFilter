@@ -19,7 +19,7 @@
     </node_attr>
     <node_attr attr="third_section">
 
-      <attr iterator="auto">phpversion</attr>
+      <attr iterator="yes">phpversion</attr>
 
     </node_attr>
   </all>

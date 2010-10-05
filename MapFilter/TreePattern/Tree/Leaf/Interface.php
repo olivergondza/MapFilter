@@ -41,15 +41,6 @@
 interface MapFilter_TreePattern_Tree_Leaf_Interface {
 
   /**
-   * Convert node to string.
-   *
-   * @since     0.4
-   *
-   * @return    String          String representation of node.
-   */
-  public function __toString ();
-  
-  /**
    * Get node attribute.
    *
    * @since     0.4

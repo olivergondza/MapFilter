@@ -28,6 +28,11 @@
  */
 
 /**
+ * @file        MapFilter/TreePattern/Tree/Attribute.php
+ */
+require_once ( dirname ( __FILE__ ) . '/../Attribute.php' );
+
+/**
  * @file        MapFilter/TreePattern/Tree/Leaf.php
  */
 require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
@@ -96,7 +101,7 @@ implements
     $satisfied = FALSE;
     foreach ( $this->getContent () as $follower ) {
     
-      $fits = self::valueFits (
+      $fits = MapFilter_TreePattern_Tree_Attribute::valueFits (
           $valueCandidate,
           $follower->getValueFilter ()
       );
@@ -133,73 +138,50 @@ implements
    */
   public function satisfy ( &$query, Array &$asserts ) {
   
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );    
+    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
 
-    $present = self::attrPresent (
-        $this->attribute,
-        $query
-    );
-
-    /**
-     * If an attribute is not present and there is a default value defined,
-     * the default value is going to be used as a value and possibly wrapped
-     * into the array if the attribute is flagged as the iterator attribute.
-     */
-    if ( !$present ) {
-
-      if ( $this->default === NULL ) {
-      
-        $this->setAssertValue ( $asserts );
-        return $this->satisfied = FALSE;
-      }
-      
-      $this->value = ( self::ITERATOR_VALUE_YES === $this->iterator )
-          ? Array ( $this->default )
-          : $this->default;
-
-      $valueCandidate = self::convertIterator ( $this->value );
-    } else {
+    $this->attribute->setQuery ( $query );
     
-      /** Satisfy actual attribute value */
-      $valueCandidate = self::convertIterator ( $query[ $this->attribute ] );
+    if ( !$this->attribute->isPresent () ) {
+    
+      // Set existence assertion
+      $this->setAssertValue ( $asserts );
+
+      return $this->satisfied = FALSE;
+    }
+    
+    if ( !$this->attribute->isValid () ) {
+
+      // Set validation assertion
+      $this->setAssertValue ( $asserts );
+
+      return $this->satisfied = FALSE;
     }
 
-    $currentArrayValue = is_array ( $valueCandidate );
+    $value = $this->attribute->getValue ();
 
-    $this->assertTypeMismatch (
-        $currentArrayValue,
-        gettype ( $valueCandidate )
-    );
-
-    $this->validateValue ( $valueCandidate );
-
-    /** Dispatch single value */
-    $satisfied = FALSE;
-    if ( !$currentArrayValue ) {
-     
-      $satisfied = $this->_satisfyFittingFollower (
-          $query, $asserts, $valueCandidate
-      );
-      
-    /** Dispatch iterator */
-    } else {
-
-      foreach ( $valueCandidate as $singleCandidate ) {
+    $assertValue = (String) $this->attribute;
+    if ( is_array ( $value ) ) {
+      $satisfied = FALSE;
+      foreach ( $value as $singleCandidate ) {
 
         $satisfied |= (Bool) $this->_satisfyFittingFollower (
             $query, $asserts, $singleCandidate
         );
       }
-    }
-    
-    if ( $satisfied ) {
-      
-      $this->value = $valueCandidate;
     } else {
-
-      $this->setAssertValue ( $asserts );
+     
+      $satisfied = $this->_satisfyFittingFollower (
+          $query, $asserts, $value
+      );
     }
-    
+      
+    if ( !$satisfied ) {
+
+      $this->setAssertValue ( $asserts, $assertValue );
+    }
+
+    $this->value = $this->attribute->getValue ();
     return $this->satisfied = $satisfied;
   }
 }

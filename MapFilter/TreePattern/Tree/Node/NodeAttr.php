@@ -59,13 +59,11 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
   /**
    * Determine whether a value is scalar or an array/iterator.
    *
-   * Possible values are 'no', 'yes' and 'auto'.
-   *
    * @since     0.5.3
    *
    * @var       String          $_iterator
    */
-  private $_iterator = 'no';
+  private $_iterator = 0;
   
   /**
    * Copy of an original follower.

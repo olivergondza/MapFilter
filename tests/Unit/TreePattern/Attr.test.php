@@ -39,7 +39,10 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     );
   }
   
-  /** Test PatternAttr */
+  /**
+   * Test PatternAttr
+   * @group     Unit::TreePattern::Attr::testAttr
+   */
   public static function testAttr () {
     
     $query = Array ( 'attr0' => "value" );
@@ -120,6 +123,29 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     );
   }
   
+  /**
+   * Use unsupported value as an iterator depth indicator
+   */
+  public static function testInvalidIteratorValue () {
+  
+    try {
+    
+      MapFilter_TreePattern::load ( '
+          <pattern>
+            <attr iterator="auto">attr</attr>
+          </pattern>
+      ' );
+      
+      self::fail ( 'No exception risen' );
+    } catch ( MapFilter_TreePattern_Tree_Leaf_Exception $ex ) {
+    
+      self::assertEquals (
+          MapFilter_TreePattern_Tree_Leaf_Exception::INVALID_DEPTH_INDICATOR,
+          $ex->getCode ()
+      );
+    }
+  }
+  
   public static function provideAttrArrayValue () {
   
     return Array (
@@ -160,6 +186,7 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
    * Test array filtering
    *
    * @dataProvider      provideAttrArrayValue
+   * @group             Unit::TreePattern::Attr::testAttrArrayValue
    */
   public static function testAttrArrayValue (
       $query, $results, $asserts, $flags
@@ -262,5 +289,101 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
           $exception->getMessage ()
       );
     }
+  }
+  
+  public static function provideValidationAndExistenceDefaults () {
+  
+    return Array (
+        Array (
+            // Keep valid
+            Array ( 'attr' => 'Valid value' ),
+            Array ( 'attr' => 'Valid value' )
+        ),
+        Array (
+            // Set existence default
+            Array (),
+            Array ( 'attr' => 'New value' )
+        ),
+        Array (
+            // Substitude validation default
+            Array ( 'attr' => '6' ),
+            Array ( 'attr' => 'Better value' )
+        )
+    );
+  }
+  
+  /**
+   * @dataProvider      provideValidationAndExistenceDefaults
+   */
+  public static function testValidationAndExistenceDefaults (
+      $query, $result
+  ) {
+  
+    $pattern = '
+    <pattern>
+      <attr
+          existenceDefault="New value"
+          validationDefault="Better value"
+          valuePattern="[^0-9]*"
+      >attr</attr>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
+  }
+  
+  public static function provideValidationAndExistenceDefaultsOnArray () {
+  
+    return Array (
+        Array (
+            Array (),
+            Array ( 'attr' => Array ( 'New value' ) )
+        ),
+        Array (
+            Array ( 'attr' => Array () ),
+            Array ( 'attr' => Array ( 'Better value' ) ),
+        ),
+        Array (
+            Array ( 'attr' => Array ( '0' ) ),
+            Array ( 'attr' => Array ( 'Better value' ) ),
+        )
+    );
+  }
+  
+  /**
+   * @dataProvider      provideValidationAndExistenceDefaultsOnArray
+   */
+  public static function testValidationAndExistenceDefaultsOnArray (
+      $query, $result
+  ) {
+  
+    $pattern = '
+    <pattern>
+      <attr
+          existenceDefault="New value"
+          validationDefault="Better value"
+          valuePattern="[^0-9]*"
+          iterator="1"
+      >attr</attr>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
   }
 }

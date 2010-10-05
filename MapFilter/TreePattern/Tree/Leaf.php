@@ -77,34 +77,35 @@ implements
   protected $value = NULL;
   
   /**
-   * Attr default value.
+   * Existence assertion.
    *
-   * @since     0.5.2
+   * @since     0.5.4
    *
-   * @var       String          $default
+   * @var       String          $existenceAssert
    */
-  protected $default = NULL;
+  protected $existenceAssert = NULL;
   
   /**
-   * Attr value Pattern.
+   * Validation assertion.
    *
-   * @since     0.5.2
+   * @since     0.5.4
    *
-   * @var       String          $valuePattern
+   * @var       String          $validationAssert
    */
-  protected $valuePattern = NULL;
-
+  protected $validationAssert = NULL;
+  
   /**
-   * Determine whether a value is scalar or an array/iterator.
+   * Instantiate attribute
    *
-   * Possible values are 'no', 'yes' and 'auto'.
-   *
-   * @since     0.5.2
-   *
-   * @var       String          $iterator
+   * @since     0.5.4
    */
-  protected $iterator = 'no';
+  public function __construct () {
+  
+    $this->attribute = new MapFilter_TreePattern_Tree_Attribute ();
 
+    parent::__construct ();
+  }
+  
   /**
    * Set attribute.
    *
@@ -120,7 +121,7 @@ implements
    */
   public function setAttribute ( $attribute ) {
 
-    $this->attribute = $attribute;
+    $this->attribute->setAttribute ( $attribute );
     return $this;
   }
   
@@ -139,7 +140,45 @@ implements
    */
   public function setDefault ( $default ) {
 
-    $this->default = $default;
+    $this->attribute->setDefault ( $default );
+    return $this;
+  }
+  
+  /**
+   * Set existence default value.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.4
+   *
+   * @param     String          $existenceDefault        A default value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setExistenceDefault ( $default ) {
+
+    $this->attribute->setExistenceDefault ( $default );
+    return $this;
+  }
+  
+  /**
+   * Set validation default value.
+   *
+   * A Fluent Method.
+   *
+   * @since     0.5.4
+   *
+   * @param     String          $validationDefault        A default value to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new default value.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValidationDefault ( $default ) {
+
+    $this->attribute->setValidationDefault ( $default );
     return $this;
   }
   
@@ -158,7 +197,7 @@ implements
    */
   public function setValuePattern ( $valuePattern ) {
 
-    $this->valuePattern = $valuePattern;
+    $this->attribute->setValuePattern ( $valuePattern );
     return $this;
   }
   
@@ -172,7 +211,7 @@ implements
    */
   public function getAttribute () {
   
-    return $this->attribute;
+    return $this->attribute->getAttribute ();
   }
 
   /**
@@ -190,104 +229,29 @@ implements
    */
   public function setIterator ( $iterator ) {
 
-    $this->iterator = $iterator;
-    return $this;
-  }
+    assert ( is_string ( $iterator ) || is_int ( $iterator ) );
 
-  /**
-   * Determine whether the value is valid or not and possibly set a default
-   * value.
-   *
-   * @since             0.5.2
-   *
-   * @param             Mixed          &$valueCandidate
-   *
-   * @return            Bool           Valid or not.
-   */
-  protected function validateValue ( &$valueCandidate ) {
-  
-    $arrayUsed = is_array ( $valueCandidate );
-    if ( $arrayUsed ) {
-    
-      $valueCandidate = array_filter (
-          $valueCandidate,
-          Array ( $this, '_validateScalarValue' )
-      );
+    if ( is_numeric ( $iterator ) ) {
 
-      $validated = !( $valueCandidate === Array () );
-
+      $this->attribute->setIterator ( (Int) $iterator );
     } else {
     
-      $validated = $this->_validateScalarValue ( $valueCandidate );
+      switch ( strtolower ( $iterator ) ) {
+        case 'yes':
+            $this->attribute->setIterator ( 1 );
+        break;
+        case 'no':
+            $this->attribute->setIterator ( 0 );
+        break;
+
+        default: throw new MapFilter_TreePattern_Tree_Leaf_Exception (
+            MapFilter_TreePattern_Tree_Leaf_Exception::INVALID_DEPTH_INDICATOR,
+            Array ( $iterator )
+        );
+      }
     }
     
-    if ( $validated ) return TRUE;
-    
-    if ( $this->default === NULL ) return FALSE;
-
-    $valueCandidate = (
-        self::ITERATOR_VALUE_YES === $this->iterator
-        || $arrayUsed
-    )
-        ? Array ( $this->default )
-        : $this->default;
-
-    return TRUE;
-  }
-
-  /**
-   * Determine whether the value is valid or not.
-   *
-   * @since             0.5.2
-   *
-   * @param             Mixed          &$valueCandidate
-   *
-   * @return            Bool           Valid or not.
-   */
-  private function _validateScalarValue ( &$valueCandidate ) {
-  
-    return self::valueFits (
-        $valueCandidate,
-        $this->valuePattern
-    );
-  }
-
-  /**
-   * Assert type mismatch.
-   *
-   * If there is no match between a declared value type and the current
-   * value type an exception is going to be risen.
-   *
-   * @since     0.5.2
-   *
-   * @param     Bool            $isIterator             Is iterator or not.
-   * @param     String          $valueType              Type of given value.
-   *
-   * @return    NULL
-   *
-   * @throws    MapFilter_TreePattern_Tree_Exception::ARRAY_ATTR_VALUE
-   *            MapFilter_TreePattern_Tree_Exception::SCALAR_ATTR_VALUE
-   */
-  protected function assertTypeMismatch ( $isIterator, $valueType ) {
-  
-    $wantIterator = self::ITERATOR_VALUE_YES === $this->iterator;
-    $wantScalar = self::ITERATOR_VALUE_NO === $this->iterator;
-    
-    if ( $wantScalar && $isIterator ) {
-    
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
-          Array ( $this->attribute )
-      );
-    }
-
-    if ( $wantIterator && !$isIterator ) {
-
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
-          Array ( $this->attribute, $valueType )
-      );
-    }
+    return $this;
   }
 
   /**
@@ -301,8 +265,10 @@ implements
   public function pickUp ( Array $result ) {
 
     if ( !$this->isSatisfied () ) return Array ();
-  
-    $result[ (String) $this ] = $this->value;
+
+    $result[ $this->attribute->getAttribute () ]
+        = $this->value
+    ;
 
     foreach ( $this->getContent () as $follower ) {
 
@@ -348,16 +314,4 @@ implements
    * @return    MapFilter_TreePattern_Tree_Leaf
    */
   public function __clone () {}
-  
-  /**
-   * Convert node to string.
-   *
-   * @since     0.4
-   *
-   * @return    String          String representation of node.
-   */
-  public function __toString () {
-  
-    return (String) $this->attribute;
-  }
 }

@@ -169,7 +169,7 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     Array|ArrayAccess              $query           A query to set
+   * @param     Array|ArrayAccess       $query           A query to set
    *
    * @return    MapFilter               Instance of MapFilter with new query.
    *
