@@ -290,6 +290,18 @@ class MapFilter_TreePattern_Tree_Attribute {
         $this->_value
     );
     
+    if ( !$valid && $this->_validationDefault !== NULL ) {
+      
+      $this->_value = $this->_validationDefault;
+      for ( $a = 0; $a < $this->_iterator; $a++ ) {
+      
+        $this->_value = Array ( $this->_value );
+      }
+
+      $this->_query[ $this->_attribute ] = $this->_value;
+      $valid = TRUE;
+    }
+    
     return $valid;
   }
 
@@ -312,7 +324,7 @@ class MapFilter_TreePattern_Tree_Attribute {
 
     if ( $level === $this->_iterator ) {
   
-      $valid =  $this->_validateScalarValue ( $valueCandidate );
+      $valid = $this->_validateScalarValue ( $valueCandidate );
       
       if ( !$valid && $this->_validationDefault !== NULL ) {
       
@@ -328,10 +340,7 @@ class MapFilter_TreePattern_Tree_Attribute {
         && !( $valueCandidate instanceof Traversable )
     ) {
 
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
-          Array ( $this->_attribute, gettype ( $valueCandidate ) )
-      );
+      return FALSE;
     }
 
     $values = Array ();
@@ -345,11 +354,6 @@ class MapFilter_TreePattern_Tree_Attribute {
       }
     }
 
-    if ( $values === Array () && $this->_validationDefault !== NULL ) {
-      
-        $values[] = $this->_validationDefault;
-    }
-    
     $valueCandidate = $values;
     
     return ( $values !== Array () );
@@ -370,10 +374,7 @@ class MapFilter_TreePattern_Tree_Attribute {
         is_array ( $valueCandidate ) || $valueCandidate instanceof Traversable
     ) {
     
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
-          Array ( $this->_attribute )
-      );
+      return FALSE;
     }
   
     $fits = self::valueFits (

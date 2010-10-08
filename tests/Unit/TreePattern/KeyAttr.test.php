@@ -270,7 +270,9 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
         $filter->fetchResult ()->getFlags ()
     );
   }
-  
+
+// DELETE
+/*  
   public static function provideKeyAttrArrayValueExceptions () {
   
     return Array (
@@ -306,10 +308,12 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
         ),
     );
   }
-  
+*/  
   /**
    * @dataProvider      provideKeyAttrArrayValueExceptions
    */
+// DELETE
+/*
   public static function testKeyAttrArrayValueExceptions ( $query, $expectedException ) {
   
     $pattern = "
@@ -339,7 +343,7 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
       );
     }
   }
-  
+*/
   public static function provideKeyAttrDefaultValuePattern () {
   
     return Array (

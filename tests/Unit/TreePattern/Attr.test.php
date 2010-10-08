@@ -222,7 +222,8 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     );
   }
   
-  public static function provideAttrArrayValueExceptions () {
+// DELETE
+/*  public static function provideAttrArrayValueExceptions () {
   
     return Array (
         Array (
@@ -257,11 +258,12 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
         ),
     );
   }
-  
+*/  
   /**
    * @dataProvider      provideAttrArrayValueExceptions
    */
-  public static function testAttrArrayValueExceptions ( $query, $expectedException ) {
+// DELETE
+/*  public static function testAttrArrayValueExceptions ( $query, $expectedException ) {
   
     $pattern = '
     <pattern>
@@ -290,7 +292,7 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
       );
     }
   }
-  
+*/
   public static function provideValidationAndExistenceDefaults () {
   
     return Array (
@@ -373,6 +375,115 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
           valuePattern="[^0-9]*"
           iterator="1"
       >attr</attr>
+    </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
+  }
+  
+  public static function provideLargeDepthIterator () {
+  
+    return Array (
+        Array (
+            // default value assigned
+            Array (),
+            Array ( 'weight' => Array ( Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // valid value kept
+            Array ( 'weight' => Array ( Array ( Array ( 1 ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1 ) ) ) )
+        ),
+        Array (
+            // invalid value replaced by default
+            Array ( 'weight' => Array ( Array ( Array ( 'heawy' ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // multiple values
+            Array ( 'weight' => Array ( Array ( Array ( 1, 2 ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1, 2 ) ) ) )
+        ),
+        Array (
+            Array ( 'weight' => Array ( Array ( Array ( 1 ), Array ( 2 ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1 ), Array ( 2 ) ) ) )
+        ),
+        Array (
+            Array ( 'weight' => Array ( Array ( Array ( 1 ) ), Array ( Array ( 2 ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1 ) ), Array ( Array ( 2 ) ) ) )
+        ),
+        Array (
+            // multiple values with invalid pieces
+            Array ( 'weight' => Array ( Array ( Array ( 1, 'heawy' ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1, 0 ) ) ) )
+        ),
+        Array (
+            Array ( 'weight' => Array ( Array ( Array ( 1 ), Array ( 'heawy' ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1 ), Array ( 0 ) ) ) )
+        ),
+        Array (
+            Array ( 'weight' => Array ( Array ( Array ( 1 ) ), Array ( Array ( 'heawy' ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 1 ) ), Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // too flat
+            Array ( 'weight' => 5 ),
+            Array ( 'weight' => Array ( Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // still too flat
+            Array ( 'weight' => Array ( 5 ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // still too flat
+            Array ( 'weight' => Array ( Array ( 5 ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // too deep
+            Array ( 'weight' => Array ( Array ( Array ( Array ( 1 ) ) ) ) ),
+            Array ( 'weight' => Array ( Array ( Array ( 0 ) ) ) )
+        ),
+        Array (
+            // incavated cube with heawy corners
+            Array ( 'weight' => Array (
+                Array ( Array ( 2, 1, 2 ), Array ( 1, 1, 1 ), Array ( 2, 1, 2 ) ),
+                Array ( Array ( 1, 1, 1 ), Array ( 1, 0, 1 ), Array ( 1, 1, 1 ) ),
+                Array ( Array ( 2, 1, 2 ), Array ( 1, 1, 1 ), Array ( 2, 1, 2 ) )
+            ) ),
+            Array ( 'weight' => Array (
+                Array ( Array ( 2, 1, 2 ), Array ( 1, 1, 1 ), Array ( 2, 1, 2 ) ),
+                Array ( Array ( 1, 1, 1 ), Array ( 1, 0, 1 ), Array ( 1, 1, 1 ) ),
+                Array ( Array ( 2, 1, 2 ), Array ( 1, 1, 1 ), Array ( 2, 1, 2 ) )
+            ) )
+        )
+        
+    );
+  }
+  
+  /**
+   * @dataProvider      provideLargeDepthIterator
+   */
+  public static function testLargeDepthIterator (
+      Array $query, Array $result
+  ) {
+  
+    $pattern = '
+    <pattern>
+      <attr
+          valuePattern="[0-9][0-9]*"
+          default="0"
+          iterator="3"
+      >weight</attr>
     </pattern>
     ';
     
