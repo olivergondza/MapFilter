@@ -157,9 +157,9 @@ implements
    *    A pattern with new default value.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
-  public function setExistenceDefault ( $default ) {
+  public function setExistenceDefault ( $existenceDefault ) {
 
-    $this->attribute->setExistenceDefault ( $default );
+    $this->attribute->setExistenceDefault ( $existenceDefault );
     return $this;
   }
   
@@ -176,9 +176,9 @@ implements
    *    A pattern with new default value.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
-  public function setValidationDefault ( $default ) {
+  public function setValidationDefault ( $validationDefault ) {
 
-    $this->attribute->setValidationDefault ( $default );
+    $this->attribute->setValidationDefault ( $validationDefault );
     return $this;
   }
   

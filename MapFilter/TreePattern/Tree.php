@@ -420,8 +420,6 @@ abstract class MapFilter_TreePattern_Tree implements
     return $this->satisfied;
   }
   
-  /** @cond     INTERNAL */
-  
   /**
    * Actually attach a side pattern if needed.
    *
