@@ -14,8 +14,9 @@ enclosed in @ref allnode "all" tag)
   
 @include        sources/coffee_maker.xml
 
-There is a list of input arrays on the first row of each set and the output
-array obtained by MapFilter_Pattern_ResultInterface::getResults() on the second.
+There is a list of input arrays in the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() in the
+second one.
 
 @clip{User/TreePattern/CofeeMaker.test.php,provideParseCoffeeMaker}
 */

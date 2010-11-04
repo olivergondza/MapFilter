@@ -1,0 +1,23 @@
+/**
+@page           tpexamplecat    cat utility filter
+
+Following example shows how the pattern for <tt>cat</tt>
+(http://linux.die.net/man/1/cat) utility may look like.
+  
+@include        sources/cat.xml
+
+There is a list of input arrays in the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() in the
+second one.  Flags can be found in the third row.
+
+@clip{User/TreePattern/Cat.test.php,provideParseCat}
+*/
+
+
+
+
+
+
+
+
+

@@ -18,6 +18,7 @@ class MapFilter_Test_Sources {
   const LOCATION = '/sources/location.xml';
   const LOGIN = '/sources/login.xml';
   const COFFEE_MAKER = '/sources/coffee_maker.xml';
+  const CAT = '/sources/cat.xml';
   const ACTION = '/sources/action.xml';
   const FILTER = '/sources/filter.xml';
   const DURATION = '/sources/duration.xml';

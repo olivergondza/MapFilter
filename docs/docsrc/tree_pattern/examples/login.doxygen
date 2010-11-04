@@ -9,11 +9,11 @@ attribute.
 
 @include        sources/login.xml
 
-There is a list of input arrays on the first row of each set and the output
-array obtained by MapFilter_Pattern_ResultInterface::getResults() on the
-second.  Flags (MapFilter_Pattern_FlagInterface::getFlags()) are on the
+There is a list of input arrays in the first row of each set and the output
+array obtained by MapFilter_Pattern_ResultInterface::getResults() in the
+second one.  Flags (MapFilter_Pattern_FlagInterface::getFlags()) are in the
 third and assertions (MapFilter_Pattern_AssertInterface::getAsserts()) are
-on the fourth row.
+in the fourth row.
 
 @clip{User/TreePattern/Login.test.php,provideParseLogin}
 */

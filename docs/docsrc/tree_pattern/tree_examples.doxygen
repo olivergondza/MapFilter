@@ -60,4 +60,10 @@
 @tag{Concerned elements,@ref nodeattrnode "node_attr"\, @ref onenode "one"\, @ref attrleaf "attr"}
 @tag{Concerned attributes,@ref attrattr "attr"\, @ref iteratorattr "iterator"\, @ref valuepatternattr "valuePattern"}
 <hr>
+
+@subpage      tpexamplecat
+
+@tag{Concerned elements,@ref somenode "some"\, @ref allnode "all"\, @ref onenode "one"\, @ref attrleaf "attr" \, @ref keyattrleaf "key_attr"}
+@tag{Concerned attributes,@ref attrattr "attr"\, @ref flagattr "flag"\,  @ref forvalueattr "forValue"\, @ref defaultattr "default"\, @ref valuepatternattr "valuePattern"\, @ref attachpatternattr "attachpattern"}
+<hr>
 */

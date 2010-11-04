@@ -166,7 +166,7 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
     </pattern>
     ";
     
-    // Instantiate MapFilter with pattent and query
+    // Instantiate MapFilter with pattern and query
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),
         $query

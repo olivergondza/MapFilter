@@ -1,0 +1,85 @@
+<!--
+    There is an option -u that is ignored according to the manual. We acheve
+    the same behaviour not mentioning it in the filter.
+-->
+<patterns>
+  <pattern>
+    <all>
+      <one>
+
+        <attr flag="show_help">help</attr>
+        <attr flag="show_version">version</attr>
+
+        <some flag="perform_action">
+          <!-- allowed short options -->
+          <attr>A</attr>
+          <attr>b</attr>
+          <attr>E</attr>
+          <attr>n</attr>
+          <attr>s</attr>
+          <attr>T</attr>
+          <attr>v</attr>
+
+          <!-- translate long options to its short versions -->
+          <key_attr attr="number-nonblank">
+            <attr forValue=".*" default="">b</attr>
+          </key_attr>
+
+          <key_attr attr="show-ends">
+            <attr forValue=".*" default="">E</attr>
+          </key_attr>
+
+          <key_attr attr="number">
+            <attr forValue=".*" default="">n</attr>
+          </key_attr>
+
+          <key_attr attr="squeeze-blank">
+            <attr forValue=".*" default="">s</attr>
+          </key_attr>
+
+          <key_attr attr="show-tabs">
+            <attr forValue=".*" default="">T</attr>
+          </key_attr>
+
+          <key_attr attr="show-nonprinting">
+            <attr forValue=".*" default="">v</attr>
+          </key_attr>
+
+          <!-- translate "alias" options -->
+          <key_attr attr="A" attachPattern="vET" />
+          <key_attr attr="show-all" attachPattern="vET" />
+
+          <key_attr attr="e" attachPattern="vE" />
+
+          <key_attr attr="t" attachPattern="vT" />
+        </some>  
+
+      </one>
+    </all>
+  </pattern>
+  
+  <!-- A node that "expands" to -vET -->
+  <pattern name="vET">
+    <all forValue=".*">
+      <attr default="">v</attr>
+      <attr default="">E</attr>
+      <attr default="">T</attr>
+    </all>
+  </pattern>
+  
+  <!-- A node that "expands" to -vE -->
+  <pattern name="vE">
+    <all forValue=".*">
+      <attr forValue=".*" default="">v</attr>
+      <attr forValue=".*" default="">E</attr>
+    </all>
+  </pattern>
+
+  <!-- A node that "expands" to -vT -->  
+  <pattern name="vT">
+    <all forValue=".*">
+      <attr forValue=".*" default="">v</attr>
+      <attr forValue=".*" default="">T</attr>
+    </all>
+  </pattern>
+</patterns>
