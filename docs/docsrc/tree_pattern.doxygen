@@ -21,7 +21,7 @@ starting from its root and evaluating all defined argument groups.
 So-called 'satisfaction' of the argument group is determined by its rules
 and satisfaction of it's followers.  Single argument is considered
 'satisfied' when it's present and when it matches the @ref valuepatternattr
-"valuePattern" of the @ref defaultattr "default" attribute is sat.  In
+"valuePattern" or the @ref defaultattr "default" attribute is sat.  In
 result will be found all satisfied arguments from all satisfied groups. 
 @ref flags "Flags" will contain all defined flags from satisfied groups and
 @ref asserts will contain all defined asserts from adjacent unsatisfied

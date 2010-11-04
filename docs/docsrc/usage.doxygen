@@ -7,8 +7,8 @@
 by <tt>MapFilter::setPattern()</tt>) describing all possible data relations
 and let MapFilter do all the work related with input filtering.  Filtering
 outputs can be had by <tt>MapFilter::fetchResult()</tt>. 
-This returned object implements the same set of interfaces as original
-Pattern did.
+This returned object implements the same set of interfaces as the original
+Pattern.
 
 @section	pattern			MapFilter Pattern
 
