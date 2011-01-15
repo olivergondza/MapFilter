@@ -248,25 +248,6 @@ abstract class MapFilter_TreePattern_Tree implements
   }
 
   /**
-   * Set valueFilter.
-   *
-   * @since     0.4
-   *
-   * @param     String          $valueFilter    A valueFilter to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with valueFilter.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setValueFilter ( $valueFilter ) {
-
-    assert ( is_string ( $valueFilter ) );
-
-    $this->_valueFilter = $valueFilter;
-    return $this;
-  }
-  
-  /**
    * Set Flag.
    *
    * @since     0.4
@@ -321,6 +302,52 @@ abstract class MapFilter_TreePattern_Tree implements
     
     $this->attachPattern = $attachPattern;
     return $this;
+  }
+
+  /**
+   * Set valueFilter.
+   *
+   * @since     0.4
+   *
+   * @param     String          $valueFilter    A valueFilter to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with valueFilter.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValueFilter ( $valueFilter ) {
+
+    assert ( is_string ( $valueFilter ) );
+
+    $this->_valueFilter = self::sanitizeRegExp ( $valueFilter );
+
+    return $this;
+  }
+
+  /**
+   * Filter boundaries.
+   *
+   * @since     0.3
+   *
+   * A format string to enclose the pattern with begin and end mark to ensure
+   * that the strings are completely (not partially) equal.
+   */
+  const FILTER_BOUNDARIES = '/^%s$/';
+
+  /**
+   * Sanitize RegExp
+   *
+   * @since     $NEXT$
+   *
+   * @param     String          $regexp
+   *
+   * @return    String
+   */
+  public static function sanitizeRegExp ( $regexp ) {
+
+    assert ( is_string ( $regexp ) );
+
+    return sprintf ( self::FILTER_BOUNDARIES, $regexp );
   }
   
   /**

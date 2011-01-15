@@ -181,7 +181,7 @@ class MapFilter_TreePattern_Tree_Attribute {
     $this->_existenceDefault = $existenceDefault;
     return $this;
   }
-  
+
   /**
    * Set valueFilter.
    *
@@ -193,7 +193,10 @@ class MapFilter_TreePattern_Tree_Attribute {
    */
   public function setValuePattern ( $valuePattern ) {
 
-    $this->_valuePattern = $valuePattern;
+    $this->_valuePattern = MapFilter_TreePattern_Tree::sanitizeRegExp (
+        $valuePattern
+    );
+
     return $this;
   }
   
@@ -386,25 +389,6 @@ class MapFilter_TreePattern_Tree_Attribute {
   }
 
   /**
-   * Filter boundaries.
-   *
-   * @since     0.3
-   *
-   * A format string to enclose the pattern with begin and end mark to ensure
-   * that the strings are completely (not partially) equal. 
-   */
-  const FILTER_BOUNDARIES = '/^%s$/';
-  
-  /**
-   * PCRE filter delimiter.
-   *
-   * @since     0.3
-   * 
-   * Special char to enclose PCRE filter.
-   */
-  const FILTER_DELIMITER = '/';
-
-  /**
    * Test whether a ForValue condition on tree node fits given pattern.
    *
    * @since     0.5.4
@@ -416,29 +400,14 @@ class MapFilter_TreePattern_Tree_Attribute {
    */
   public static function valueFits ( $valueCandidate, $pattern ) {
 
-    if ( $pattern === NULL ) {
-
-      return TRUE;
-    }
-
-    /** Sanitize inputted PCRE */
-    $valueCandidate = preg_quote (
-        $valueCandidate,
-        self::FILTER_DELIMITER
-    );
-  
-    $pattern = sprintf (
-        self::FILTER_BOUNDARIES,
-        $pattern
-    );
+    if ( $pattern === NULL ) return TRUE;
 
     $matchCount = preg_match (
         $pattern,
         $valueCandidate
     );
 
-    /** Assumed match count is 1 (Equals) or 0 (Differs) */
-    assert ( $matchCount < 2 );
+    assert ( $matchCount !== FALSE );
     
     return (Bool) $matchCount;
   }
