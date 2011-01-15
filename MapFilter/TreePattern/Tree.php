@@ -325,14 +325,25 @@ abstract class MapFilter_TreePattern_Tree implements
   }
 
   /**
-   * Filter boundaries.
+   * RegExp boundaries.
    *
    * @since     0.3
    *
-   * A format string to enclose the pattern with begin and end mark to ensure
+   * A format string to enclose the RegExp with begin and end mark to ensure
    * that the strings are completely (not partially) equal.
    */
-  const FILTER_BOUNDARIES = '/^%s$/';
+  const REGEXP_BOUNDARIES = '/^%s$/';
+
+  /**
+   * Is RegExp sanitized already.
+   *
+   * @since     $NEXT$
+   *
+   * Determine whether a string is sanitized regexp
+   */
+  const SANITIZED_REGEXP =
+      '/^([^\\\\\s\da-zA-Z<>\{\}\(\)]).*(\1)[imsxeADSUXu]*$/'
+  ;
 
   /**
    * Sanitize RegExp
@@ -347,7 +358,16 @@ abstract class MapFilter_TreePattern_Tree implements
 
     assert ( is_string ( $regexp ) );
 
-    return sprintf ( self::FILTER_BOUNDARIES, $regexp );
+    $sanitized = preg_match ( self::SANITIZED_REGEXP, $regexp );
+    
+    if ( $sanitized ) {
+    
+      return $regexp;
+    }
+
+    $regexp = str_replace ( '/', '\/', $regexp );
+
+    return sprintf ( self::REGEXP_BOUNDARIES, $regexp );
   }
   
   /**

@@ -426,4 +426,64 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
         $filter->fetchResult ()->getResults ()
     );
   }
+  
+  /**
+   *
+   */
+  public static function testSpecialChars () {
+  
+    $pattern = '
+        <pattern>
+          <attr valuePattern="as/df/gh">name</attr>
+        </pattern>
+    ';
+    
+    $result = $query = Array ( 'name' => 'as/df/gh' );
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
+  }
+  
+  public static function provideModifiers () {
+  
+    return Array (
+        Array ( '/hello\/?/imsxeADSUXu', '/hello\/?/imsxeADSUXu' ),
+        Array ( '?hello\?*?imsxeADSUXu', '?hello\?*?imsxeADSUXu' ),
+        Array ( '`hello\`?`imsxeADSUXu', '`hello\`?`imsxeADSUXu' ),
+        Array ( '!hello\!?!imsxeADSUXu', '!hello\!?!imsxeADSUXu' ),
+        Array ( '@hello\@?@imsxeADSUXu', '@hello\@?@imsxeADSUXu' ),
+        Array ( '#hello\#?#imsxeADSUXu', '#hello\#?#imsxeADSUXu' ),
+        Array ( '$hello\$?$imsxeADSUXu', '$hello\$?$imsxeADSUXu' ),
+        Array ( '%hello\%?%imsxeADSUXu', '%hello\%?%imsxeADSUXu' ),
+        Array ( '^hello\^?^imsxeADSUXu', '^hello\^?^imsxeADSUXu' ),
+        Array ( '&hello\&?&imsxeADSUXu', '&hello\&?&imsxeADSUXu' ),
+        Array ( '*hello\*?*imsxeADSUXu', '*hello\*?*imsxeADSUXu' ),
+        Array ( '+hello\+?+imsxeADSUXu', '+hello\+?+imsxeADSUXu' ),
+        Array ( '-hello\-?-imsxeADSUXu', '-hello\-?-imsxeADSUXu' ),
+        Array ( ';hello\;?;imsxeADSUXu', ';hello\;?;imsxeADSUXu' ),
+        Array ( ',hello\,?,imsxeADSUXu', ',hello\,?,imsxeADSUXu' ),
+        Array ( '.hello\.?.imsxeADSUXu', '.hello\.?.imsxeADSUXu' ),
+        Array ( '', '/^$/' ),
+        Array ( 'asdf', '/^asdf$/' ),
+        Array ( 'as/df', '/^as\/df$/' ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideModifiers
+   * @group	        Unit::TreePattern::Attr::testModifiers
+   */
+  public static function testModifiers ( $pattern, $sanitized ) {
+  
+    $regexp = MapFilter_TreePattern_Tree::sanitizeRegExp ( $pattern );
+
+    self::assertEquals ( $regexp, $sanitized );
+  }
 }
