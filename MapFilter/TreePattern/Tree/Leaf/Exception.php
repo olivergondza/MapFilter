@@ -48,13 +48,6 @@ class MapFilter_TreePattern_Tree_Leaf_Exception extends
 {
 
   /**
-   * A value that was declared to be an array was filled with a scalar value.
-   *
-   * @since     0.5.2
-   */
-  const SCALAR_ATTR_VALUE = 1;
-  
-  /**
    * A value that was declared to be a scalar value was filled with an array.
    *
    * @since     0.5.2
@@ -69,8 +62,6 @@ class MapFilter_TreePattern_Tree_Leaf_Exception extends
   const INVALID_DEPTH_INDICATOR = 3;
   
   protected $messages = Array (
-      self::SCALAR_ATTR_VALUE =>
-          "A value of '%s' attribute is declared to be an array but '%s' given.",
       self::ARRAY_ATTR_VALUE =>
           "A value of '%s' attribute is declared to be a scalar value but array given.",
       self::INVALID_DEPTH_INDICATOR =>

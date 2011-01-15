@@ -45,7 +45,7 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
    */
   public static function testAttr () {
     
-    $query = Array ( 'attr0' => "value" );
+    $query = Array ( 'attr0' => 'value' );
 
     $pattern = MapFilter_TreePattern::load (
         '<pattern><attr>attr0</attr></pattern>'
@@ -82,7 +82,7 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     try {
     
       $pattern = MapFilter_TreePattern::load ( $pattern );
-      self::fail ( "No exception risen." );
+      self::fail ( 'No exception risen.' );
 
     } catch ( MapFilter_TreePattern_Exception $exception ) {
 
@@ -93,7 +93,7 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
 
     } catch ( Exception $ex ) {
     
-      self::fail ( "Wrong exception: " . $ex->getMessage () );
+      self::fail ( 'Wrong exception: ' . $ex->getMessage () );
     }
   }
   
@@ -222,77 +222,6 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     );
   }
   
-// DELETE
-/*  public static function provideAttrArrayValueExceptions () {
-  
-    return Array (
-        Array (
-            Array ( 'arrayAttr' => 'scalarValue' ),
-            new MapFilter_TreePattern_Tree_Leaf_Exception (
-                MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
-                Array ( 'arrayAttr', 'string' )
-            )
-        ),
-        Array (
-            Array ( 'arrayAttr' => 42 ),
-            new MapFilter_TreePattern_Tree_Leaf_Exception (
-                MapFilter_TreePattern_Tree_Leaf_Exception::SCALAR_ATTR_VALUE,
-                Array ( 'arrayAttr', 'integer' )
-            )
-        ),
-        Array (
-            Array ( 'scalarAttr' => Array ( 'arrayMember' ) ),
-            new MapFilter_TreePattern_Tree_Leaf_Exception (
-                MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
-                Array ( 'scalarAttr' )
-            )
-        ),
-        Array (
-            Array ( 'scalarAttr' => new ArrayIterator (
-                Array ( 'arrayMember' )
-            ) ),
-            new MapFilter_TreePattern_Tree_Leaf_Exception (
-                MapFilter_TreePattern_Tree_Leaf_Exception::ARRAY_ATTR_VALUE,
-                Array ( 'scalarAttr' )
-            )
-        ),
-    );
-  }
-*/  
-  /**
-   * @dataProvider      provideAttrArrayValueExceptions
-   */
-// DELETE
-/*  public static function testAttrArrayValueExceptions ( $query, $expectedException ) {
-  
-    $pattern = '
-    <pattern>
-      <opt>
-        <attr iterator="yes">arrayAttr</attr>
-        <attr iterator="no">scalarAttr</attr>
-      </opt>
-    </pattern>
-    ';
-    
-    $filter = new MapFilter (
-        MapFilter_TreePattern::load ( $pattern )
-    );
-    
-    $filter->setQuery ( $query );
-
-    try {
-    
-      $filter->fetchResult ()->getResults ();
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Tree_Leaf_Exception $exception ) {
-    
-      self::assertEquals (
-          $expectedException->getMessage (),
-          $exception->getMessage ()
-      );
-    }
-  }
-*/
   public static function provideValidationAndExistenceDefaults () {
   
     return Array (
