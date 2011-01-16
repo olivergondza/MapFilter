@@ -231,26 +231,26 @@ implements
 
     assert ( is_string ( $iterator ) || is_int ( $iterator ) );
 
-    if ( is_numeric ( $iterator ) ) {
-
-      $this->attribute->setIterator ( (Int) $iterator );
-    } else {
+    $wordToLevel = Array (
+        'yes' => 1,
+        'no' => 0,
+    );
     
-      switch ( strtolower ( $iterator ) ) {
-        case 'yes':
-            $this->attribute->setIterator ( 1 );
-        break;
-        case 'no':
-            $this->attribute->setIterator ( 0 );
-        break;
-
-        default: throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-            MapFilter_TreePattern_Tree_Leaf_Exception::INVALID_DEPTH_INDICATOR,
-            Array ( $iterator )
-        );
-      }
+    if ( array_key_exists ( $iterator, $wordToLevel ) ) {
+    
+      $iterator = $wordToLevel[ $iterator ];
     }
+
+    if ( !is_numeric ( $iterator ) ) {
     
+      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
+          MapFilter_TreePattern_Tree_Leaf_Exception::INVALID_DEPTH_INDICATOR,
+          Array ( $iterator )
+      );
+    }
+
+    $this->attribute->setIterator ( (Int) $iterator );
+
     return $this;
   }
 
