@@ -183,7 +183,7 @@ implements
   }
   
   /**
-   * Set valueFilter.
+   * Set valuePattern.
    *
    * A Fluent Method.
    *
@@ -198,6 +198,25 @@ implements
   public function setValuePattern ( $valuePattern ) {
 
     $this->attribute->setValuePattern ( $valuePattern );
+    return $this;
+  }
+  
+  /**
+   * Set valueReplacement.
+   *
+   * A Fluent Method.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String          $valueReplacement   A valueReplacement to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new valueReplacement.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValueReplacement ( $valueReplacement ) {
+
+    $this->attribute->setValueReplacement ( $valueReplacement );
     return $this;
   }
   

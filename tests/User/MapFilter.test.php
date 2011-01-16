@@ -1,7 +1,7 @@
 <?php
 /**
-* User Tests
-*/  
+ * User Tests
+ */  
 
 /**
  * Require tested class
@@ -9,9 +9,9 @@
 require_once ( PHP_MAPFILTER_CLASS );
 
 /**
-* @group        User
-* @group	User::MapFilter
-*/
+ * @group        User
+ * @group	User::MapFilter
+ */
 class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
 
   /**@{*/

@@ -13,7 +13,7 @@ require_once ( PHP_MAPFILTER_DIR . '/Pattern/Null.php' );
  */
 class MapFilter_Test_Unit_TreePattern_Attr extends
     PHPUnit_Framework_TestCase
-{  
+{
   
   /** Attribute tag value should overwrite attribute value */
   public static function testAttrOverwrite () {
@@ -40,7 +40,6 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
   }
   
   /**
-   * Test PatternAttr
    * @group     Unit::TreePattern::Attr::testAttr
    */
   public static function testAttr () {
@@ -485,5 +484,62 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     $regexp = MapFilter_TreePattern_Tree::sanitizeRegExp ( $pattern );
 
     self::assertEquals ( $regexp, $sanitized );
+  }
+  
+  public static function provideValueReplacement () {
+  
+    return Array (
+        Array (
+            Array ( 'name' => '' ),
+            Array ()
+        ),
+        Array (
+            Array ( 'name' => 'away' ),
+            Array ()
+        ),
+        Array (
+            Array ( 'name' => '0' ),
+            Array ( 'name' => '0' )
+        ),
+        Array (
+            Array ( 'name' => 'about 15' ),
+            Array ( 'name' => '15' )
+        ),
+        Array (
+            Array ( 'name' => '15 km' ),
+            Array ( 'name' => '15' )
+        ),
+        Array (
+            Array ( 'name' => 'just 15 km' ),
+            Array ( 'name' => '15' )
+        ),
+        Array (
+            Array ( 'name' => 'just 15 km and 300 metres' ),
+            Array ( 'name' => '15' )
+        ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideValueReplacement
+   * @group	        Unit::TreePattern::Attr::testValueReplacement
+   */
+  public static function testValueReplacement ( $query, $result ) {
+  
+    $pattern = '
+        <pattern>
+          <attr valuePattern="/^\D*(\d+).*$/" valueReplacement="$1">name</attr>
+        </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
   }
 }

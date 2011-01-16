@@ -49,8 +49,8 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
   
     try {
 
-      $filter = MapFilter_TreePattern::fromFile ( "no_such_file.xml" );
-      self::fail ( "No exception risen." );
+      $filter = MapFilter_TreePattern::fromFile ( 'no_such_file.xml' );
+      self::fail ( 'No exception risen.' );
       
     } catch ( MapFilter_TreePattern_Exception $exception ) {
 
@@ -60,7 +60,7 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
       );
     } catch ( Exception $ex ) {
     
-      self::fail ( "Wrong exception: " . (String) $ex );
+      self::fail ( 'Wrong exception: ' . (String) $ex );
     }
   }
   
@@ -101,6 +101,24 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
         Array (
             '<pattern><some valuePattern="pattern" /></pattern>',
             "Node 'some' has no attribute like 'valuePattern'."
+        ),
+        
+        /** An valueReplacement attribute */
+        Array (
+            '<pattern><all valueReplacement="pattern" /></pattern>',
+            "Node 'all' has no attribute like 'valueReplacement'."
+        ),
+        Array (
+            '<pattern><one valueReplacement="pattern" /></pattern>',
+            "Node 'one' has no attribute like 'valueReplacement'."
+        ),
+        Array (
+            '<pattern><opt valueReplacement="pattern" /></pattern>',
+            "Node 'opt' has no attribute like 'valueReplacement'."
+        ),
+        Array (
+            '<pattern><some valueReplacement="pattern" /></pattern>',
+            "Node 'some' has no attribute like 'valueReplacement'."
         ),
         
         /** A default attribute */
@@ -192,14 +210,14 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
     try {
 
       MapFilter_TreePattern::load ( $pattern );
-      self::fail ( "No exception risen." );
+      self::fail ( 'No exception risen.' );
 
     } catch ( MapFilter_TreePattern_Exception $ex ) {
 
       self::assertEquals ( $exception, (String) $ex );
     } catch ( Exception $ex ) {
     
-      self::fail ( "Wrong exception: " . (String) $exception );
+      self::fail ( 'Wrong exception: ' . (String) $exception );
     }
   }
   

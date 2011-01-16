@@ -130,19 +130,19 @@ class MapFilter_WhitelistResultPattern implements
     MapFilter_Pattern_ResultInterface
 {
 
-  // Filtering whitelist
+  /* Filtering whitelist */
   private $_whitelist = Array ();
   
-  // Result cache
+  /* Result cache */
   private $_results = Array ();
 
-  // Create user pattern
+  /* Create user pattern */
   public function __construct ( Array $whitelist ) {
   
     $this->_whitelist = $whitelist;
   }
   
-  // Perform a filtering
+  /* Perform a filtering */
   public function parse ( $query ) {
   
     foreach ( $this->_whitelist as $validValue ) {
@@ -154,7 +154,7 @@ class MapFilter_WhitelistResultPattern implements
     }
   }
   
-  // Get filtering results
+  /** Get filtering results */
   public function getResults () {
   
     return $this->_results;

@@ -9,9 +9,9 @@
 require_once ( PHP_MAPFILTER_CLASS );
 
 /**
-* @group        User
-* @group	User::TreePattern
-*/
+ * @group        User
+ * @group	User::TreePattern
+ */
 class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
 
   /**@{*/
@@ -19,7 +19,8 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
   public static function testWrongPattern () {
     
     try {
-      $pattern = MapFilter_TreePattern::load ( "<lantern></lantern>" );
+
+      $pattern = MapFilter_TreePattern::load ( '<lantern></lantern>' );
       self::fail ( 'No exception risen' );
     } catch ( MapFilter_TreePattern_Exception $exception ) {
       
@@ -87,7 +88,7 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
   
     try {
       $pattern = MapFilter_TreePattern::load (
-          "<pattern><wrongnode></wrongnode></pattern>"
+          '<pattern><wrongnode></wrongnode></pattern>'
       );
     } catch ( MapFilter_TreePattern_Exception $exception ) {
       
@@ -103,7 +104,7 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
   
     try {
       $pattern = MapFilter_TreePattern::load (
-          "<pattern><opt></opt><all></all></pattern>"
+          '<pattern><opt></opt><all></all></pattern>'
       );
     } catch ( MapFilter_TreePattern_Exception $exception ) {
       
@@ -141,11 +142,11 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
   
     return Array (
         Array (
-            Array ( '-h' => NULL, '-v' => NULL, '-o' => "a.out" ),
+            Array ( '-h' => NULL, '-v' => NULL, '-o' => 'a.out' ),
             Array ( '-h' => NULL )
         ),
         Array (
-            Array ( '-o' => "a.out" ),
+            Array ( '-o' => 'a.out' ),
             Array ()
         )
     );
@@ -157,14 +158,14 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
    */
   public static function testSimpleOneWhitelist ( $query, $result ) {
   
-    $pattern = "
-    <pattern>
-      <one>
-        <attr>-h</attr>
-        <attr>-v</attr>
-      </one>
-    </pattern>
-    ";
+    $pattern = '
+        <pattern>
+          <one>
+            <attr>-h</attr>
+            <attr>-v</attr>
+          </one>
+        </pattern>
+    ';
     
     // Instantiate MapFilter with pattern and query
     $filter = new MapFilter (
@@ -196,14 +197,14 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
    */
   public static function testSimpleAllWhitelist ( $query, $result ) {
   
-    $pattern = "
-    <pattern>
-      <all>
-        <attr>-f</attr>
-        <attr>-o</attr>
-      </all>
-    </pattern>
-    ";
+    $pattern = '
+        <pattern>
+          <all>
+            <attr>-f</attr>
+            <attr>-o</attr>
+          </all>
+        </pattern>
+    ';
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),
@@ -237,7 +238,7 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
             Array ( '-h' => NULL )
         ),
         Array (
-            Array ( '-h' => NULL, '-v' => NULL, '-o' => "a.out" ),
+            Array ( '-h' => NULL, '-v' => NULL, '-o' => 'a.out' ),
             Array ( '-h' => NULL, '-v' => NULL )
         )
     );
@@ -249,14 +250,14 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
    */
   public static function testSimpleOptWhitelist ( $query, $result ) {
     
-    $pattern = "
-    <pattern>
-      <opt>
-        <attr>-h</attr>
-        <attr>-v</attr>
-      </opt>
-    </pattern>
-    ";
+    $pattern = '
+        <pattern>
+          <opt>
+            <attr>-h</attr>
+            <attr>-v</attr>
+          </opt>
+        </pattern>
+    ';
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),

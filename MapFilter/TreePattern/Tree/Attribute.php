@@ -75,6 +75,15 @@ class MapFilter_TreePattern_Tree_Attribute {
    * @var       String          $_valuePattern
    */
   private $_valuePattern = NULL;
+  
+  /**
+   * Attr value Replacement.
+   *
+   * @since     $NEXT$
+   *
+   * @var       String          $_valueReplacement
+   */
+  private $_valueReplacement = NULL;
 
   /**
    * Determine whether a value is scalar or an array/iterator.
@@ -183,7 +192,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   }
 
   /**
-   * Set valueFilter.
+   * Set valuePattern.
    *
    * @since     0.5.4
    *
@@ -196,6 +205,22 @@ class MapFilter_TreePattern_Tree_Attribute {
     $this->_valuePattern = MapFilter_TreePattern_Tree::sanitizeRegExp (
         $valuePattern
     );
+
+    return $this;
+  }
+  
+  /**
+   * Set valueReplacement.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String          $valueReplacement   A valueReplacement to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Attribute
+   */
+  public function setValueReplacement ( $valueReplacement ) {
+
+    $this->_valueReplacement = $valueReplacement;
 
     return $this;
   }
@@ -384,6 +409,17 @@ class MapFilter_TreePattern_Tree_Attribute {
         $valueCandidate,
         $this->_valuePattern
     );
+
+    if ( !$fits ) return FALSE;
+    
+    if ( $this->_valueReplacement !== NULL ) {
+      
+      $valueCandidate = preg_replace (
+          $this->_valuePattern,
+          $this->_valueReplacement,
+          $valueCandidate
+      );
+    }
     
     return $fits;
   }
@@ -393,12 +429,12 @@ class MapFilter_TreePattern_Tree_Attribute {
    *
    * @since     0.5.4
    *
-   * @param     Mixed           $valueCandidate 	A value to fit.
+   * @param     Mixed           &$valueCandidate 	A value to fit.
    * @param     String|NULL     $pattern                Value pattern.
    *
    * @return    Bool            Does the value fit.
    */
-  public static function valueFits ( $valueCandidate, $pattern ) {
+  public static function valueFits ( &$valueCandidate, $pattern ) {
 
     if ( $pattern === NULL ) return TRUE;
 

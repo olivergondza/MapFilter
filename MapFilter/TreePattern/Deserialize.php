@@ -187,8 +187,9 @@ class MapFilter_TreePattern_Deserialize {
   const ATTR_VALUEFILTER = 'forValue';
   const ATTR_DEFAULT = 'default';
   const ATTR_EXISTENCEDEFAULT = 'existenceDefault';
-  const ATTR_VALICATIONDEFAULT = 'validationDefault';
+  const ATTR_VALIDATIONDEFAULT = 'validationDefault';
   const ATTR_VALUEPATTERN = 'valuePattern';
+  const ATTR_VALUEREPLACEMENT = 'valueReplacement';
   const ATTR_FLAG = 'flag';
   const ATTR_ASSERT = 'assert';
   const ATTR_ITERATOR = 'iterator';
@@ -226,8 +227,9 @@ class MapFilter_TreePattern_Deserialize {
       self::ATTR_VALUEFILTER => 'setValueFilter',
       self::ATTR_DEFAULT => 'setDefault',
       self::ATTR_EXISTENCEDEFAULT => 'setExistenceDefault',
-      self::ATTR_VALICATIONDEFAULT => 'setValidationDefault',
+      self::ATTR_VALIDATIONDEFAULT => 'setValidationDefault',
       self::ATTR_VALUEPATTERN => 'setValuePattern',
+      self::ATTR_VALUEREPLACEMENT => 'setValueReplacement',
       self::ATTR_FLAG => 'setFlag',
       self::ATTR_ASSERT => 'setAssert',
       self::ATTR_ITERATOR => 'setIterator',

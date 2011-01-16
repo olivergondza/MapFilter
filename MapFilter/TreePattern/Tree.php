@@ -210,14 +210,14 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * Set valueFilter.
+   * Set valuePattern.
    *
    * @since     0.4
    *
-   * @param     String          $valuePattern   A valueFilter to set.
+   * @param     String          $valuePattern   A valuePattern to set.
    *
    * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valueFilter.
+   *    A pattern with new valuePattern.
    * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setValuePattern ( $valuePattern ) {
@@ -225,6 +225,25 @@ abstract class MapFilter_TreePattern_Tree implements
     throw new MapFilter_TreePattern_Tree_Exception (
         MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
         Array ( $valuePattern )
+    );
+  }
+  
+  /**
+   * Set valueReplacement.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String          $valueReplacement   A valueReplacement to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    A pattern with new valueReplacement.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValueReplacement ( $valueReplacement ) {
+  
+    throw new MapFilter_TreePattern_Tree_Exception (
+        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
+        Array ( $valueReplacement )
     );
   }
   

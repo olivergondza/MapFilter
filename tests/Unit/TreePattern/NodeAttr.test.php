@@ -591,7 +591,7 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
         $assembled->fetchResult ()->getAsserts ()
     );
     
-    /** Try pattern resuse */
+    /** Try pattern reuse */
     $assembled->setQuery ( $query );
 
     self::assertEquals (
