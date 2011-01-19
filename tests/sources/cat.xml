@@ -1,6 +1,6 @@
 <!--
-    There is an option -u that is ignored according to the manual. We acheve
-    the same behaviour not mentioning it in the filter.
+    There is an option -u that is ignored according to the manual. We achieve
+    the same behavior not mentioning it in the filter.
 -->
 <patterns>
   <pattern>
