@@ -47,6 +47,15 @@ abstract class MapFilter_TreePattern_Tree_Node extends
     MapFilter_TreePattern_Tree
 {
 
+  public function __construct () {
+  
+    $this->setSetters ( Array (
+        'content' => 'setContent'
+    ) );
+  
+    parent::__construct ();
+  }
+
   /**
    * Fluent Method; Set content.
    *

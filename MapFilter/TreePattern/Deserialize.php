@@ -178,27 +178,6 @@ class MapFilter_TreePattern_Deserialize {
   /**@}*/
   
   /**
-   * Valid XML attribute.
-   * @{
-   */
-  const ATTR_NAME = 'name';
-  
-  const ATTR_ATTR = 'attr';
-  const ATTR_VALUEFILTER = 'forValue';
-  const ATTR_DEFAULT = 'default';
-  const ATTR_EXISTENCEDEFAULT = 'existenceDefault';
-  const ATTR_VALIDATIONDEFAULT = 'validationDefault';
-  const ATTR_VALUEPATTERN = 'valuePattern';
-  const ATTR_VALUEREPLACEMENT = 'valueReplacement';
-  const ATTR_FLAG = 'flag';
-  const ATTR_ASSERT = 'assert';
-  const ATTR_ITERATOR = 'iterator';
-  const ATTR_ATTACHPATTERN = 'attachPattern';
-  /**@}*/
-  
-  /** @endcond */
-  
-  /**
    * Node name Object type mapping.
    *
    * @since     0.4
@@ -216,25 +195,11 @@ class MapFilter_TreePattern_Deserialize {
   );
   
   /**
-   * Attribute name Object setter mapping.
-   *
-   * @since     0.4
-   *
-   * @var       Array           $_attrToSetter
+   * Valid XML attribute.
    */
-  private static $_attrToSetter = Array (
-      self::ATTR_ATTR => 'setAttribute',
-      self::ATTR_VALUEFILTER => 'setValueFilter',
-      self::ATTR_DEFAULT => 'setDefault',
-      self::ATTR_EXISTENCEDEFAULT => 'setExistenceDefault',
-      self::ATTR_VALIDATIONDEFAULT => 'setValidationDefault',
-      self::ATTR_VALUEPATTERN => 'setValuePattern',
-      self::ATTR_VALUEREPLACEMENT => 'setValueReplacement',
-      self::ATTR_FLAG => 'setFlag',
-      self::ATTR_ASSERT => 'setAssert',
-      self::ATTR_ITERATOR => 'setIterator',
-      self::ATTR_ATTACHPATTERN => 'setAttachPattern'
-  );
+  const ATTR_NAME = 'name';
+  
+  /** @endcond */
   
   /**
    * Determines whether a tag is valid.
@@ -362,32 +327,14 @@ class MapFilter_TreePattern_Deserialize {
         : Array ()
     ;
     
-    foreach ( self::$_attrToSetter as $attr => $setter ) {
+    foreach ( $node->getSetters () as $attr => $setter ) {
 
       /** Reset loop if attribute does not exist */
       $attrValue = self::_getAttribute ( $attributes, $attr );
 
       if ( $attrValue === FALSE ) continue;
 
-      /** Try to set an attribute */
-      try {
-
-        $node = call_user_func ( Array ( $node, $setter ), $attrValue );
-
-      } catch ( MapFilter_TreePattern_Tree_Exception $exception ) {
-        
-        $translate = $exception->getCode ()
-             === MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-        ;
-        
-        throw ( $translate )
-            ? new MapFilter_TreePattern_Exception (
-                MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE,
-                Array ( $tagName, $attr )
-            )
-            : $exception
-        ;
-      }
+      $node = call_user_func ( Array ( $node, $setter ), $attrValue );
     }
 
     /** Unset attributes and make sure that none of them left over */
@@ -417,17 +364,16 @@ class MapFilter_TreePattern_Deserialize {
 
     if ( $followers === Array () ) return $node;
 
-    try {
+    if ( !array_key_exists ( 'content', $node->getSetters () ) ) {
 
-      $node -> setContent ( $followers );
-    } catch ( MapFilter_TreePattern_Tree_Exception $exception ) {
-    
       throw new MapFilter_TreePattern_Exception (
           MapFilter_TreePattern_Exception::INVALID_XML_CONTENT,
           Array ( $tagName )
       );
     }
     
+    $node -> setContent ( $followers );
+
     return $node;
   }
   

@@ -41,51 +41,6 @@
 interface MapFilter_TreePattern_Tree_Interface {
   
   /**
-   * Set attribute.
-   *
-   * A Fluent Method.
-   *
-   * @since     0.4
-   *
-   * @param     String          $attribute              An attribute to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new attribute.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setAttribute ( $attribute );
-  
-  /**
-   * Set default value.
-   *
-   * A Fluent Method.
-   *
-   * @since     0.4
-   *
-   * @param     String          $default        A default value to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setDefault ( $default );
-  
-  /**
-   * Set content.
-   *
-   * A Fluent Method.
-   *
-   * @since     0.4
-   *
-   * @param     Array           $content        A content to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new content.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setContent ( Array $content );
-  
-  /**
    * Get node followers reference.
    *
    * @since     0.4
@@ -93,51 +48,6 @@ interface MapFilter_TreePattern_Tree_Interface {
    * @return    Array           Node content reference.
    */
   public function &getContent ();
-  
-  /**
-   * Set valueFilter.
-   *
-   * A Fluent Method.
-   *
-   * @since     0.4
-   *
-   * @param     String          $valuePattern   A valueFilter to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valueFilter.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setValuePattern ( $valuePattern );
-  
-  /**
-   * Set valueReplacement.
-   *
-   * A Fluent Method.
-   *
-   * @since     $NEXT$
-   *
-   * @param     String          $valueReplacement   A valueReplacement to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valueReplacement.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setValueReplacement ( $valueReplacement );
-
-  /**
-   * Set iterator.
-   *
-   * A Fluent Method.
-   *
-   * @since     0.5.2
-   *
-   * @param     String          $iterator       An iterator value to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with iterator.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setIterator ( $iterator );
   
   /**
    * Set valueFilter.

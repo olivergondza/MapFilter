@@ -116,156 +116,44 @@ abstract class MapFilter_TreePattern_Tree implements
   protected $attachPattern = NULL;
   
   /**
-   * Set attribute.
-   *
-   * @since     0.4
-   *
-   * @param     String          $attribute              An attribute to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new attribute.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setAttribute ( $attribute ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $attribute )
-    );
-  }
-  
-  /**
-   * Set default value.
-   *
-   * @since     0.4
-   *
-   * @param     String          $default        A default value to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setDefault ( $default ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $default )
-    );
-  }
-  
-  /**
-   * Set existence default value.
-   *
-   * @since     0.5.4
-   *
-   * @param     String          $default        A default value to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setExistenceDefault ( $default ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $default )
-    );
-  }
-  
-  /**
-   * Set validation default value.
-   *
-   * @since     0.5.4
-   *
-   * @param     String          $default        A default value to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setValidationDefault ( $default ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $default )
-    );
-  }
-  
-  /**
-   * Set content.
-   *
-   * @since     0.4
-   *
-   * @param     Array           $content        A content to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new content.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setContent ( Array $content ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_CONTENT
-    );
-  }
-  
-  /**
-   * Set valuePattern.
-   *
-   * @since     0.4
-   *
-   * @param     String          $valuePattern   A valuePattern to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valuePattern.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
-   */
-  public function setValuePattern ( $valuePattern ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $valuePattern )
-    );
-  }
-  
-  /**
-   * Set valueReplacement.
+   * Node setters
    *
    * @since     $NEXT$
    *
-   * @param     String          $valueReplacement   A valueReplacement to set.
-   *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valueReplacement.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @vat       Array           $setters
    */
-  public function setValueReplacement ( $valueReplacement ) {
-  
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $valueReplacement )
-    );
-  }
+  protected $setters = Array ();
   
   /**
-   * Set iterator.
+   * Create new tree instance.
    *
-   * @since     0.5.2
+   * @since     0.3
    *
-   * @param     String          $iterator       An iterator value to set.
+   * Setting is done by Fluent Methods.
    *
    * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with iterator.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
-  public function setIterator ( $iterator ) {
+  public function __construct () {
   
-    throw new MapFilter_TreePattern_Tree_Exception (
-        MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE,
-        Array ( $iterator )
-    );
+    $this->setSetters ( Array (
+        'flag' => 'setFlag',
+        'assert' => 'setAssert',
+        'attachPattern' => 'setAttachPattern',
+        'forValue' => 'setValueFilter',
+    ) );
   }
-
+  
+  protected function setSetters ( Array $setters ) {
+  
+    $this->setters += $setters;
+    return $this;
+  }
+  
+  public function getSetters () {
+  
+    return $this->setters;
+  }
+  
   /**
    * Set Flag.
    *
@@ -437,29 +325,15 @@ abstract class MapFilter_TreePattern_Tree implements
   }
   
   /**
-   * Create new tree instance.
+   * Set assertion value.
    *
-   * @since     0.3
+   * @since      0.5.2
    *
-   * Setting is done by Fluent Methods.
+   * @param      Array           $asserts
+   * @param      Mixed           $assertValue            An assert value to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *
-   * @see       setAssert(), setFlag(), setValueFilter(), setValuePattern(),
-   *            setContent(), setDefault() or setAttribute()
+   * @return     NULL
    */
-  public function __construct () {}
-  
-  /**
-  * Set assertion value.
-  *
-  * @since      0.5.2
-  *
-  * @param      Array           $asserts
-  * @param      Mixed           $assertValue            An assert value to set.
-  *
-  * @return     NULL
-  */
   protected function setAssertValue ( Array &$asserts, $assertValue = Array () ) {
   
     if ( $this->assert === NULL ) {

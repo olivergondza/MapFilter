@@ -66,6 +66,15 @@ implements
     MapFilter_TreePattern_Tree_Leaf_Interface
 {
 
+  public function __construct () {
+  
+    $this->setSetters ( Array (
+        'content' => 'setContent'
+    ) );
+  
+    parent::__construct ();
+  }
+
   /**
    * Fluent Method; Set content.
    *

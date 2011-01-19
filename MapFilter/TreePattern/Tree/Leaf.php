@@ -103,6 +103,16 @@ implements
   
     $this->attribute = new MapFilter_TreePattern_Tree_Attribute ();
 
+    $this->setSetters ( Array (
+        'attr' => 'setAttribute',
+        'default' => 'setDefault',
+        'existenceDefault' => 'setExistenceDefault',
+        'validationDefault' => 'setValidationDefault',
+        'valuePattern' => 'setValuePattern',
+        'valueReplacement' => 'setValueReplacement',
+        'iterator' => 'setIterator',
+    ) );
+
     parent::__construct ();
   }
   

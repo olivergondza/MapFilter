@@ -76,6 +76,17 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
    */
   private $_follower = NULL;
 
+  public function __construct () {
+  
+    $this->setSetters ( Array (
+        'attr' => 'setAttribute',
+        'iterator' => 'setIterator',
+        'content' => 'setContent',
+    ) );
+    
+    parent::__construct ();
+  }
+
   /**
    * Set attribute.
    *
