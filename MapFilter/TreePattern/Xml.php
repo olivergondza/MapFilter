@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to load Pattern tree.
+ * Class to load Pattern tree from xml.
  *
  * PHP Version 5.1.0
  *
@@ -71,13 +71,13 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php' );
  *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_TreePattern_Deserialize
+ * @class    MapFilter_TreePattern_Xml
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.5.3
  */
-class MapFilter_TreePattern_Deserialize {
+class MapFilter_TreePattern_Xml {
 
   /**
    * Data is url.
@@ -96,6 +96,66 @@ class MapFilter_TreePattern_Deserialize {
    * Load data from string
    */
   const DATA_IS_STRING = FALSE;
+  
+  /**
+   * Simple Factory Method to load data from string.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String                  $xmlSource      Pattern string.
+   *
+   * @return    MapFilter_TreePattern   Pattern created from $xmlSource string
+   *
+   * @see       fromFile()
+   */
+  public static function load ( $xmlSource ) {
+    
+    assert ( is_string ( $xmlSource ) );
+    
+    $xmlElement = self::loadXml (
+        $xmlSource,
+        self::DATA_IS_STRING
+    );
+
+    $sideTrees = self::unwrap ( $xmlElement );
+    $sideTrees = array_map (
+        'MapFilter_TreePattern_Xml::parseTree',
+        $sideTrees
+    );
+
+    $xmlElement = self::parseTree ( $xmlElement );
+    return new MapFilter_TreePattern ( $xmlElement, $sideTrees );
+  }
+
+  /**
+   * Simple Factory Method to instantiate with loading the data from file.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String                  $url    XML pattern file
+   *
+   * @return    MapFilter_TreePattern   Pattern created from $url file
+   * 
+   * @see       load()
+   */
+  public static function fromFile ( $url ) {
+  
+    assert ( is_string ( $url ) );
+  
+    $xmlElement = self::loadXml (
+        $url,
+        self::DATA_IS_URL
+    );
+    
+    $sideTrees = self::unwrap ( $xmlElement );
+    $sideTrees = array_map (
+        'MapFilter_TreePattern_Xml::parseTree',
+        $sideTrees
+    );
+
+    $xmlElement = self::parseTree ( $xmlElement );
+    return new MapFilter_TreePattern ( $xmlElement, $sideTrees );
+  }
   
   /**
    * LibXml error to MapFilter_TreePattern_Exception mapping.
@@ -423,13 +483,6 @@ class MapFilter_TreePattern_Deserialize {
   }
   
   /**
-   * Main pattern name.
-   *
-   * @since     0.5.3
-   */
-  const MAIN_PATTERN = 'main';
-  
-  /**
    * Unwrap not necessary \<pattern\> tags from very beginning and end of tree.
    *
    * @since     0.4
@@ -497,7 +550,7 @@ class MapFilter_TreePattern_Deserialize {
             : FALSE
         ;
 
-        if ( $name === FALSE || $name === self::MAIN_PATTERN ) {
+        if ( $name === FALSE || $name === MapFilter_TreePattern::MAIN_PATTERN ) {
         
           $xmlElement = $child->children ();
         } else {

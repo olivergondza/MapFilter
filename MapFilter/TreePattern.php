@@ -30,9 +30,11 @@
 /** @cond       PROGRAMMER */
 
 /**
- * @file        MapFilter/TreePattern/Deserialize.php
+ * Include default deserializer
+ *
+ * @file        MapFilter/TreePattern/Xml.php
  */
-require_once ( dirname ( __FILE__ ) . '/TreePattern/Deserialize.php' );
+require_once ( dirname ( __FILE__ ) . '/TreePattern/Xml.php' );
 
 /**
  * @file        MapFilter/TreePattern/Exception.php
@@ -161,9 +163,16 @@ class MapFilter_TreePattern implements
   const DATA_IS_STRING = FALSE;
   
   /** @endcond */
+  
+  /**
+   * Main pattern name.
+   *
+   * @since     $NEXT$
+   */
+  const MAIN_PATTERN = 'main';
 
   /**
-   * Simple Factory Method to load data from string.
+   * Simple Factory Method to load data from XML string.
    *
    * @since     0.1
    *
@@ -171,55 +180,31 @@ class MapFilter_TreePattern implements
    *
    * @return    MapFilter_TreePattern   Pattern created from $xmlSource string
    *
-   * @see       fromFile(), __construct()
+   * @see       fromFile(), MapFilter_TreePattern_Xml::load()
    */
   public static function load ( $xmlSource ) {
     
     assert ( is_string ( $xmlSource ) );
     
-    $xmlElement = MapFilter_TreePattern_Deserialize::loadXml (
-        $xmlSource,
-        self::DATA_IS_STRING
-    );
-
-    $sideTrees = MapFilter_TreePattern_Deserialize::unwrap ( $xmlElement );
-    $sideTrees = array_map (
-        'MapFilter_TreePattern_Deserialize::parseTree',
-        $sideTrees
-    );
-
-    $xmlElement = MapFilter_TreePattern_Deserialize::parseTree ( $xmlElement );
-    return new MapFilter_TreePattern ( $xmlElement, $sideTrees );
+    return MapFilter_TreePattern_Xml::load ( $xmlSource );
   }
 
   /**
-   * Simple Factory Method to instantiate with loading the data from file.
+   * Simple Factory Method to loading data from XML file.
    *
    * @since     0.1
    *
-   * @param     String                  $url    XML pattern file
+   * @param     String                  $url    XML pattern file.
    *
    * @return    MapFilter_TreePattern   Pattern created from $url file
    * 
-   * @see       load(), __construct()
+   * @see       load(), MapFilter_TreePattern_Xml::fromFile()
    */
   public static function fromFile ( $url ) {
   
     assert ( is_string ( $url ) );
   
-    $xmlElement = MapFilter_TreePattern_Deserialize::loadXml (
-        $url,
-        self::DATA_IS_URL
-    );
-    
-    $sideTrees = MapFilter_TreePattern_Deserialize::unwrap ( $xmlElement );
-    $sideTrees = array_map (
-        'MapFilter_TreePattern_Deserialize::parseTree',
-        $sideTrees
-    );
-
-    $xmlElement = MapFilter_TreePattern_Deserialize::parseTree ( $xmlElement );
-    return new MapFilter_TreePattern ( $xmlElement, $sideTrees );
+    return MapFilter_TreePattern_Xml::fromFile ( $url );
   }
   
   /**
@@ -334,7 +319,7 @@ class MapFilter_TreePattern implements
   ) {
   
     $pattern->setTreePattern ( $this );
-    $this->_sidePatterns[ MapFilter_TreePattern_Deserialize::MAIN_PATTERN ]
+    $this->_sidePatterns[ self::MAIN_PATTERN ]
         = $this->_patternTree = clone ( $pattern );
     
     return $this;
