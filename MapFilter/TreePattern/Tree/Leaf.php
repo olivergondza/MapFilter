@@ -63,18 +63,9 @@ implements
    *
    * @since     0.4
    *
-   * @var       String          $attribute
+   * @var       MapFilter_TreePattern_Tree_Attribute          $attribute
    */
   protected $attribute = "";
-  
-  /**
-   * Attribute value.
-   *
-   * @since     0.4
-   *
-   * @var       String          $value
-   */
-  protected $value = NULL;
   
   /**
    * Existence assertion.
@@ -296,7 +287,7 @@ implements
     if ( !$this->isSatisfied () ) return Array ();
 
     $result[ $this->attribute->getAttribute () ]
-        = $this->value
+        = $this->attribute->getValue ()
     ;
 
     foreach ( $this->getContent () as $follower ) {
@@ -326,6 +317,7 @@ implements
     if ( $this->flag !== NULL ) {
   
       if ( !in_array ( $this->flag, $flags ) ) {
+
         $flags[] = $this->flag;
       }
     }
@@ -342,5 +334,8 @@ implements
    *
    * @return    MapFilter_TreePattern_Tree_Leaf
    */
-  public function __clone () {}
+  public function __clone () {
+  
+    $this->attribute = clone $this->attribute;
+  }
 }

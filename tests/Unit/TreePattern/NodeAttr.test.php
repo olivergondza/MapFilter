@@ -363,7 +363,7 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
                     'right' => Array ( 'value' => 1 )
                 ),
                 'right' => Array (
-                    'value' => 0
+                    'value' => 2
                 )
             ),
             Array (
@@ -372,7 +372,7 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
                     'right' => Array ( 'value' => 1 )
                 ),
                 'right' => Array (
-                    'value' => 0
+                    'value' => 2
                 )
             )
         )
@@ -381,6 +381,7 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
   
   /**
    * @dataProvider      provideCyclicParse
+   * @group	        Unit::TreePattern::NodeAttr::testCyclicParse
    */
   public static function testCyclicParse ( $query, $result ) {
   

@@ -129,7 +129,6 @@ implements
       }
     }
 
-    $this->value = $this->attribute->getValue ();
     return $this->satisfied = TRUE;
   }
 }

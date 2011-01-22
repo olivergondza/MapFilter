@@ -91,49 +91,6 @@ implements
   }
 
   /**
-   * Find a fitting follower, let it satisfy and set value or assertion.
-   *
-   * @since     0.5.2
-   *
-   * @param     Mixed           &$query                 A query.
-   * @param     Array           &$asserts               Assertions.
-   * @param     Mixed           $valueCandidate         
-   *
-   * @return    Bool
-   */
-  private function _satisfyFittingFollower (
-      &$query,
-      Array &$asserts,
-      $valueCandidate
-  ) {
-  
-    $satisfied = FALSE;
-    foreach ( $this->getContent () as $follower ) {
-    
-      $fits = MapFilter_TreePattern_Tree_Attribute::valueFits (
-          $valueCandidate,
-          $follower->getValueFilter ()
-      );
-      
-      if ( !$fits ) continue;
-      
-      $satisfied |= (Bool) $followerSatisfied = $follower->satisfy (
-          $query, $asserts
-      );
-    }
-    
-    if ( $satisfied ) {
-        
-      $this->value = $valueCandidate;
-    } else {
-    
-      $this->setAssertValue ( $asserts );
-    }
-      
-    return $this->satisfied = $satisfied;
-  }
-
-  /**
    * Satisfy certain node type and let its followers to get satisfied.
    *
    * @since     0.4
@@ -184,13 +141,54 @@ implements
           $query, $asserts, $value
       );
     }
-      
+    
+    $this->attribute->setValue ( $value );
+    
     if ( !$satisfied ) {
 
       $this->setAssertValue ( $asserts, $assertValue );
     }
 
-    $this->value = $this->attribute->getValue ();
+    return $this->satisfied = $satisfied;
+  }
+  
+  /**
+   * Find a fitting follower, let it satisfy and set value or assertion.
+   *
+   * @since     0.5.2
+   *
+   * @param     Mixed           &$query                 A query.
+   * @param     Array           &$asserts               Assertions.
+   * @param     Mixed           $valueCandidate         
+   *
+   * @return    Bool
+   */
+  private function _satisfyFittingFollower (
+      &$query,
+      Array &$asserts,
+      $valueCandidate
+  ) {
+  
+    $satisfied = FALSE;
+    foreach ( $this->getContent () as $follower ) {
+    
+      $fits = MapFilter_TreePattern_Tree_Attribute::valueFits (
+          $valueCandidate,
+          $follower->getValueFilter ()
+      );
+      
+      if ( !$fits ) continue;
+      
+      $satisfied |= $follower->satisfy (
+          $query, $asserts
+      );
+    }
+    
+    if ( !$satisfied ) {
+        
+      $this->setAssertValue ( $asserts );
+    }
+      
     return $this->satisfied = $satisfied;
   }
 }
