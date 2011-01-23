@@ -96,17 +96,18 @@ implements
     
     if ( !$this->attribute->isValid () ) {
     
+      // Set validation assertion
       $this->setAssertValue (
           $asserts, $query[ (String) $this->attribute ]
       );
     
-      // Set validation assertion
       return $this->satisfied = FALSE;
     }
 
     $value = $this->attribute->getValue ();
 
     $attrName = (String) $this->attribute;
+
     if ( 
         array_key_exists ( $attrName, $query )
         && is_array ( $value )

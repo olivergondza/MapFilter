@@ -102,13 +102,13 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
         Array (
             Array ( 'order' => new ArrayIterator ( Array () ) ),
             Array ( 'auto' => Array ( 'defaultValue' ) ),
-            Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
+            Array ( 'wrong_keyattr' => new ArrayIterator ( Array () ) ),
             Array (),
         ),
         Array (
             Array ( 'order' => new EmptyIterator () ),
             Array ( 'auto' => Array ( 'defaultValue' ) ),
-            Array ( 'wrong_keyattr' => 'wrong_keyattr' ),
+            Array ( 'wrong_keyattr' => new EmptyIterator () ),
             Array (),
         ),
         Array (

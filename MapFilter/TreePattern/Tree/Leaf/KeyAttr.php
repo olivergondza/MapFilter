@@ -33,9 +33,9 @@
 require_once ( dirname ( __FILE__ ) . '/../Attribute.php' );
 
 /**
- * @file        MapFilter/TreePattern/Tree/Leaf.php
+ * @file        MapFilter/TreePattern/Tree/Leaf/Attr.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
+require_once ( dirname ( __FILE__ ) . '/Attr.php' );
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/Interface.php
@@ -61,11 +61,16 @@ require_once ( dirname ( __FILE__ ) . '/../Leaf/Exception.php' );
 final class
     MapFilter_TreePattern_Tree_Leaf_KeyAttr
 extends
-    MapFilter_TreePattern_Tree_Leaf
+    MapFilter_TreePattern_Tree_Leaf_Attr
 implements
     MapFilter_TreePattern_Tree_Leaf_Interface
 {
 
+  /**
+   * Instantiate attribute
+   *
+   * @since     $NEXT$
+   */
   public function __construct () {
   
     $this->setSetters ( Array (
@@ -106,29 +111,36 @@ implements
   
     assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
 
-    $this->attribute->setQuery ( $query );
+    $oldAsserts = $asserts;
+
+    $satisfied = parent::satisfy ( $query, $asserts );
     
-    if ( !$this->attribute->isPresent () ) {
-    
-      // Set existence assertion
-      $this->setAssertValue ( $asserts );
+    if ( !$satisfied ) return FALSE;
 
-      return $this->satisfied = FALSE;
-    }
-    
-    if ( !$this->attribute->isValid () ) {
+    $asserts = $oldAsserts;
 
-      // Set validation assertion
-      $this->setAssertValue ( $asserts );
-
-      return $this->satisfied = FALSE;
-    }
-
+    return $this->satisfied = $this->_satisfyFollowers (
+        $query, $asserts
+    );
+  }
+  
+  /**
+   * Satisfy node followers.
+   *
+   * @since     $NEXT$
+   *
+   * @param     Mixed           &$query                 A query.
+   * @param     Array           &$asserts               Assertions.
+   *
+   * @return    Bool
+   */
+  private function _satisfyFollowers ( &$query, Array &$asserts ) {
+  
     $value = $this->attribute->getValue ();
 
-    $assertValue = (String) $this->attribute;
+    $satisfied = FALSE;
     if ( is_array ( $value ) ) {
-      $satisfied = FALSE;
+
       foreach ( $value as $singleCandidate ) {
 
         $satisfied |= (Bool) $this->_satisfyFittingFollower (
@@ -137,19 +149,17 @@ implements
       }
     } else {
      
-      $satisfied = $this->_satisfyFittingFollower (
+      $satisfied = (Bool) $this->_satisfyFittingFollower (
           $query, $asserts, $value
       );
     }
     
-    $this->attribute->setValue ( $value );
-    
     if ( !$satisfied ) {
 
-      $this->setAssertValue ( $asserts, $assertValue );
+      $this->setAssertValue ( $asserts, $value );
     }
-
-    return $this->satisfied = $satisfied;
+    
+    return $satisfied;
   }
   
   /**
@@ -185,7 +195,7 @@ implements
     }
     
     if ( !$satisfied ) {
-        
+
       $this->setAssertValue ( $asserts );
     }
       

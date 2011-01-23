@@ -259,21 +259,6 @@ class MapFilter_TreePattern_Tree_Attribute {
   }
 
   /**
-   * Set attribute value.
-   *
-   * @since     $NEXT$
-   *
-   * @param     Mixed                   $value          Value.
-   *
-   * @return    MapFilter_TreePattern_Tree_Attribute
-   */
-  public function setValue ( $value ) {
-  
-    $this->_value = $value;
-    return $this;
-  }
-
-  /**
    * Get attribute value.
    *
    * @since     0.5.4
