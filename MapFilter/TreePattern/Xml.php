@@ -60,6 +60,11 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Node/NodeAttr.php' );
 require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/KeyAttr.php' );
 
 /**
+ * @file        MapFilter/TreePattern/Tree/Leaf/AliasAttr.php
+ */
+require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/AliasAttr.php' );
+
+/**
  * @file        MapFilter/TreePattern/Tree/Leaf/Attr.php
  */
 require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php' );
@@ -235,6 +240,7 @@ class MapFilter_TreePattern_Xml {
   const NODE_ATTR = 'attr';
   const NODE_SOME = 'some';
   const NODE_NODEATTR = 'node_attr';
+  const NODE_ALIAS = 'alias';
   /**@}*/
   
   /**
@@ -252,6 +258,7 @@ class MapFilter_TreePattern_Xml {
       self::NODE_NODEATTR => 'MapFilter_TreePattern_Tree_Node_NodeAttr',
       self::NODE_KEYATTR => 'MapFilter_TreePattern_Tree_Leaf_KeyAttr',
       self::NODE_ATTR => 'MapFilter_TreePattern_Tree_Leaf_Attr',
+      self::NODE_ALIAS => 'MapFilter_TreePattern_Tree_Leaf_AliasAttr',
   );
   
   /**
@@ -461,7 +468,7 @@ class MapFilter_TreePattern_Xml {
     $node = self::_parseTagAttributes ( $xml, $node, $tagName );
 
     /** Attr node can have attribute in tag body so special check is needed. */
-    if ( is_a ( $node, 'MapFilter_TreePattern_Tree_Leaf_Attr' ) ) {
+    if ( get_class ( $node ) === 'MapFilter_TreePattern_Tree_Leaf_Attr' ) {
 
       $alreadySet = (Bool) ( $node->getAttribute () );
 

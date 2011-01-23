@@ -58,7 +58,7 @@ require_once ( dirname ( __FILE__ ) . '/../Leaf/Exception.php' );
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.4
  */
-final class MapFilter_TreePattern_Tree_Leaf_Attr extends
+class MapFilter_TreePattern_Tree_Leaf_Attr extends
     MapFilter_TreePattern_Tree_Leaf
 implements
     MapFilter_TreePattern_Tree_Leaf_Interface

@@ -55,59 +55,59 @@ class MapFilter_Test_User_TreePattern_Cat extends PHPUnit_Framework_TestCase {
                 's' => '', 'T' => '', 'v' => ''
             ),
             Array (
-                'A' => '', 'b' => '', 'E' => '', 'n' => '',
+                'b' => '', 'E' => '', 'n' => '',
                 's' => '', 'T' => '', 'v' => ''
             ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'A' => '' ),
-            Array ( 'A' => '', 'v' => '', 'E' => '', 'T' => '' ),
+            Array ( 'v' => '', 'E' => '', 'T' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'show-all' => '' ),
-            Array ( 'show-all' => '', 'v' => '', 'E' => '', 'T' => '' ),
+            Array ( 'v' => '', 'E' => '', 'T' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'e' => '' ),
-            Array ( 'e' => '', 'v' => '', 'E' => '' ),
+            Array ( 'v' => '', 'E' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 't' => '' ),
-            Array ( 't' => '', 'v' => '', 'T' => '' ),
+            Array ( 'v' => '', 'T' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'number-nonblank' => '' ),
-            Array ( 'number-nonblank' => '', 'b' => '' ),
+            Array ( 'b' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'show-ends' => '' ),
-            Array ( 'show-ends' => '', 'E' => '' ),
+            Array ( 'E' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'number' => '' ),
-            Array ( 'number' => '', 'n' => '' ),
+            Array ( 'n' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'squeeze-blank' => '' ),
-            Array ( 'squeeze-blank' => '', 's' => '' ),
+            Array ( 's' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'show-tabs' => '' ),
-            Array ( 'show-tabs' => '', 'T' => '' ),
+            Array ( 'T' => '' ),
             Array ( 'perform_action' )
         ),
         Array (
             Array ( 'show-nonprinting' => '' ),
-            Array ( 'show-nonprinting' => '', 'v' => '' ),
+            Array ( 'v' => '' ),
             Array ( 'perform_action' )
         ),
     );
