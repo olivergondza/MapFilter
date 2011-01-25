@@ -24,7 +24,7 @@
  * @author   Oliver Gondza <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    0.5.4
+ * @since    $NEXT$
  */
 
 /**
@@ -36,14 +36,14 @@
  * @author   Oliver Gondza <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    0.5.4
+ * @since    $NEXT$
  */
 class MapFilter_TreePattern_Tree_Attribute {
 
   /**
    * Node attribute.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $_attribute
    */
@@ -52,7 +52,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Attr existence default value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $_existenceDefault
    */
@@ -61,7 +61,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Attr validation default value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $_validationDefault
    */
@@ -70,7 +70,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Attr value Pattern.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $_valuePattern
    */
@@ -88,7 +88,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Determine whether a value is scalar or an array/iterator.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $_iterator
    */
@@ -97,7 +97,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * User query to examinate.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       Array|ArrayAccess       $_query
    */
@@ -106,7 +106,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Attribute value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $_value
    */
@@ -115,7 +115,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set attribute.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $attribute              An attribute to set.
    *
@@ -131,7 +131,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Get node attribute.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @return    String          A node attribute.
    * @see       setAttribute
@@ -144,7 +144,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set default value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $default        A default value to set.
    *
@@ -162,7 +162,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set validation default value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $validationDefault      A default value to set.
    *
@@ -178,7 +178,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set existence default value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $existenceDefault       A default value to set.
    *
@@ -194,7 +194,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set valuePattern.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $valuePattern   A valueFilter to set.
    *
@@ -228,7 +228,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set iterator.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     Int             $iterator       An iterator value to set.
    *
@@ -243,7 +243,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Set iterator.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     Array|ArrayAccess       $query          User query.
    *
@@ -261,7 +261,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Get attribute value.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @return    Mixed
    */
@@ -273,7 +273,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Determine whether an attribute is present in query.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @return    Bool
    * @see       isValid
@@ -303,7 +303,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Determine whether a value is valid.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @return    Bool
    * @see       isPresent
@@ -336,7 +336,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Validate arbitrary iterator structure
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     Mixed           $valueCandidate
    *
@@ -427,7 +427,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Test whether a ForValue condition on tree node fits given pattern.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     Mixed           &$valueCandidate 	A value to fit.
    * @param     String|NULL     $pattern                Value pattern.
@@ -451,7 +451,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   /**
    * Convert attribute to string.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @return    String          String representation of node.
    */

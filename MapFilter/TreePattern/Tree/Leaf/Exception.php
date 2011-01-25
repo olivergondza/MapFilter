@@ -57,7 +57,7 @@ class MapFilter_TreePattern_Tree_Leaf_Exception extends
   /**
    * Unsupported value used as an iterator depth indicator.
    * 
-   * @since     0.5.4
+   * @since     $NEXT$
    */
   const INVALID_DEPTH_INDICATOR = 3;
   

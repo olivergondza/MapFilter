@@ -70,7 +70,7 @@ implements
   /**
    * Existence assertion.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $existenceAssert
    */
@@ -79,7 +79,7 @@ implements
   /**
    * Validation assertion.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @var       String          $validationAssert
    */
@@ -88,7 +88,7 @@ implements
   /**
    * Instantiate attribute
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    */
   public function __construct () {
   
@@ -150,7 +150,7 @@ implements
    *
    * A Fluent Method.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $existenceDefault        A default value to set.
    *
@@ -169,7 +169,7 @@ implements
    *
    * A Fluent Method.
    *
-   * @since     0.5.4
+   * @since     $NEXT$
    *
    * @param     String          $validationDefault        A default value to set.
    *
