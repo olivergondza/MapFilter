@@ -91,11 +91,20 @@ abstract class MapFilter_TreePattern_Tree implements
   /**
    * Node assert.
    *
-   * @since     0.3
+   * @since     $NEXT$
    *
-   * @var       String          $assert
+   * @var       String          $existenceAssert
    */
-  protected $assert = NULL;
+  protected $existenceAssert = NULL;
+  
+  /**
+   * Node assert.
+   *
+   * @since     $NEXT$
+   *
+   * @var       String          $validationAssert
+   */
+  protected $validationAssert = NULL;
   
   /**
    * Node content.
@@ -143,12 +152,26 @@ abstract class MapFilter_TreePattern_Tree implements
     ) );
   }
   
+  /**
+   * Set setter methods alloved for node.
+   *
+   * @since     $NEXT$
+   *
+   * @param     Array   $setters        Array   of attrs and its setters.
+   */
   protected function setSetters ( Array $setters ) {
   
     $this->setters += $setters;
     return $this;
   }
   
+  /**
+   * Get alloved setters.
+   *
+   * @since     $NEXT$
+   *
+   * @return    Array
+   */
   public function getSetters () {
   
     return $this->setters;
@@ -188,7 +211,7 @@ abstract class MapFilter_TreePattern_Tree implements
   
     assert ( is_string ( $assert ) );
   
-    $this->assert = $assert;
+    $this->existenceAssert = $this->validationAssert = $assert;
     return $this;
   }
   
@@ -331,21 +354,24 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @param      Array           $asserts
    * @param      Mixed           $assertValue            An assert value to set.
-   *
-   * @return     NULL
    */
-  protected function setAssertValue ( Array &$asserts, $assertValue = Array () ) {
+  protected function setAssertValue (
+      Array &$asserts, $assertValue = Array ()
+  ) {
   
-    if ( $this->assert === NULL ) {
-    
-      return;
+    if ( $assertValue === Array () ) {
+
+       $assertToSet = $this->existenceAssert;
+       $valueToSet = $this->existenceAssert;
+    } else {
+
+       $assertToSet = $this->validationAssert;
+       $valueToSet = $assertValue;
     }
+  
+    if ( $assertToSet === NULL ) return;
     
-    $asserts[ $this->assert ] = (
-         $assertValue === Array () || $assertValue === NULL
-    )
-        ? $this->assert
-        : $assertValue;
+    $asserts[ $assertToSet ] = $valueToSet;
   }
   
   /**

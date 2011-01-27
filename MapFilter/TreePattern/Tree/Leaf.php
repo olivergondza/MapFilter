@@ -68,24 +68,6 @@ implements
   protected $attribute = "";
   
   /**
-   * Existence assertion.
-   *
-   * @since     $NEXT$
-   *
-   * @var       String          $existenceAssert
-   */
-  protected $existenceAssert = NULL;
-  
-  /**
-   * Validation assertion.
-   *
-   * @since     $NEXT$
-   *
-   * @var       String          $validationAssert
-   */
-  protected $validationAssert = NULL;
-  
-  /**
    * Instantiate attribute
    *
    * @since     $NEXT$
@@ -101,6 +83,8 @@ implements
         'validationDefault' => 'setValidationDefault',
         'valuePattern' => 'setValuePattern',
         'valueReplacement' => 'setValueReplacement',
+        'existenceAssert' => 'setExistenceAssert',
+        'validationAssert' => 'setValidationAssert',
         'iterator' => 'setIterator',
     ) );
 
@@ -218,6 +202,40 @@ implements
   public function setValueReplacement ( $valueReplacement ) {
 
     $this->attribute->setValueReplacement ( $valueReplacement );
+    return $this;
+  }
+  
+  /**
+   * Set existenceAssert.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String          $existenceAssert         An existenceAssert to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with existenceAssert.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setExistenceAssert ( $existenceAssert ) {
+  
+    $this->existenceAssert = $existenceAssert;
+    return $this;
+  }
+  
+  /**
+   * Set validationAssert.
+   *
+   * @since     $NEXT$
+   *
+   * @param     String          $validationAssert         A validationAssert to set.
+   *
+   * @return    MapFilter_TreePattern_Tree_Interface
+   *    New pattern with validationAssert.
+   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   */
+  public function setValidationAssert ( $validationAssert ) {
+  
+    $this->validationAssert = $validationAssert;
     return $this;
   }
   

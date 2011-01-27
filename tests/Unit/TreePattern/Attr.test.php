@@ -225,17 +225,17 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
   
     return Array (
         Array (
-            // Keep valid
+            /* Keep valid */
             Array ( 'attr' => 'Valid value' ),
             Array ( 'attr' => 'Valid value' )
         ),
         Array (
-            // Set existence default
+            /* Set existence default */
             Array (),
             Array ( 'attr' => 'New value' )
         ),
         Array (
-            // Substitude validation default
+            /* Substitute validation default */
             Array ( 'attr' => '6' ),
             Array ( 'attr' => 'Better value' )
         )
@@ -540,6 +540,60 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     self::assertEquals (
         $result,
         $filter->fetchResult ()->getResults ()
+    );
+  }
+  
+  public static function provideValidationExistenceAssert () {
+  
+    return Array (
+        Array (
+            Array ( 'attr' => '0' ),
+            Array ( 'attr' => '0' ),
+            Array ()
+        ),
+        Array (
+            Array (),
+            Array (),
+            Array ( 'nExist' => 'nExist' )
+        ),
+        Array (
+            Array ( 'attr' => 'asdf' ),
+            Array (),
+            Array ( 'nValid' => 'asdf' )
+        ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideValidationExistenceAssert
+   */
+  public static function testValidationExistenceAssert (
+      $query, $result, $asserts
+  ) {
+  
+    $pattern = '
+        <pattern>
+          <attr
+              existenceAssert="nExist"
+              validationAssert="nValid"
+              valuePattern="/\d+/"
+          >attr</attr>
+        </pattern>
+    ';
+    
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
+    
+    self::assertEquals (
+        $result,
+        $filter->fetchResult ()->getResults ()
+    );
+    
+    self::assertEquals (
+        $asserts,
+        $filter->fetchResult ()->getAsserts ()
     );
   }
 }

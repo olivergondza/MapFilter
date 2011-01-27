@@ -50,7 +50,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   private $_attribute = NULL;
   
   /**
-   * Attr existence default value.
+   * Attr existenceDefault value.
    *
    * @since     $NEXT$
    *
@@ -59,7 +59,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   private $_existenceDefault = NULL;
   
   /**
-   * Attr validation default value.
+   * Attr validationDefault value.
    *
    * @since     $NEXT$
    *
@@ -68,7 +68,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   private $_validationDefault = NULL;
   
   /**
-   * Attr value Pattern.
+   * Attr valuePattern.
    *
    * @since     $NEXT$
    *
@@ -77,13 +77,31 @@ class MapFilter_TreePattern_Tree_Attribute {
   private $_valuePattern = NULL;
   
   /**
-   * Attr value Replacement.
+   * Attr valueReplacement.
    *
    * @since     $NEXT$
    *
    * @var       String          $_valueReplacement
    */
   private $_valueReplacement = NULL;
+  
+  /**
+   * Attr existenceAssert value.
+   *
+   * @since     $NEXT$
+   *
+   * @var       String          $_existenceAssert
+   */
+  private $_existenceAssert = NULL;
+  
+  /**
+   * Attr validationAssert value.
+   *
+   * @since     $NEXT$
+   *
+   * @var       String          $_validationAssert
+   */
+  private $_validationAssert = NULL;
 
   /**
    * Determine whether a value is scalar or an array/iterator.
@@ -221,7 +239,6 @@ class MapFilter_TreePattern_Tree_Attribute {
   public function setValueReplacement ( $valueReplacement ) {
 
     $this->_valueReplacement = $valueReplacement;
-
     return $this;
   }
   
@@ -276,6 +293,7 @@ class MapFilter_TreePattern_Tree_Attribute {
    * @since     $NEXT$
    *
    * @return    Bool
+   *
    * @see       isValid
    */
   public function isPresent () {
@@ -306,6 +324,7 @@ class MapFilter_TreePattern_Tree_Attribute {
    * @since     $NEXT$
    *
    * @return    Bool
+   *
    * @see       isPresent
    */
   public function isValid () {

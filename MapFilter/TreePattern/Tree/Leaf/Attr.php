@@ -88,7 +88,6 @@ implements
 
     if ( !$this->attribute->isPresent () ) {
     
-      // Set existence assertion
       $this->setAssertValue ( $asserts );
 
       return $this->satisfied = FALSE;
@@ -96,7 +95,6 @@ implements
     
     if ( !$this->attribute->isValid () ) {
     
-      // Set validation assertion
       $this->setAssertValue (
           $asserts, $query[ (String) $this->attribute ]
       );
