@@ -22,20 +22,24 @@ class MapFilter_Test_User_TreePattern_Cat extends PHPUnit_Framework_TestCase {
         Array (
             Array (),
             Array (),
+            Array (),
             Array ()
         ),
         Array (
             Array ( 'help' => '' ),
             Array ( 'help' => '' ),
-            Array ( 'show_help' )
+            Array ( 'show_help' ),
+            Array ()
         ),
         Array (
             Array ( 'version' => '' ),
             Array ( 'version' => '' ),
-            Array ( 'show_version' )
+            Array ( 'show_version' ),
+            Array ()
         ),
         Array (
             Array ( 'no_such_option' => '' ),
+            Array (),
             Array (),
             Array ()
         ),
@@ -48,6 +52,12 @@ class MapFilter_Test_User_TreePattern_Cat extends PHPUnit_Framework_TestCase {
             Array ( 'no_such_option' => '', 'b' => '' ),
             Array ( 'b' => '' ),
             Array ( 'perform_action' )
+        ),
+        Array (
+            Array ( 'u' => '' ),
+            Array (),
+            Array (),
+            Array ( 'deprecated' => '' ),
         ),
         Array (
             Array (
@@ -117,7 +127,9 @@ class MapFilter_Test_User_TreePattern_Cat extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider      provideParseCat
    */
-  public static function testParseCat ( $query, $result, $flags ) {
+  public static function testParseCat (
+      $query, $result, $flags, $asserts = Array ()
+  ) {
   
     $filter = new MapFilter (
         MapFilter_TreePattern::fromFile (
@@ -134,6 +146,11 @@ class MapFilter_Test_User_TreePattern_Cat extends PHPUnit_Framework_TestCase {
     self::assertEquals (
         $flags,
         $filter->fetchResult ()->getFlags ()
+    );
+    
+    self::assertEquals (
+        $asserts,
+        $filter->fetchResult ()->getAsserts ()
     );
   }
 }

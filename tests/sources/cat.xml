@@ -8,8 +8,8 @@
 
         <some flag="perform_action">
 
-          <!-- ignote option and set assert-->
-          <alias attr="u" assert="deprecated" valuePattern="/(?!)/"/>
+          <!-- ignote option and set assert if present -->
+          <alias attr="u" validationAssert="deprecated" valuePattern="/(?!)/" />
 
           <!-- translate long options to its short versions -->
           <alias attr="number-nonblank">
