@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to filter key-value data structures.
+ * Class to provide generic filter interface.
  *
  * PHP Version 5.1.0
  *
@@ -49,7 +49,7 @@ require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php' );
 require_once ( dirname ( __FILE__ ) . '/MapFilter/Exception.php' );
 
 /**
- * Class to filter key-value data structures.
+ * Class to provide generic filter interface.
  *
  * @category Pear
  * @package  MapFilter
@@ -115,9 +115,9 @@ class MapFilter implements MapFilter_Interface {
    *
    * @clip{User/MapFilter.test.php,testEmptyPattern}
    *
-   * All parsing is done just in time (however it can be triggered manually using
-   * MapFilter::parse()) when some of parsing results is accessed (in this case
-   * when MapFilter::getResults() is called for the first time):
+   * All parsing is done just in time when some of parsing results is
+   * accessed (in this case when MapFilter::getResults() is called for the
+   * first time):
    *
    * @clip{User/TreePattern/Duration.test.php,testDuration}
    *
@@ -235,11 +235,13 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.2
    *
+   * Equivalent to MapFilter_Pattern_ResultInterface::getResults()
+   *
    * @return    Array|ArrayAccess               Parsing results.
    *
    * Get parsed query from latest parsing process.
    *
-   * @see       fetchResult()
+   * @see       fetchResult(), MapFilter_Pattern_ResultInterface::getResults()
    */
   public function getResults () {
 
@@ -251,11 +253,13 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.4
    *
+   * Equivalent to MapFilter_Pattern_AssertInterface::getAsserts()
+   *
    * @return    Array|ArrayAccess               Parsing asserts.
    *
    * Return validation asserts that was raised during latest parsing process.
    *
-   * @see       fetchResult()
+   * @see       fetchResult(),MapFilter_Pattern_AssertInterface::getAsserts()
    */
   public function getAsserts () {
   
@@ -267,11 +271,13 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.4
    *
+   * Equivalent to MapFilter_Pattern_FlagInterface::getFlags()
+   *
    * @return    Array|ArrayAccess               Parsing flags.
    *
    * Return flags that was sat during latest parsing process.
    *
-   * @see       fetchResult()
+   * @see       fetchResult(), MapFilter_Pattern_FlagInterface::getFlags()
    */
   public function getFlags () {
   

@@ -129,7 +129,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     $NEXT$
    *
-   * @vat       Array           $setters
+   * @var       Array           $setters
    */
   protected $setters = Array ();
   

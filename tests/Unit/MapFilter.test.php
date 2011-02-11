@@ -29,11 +29,11 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
     // Configure filter using constructor.
     $filter0 = new MapFilter ( $pattern, $query );
     
-    // Create empty filter and configure it using fluent methods.
+    // Create empty filter and configure it using fluent interface.
     $filter1 = new MapFilter ();
     $filter1 -> setPattern ( $pattern ) -> setQuery ( $query );
 
-    // Optional combination of both can be used as well
+    // Optional combination of both can be used as well.
     $filter2 = new MapFilter ( $pattern );
     $filter2 -> setQuery ( $query );
 
