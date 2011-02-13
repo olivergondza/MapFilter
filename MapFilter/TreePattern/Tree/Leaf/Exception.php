@@ -24,13 +24,13 @@
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- 
+ * @since    0.5.2
  */
 
 /**
  * @file        MapFilter/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Exception.php' );
+require_once dirname ( __FILE__ ) . '/../Exception.php';
 
 /**
  * MapFilter_TreePattern_Tree_Leaf Exceptions.

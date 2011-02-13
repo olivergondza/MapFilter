@@ -32,42 +32,42 @@
 /**
  * @file        MapFilter/TreePattern/Tree/Node/All.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Node/All.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Node/All.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Node/Opt.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Node/Opt.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Node/Opt.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Node/One.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Node/One.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Node/One.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Node/Some.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Node/Some.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Node/Some.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Node/NodeAttr.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Node/NodeAttr.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Node/NodeAttr.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/KeyAttr.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/KeyAttr.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Leaf/KeyAttr.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/AliasAttr.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/AliasAttr.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Leaf/AliasAttr.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/Attr.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php';
 
 /** @endcond */
 

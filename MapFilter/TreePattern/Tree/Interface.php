@@ -185,6 +185,5 @@ interface MapFilter_TreePattern_Tree_Interface {
   */
   const ITERATOR_VALUE_NO = 'no';
   const ITERATOR_VALUE_YES = 'yes';
-  const ITERATOR_VALUE_AUTO = 'auto';
   /**@}*/
 }

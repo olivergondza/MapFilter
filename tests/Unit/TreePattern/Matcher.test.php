@@ -2,7 +2,7 @@
 /**
  * Require tested class
  */
-require_once ( PHP_MAPFILTER_DIR . '/TreePattern/Tree/Matcher.php' );
+require_once PHP_MAPFILTER_DIR . '/TreePattern/Tree/Matcher.php';
 
 /**
  * @group	Unit

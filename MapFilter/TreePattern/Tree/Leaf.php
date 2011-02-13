@@ -32,12 +32,12 @@
 /**
  * @file        MapFilter/TreePattern/Tree.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Tree.php' );
+require_once dirname ( __FILE__ ) . '/../Tree.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/Leaf/Interface.php' );
+require_once dirname ( __FILE__ ) . '/Leaf/Interface.php';
 
 /**
  * Abstract class for pattern tree leaf.
@@ -270,8 +270,8 @@ implements
     assert ( is_string ( $iterator ) || is_int ( $iterator ) );
 
     $wordToLevel = Array (
-        'yes' => 1,
-        'no' => 0,
+        self::ITERATOR_VALUE_YES => 1,
+        self::ITERATOR_VALUE_NO => 0,
     );
     
     if ( array_key_exists ( $iterator, $wordToLevel ) ) {

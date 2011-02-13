@@ -30,7 +30,7 @@
 /**
  * @file        MapFilter/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Exception.php' );
+require_once dirname ( __FILE__ ) . '/../Exception.php';
 
 /**
  * MapFilter_TreePattern_Tree_Replacer Exceptions.
@@ -54,6 +54,6 @@ class MapFilter_TreePattern_Tree_Replacer_Exception extends
    */
   protected $messages = Array (
       self::INVALID_STRUCTURE =>
-          'Invalid structure of replacement. "%s" given. /<regex>/<replacement>/<modifiers> expected'
+          "Invalid structure of replacement. '%s' given. /<regex>/<replacement>/<modifiers> expected"
   );
 }

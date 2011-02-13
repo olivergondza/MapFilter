@@ -30,7 +30,7 @@
 /**
  * @file        MapFilter/TreePattern/Tree/Node.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Node.php' );
+require_once dirname ( __FILE__ ) . '/../Node.php';
 
 /**
  * MapFilter pattern tree one node.

@@ -6,7 +6,7 @@
 /**
  * Require tested class
  */
-require_once ( PHP_MAPFILTER_CLASS );
+require_once PHP_MAPFILTER_CLASS;
 
 /**
  * @group       User

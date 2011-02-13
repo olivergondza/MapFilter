@@ -34,32 +34,27 @@
  *
  * @file        MapFilter/TreePattern/Xml.php
  */
-require_once ( dirname ( __FILE__ ) . '/TreePattern/Xml.php' );
+require_once dirname ( __FILE__ ) . '/TreePattern/Xml.php';
 
 /**
  * @file        MapFilter/TreePattern/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/TreePattern/Exception.php' );
+require_once dirname ( __FILE__ ) . '/TreePattern/Exception.php';
 
 /**
  * @file        MapFilter/Pattern/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/Pattern/Interface.php' );
+require_once dirname ( __FILE__ ) . '/Pattern/AssertInterface.php';
 
 /**
  * @file        MapFilter/Pattern/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/Pattern/AssertInterface.php' );
+require_once dirname ( __FILE__ ) . '/Pattern/FlagInterface.php';
 
 /**
  * @file        MapFilter/Pattern/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/Pattern/FlagInterface.php' );
-
-/**
- * @file        MapFilter/Pattern/Interface.php
- */
-require_once ( dirname ( __FILE__ ) . '/Pattern/ResultInterface.php' );
+require_once dirname ( __FILE__ ) . '/Pattern/ResultInterface.php';
 
 /** @endcond */
 
@@ -252,14 +247,14 @@ class MapFilter_TreePattern implements
 
     if ( $this->_patternTree !== NULL ) {
      
-      $this->_patternTree = clone ( $this->_patternTree );
+      $this->_patternTree = clone $this->_patternTree;
     }
     
     foreach ( $this->_sidePatterns as &$pattern ) {
 
       assert ( $pattern instanceof MapFilter_TreePattern_Tree_Interface );
 
-      $pattern = clone ( $pattern );
+      $pattern = clone $pattern;
     }
   }
   
@@ -320,7 +315,7 @@ class MapFilter_TreePattern implements
   
     $pattern->setTreePattern ( $this );
     $this->_sidePatterns[ self::MAIN_PATTERN ]
-        = $this->_patternTree = clone ( $pattern );
+        = $this->_patternTree = clone $pattern;
     
     return $this;
   }
@@ -364,15 +359,15 @@ class MapFilter_TreePattern implements
   
     assert ( is_string ( $sidePatternName ) );
     
-    if ( !array_key_exists ( $sidePatternName, $this->_sidePatterns ) ) {
+    if ( array_key_exists ( $sidePatternName, $this->_sidePatterns ) ) {
     
-      throw new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_NAME,
-          Array ( $sidePatternName )
-      );
+      return clone $this->_sidePatterns[ $sidePatternName ];
     }
-    
-    return clone ( $this->_sidePatterns[ $sidePatternName ] );
+
+    throw new MapFilter_TreePattern_Exception (
+        MapFilter_TreePattern_Exception::INVALID_PATTERN_NAME,
+        Array ( $sidePatternName )
+    );
   }
 
   /**
@@ -404,7 +399,7 @@ class MapFilter_TreePattern implements
   
     $this->_cleanup ();
   
-    $this->_tempTree = clone ( $this->_patternTree );
+    $this->_tempTree = clone $this->_patternTree;
   
     $this->_tempTree->satisfy ( $query, $this->_asserts );   
   }

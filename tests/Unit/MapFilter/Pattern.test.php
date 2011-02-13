@@ -2,10 +2,9 @@
 /**
  * Test Pattern
  */
+require_once PHP_MAPFILTER_DIR . '/../MapFilter.php';
 
-require_once ( PHP_MAPFILTER_DIR . '/../MapFilter.php' );
-
-require_once ( PHP_MAPFILTER_DIR . '/../MapFilter/Pattern/Null.php' );
+require_once PHP_MAPFILTER_DIR . '/../MapFilter/Pattern/Null.php';
 
 /**
  * @group	Unit
@@ -126,7 +125,6 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
 /*@{*/
 /** __MapFilter_WhitelistResultPattern__ */
 class MapFilter_WhitelistResultPattern implements
-    MapFilter_Pattern_Interface,
     MapFilter_Pattern_ResultInterface
 {
 

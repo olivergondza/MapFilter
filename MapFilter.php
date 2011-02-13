@@ -32,21 +32,21 @@
  *
  * @file                MapFilter/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/MapFilter/Interface.php' );
+require_once dirname ( __FILE__ ) . '/MapFilter/Interface.php';
 
 /**
  * MapFilter Null Pattern.
  *
  * @file                MapFilter/Pattern/Null.php
  */
-require_once ( dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php' );
+require_once dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php';
 
 /**
  * Package Exceptions
  *
  * @file                MapFilter/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/MapFilter/Exception.php' );
+require_once dirname ( __FILE__ ) . '/MapFilter/Exception.php';
 
 /**
  * Class to provide generic filter interface.
@@ -199,14 +199,11 @@ class MapFilter implements MapFilter_Interface {
    */
   private function _filter () {
   
-    if ( $this->_filtered ) {
-      
-      return;
-    }
+    if ( $this->_filtered ) return;
   
     $this->_filtered = TRUE;
   
-    $this->_usedPattern = clone ( $this->_pattern );
+    $this->_usedPattern = clone $this->_pattern;
     
     $this->_usedPattern->parse ( $this->_query );
   }

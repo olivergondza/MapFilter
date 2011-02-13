@@ -31,7 +31,7 @@
 /**
  * @file        MapFilter/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Exception.php' );
+require_once dirname ( __FILE__ ) . '/../Exception.php';
 
 /**
  * MapFilter_TreePattern_Tree_Leaf_AliasAttr Exceptions.

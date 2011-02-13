@@ -28,6 +28,11 @@
  */
 
 /**
+ * @file        MapFilter/Pattern/Interface.php
+ */
+require_once dirname ( __FILE__ ) . '/Interface.php';
+
+/**
  * Interface that provides filtering assertions access.
  *
  * @category Pear

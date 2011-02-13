@@ -28,26 +28,19 @@
  */
 
 /**
- * MapFilter Pattern.
- *
- * @file        MapFilter/Pattern/Interface.php
- */
-require_once ( dirname ( __FILE__ ) . '/Interface.php' );
-
-/**
  * @file        MapFilter/Pattern/AssertInterface.php
  */
-require_once ( dirname ( __FILE__ ) . '/AssertInterface.php' );
+require_once dirname ( __FILE__ ) . '/AssertInterface.php';
 
 /**
  * @file        MapFilter/Pattern/FlagInterface.php
  */
-require_once ( dirname ( __FILE__ ) . '/FlagInterface.php' );
+require_once dirname ( __FILE__ ) . '/FlagInterface.php';
 
 /**
  * @file        MapFilter/Pattern/ResultInterface.php
  */
-require_once ( dirname ( __FILE__ ) . '/ResultInterface.php' );
+require_once dirname ( __FILE__ ) . '/ResultInterface.php';
 
 /**
  * A mock implementation of basic MapFilter_Pattern interfaces.

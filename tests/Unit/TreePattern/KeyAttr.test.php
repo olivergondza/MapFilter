@@ -2,9 +2,8 @@
 /**
  * Require tested class
  */
-require_once ( PHP_MAPFILTER_DIR . '/TreePattern.php' );
-
-require_once ( PHP_MAPFILTER_DIR . '/Pattern/Null.php' );
+require_once PHP_MAPFILTER_DIR . '/TreePattern.php';
+require_once PHP_MAPFILTER_DIR . '/Pattern/Null.php';
 
 /**
  * @group	Unit
@@ -228,27 +227,27 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
       $query, $results, $asserts, $flags
   ) {
   
-    $pattern = "
+    $pattern = '
     <pattern>
       <one>
         <key_attr
-            attr='order'
-            iterator='yes'
-            assert='wrong_keyattr'
-            flag='a_keyattr'
+            attr="order"
+            iterator="yes"
+            assert="wrong_keyattr"
+            flag="a_keyattr"
         >
-          <attr forValue='first'  default='0'>attr0</attr>
-          <attr forValue='second' default='1'>attr1</attr>
-          <attr forValue='(?!first|second).*'  default='n'>attrn</attr>
+          <attr forValue="first"  default="0">attr0</attr>
+          <attr forValue="second" default="1">attr1</attr>
+          <attr forValue="(?!first|second).*"  default="n">attrn</attr>
         </key_attr>
         <attr
-            iterator='yes'
-            valuePattern='attr.'
-            default='defaultValue'
+            iterator="yes"
+            valuePattern="attr."
+            default="defaultValue"
         >auto</attr>
       </one>
     </pattern>
-    ";
+    ';
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),
@@ -350,19 +349,19 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
    */
   public static function testKeyAttrDefaultValuePattern ( $query, $result ) {
   
-    $pattern = "
+    $pattern = '
     <pattern>
       <key_attr
-          iterator='yes'
-          attr='keyattr'
-          default='value'
-          valuePattern='value[0-9]*'
+          iterator="yes"
+          attr="keyattr"
+          default="value"
+          valuePattern="value[0-9]*"
       >
-        <attr forValue='value([0-9]*[13579])?' default='yes'>even</attr>
-        <attr forValue='value([0-9]*[02468])' default='yes'>odd</attr>
+        <attr forValue="value([0-9]*[13579])?" default="yes">even</attr>
+        <attr forValue="value([0-9]*[02468])" default="yes">odd</attr>
       </key_attr>
     </pattern>
-    ";
+    ';
     
     $filter = new MapFilter (
         MapFilter_TreePattern::load ( $pattern ),

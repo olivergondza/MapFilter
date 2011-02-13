@@ -30,12 +30,12 @@
 /**
  * @file        MapFilter/TreePattern/Tree/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Exception.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
+require_once dirname ( __FILE__ ) . '/Tree/Interface.php';
 
 /**
  *
@@ -397,7 +397,7 @@ abstract class MapFilter_TreePattern_Tree implements
   
     foreach ( $this->content as &$follower ) {
 
-      $follower = clone ( $follower );
+      $follower = clone $follower;
     }
   }
 }

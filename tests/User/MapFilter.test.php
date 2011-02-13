@@ -6,7 +6,7 @@
 /**
  * Require tested class
  */
-require_once ( PHP_MAPFILTER_CLASS );
+require_once PHP_MAPFILTER_CLASS;
 
 /**
  * @group        User
@@ -20,9 +20,7 @@ class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
   
     $query = Array ( 'attr' => 'value' );
     $filter = new MapFilter ();
-    $filter->setQuery (
-        $query
-    );
+    $filter->setQuery ( $query );
     
     self::assertEquals (
         $query,

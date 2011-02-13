@@ -2,9 +2,8 @@
 /**
  * Require tested class
  */
-require_once ( PHP_MAPFILTER_DIR . '/TreePattern.php' );
-
-require_once ( PHP_MAPFILTER_DIR . '/Pattern/Null.php' );
+require_once PHP_MAPFILTER_DIR . '/TreePattern.php';
+require_once PHP_MAPFILTER_DIR . '/Pattern/Null.php';
 
 /**
  * @group	Unit

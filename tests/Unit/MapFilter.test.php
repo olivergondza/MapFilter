@@ -2,7 +2,7 @@
 /**
  * Require tested class
  */
-require_once ( PHP_MAPFILTER_CLASS );
+require_once PHP_MAPFILTER_CLASS;
 
 /**
  * @group	Unit
@@ -14,7 +14,7 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
   public static function testInterface () {
   
     self::assertTrue (
-        is_a ( new MapFilter, 'MapFilter_Interface' )
+        is_a ( new MapFilter (), 'MapFilter_Interface' )
     );
   }
   

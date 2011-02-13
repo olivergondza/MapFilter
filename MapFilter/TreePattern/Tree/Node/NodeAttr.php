@@ -30,7 +30,7 @@
 /**
  * @file        MapFilter/TreePattern/Tree/Node.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Node.php' );
+require_once dirname ( __FILE__ ) . '/../Node.php';
 
 /**
  * MapFilter pattern tree NodeAttr node.
@@ -220,7 +220,7 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
           continue;
         }
       
-        $follower = clone ( $this->_follower );
+        $follower = clone $this->_follower;
 
         $satisfied = $follower->satisfy (
             $singleCandidate,

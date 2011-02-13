@@ -30,22 +30,22 @@
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/Attr.php
  */
-require_once ( dirname ( __FILE__ ) . '/Attr.php' );
+require_once dirname ( __FILE__ ) . '/Attr.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Leaf.php' );
+require_once dirname ( __FILE__ ) . '/../Leaf.php';
 
 /**
  * @file        MapFilter/TreePattern/Tree/Leaf/Interface.php
  */
-require_once ( dirname ( __FILE__ ) . '/../Leaf/Interface.php' );
+require_once dirname ( __FILE__ ) . '/../Leaf/Interface.php';
 
 /**
- * @file        MapFilter/TreePattern/Tree/Leaf/Exception.php
+ * @file        MapFilter/TreePattern/Tree/Leaf/AliasAttr/Exception.php
  */
-require_once ( dirname ( __FILE__ ) . '/AliasAttr/Exception.php' );
+require_once dirname ( __FILE__ ) . '/AliasAttr/Exception.php';
 
 /**
  * MapFilter pattern tree attribute leaf.
