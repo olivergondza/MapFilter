@@ -38,6 +38,11 @@ require_once ( dirname ( __FILE__ ) . '/Tree/Exception.php' );
 require_once ( dirname ( __FILE__ ) . '/Tree/Interface.php' );
 
 /**
+ *
+ */
+require_once dirname ( __FILE__ ) . '/Tree/Matcher.php';
+
+/**
  * Internal pattern tree.
  *
  * @category Pear
@@ -75,7 +80,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     0.3
    *
-   * @var       String          $_valueFilter
+   * @var       MapFilter_TreePattern_Tree_Matcher      $_valueFilter
    */
   private $_valueFilter = NULL;
   
@@ -150,6 +155,8 @@ abstract class MapFilter_TreePattern_Tree implements
         'attachPattern' => 'setAttachPattern',
         'forValue' => 'setValueFilter',
     ) );
+    
+    $this->_valueFilter = new MapFilter_TreePattern_Tree_Matcher ();
   }
   
   /**
@@ -249,55 +256,11 @@ abstract class MapFilter_TreePattern_Tree implements
 
     assert ( is_string ( $valueFilter ) );
 
-    $this->_valueFilter = self::sanitizeRegExp ( $valueFilter );
+    $this->_valueFilter = new MapFilter_TreePattern_Tree_Matcher (
+        $valueFilter
+    );
 
     return $this;
-  }
-
-  /**
-   * RegExp boundaries.
-   *
-   * @since     0.3
-   *
-   * A format string to enclose the RegExp with begin and end mark to ensure
-   * that the strings are completely (not partially) equal.
-   */
-  const REGEXP_BOUNDARIES = '/^%s$/';
-
-  /**
-   * Is RegExp sanitized already.
-   *
-   * @since     $NEXT$
-   *
-   * Determine whether a string is sanitized regexp
-   */
-  const SANITIZED_REGEXP =
-      '/^([^\\\\\s\da-zA-Z<>\{\}\(\)]).*(\1)[imsxeADSUXu]*$/'
-  ;
-
-  /**
-   * Sanitize RegExp
-   *
-   * @since     $NEXT$
-   *
-   * @param     String          $regexp
-   *
-   * @return    String
-   */
-  public static function sanitizeRegExp ( $regexp ) {
-
-    assert ( is_string ( $regexp ) );
-
-    $sanitized = preg_match ( self::SANITIZED_REGEXP, $regexp );
-    
-    if ( $sanitized ) {
-    
-      return $regexp;
-    }
-
-    $regexp = str_replace ( '/', '\/', $regexp );
-
-    return sprintf ( self::REGEXP_BOUNDARIES, $regexp );
   }
   
   /**
@@ -305,11 +268,11 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @since     0.3
    *
-   * @return    String          Node value filter.
+   * @return    MapFilter_TreePattern_Tree_Matcher          Node value filter.
    */
   protected function getValueFilter () {
   
-    return (String) $this->_valueFilter;
+    return $this->_valueFilter;
   }
   
   /**

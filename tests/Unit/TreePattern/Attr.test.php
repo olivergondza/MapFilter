@@ -450,42 +450,6 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
     );
   }
   
-  public static function provideModifiers () {
-  
-    return Array (
-        Array ( '/hello\/?/imsxeADSUXu', '/hello\/?/imsxeADSUXu' ),
-        Array ( '?hello\?*?imsxeADSUXu', '?hello\?*?imsxeADSUXu' ),
-        Array ( '`hello\`?`imsxeADSUXu', '`hello\`?`imsxeADSUXu' ),
-        Array ( '!hello\!?!imsxeADSUXu', '!hello\!?!imsxeADSUXu' ),
-        Array ( '@hello\@?@imsxeADSUXu', '@hello\@?@imsxeADSUXu' ),
-        Array ( '#hello\#?#imsxeADSUXu', '#hello\#?#imsxeADSUXu' ),
-        Array ( '$hello\$?$imsxeADSUXu', '$hello\$?$imsxeADSUXu' ),
-        Array ( '%hello\%?%imsxeADSUXu', '%hello\%?%imsxeADSUXu' ),
-        Array ( '^hello\^?^imsxeADSUXu', '^hello\^?^imsxeADSUXu' ),
-        Array ( '&hello\&?&imsxeADSUXu', '&hello\&?&imsxeADSUXu' ),
-        Array ( '*hello\*?*imsxeADSUXu', '*hello\*?*imsxeADSUXu' ),
-        Array ( '+hello\+?+imsxeADSUXu', '+hello\+?+imsxeADSUXu' ),
-        Array ( '-hello\-?-imsxeADSUXu', '-hello\-?-imsxeADSUXu' ),
-        Array ( ';hello\;?;imsxeADSUXu', ';hello\;?;imsxeADSUXu' ),
-        Array ( ',hello\,?,imsxeADSUXu', ',hello\,?,imsxeADSUXu' ),
-        Array ( '.hello\.?.imsxeADSUXu', '.hello\.?.imsxeADSUXu' ),
-        Array ( '', '/^$/' ),
-        Array ( 'asdf', '/^asdf$/' ),
-        Array ( 'as/df', '/^as\/df$/' ),
-    );
-  }
-  
-  /**
-   * @dataProvider      provideModifiers
-   * @group	        Unit::TreePattern::Attr::testModifiers
-   */
-  public static function testModifiers ( $pattern, $sanitized ) {
-  
-    $regexp = MapFilter_TreePattern_Tree::sanitizeRegExp ( $pattern );
-
-    self::assertEquals ( $regexp, $sanitized );
-  }
-  
   public static function provideValueReplacement () {
   
     return Array (
@@ -528,7 +492,10 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
   
     $pattern = '
         <pattern>
-          <attr valuePattern="/^\D*(\d+).*$/" valueReplacement="$1">name</attr>
+          <attr
+              valuePattern="/\d+/"
+              valueReplacement="/^\D*(\d+).*$/$1/"
+          >name</attr>
         </pattern>
     ';
     

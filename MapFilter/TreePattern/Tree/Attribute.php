@@ -27,6 +27,9 @@
  * @since    $NEXT$
  */
 
+require_once dirname ( __FILE__ ) . '/Replacer.php';
+require_once dirname ( __FILE__ ) . '/Matcher.php';
+
 /**
  * Pattern attribute.
  *
@@ -72,7 +75,7 @@ class MapFilter_TreePattern_Tree_Attribute {
    *
    * @since     $NEXT$
    *
-   * @var       String          $_valuePattern
+   * @var       MapFilter_TreePattern_Tree_Matcher      $_valuePattern
    */
   private $_valuePattern = NULL;
   
@@ -81,7 +84,7 @@ class MapFilter_TreePattern_Tree_Attribute {
    *
    * @since     $NEXT$
    *
-   * @var       String          $_valueReplacement
+   * @var       MapFilter_TreePattern_Tree_Replacer     $_valueReplacement
    */
   private $_valueReplacement = NULL;
   
@@ -129,6 +132,15 @@ class MapFilter_TreePattern_Tree_Attribute {
    * @var       String          $_value
    */
   private $_value = NULL;
+
+  /**
+   *
+   */
+  public function __construct () {
+  
+    $this->_valuePattern = new MapFilter_TreePattern_Tree_Matcher ();
+    $this->_valueReplacement = new MapFilter_TreePattern_Tree_Replacer ();
+  }
 
   /**
    * Set attribute.
@@ -220,7 +232,7 @@ class MapFilter_TreePattern_Tree_Attribute {
    */
   public function setValuePattern ( $valuePattern ) {
 
-    $this->_valuePattern = MapFilter_TreePattern_Tree::sanitizeRegExp (
+    $this->_valuePattern = new MapFilter_TreePattern_Tree_Matcher (
         $valuePattern
     );
 
@@ -238,7 +250,10 @@ class MapFilter_TreePattern_Tree_Attribute {
    */
   public function setValueReplacement ( $valueReplacement ) {
 
-    $this->_valueReplacement = $valueReplacement;
+    $this->_valueReplacement = new MapFilter_TreePattern_Tree_Replacer (
+        $valueReplacement
+    );
+    
     return $this;
   }
   
@@ -424,47 +439,18 @@ class MapFilter_TreePattern_Tree_Attribute {
       return FALSE;
     }
   
-    $fits = self::valueFits (
-        $valueCandidate,
-        $this->_valuePattern
-    );
-
+    $fits = $this->_valuePattern->match ( (String) $valueCandidate );
+    
     if ( !$fits ) return FALSE;
     
     if ( $this->_valueReplacement !== NULL ) {
       
-      $valueCandidate = preg_replace (
-          $this->_valuePattern,
-          $this->_valueReplacement,
+      $valueCandidate = $this->_valueReplacement->replace (
           $valueCandidate
       );
     }
     
     return $fits;
-  }
-
-  /**
-   * Test whether a ForValue condition on tree node fits given pattern.
-   *
-   * @since     $NEXT$
-   *
-   * @param     Mixed           &$valueCandidate 	A value to fit.
-   * @param     String|NULL     $pattern                Value pattern.
-   *
-   * @return    Bool            Does the value fit.
-   */
-  public static function valueFits ( &$valueCandidate, $pattern ) {
-
-    if ( $pattern === NULL ) return TRUE;
-
-    $matchCount = preg_match (
-        $pattern,
-        $valueCandidate
-    );
-
-    assert ( $matchCount !== FALSE );
-    
-    return (Bool) $matchCount;
   }
 
   /**

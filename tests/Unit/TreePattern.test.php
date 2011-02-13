@@ -203,6 +203,7 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
   
   /**
    * Get wrong attribute
+   *
    * @dataProvider provideWrongAttribute
    */
   public static function testWrongAttribute ( $pattern, $exception ) {
@@ -221,7 +222,7 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
     }
   }
   
-  public static function provideCompare () {
+  public static function provideCompareAttached () {
   
     return Array (
         Array (
@@ -244,9 +245,9 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
   }
   
   /**
-   * @dataProvider      provideCompare
+   * @dataProvider      provideCompareAttached
    */
-  public static function testSimpleCompare ( $query, $result ) {
+  public static function testSimpleCompareAttached ( $query, $result ) {
 
     $simple = MapFilter_TreePattern::load ( '
         <pattern>
@@ -279,5 +280,35 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
         $result,
         $assembled->fetchResult ()->getResults ()
     );
+  }
+  
+  public static function provideCompareStringAngFileLoad () {
+  
+    return Array (
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::LOCATION ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::LOGIN ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::COFFEE_MAKER ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::CAT ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::ACTION ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::FILTER ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::DURATION ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::GENERATOR ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::DIRECTION ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::PATHWAY ),
+        Array ( PHP_MAPFILTER_TEST_DIR . MapFilter_Test_Sources::PARSEINIFILE_XML ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideCompareStringAngFileLoad
+   */
+  public static function testCompareStringAngFileLoad ( $url ) {
+
+    $fromFile = MapFilter_TreePattern::fromFile ( $url );
+    $fromString = MapFilter_TreePattern::load (
+        file_get_contents ( $url )
+    );
+    
+    self::assertEquals ( $fromFile, $fromString );
   }
 }

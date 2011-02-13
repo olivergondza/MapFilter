@@ -182,9 +182,8 @@ implements
     $satisfied = FALSE;
     foreach ( $this->getContent () as $follower ) {
     
-      $fits = MapFilter_TreePattern_Tree_Attribute::valueFits (
-          $valueCandidate,
-          $follower->getValueFilter ()
+      $fits = $follower->getValueFilter ()->match (
+          (String) $valueCandidate
       );
       
       if ( !$fits ) continue;
