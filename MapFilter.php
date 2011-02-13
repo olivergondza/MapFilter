@@ -128,10 +128,7 @@ class MapFilter implements MapFilter_Interface {
       $query = Array ()
   ) {
 
-    assert ( is_array ( $query ) ||  ( $query instanceof ArrayAccess ) );
-    
     $this->setPattern ( $pattern );
-    
     $this->setQuery ( $query );
   }
 
@@ -181,8 +178,6 @@ class MapFilter implements MapFilter_Interface {
    * @see       __construct()
    */
   public function setQuery ( $query ) {
-  
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
   
     $this->_filtered = FALSE;
   

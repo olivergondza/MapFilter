@@ -310,4 +310,32 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
     
     self::assertEquals ( $fromFile, $fromString );
   }
+  
+  public static function provideInvalidQueryStructure () {
+  
+    return Array (
+        Array ( TRUE ),
+        Array ( NULL ),
+        Array ( 0 ),
+        Array ( 3.14 ),
+        Array ( 'asdf' ),
+        Array ( new DateTime () ),
+        Array ( xml_parser_create () ),
+    );
+  }
+  
+  /**
+   * @dataProvider      provideInvalidQueryStructure
+   * @expectedException MapFilter_InvalidStructureException
+   * @expectedExceptionMessage Data structure passed as a query can not be parsed using given pattern.
+   */
+  public static function testInvalidQueryStructure ( $structure ) {
+  
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( '<attr>attr</attr>' ),
+        $structure
+    );
+    
+    $filter->fetchResult ();
+  }
 }

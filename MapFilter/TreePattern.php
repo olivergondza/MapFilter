@@ -56,6 +56,11 @@ require_once dirname ( __FILE__ ) . '/Pattern/FlagInterface.php';
  */
 require_once dirname ( __FILE__ ) . '/Pattern/ResultInterface.php';
 
+/**
+ * @file        MapFilter/Pattern/InvalidStructureException.php
+ */
+require_once dirname ( __FILE__ ) . '/InvalidStructureException.php';
+
 /** @endcond */
 
 /**
@@ -395,7 +400,10 @@ class MapFilter_TreePattern implements
    */
   public function parse ( $query ) {
   
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
+    if ( !is_array ( $query ) && !( $query instanceof ArrayAccess ) ) {
+    
+      throw new MapFilter_InvalidStructureException ();
+    }
   
     $this->_cleanup ();
   
