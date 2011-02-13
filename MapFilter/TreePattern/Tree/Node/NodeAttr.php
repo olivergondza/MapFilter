@@ -187,7 +187,7 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
    */
   public function satisfy ( &$query, Array &$asserts ) {
 
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
+    assert ( MapFilter_TreePattern::isMap ( $query ) );
 
     $follower = self::_assertNonSingleFollower ( $this->getContent () );
     
@@ -212,10 +212,7 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
       foreach ( $valueCandidate as $singleCandidate ) {
 
         /** Scalar can not by satisfied. array expected */
-        if (
-            !is_array ( $singleCandidate )
-            && !( $singleCandidate instanceof Iterator )
-        ) {
+        if ( !MapFilter_TreePattern::isIterator ( $singleCandidate ) ) {
         
           continue;
         }

@@ -82,7 +82,7 @@ implements
    */
   public function satisfy ( &$query, Array &$asserts ) {
   
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
+    assert ( MapFilter_TreePattern::isMap ( $query ) );
 
     $this->attribute->setQuery ( $query );
 

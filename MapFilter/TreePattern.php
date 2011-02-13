@@ -400,7 +400,7 @@ class MapFilter_TreePattern implements
    */
   public function parse ( $query ) {
   
-    if ( !is_array ( $query ) && !( $query instanceof ArrayAccess ) ) {
+    if ( !self::isMap ( $query )  ) {
     
       throw new MapFilter_InvalidStructureException ();
     }
@@ -410,6 +410,38 @@ class MapFilter_TreePattern implements
     $this->_tempTree = clone $this->_patternTree;
   
     $this->_tempTree->satisfy ( $query, $this->_asserts );   
+  }
+  
+  /**
+   * Determine whether the parameter is a Map.
+   *
+   * @since     $NEXT$
+   *
+   * @param     mixed   $mapCandidate
+   *
+   * @return    Bool
+   */
+  public static function isMap ( $mapCandidate ) {
+  
+    if ( is_array ( $mapCandidate ) ) return TRUE;
+    
+    return $mapCandidate instanceof ArrayAccess;
+  }
+  
+  /**
+   * Determine whether the parameter is an Iterator
+   *
+   * @since     $NEXT$
+   *
+   * @param     mixed   $iteratorCandidate
+   *
+   * @return    Bool
+   */
+  public static function isIterator ( $iteratorCandidate ) {
+  
+    if ( is_array ( $iteratorCandidate ) ) return TRUE;
+  
+    return $iteratorCandidate instanceof Iterator;
   }
   
   /** @endcond */

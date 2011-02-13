@@ -283,7 +283,7 @@ class MapFilter_TreePattern_Tree_Attribute {
    */
   public function setQuery ( $query ) {
   
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
+    assert ( MapFilter_TreePattern::isMap ( $query ) );
 
     $this->_value = NULL;
     $this->_query = $query;

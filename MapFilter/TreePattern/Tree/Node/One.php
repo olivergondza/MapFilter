@@ -63,7 +63,7 @@ final class MapFilter_TreePattern_Tree_Node_One extends
    */
   public function satisfy ( &$query, Array &$asserts ) {
 
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
+    assert ( MapFilter_TreePattern::isMap ( $query ) );
 
     foreach ( $this->getContent () as $follower ) {
       

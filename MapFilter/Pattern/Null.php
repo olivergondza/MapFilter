@@ -128,8 +128,6 @@ class MapFilter_Pattern_Null implements
    */
   public function parse ( $query ) {
   
-    assert ( is_array ( $query ) || ( $query instanceof ArrayAccess ) );
-  
     $this->_query = $query;
   }
 }
