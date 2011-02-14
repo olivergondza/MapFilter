@@ -32,7 +32,7 @@ class MapFilter_Test_Unit_TreePattern_Replacer extends
   
   /**
    * @dataProvider      provideInvalidReplacement
-   * @expectedException MapFilter_TreePattern_Tree_Replacer_Exception
+   * @expectedException MapFilter_TreePattern_Tree_Replacer_InvalidStructureException
    */
   public static function testInvalidReplacement ( $replacement ) {
   

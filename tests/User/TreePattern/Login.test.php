@@ -1,18 +1,15 @@
 <?php
 /**
-* User Tests using login.xml
-*/  
+ * User Tests using login.xml
+ */  
 
-/**
- * Require tested class
- */
 require_once PHP_MAPFILTER_CLASS;
 
 /**
-* @group	User
-* @group	User::TreePattern
-* @group	User::TreePattern::Login
-*/
+ * @group	User
+ * @group	User::TreePattern
+ * @group	User::TreePattern::Login
+ */
 class MapFilter_Test_User_TreePattern_Login extends
     PHPUnit_Framework_TestCase
 {

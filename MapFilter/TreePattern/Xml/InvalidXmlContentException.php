@@ -1,8 +1,5 @@
 <?php
 /**
- * Class for exceptions raised by the
- * MapFilter_TreePattern_Tree_Leaf_AliasAttr.
- *
  * PHP Version 5.1.0
  *
  * This file is part of MapFilter package.
@@ -29,34 +26,35 @@
  */
 
 /**
- * @file        MapFilter/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/../Exception.php';
-
-/**
- * MapFilter_TreePattern_Tree_Leaf_AliasAttr Exceptions.
- *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_TreePattern_Tree_Leaf_AliasAttr_Exception
+ * @class    MapFilter_TreePattern_Xml_InvalidXmlContentException
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
  * @since    $NEXT$
  */
-class MapFilter_TreePattern_Tree_Leaf_AliasAttr_Exception extends
-    MapFilter_TreePattern_Tree_Leaf_Exception
+class
+    MapFilter_TreePattern_Xml_InvalidXmlContentException
+extends
+    UnexpectedValueException
 {
 
-  /**
-   * Not allowed AliasAttribute used
-   *
-   * @since     $NEXT$
-   */
-  const DISALLOWED_FOLLOWER = 2;
-
-  protected $messages = Array (
-      self::DISALLOWED_FOLLOWER =>
-          'Only allowed follower for AliasAttribute is Attr. %s given.',
-  );
+  public function __construct (
+      $message = "Node '%s' has no content.",
+      $code = 0,
+      Exception $previous = NULL
+  ) {
+  
+    parent::__construct ( $message, $code, $previous );
+  }
+  
+  public function setNodeName ( $name ) {
+  
+    assert ( is_string ( $name ) );
+    
+    $this->message = sprintf ( $this->message, $name );
+    
+    return $this;
+  }
 }

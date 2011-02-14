@@ -38,6 +38,7 @@ require_once dirname ( __FILE__ ) . '/../Tree.php';
  * @file        MapFilter/TreePattern/Tree/Leaf/Interface.php
  */
 require_once dirname ( __FILE__ ) . '/Leaf/Interface.php';
+require_once dirname ( __FILE__ ) . '/Leaf/InvalidDepthIndicatorException.php';
 
 /**
  * Abstract class for pattern tree leaf.
@@ -100,9 +101,7 @@ implements
    *
    * @param     String          $attribute              An attribute to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new attribute.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    A pattern with new attribute.
    */
   public function setAttribute ( $attribute ) {
 
@@ -119,9 +118,7 @@ implements
    *
    * @param     String          $default        A default value to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    A pattern with new default value.
    */
   public function setDefault ( $default ) {
 
@@ -136,11 +133,9 @@ implements
    *
    * @since     $NEXT$
    *
-   * @param     String          $existenceDefault        A default value to set.
+   * @param     String          $existenceDefault       A default value to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    A pattern with new default value.
    */
   public function setExistenceDefault ( $existenceDefault ) {
 
@@ -157,9 +152,7 @@ implements
    *
    * @param     String          $validationDefault        A default value to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new default value.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface      A pattern with new default value.
    */
   public function setValidationDefault ( $validationDefault ) {
 
@@ -176,9 +169,7 @@ implements
    *
    * @param     String          $valuePattern   A valueFilter to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valueFilter.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    A pattern with new valueFilter.
    */
   public function setValuePattern ( $valuePattern ) {
 
@@ -195,9 +186,7 @@ implements
    *
    * @param     String          $valueReplacement   A valueReplacement to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new valueReplacement.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    A pattern with new valueReplacement.
    */
   public function setValueReplacement ( $valueReplacement ) {
 
@@ -210,11 +199,9 @@ implements
    *
    * @since     $NEXT$
    *
-   * @param     String          $existenceAssert         An existenceAssert to set.
+   * @param     String          $existenceAssert        An existenceAssert to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with existenceAssert.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with existenceAssert.
    */
   public function setExistenceAssert ( $existenceAssert ) {
   
@@ -227,11 +214,9 @@ implements
    *
    * @since     $NEXT$
    *
-   * @param     String          $validationAssert         A validationAssert to set.
+   * @param     String          $validationAssert       A validationAssert to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with validationAssert.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with validationAssert.
    */
   public function setValidationAssert ( $validationAssert ) {
   
@@ -261,9 +246,8 @@ implements
    *
    * @param     String          $iterator       An iterator value to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with iterator.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with iterator.
+   * @throws    MapFilter_TreePattern_Tree_Leaf_InvalidDepthIndicatorException
    */
   public function setIterator ( $iterator ) {
 
@@ -281,10 +265,8 @@ implements
 
     if ( !is_numeric ( $iterator ) ) {
     
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_Exception::INVALID_DEPTH_INDICATOR,
-          Array ( $iterator )
-      );
+      $ex = new MapFilter_TreePattern_Tree_Leaf_InvalidDepthIndicatorException ();
+      throw $ex->setValue ( $iterator );
     }
 
     $this->attribute->setIterator ( (Int) $iterator );

@@ -39,17 +39,26 @@
  * @since    $NEXT$
  */
 class
-    MapFilter_InvalidStructureException
+    MapFilter_TreePattern_Tree_Replacer_InvalidStructureException
 extends
     UnexpectedValueException
 {
 
   public function __construct (
-      $message = 'Data structure passed as a query can not be parsed using given pattern.',
+      $message = "Invalid structure of replacement. '%s' given. /<regex>/<replacement>/<modifiers> expected",
       $code = 0,
       Exception $previous = NULL
   ) {
   
     parent::__construct ( $message, $code, $previous );
+  }
+  
+  public function setInput ( $input ) {
+  
+    assert ( is_string ( $input ) );
+    
+    $this->message = sprintf ( $this->message, $input );
+    
+    return $this;
   }
 }

@@ -27,7 +27,7 @@
  * @since    $NEXT$
  */
 
-require_once dirname ( __FILE__ ) . '/Replacer/Exception.php';
+require_once dirname ( __FILE__ ) . '/Replacer/InvalidStructureException.php';
 
 /**
  * Pattern Replacer.
@@ -86,6 +86,7 @@ class MapFilter_TreePattern_Tree_Replacer {
    * @since     $NEXT$
    *
    * @param     String          $searchAndReplace
+   * @throws    MapFilter_TreePattern_Tree_Replacer_InvalidStructureException
    */
   public function __construct ( $searchAndReplace = NULL ) {
   
@@ -100,10 +101,8 @@ class MapFilter_TreePattern_Tree_Replacer {
 
     if ( !$valid ) {
     
-      throw new MapFilter_TreePattern_Tree_Replacer_Exception (
-          MapFilter_TreePattern_Tree_Replacer_Exception::INVALID_STRUCTURE,
-          Array ( $searchAndReplace )
-      );
+      $ex = new MapFilter_TreePattern_Tree_Replacer_InvalidStructureException ();
+      throw $ex->setInput ( $searchAndReplace );
     }
     
     $this->_pattern = $matches[ 'search' ] . $matches[ 'modifiers' ];

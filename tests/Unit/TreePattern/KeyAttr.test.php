@@ -21,11 +21,11 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
     
     $node = new MapFilter_TreePattern_Tree_Leaf_KeyAttr ();
     
-    $node -> setAttribute ( $attr );
+    $node->setAttribute ( $attr );
     
     self::assertEquals (
         $attr,
-        $node -> getAttribute ()
+        $node->getAttribute ()
     );
   }
   
@@ -35,19 +35,24 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
         Array (
             Array (),
             Array ( 'no' => 'action' )
-        ), Array (
+        ),
+        Array (
             Array (),
             Array ( 'action' => 'sickAction', 'task' => 'sickTask')
-        ), Array (
+        ),
+        Array (
             Array ( 'action' => 'do', 'task' => 'myTask' ),
             Array ( 'action' => 'do', 'task' => 'myTask' )
-        ), Array (
+        ),
+        Array (
             Array ( 'action' => 'schedule', 'tasks' => 'All My Tasks' ),
             Array ( 'action' => 'schedule', 'tasks' => 'All My Tasks' )
-        ), Array (
+        ),
+        Array (
             Array ( 'action' => 'do', 'task' => 'myTask' ),
             Array ( 'action' => 'do', 'task' => 'myTask', 'tasks' => 'My Tasks' )
-        ), Array (
+        ),
+        Array (
             Array (),
             Array ( 'action' => 'do', 'nothing' => 'All Day' )
         )
@@ -228,25 +233,25 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
   ) {
   
     $pattern = '
-    <pattern>
-      <one>
-        <key_attr
-            attr="order"
-            iterator="yes"
-            assert="wrong_keyattr"
-            flag="a_keyattr"
-        >
-          <attr forValue="first"  default="0">attr0</attr>
-          <attr forValue="second" default="1">attr1</attr>
-          <attr forValue="(?!first|second).*"  default="n">attrn</attr>
-        </key_attr>
-        <attr
-            iterator="yes"
-            valuePattern="attr."
-            default="defaultValue"
-        >auto</attr>
-      </one>
-    </pattern>
+        <pattern>
+          <one>
+            <key_attr
+                attr="order"
+                iterator="yes"
+                assert="wrong_keyattr"
+                flag="a_keyattr"
+            >
+              <attr forValue="first"  default="0">attr0</attr>
+              <attr forValue="second" default="1">attr1</attr>
+              <attr forValue="(?!first|second).*"  default="n">attrn</attr>
+            </key_attr>
+            <attr
+                iterator="yes"
+                valuePattern="attr."
+                default="defaultValue"
+            >auto</attr>
+          </one>
+        </pattern>
     ';
     
     $filter = new MapFilter (
@@ -350,17 +355,17 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
   public static function testKeyAttrDefaultValuePattern ( $query, $result ) {
   
     $pattern = '
-    <pattern>
-      <key_attr
-          iterator="yes"
-          attr="keyattr"
-          default="value"
-          valuePattern="value[0-9]*"
-      >
-        <attr forValue="value([0-9]*[13579])?" default="yes">even</attr>
-        <attr forValue="value([0-9]*[02468])" default="yes">odd</attr>
-      </key_attr>
-    </pattern>
+        <pattern>
+          <key_attr
+              iterator="yes"
+              attr="keyattr"
+              default="value"
+              valuePattern="value[0-9]*"
+          >
+            <attr forValue="value([0-9]*[13579])?" default="yes">even</attr>
+            <attr forValue="value([0-9]*[02468])" default="yes">odd</attr>
+          </key_attr>
+        </pattern>
     ';
     
     $filter = new MapFilter (
@@ -412,17 +417,17 @@ class MapFilter_Test_Unit_TreePattern_KeyAttr extends
   ) {
   
     $pattern = '
-    <pattern>
-      <key_attr
-          attr="number"
-          validationDefault="1"
-          existenceDefault="0"
-          valuePattern="[01]+"
-      >
-        <attr forValue="[01]*0" existenceDefault="1">even</attr>
-        <attr forValue="[01]*1" existenceDefault="1">odd</attr>
-      </key_attr>
-    </pattern>
+        <pattern>
+          <key_attr
+              attr="number"
+              validationDefault="1"
+              existenceDefault="0"
+              valuePattern="[01]+"
+          >
+            <attr forValue="[01]*0" existenceDefault="1">even</attr>
+            <attr forValue="[01]*1" existenceDefault="1">odd</attr>
+          </key_attr>
+        </pattern>
     ';
     
     $filter = new MapFilter (

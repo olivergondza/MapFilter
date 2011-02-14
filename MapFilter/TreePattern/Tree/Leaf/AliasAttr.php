@@ -43,9 +43,9 @@ require_once dirname ( __FILE__ ) . '/../Leaf.php';
 require_once dirname ( __FILE__ ) . '/../Leaf/Interface.php';
 
 /**
- * @file        MapFilter/TreePattern/Tree/Leaf/AliasAttr/Exception.php
+ * @file        MapFilter/TreePattern/Tree/Leaf/AliasAttr/DisallowedFollowerException.php
  */
-require_once dirname ( __FILE__ ) . '/AliasAttr/Exception.php';
+require_once dirname ( __FILE__ ) . '/AliasAttr/DisallowedFollowerException.php';
 
 /**
  * MapFilter pattern tree attribute leaf.
@@ -95,10 +95,8 @@ implements
     
       if ( $class === 'MapFilter_TreePattern_Tree_Leaf_Attr' ) continue;
       
-      throw new MapFilter_TreePattern_Tree_Leaf_Exception (
-          MapFilter_TreePattern_Tree_Leaf_AliasAttr_Exception::DISALLOWED_FOLLOWER,
-          Array ( $class )
-      );
+      $ex = new MapFilter_TreePattern_Tree_Leaf_AliasAttr_DisallowedFollowerException ();
+      throw $ex->setFollower ( $class );
     }
    
     $this->content = $content;

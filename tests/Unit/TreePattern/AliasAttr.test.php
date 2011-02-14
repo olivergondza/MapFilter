@@ -81,6 +81,10 @@ extends
     );
   }
   
+  /**
+   * @expectedException MapFilter_TreePattern_Tree_Leaf_AliasAttr_DisallowedFollowerException
+   * @expectedExceptionMessage  Only allowed follower for AliasAttribute is Attr.
+   */
   public static function testDisallowedFollowerException () {
   
     $pattern = '
@@ -91,18 +95,7 @@ extends
         </pattern>
     ';
   
-    try {
-    
-      $pattern = MapFilter_TreePattern::load ( $pattern );
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_Exception $ex ) {
-    
-      self::assertEquals (
-          $ex->getCode (),
-          MapFilter_TreePattern_Tree_Leaf_AliasAttr_Exception::DISALLOWED_FOLLOWER,
-          get_class ( $ex ) . $ex->getMessage ()
-      );
-    }
+    $pattern = MapFilter_TreePattern::load ( $pattern );
   }
   
   public static function provideOneToOneAliasAttr () {

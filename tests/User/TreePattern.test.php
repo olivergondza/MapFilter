@@ -3,9 +3,6 @@
 * User Tests
 */  
 
-/**
- * Require tested class
- */
 require_once PHP_MAPFILTER_CLASS;
 
 /**
@@ -15,20 +12,15 @@ require_once PHP_MAPFILTER_CLASS;
 class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
 
   /**@{*/
-  /** Use slightly wrong pattern */
+  /**
+   * Use slightly wrong pattern
+   * @expectedException MapFilter_TreePattern_InvalidPatternElementException
+   * @expectedExceptionMessage  Invalid pattern element 'lantern'.
+   */
   public static function testWrongPattern () {
-    
-    try {
 
-      $pattern = MapFilter_TreePattern::load ( '<lantern></lantern>' );
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-      
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
-          $exception->getCode ()
-      );
-    }
+    $pattern = MapFilter_TreePattern::load ( '<lantern></lantern>' );
+    self::fail ( 'No exception risen' );
   }
   
   public static function provideWrongCount () {
@@ -36,106 +28,101 @@ class MapFilter_Test_User_TreePattern extends PHPUnit_Framework_TestCase {
     return Array (
         Array (
             '<patterns><pattern></pattern></patterns>',
+            0,
+            'pattern'
         ),
         Array (
-            '<patterns></patterns>'
+            '<patterns></patterns>',
+            0,
+            'pattern'
         ),
         Array ( '
             <pattern>
               <all />
               <all />
-            </pattern>
-        ' ),
+            </pattern>',
+            2,
+            'pattern'
+        ),
         Array ( '
             <patterns>
               <pattern>
-                <all />
-                <all />
+                <opt></opt>
+                <all></all>
               </pattern>
-            </patterns>
-        ' ),
+            </patterns>',
+            2,
+            'pattern'
+        ),
         Array ( '
             <node_attr attr="attr">
               <all />
               <all />
-            </node_attr>
-        ' ),
+            </node_attr>',
+            2,
+            'node_attr'
+        ),
     );
   }
   
   /**
    * @dataProvider      provideWrongCount
    */
-  public static function testWrongCount ( $patternStr ) {
-  
+  public static function testWrongCount ( $patternStr, $count, $node ) {
+
     try {
-      
+
       $pattern = MapFilter_TreePattern::load ( $patternStr );
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-    
+    } catch ( MapFilter_TreePattern_NotExactlyOneFollowerException $ex ) {
+
       self::assertEquals (
-          MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-          $exception->getCode (),
-          (String) $exception
+          "The '$node' node must have exactly one follower but $count given.",
+          $ex->getMessage ()
       );
     }
   }
   
-  
-  /** Invalid node */
+  /**
+   * Invalid node
+   *
+   * @expectedException MapFilter_TreePattern_InvalidPatternElementException
+   * @expectedExceptionMessage  Invalid pattern element 'wrongnode'.
+   */
   public static function testWrongTag () {
   
-    try {
-      $pattern = MapFilter_TreePattern::load (
-          '<pattern><wrongnode></wrongnode></pattern>'
-      );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-      
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
-          $exception->getCode ()
-      );
-    }
+    $pattern = MapFilter_TreePattern::load (
+        '<pattern><wrongnode></wrongnode></pattern>'
+    );
   }
   
-  /** Multiple tree deserialization */
+  /**
+   * Multiple tree deserialization
+   * @expectedException MapFilter_TreePattern_NotExactlyOneFollowerException
+   * @expectedExceptionMessage  The 'pattern' node must have exactly one follower but 2 given.
+   */
   public static function testMultipleTree () {
   
-    try {
-      $pattern = MapFilter_TreePattern::load (
-          '<pattern><opt></opt><all></all></pattern>'
-      );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-      
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-          $exception->getCode ()
-      );
-    }
+    $pattern = MapFilter_TreePattern::load (
+        '<pattern><opt></opt><all></all></pattern>'
+    );
   }
   
-  /** Invalid attr */
+  /**
+   * Invalid attr
+   * @expectedException MapFilter_TreePattern_InvalidPatternAttributeException
+   * @expectedExceptionMessage Node 'key_attr' has no attribute like 'wrongattr'.
+   */
   public static function testWrongAttr () {
   
     $pattern = '
-    <pattern>
-      <key_attr attr="attrName" wrongattr="wrongAttrName">
-        <attr forValue="thisName">thisAttr</attr>
-      </key_attr>
-    </pattern>
+        <pattern>
+          <key_attr attr="attrName" wrongattr="wrongAttrName">
+            <attr forValue="thisName">thisAttr</attr>
+          </key_attr>
+        </pattern>
     ';
   
-    try {
-      MapFilter_TreePattern::load ( $pattern );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE,
-          $exception->getCode ()
-      );
-    }
-  
+    MapFilter_TreePattern::load ( $pattern );
   }
   
   public static function provideSimpleOneWhitelist () {

@@ -69,6 +69,37 @@ require_once dirname ( __FILE__ ) . '/Tree/Leaf/AliasAttr.php';
  */
 require_once dirname ( __FILE__ ) . '/Tree/Leaf/Attr.php';
 
+/**
+ * @file        MapFilter/TreePattern/InvalidPatternElementException.php
+ */
+require_once dirname ( __FILE__ ) . '/InvalidPatternElementException.php';
+
+/**
+ * @file        MapFilter/TreePattern/NotExactlyOneFollowerException.php
+ */
+require_once dirname ( __FILE__ ) . '/NotExactlyOneFollowerException.php';
+
+/**
+ * @file        MapFilter/TreePattern/InvalidPatternAttributeException.php
+ */
+require_once dirname ( __FILE__ ) . '/InvalidPatternAttributeException.php';
+
+/**
+ * @file        MapFilter/TreePattern/MissingAttributeValueException.php
+ */
+require_once dirname ( __FILE__ ) . '/MissingAttributeValueException.php';
+
+/**
+ * @file        MapFilter/TreePattern/Xml/LibXmlException.php
+ */
+require_once dirname ( __FILE__ ) . '/Xml/LibXmlException.php';
+
+/**
+ * @file        MapFilter/TreePattern/Xml/InvalidXmlContentException.php
+ */
+require_once dirname ( __FILE__ ) . '/Xml/InvalidXmlContentException.php';
+
+
 /** @endcond */
 
 /**
@@ -163,19 +194,6 @@ class MapFilter_TreePattern_Xml {
   }
   
   /**
-   * LibXml error to MapFilter_TreePattern_Exception mapping.
-   *
-   * @since     0.1
-   *
-   * @var       Array           $_errorToException
-   */
-  private static $_errorToException = Array (
-      LIBXML_ERR_WARNING => MapFilter_TreePattern_Exception::LIBXML_WARNING,
-      LIBXML_ERR_ERROR => MapFilter_TreePattern_Exception::LIBXML_ERROR,
-      LIBXML_ERR_FATAL => MapFilter_TreePattern_Exception::LIBXML_FATAL
-  );
-  
-  /**
    * Load Xml source and create XmlElement.
    *
    * @since     0.1
@@ -184,7 +202,7 @@ class MapFilter_TreePattern_Xml {
    * @param     Bool            $isUrl          URL or String.
    *
    * @return    SimpleXmlElement                XmlElement of input.
-   * @throws    MapFilter_TreePattern_Exception
+   * @throws    MapFilter_TreePattern_Xml_LibXmlException
    */
   public static function loadXml ( $xml, $isUrl ) {
   
@@ -205,20 +223,11 @@ class MapFilter_TreePattern_Xml {
     
       $xmlElement = new SimpleXmlElement ( $xml, $options, $isUrl );
     } catch ( Exception $exception ) {
-    
-      /** Throw first error */
+
       $error = libxml_get_last_error ();
       libxml_clear_errors ();
 
-      if ( $error ) {
-        
-        $exception = new MapFilter_TreePattern_Exception (
-            self::$_errorToException[ $error->level ],
-            Array ( $error->message, $error->line, $error->file )
-        );
-      }
-        
-      throw $exception;
+      throw MapFilter_TreePattern_Xml_LibXmlException::wrap ( $error );
     }
 
     return $xmlElement;
@@ -292,7 +301,7 @@ class MapFilter_TreePattern_Xml {
    * @param     String          $tagName                A tag with attributes.
    * @param     Array           $attributes             Leftover attributes.
    *
-   * @throws    MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE
+   * @throws    MapFilter_TreePattern_InvalidPatternAttributeException
    */
   private static function _assertLeftoverAttrs ( $tagName, Array $attributes ) {
   
@@ -301,10 +310,9 @@ class MapFilter_TreePattern_Xml {
     if ( $attributes != Array () ) {
       
       $attrs = array_keys ( $attributes );
-      throw new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_ATTRIBUTE,
-          Array ( $tagName, $attrs[ 0 ] )
-      );
+
+      $ex = new MapFilter_TreePattern_InvalidPatternAttributeException ();
+      throw $ex->setNodeAndAttribute ( $tagName, $attrs[ 0 ] );
     }
   }
   
@@ -322,13 +330,11 @@ class MapFilter_TreePattern_Xml {
   
     assert ( is_string ( $attribute ) );
   
-    $value = FALSE;
-    if ( array_key_exists ( $attribute, $attributes ) ) {
+    if ( !array_key_exists ( $attribute, $attributes ) ) return FALSE;
 
-      /** Fetch and delete */
-      $value = (String) $attributes[ $attribute ];
-      unset ( $attributes[ $attribute] );
-    }
+    /** Fetch and delete */
+    $value = (String) $attributes[ $attribute ];
+    unset ( $attributes[ $attribute] );
   
     return $value;
   }
@@ -342,22 +348,16 @@ class MapFilter_TreePattern_Xml {
    *
    * @return    String                  New tag name.
    *
-   * @throws    MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT
+   * @throws    MapFilter_InvalidPatternElementException
    */
   private static function _validateTagName ( SimpleXmlElement $xml ) {
   
     $tagName = $xml->getName ();
 
-    /** Validate tag name */
-    if ( !self::_isValidTag ( $tagName ) ) {
+    if ( self::_isValidTag ( $tagName ) ) return $tagName;
 
-      throw new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
-          Array ( $tagName )
-      );
-    }
-    
-    return $tagName;
+    $ex = new MapFilter_TreePattern_InvalidPatternElementException ();
+    throw $ex->setName ( $tagName );
   }
 
   /**
@@ -377,7 +377,6 @@ class MapFilter_TreePattern_Xml {
    * @param     String                          $tagName        A name of tag.
    *
    * @return    MapFilter_TreePattern_Tree      A pattern node with attributes.
-   * @throws    MapFilter_TreePattern_Exception::INVALID_XML_ATTRIBUTE
    */
   private static function _parseTagAttributes (
       SimpleXmlElement $xml,
@@ -419,7 +418,7 @@ class MapFilter_TreePattern_Xml {
    * @param     Array   $followers      Set of followers to use as a content.
    *
    * @return    MapFilter_TreePattern_Tree
-   * @throws    MapFilter_TreePattern_Exception::INVALID_XML_CONTENT
+   * @throws    MapFilter_TreePattern_Xml_InvalidXmlContent
    */
   private static function _createTreeNode ( $tagName, Array $followers ) {
   
@@ -433,13 +432,11 @@ class MapFilter_TreePattern_Xml {
 
     if ( !array_key_exists ( 'content', $node->getSetters () ) ) {
 
-      throw new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::INVALID_XML_CONTENT,
-          Array ( $tagName )
-      );
+      $ex = new MapFilter_TreePattern_Xml_InvalidXmlContentException ();
+      throw $ex->setNodeName ( $tagName );
     }
     
-    $node -> setContent ( $followers );
+    $node->setContent ( $followers );
 
     return $node;
   }
@@ -452,6 +449,7 @@ class MapFilter_TreePattern_Xml {
    * @param     SimpleXmlElement                $xml    An element to parse.
    *
    * @return    MapFilter_TreePattern_Tree      Parsed pattern.
+   * @throws    MapFilter_TreePattern_MissingAttributeValueException
    */
   public static function parseTree ( SimpleXmlElement $xml ) {
 
@@ -476,12 +474,11 @@ class MapFilter_TreePattern_Xml {
 
       if ( !$alreadySet && !$available ) {
 
-        throw new MapFilter_TreePattern_Exception (
-            MapFilter_TreePattern_Exception::MISSING_ATTRIBUTE_VALUE
-        );
+        throw new MapFilter_TreePattern_MissingAttributeValueException ();
       }
 
       if ( $available ) {
+
         $node -> setAttribute ( trim ( (String) $xml[ 0 ] ) );
       }
     }
@@ -497,7 +494,8 @@ class MapFilter_TreePattern_Xml {
    * @param     SimpleXmlElement   &$xmlElement    An element to unwrap.
    *
    * @return    SimpleXmlElement   Unwrapped element.
-   * @throws    MapFilter_TreePattern_Exception
+   * @throws    MapFilter_TreePattern_NotExactlyOneFollowerException
+   *            MapFilter_TreePattern_InvalidPatternElementException
    */
   public static function unwrap ( SimpleXmlElement &$xmlElement ) {
    
@@ -514,9 +512,9 @@ class MapFilter_TreePattern_Xml {
     
       if ( $xmlElement->count () !== 1 ) {
       
-        throw new MapFilter_TreePattern_Exception (
-            MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-            Array ( self::PATTERN, $xmlElement->count )
+        $ex = new MapFilter_TreePattern_NotExactlyOneFollowerException ();
+        throw $ex->setNodeAndCount (
+            self::PATTERN, (Int) $xmlElement->count ()
         );
       }
 
@@ -530,20 +528,18 @@ class MapFilter_TreePattern_Xml {
     
       if ( $xmlElement->count () < 1 ) {
       
-        throw new MapFilter_TreePattern_Exception (
-            MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-            Array ( self::PATTERN, $xmlElement->count )
-        );
+        $ex = new MapFilter_TreePattern_NotExactlyOneFollowerException ();
+        throw $ex->setNodeAndCount ( self::PATTERN, 0 );
       }
     
       $sidePatterns = Array ();
       foreach ( iterator_to_array ( $xmlElement, FALSE ) as $child ) {
         
         if ( $child->count () !== 1 ) {
-        
-          throw new MapFilter_TreePattern_Exception (
-              MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-              Array ( self::PATTERN, $child->count )
+
+          $ex = new MapFilter_TreePattern_NotExactlyOneFollowerException ();
+          throw $ex->setNodeAndCount (
+              self::PATTERN, (Int) $child->count ()
           );
         }
 
@@ -570,9 +566,7 @@ class MapFilter_TreePattern_Xml {
     }
 
     /** Unknown tag */
-    throw new MapFilter_TreePattern_Exception (
-        MapFilter_TreePattern_Exception::INVALID_PATTERN_ELEMENT,
-        Array ( $tagName )
-    );
+    $ex = new MapFilter_TreePattern_InvalidPatternElementException ();
+    throw $ex->setName ( $tagName );
   }
 }

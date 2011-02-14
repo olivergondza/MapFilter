@@ -37,11 +37,6 @@
 require_once dirname ( __FILE__ ) . '/TreePattern/Xml.php';
 
 /**
- * @file        MapFilter/TreePattern/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/TreePattern/Exception.php';
-
-/**
  * @file        MapFilter/Pattern/Interface.php
  */
 require_once dirname ( __FILE__ ) . '/Pattern/AssertInterface.php';
@@ -57,9 +52,14 @@ require_once dirname ( __FILE__ ) . '/Pattern/FlagInterface.php';
 require_once dirname ( __FILE__ ) . '/Pattern/ResultInterface.php';
 
 /**
- * @file        MapFilter/Pattern/InvalidStructureException.php
+ * @file        MapFilter/InvalidStructureException.php
  */
 require_once dirname ( __FILE__ ) . '/InvalidStructureException.php';
+
+/**
+ * @file        MapFilter/TreePattern/InvalidPatternNameException.php
+ */
+require_once dirname ( __FILE__ ) . '/TreePattern/InvalidPatternNameException.php';
 
 /** @endcond */
 
@@ -359,6 +359,7 @@ class MapFilter_TreePattern implements
    * @param     String          $sidePatternName        A pattern name.
    *
    * @return    MapFilter_TreePattern_Tree_Interface
+   * @throws    MapFilter_TreePattern_InvalidPatternNameException
    */
   public function getSidePattern ( $sidePatternName ) {
   
@@ -369,10 +370,8 @@ class MapFilter_TreePattern implements
       return clone $this->_sidePatterns[ $sidePatternName ];
     }
 
-    throw new MapFilter_TreePattern_Exception (
-        MapFilter_TreePattern_Exception::INVALID_PATTERN_NAME,
-        Array ( $sidePatternName )
-    );
+    $ex = new MapFilter_TreePattern_InvalidPatternNameException ();
+    throw $ex->setName ( $sidePatternName );
   }
 
   /**
@@ -397,6 +396,8 @@ class MapFilter_TreePattern implements
    * @since     0.5
    *
    * @param     Array|ArrayAccess       $query          A user query.
+   *
+   * @throws    MapFilter_InvalidStructureException
    */
   public function parse ( $query ) {
   

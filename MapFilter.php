@@ -42,13 +42,6 @@ require_once dirname ( __FILE__ ) . '/MapFilter/Interface.php';
 require_once dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php';
 
 /**
- * Package Exceptions
- *
- * @file                MapFilter/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/MapFilter/Exception.php';
-
-/**
  * Class to provide generic filter interface.
  *
  * @category Pear

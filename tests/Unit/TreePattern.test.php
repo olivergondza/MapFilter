@@ -43,24 +43,13 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
     );
   }
   
-  /** Invalid file */
+  /**
+   * Invalid file
+   * @expectedException MapFilter_TreePattern_Xml_LibXmlException
+   */
   public static function testWrongFile () {
   
-    try {
-
-      $filter = MapFilter_TreePattern::fromFile ( 'no_such_file.xml' );
-      self::fail ( 'No exception risen.' );
-      
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::LIBXML_WARNING,
-          $exception->getCode ()
-      );
-    } catch ( Exception $ex ) {
-    
-      self::fail ( 'Wrong exception: ' . (String) $ex );
-    }
+    $filter = MapFilter_TreePattern::fromFile ( 'no_such_file.xml' );
   }
   
   public static function provideWrongAttribute () {
@@ -192,11 +181,11 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
             "Node 'some' has no attribute like 'iterator'."
         ),
 
-        Array (
+/*        Array (
             '<pattern><attr><attr>an_attr</attr></attr></pattern>',
             "Node 'attr' has no content."
         ),
-        
+*/      
     );
   }
   
@@ -211,13 +200,9 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
 
       MapFilter_TreePattern::load ( $pattern );
       self::fail ( 'No exception risen.' );
+    } catch ( MapFilter_TreePattern_InvalidPatternAttributeException $ex ) {
 
-    } catch ( MapFilter_TreePattern_Exception $ex ) {
-
-      self::assertEquals ( $exception, (String) $ex );
-    } catch ( Exception $ex ) {
-    
-      self::fail ( 'Wrong exception: ' . (String) $exception );
+      self::assertEquals ( $exception, $ex->getMessage () );
     }
   }
   
@@ -255,6 +240,7 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
             </all>
         </pattern>
     ' );
+    
     $simple = new MapFilter ( $simple, $query );
     
     $assembled = MapFilter_TreePattern::load ( '
@@ -319,7 +305,7 @@ class MapFilter_Test_Unit_TreePattern extends PHPUnit_Framework_TestCase {
         Array ( 0 ),
         Array ( 3.14 ),
         Array ( 'asdf' ),
-        Array ( new DateTime () ),
+        Array ( new MapFilter () ),
         Array ( xml_parser_create () ),
     );
   }

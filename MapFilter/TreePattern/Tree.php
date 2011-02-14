@@ -28,17 +28,12 @@
  */
 
 /**
- * @file        MapFilter/TreePattern/Tree/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/Tree/Exception.php';
-
-/**
  * @file        MapFilter/TreePattern/Tree/Interface.php
  */
 require_once dirname ( __FILE__ ) . '/Tree/Interface.php';
 
 /**
- *
+ * @file        MapFilter/TreePattern/Tree/Matcher.php
  */
 require_once dirname ( __FILE__ ) . '/Tree/Matcher.php';
 
@@ -191,9 +186,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @param     String          $flag           A flag to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with flag.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with flag.
    */
   public function setFlag ( $flag ) {
   
@@ -210,9 +203,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @param     String          $assert         An assert to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with flag.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with flag.
    */
   public function setAssert ( $assert ) {
   
@@ -229,9 +220,7 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @param     String          $attachPattern  A pattern name to attach.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with attachPattern.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with attachPattern.
    */
   public function setAttachPattern ( $attachPattern ) {
   
@@ -250,7 +239,6 @@ abstract class MapFilter_TreePattern_Tree implements
    *
    * @return    MapFilter_TreePattern_Tree_Interface
    *    New pattern with valueFilter.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setValueFilter ( $valueFilter ) {
 

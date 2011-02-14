@@ -49,13 +49,14 @@ class MapFilter_Test_Unit_TreePattern_Opt extends PHPUnit_Framework_TestCase {
           </opt>
         </pattern>
     ' );
+
     $filter = new MapFilter ( $pattern );
 
     $filter->setQuery ( $query );
 
     self::assertEquals (
-      $result,
-      $filter->getResults ()
+        $result,
+        $filter->getResults ()
     );
   }
 }

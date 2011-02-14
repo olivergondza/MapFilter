@@ -96,9 +96,7 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
    *
    * @param     String          $attribute              An attribute to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    A pattern with new attribute.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    A pattern with new attribute.
    */
   public function setAttribute ( $attribute ) {
   
@@ -118,9 +116,7 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
    *
    * @param     String          $iterator       An iterator value to set.
    *
-   * @return    MapFilter_TreePattern_Tree_Interface
-   *    New pattern with iterator.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
+   * @return    MapFilter_TreePattern_Tree_Interface    New pattern with iterator.
    */
   public function setIterator ( $iterator ) {
   
@@ -158,21 +154,21 @@ final class MapFilter_TreePattern_Tree_Node_NodeAttr extends
    *
    * @return    Array
    *
-   * @throws    MapFilter_TreePattern_Exception::HAS_NOT_ONE_EXCEPTION
+   * @throws    MapFilter_TreePattern_NotExactlyOneFollowerException
    */
   private function _assertNonSingleFollower ( Array $content ) {
 
     $contentCount = count ( $content );
 
-    if ( $contentCount != 1 ) {
-
-      throw new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-          Array ( 'NodeAttr', $contentCount )
-      );
+    if ( $contentCount == 1 ) {
+    
+      return array_shift ( $content );
     }
 
-    return array_shift ( $content );
+    $ex = new MapFilter_TreePattern_NotExactlyOneFollowerException ();
+    throw $ex->setNodeAndCount (
+        'node_attr', $contentCount
+    );
   }
 
   /**

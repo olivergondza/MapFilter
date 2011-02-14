@@ -74,25 +74,12 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
    * Rise an exception in case of no attr value
    *
    * @dataProvider	provideAssertEmptyAttr
+   * @expectedException MapFilter_TreePattern_MissingAttributeValueException
+   * @expectedExceptionMessage There is an Attr node without attribute value specified.
    */
   public static function testAssertEmptyAttr ( $pattern ) {
   
-    try {
-    
-      $pattern = MapFilter_TreePattern::load ( $pattern );
-      self::fail ( 'No exception risen.' );
-
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::MISSING_ATTRIBUTE_VALUE,
-          $exception->getCode ()
-      );
-
-    } catch ( Exception $ex ) {
-    
-      self::fail ( 'Wrong exception: ' . $ex->getMessage () );
-    }
+    $pattern = MapFilter_TreePattern::load ( $pattern );
   }
   
   /**
@@ -123,25 +110,16 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
   
   /**
    * Use unsupported value as an iterator depth indicator
+   * @expectedException MapFilter_TreePattern_Tree_Leaf_InvalidDepthIndicatorException
+   * @expectedExceptionMessage Unsupported value 'auto' for iterator attribute.
    */
   public static function testInvalidIteratorValue () {
   
-    try {
-    
-      MapFilter_TreePattern::load ( '
-          <pattern>
-            <attr iterator="auto">attr</attr>
-          </pattern>
-      ' );
-      
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Tree_Leaf_Exception $ex ) {
-    
-      self::assertEquals (
-          MapFilter_TreePattern_Tree_Leaf_Exception::INVALID_DEPTH_INDICATOR,
-          $ex->getCode ()
-      );
-    }
+    MapFilter_TreePattern::load ( '
+        <pattern>
+          <attr iterator="auto">attr</attr>
+        </pattern>
+    ' );
   }
   
   public static function provideAttrArrayValue () {
@@ -405,13 +383,13 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
   ) {
   
     $pattern = '
-    <pattern>
-      <attr
-          valuePattern="[0-9][0-9]*"
-          default="0"
-          iterator="3"
-      >weight</attr>
-    </pattern>
+        <pattern>
+          <attr
+              valuePattern="[0-9][0-9]*"
+              default="0"
+              iterator="3"
+          >weight</attr>
+        </pattern>
     ';
     
     $filter = new MapFilter (
@@ -561,5 +539,20 @@ class MapFilter_Test_Unit_TreePattern_Attr extends
         $asserts,
         $filter->fetchResult ()->getAsserts ()
     );
+  }
+  
+  /**
+   * @expectedException MapFilter_TreePattern_Xml_InvalidXmlContentException
+   * @expectedExceptionMessage Node 'attr' has no content
+   */
+  public static function testContent () {
+  
+    $pattern = '
+        <attr attr="anAttr">
+          <attr attr="anotherAttr" />
+        </attr>
+    ';
+    
+    MapFilter_TreePattern::load ( $pattern );
   }
 }

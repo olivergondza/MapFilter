@@ -27,7 +27,14 @@
  * @since    $NEXT$
  */
 
+/**
+ * @file        MapFilter/TreePattern/Tree/Replacer.php
+ */
 require_once dirname ( __FILE__ ) . '/Replacer.php';
+
+/**
+ * @file        MapFilter/TreePattern/Tree/Matcher.php
+ */
 require_once dirname ( __FILE__ ) . '/Matcher.php';
 
 /**
@@ -134,7 +141,7 @@ class MapFilter_TreePattern_Tree_Attribute {
   private $_value = NULL;
 
   /**
-   *
+   * 
    */
   public function __construct () {
   

@@ -43,11 +43,6 @@ require_once dirname ( __FILE__ ) . '/Attr.php';
 require_once dirname ( __FILE__ ) . '/../Leaf/Interface.php';
 
 /**
- * @file        MapFilter/TreePattern/Tree/Leaf/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/../Leaf/Exception.php';
-
-/**
  * MapFilter pattern tree KeyAttribute node.
  *
  * @category Pear

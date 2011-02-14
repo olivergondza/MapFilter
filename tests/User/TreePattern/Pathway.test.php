@@ -1,8 +1,10 @@
 <?php
 /**
- * Require tested class
+ * Pathway
  */
+
 require_once PHP_MAPFILTER_CLASS;
+
 /**
  * @group	User
  * @group	User::TreePattern

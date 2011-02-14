@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for exceptions raised by the MapFilter_TreePattern_Tree.
+ * Class to handle invalid depth indicator exception.
  *
  * PHP Version 5.1.0
  *
@@ -18,44 +18,47 @@
  *                              
  * You should have received a copy of the GNU Lesser General Public License
  * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *                              
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    0.4
+ * @since    $NEXT$
  */
 
 /**
- * @file        MapFilter/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/../Exception.php';
-
-/**
- * MapFilter_TreePattern_Tree Exceptions.
+ * Class to handle invalid depth indicator exception.
  *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_TreePattern_Tree_Exception
+ * @class    MapFilter_TreePattern_Tree_Leaf_InvalidDepthIndicatorException
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    0.4
+ * @since    $NEXT$
  */
-class MapFilter_TreePattern_Tree_Exception extends
-    MapFilter_TreePattern_Exception
+class
+    MapFilter_TreePattern_Tree_Leaf_InvalidDepthIndicatorException
+extends
+    UnexpectedValueException
 {
 
-  const INVALID_XML_ATTRIBUTE = 1;
+  public function __construct (
+      $message = "Unsupported value '%s' for iterator attribute.",
+      $code = 0,
+      Exception $previous = NULL
+  ) {
   
-  const INVALID_XML_CONTENT = 2;
+    parent::__construct ( $message, $code, $previous );
+  }
   
-  /**
-   * @var       Array           $messages
-   */
-  protected $messages = Array (
-      self::INVALID_XML_ATTRIBUTE => "Unknown attribute '%s'.",
-      self::INVALID_XML_CONTENT => "Node has no content.",
-  );
+  public function setValue ( $value ) {
+  
+    assert ( is_string ( $value ) );
+    
+    $this->message = sprintf ( $this->message, $value );
+    
+    return $this;
+  }
 }

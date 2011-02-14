@@ -1,7 +1,8 @@
 <?php
 /**
- * Require tested class
+ * Direction
  */
+ 
 require_once PHP_MAPFILTER_DIR . '/TreePattern.php';
 require_once PHP_MAPFILTER_DIR . '/Pattern/Null.php';
 
@@ -120,6 +121,5 @@ class MapFilter_Test_User_TreePattern_Direction extends
         $result,
         $filter->fetchResult ()->getResults ()
     );
-
   }
 }

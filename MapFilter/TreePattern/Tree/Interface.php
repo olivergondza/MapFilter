@@ -60,7 +60,6 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @return    MapFilter_TreePattern_Tree_Interface
    *    New pattern with valueFilter.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setValueFilter ( $valueFilter );
   
@@ -75,7 +74,6 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @return    MapFilter_TreePattern_Tree_Interface
    *    New pattern with flag.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setFlag ( $flag );
   
@@ -90,7 +88,6 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @return    MapFilter_TreePattern_Tree_Interface
    *    New pattern with flag.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAssert ( $assert );
   
@@ -105,7 +102,6 @@ interface MapFilter_TreePattern_Tree_Interface {
    *
    * @return    MapFilter_TreePattern_Tree_Interface
    *    New pattern with attachPattern.
-   * @throws    MapFilter_TreePattern_Tree_Exception::INVALID_XML_ATTRIBUTE
    */
   public function setAttachPattern ( $attachPattern );
   

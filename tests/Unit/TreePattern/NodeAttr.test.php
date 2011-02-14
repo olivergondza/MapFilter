@@ -16,6 +16,9 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
   
   /**
    * try attach nothing
+   *
+   * @expectedException MapFilter_TreePattern_InvalidPatternNameException
+   * @expectedExceptionMessage  Pattern 'NoSuchPattern' can not be attached.
    */
   public static function testWrongPatternAttachment () {
   
@@ -29,55 +32,33 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
           MapFilter_TreePattern::load ( $pattern )
     );
     
-    try {
-    
-      $filter->fetchResult ();
-
-      self::fail ( 'No exception risen' );
-      
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
-    
-      self::assertEquals (
-          MapFilter_TreePattern_Exception::INVALID_PATTERN_NAME,
-          $exception->getCode ()
-      );
-    }
+    $filter->fetchResult ();
   }
   
   /**
    * More than one node_attr follower
+   *
+   * @expectedException MapFilter_TreePattern_NotExactlyOneFollowerException
+   * @expectedExceptionMessage  The 'node_attr' node must have exactly one follower but 2 given.
    */
   public static function testMultipleFollower () {
   
     $pattern = '
-    <pattern>
-      <node_attr attr="attr">
-        <attr>a</attr>
-        <attr>b</attr>
-      </node_attr>
-    </pattern>
+      <pattern>
+        <node_attr attr="attr">
+          <attr>a</attr>
+          <attr>b</attr>
+        </node_attr>
+      </pattern>
     ';
-  
-    try {
-    
-      MapFilter_TreePattern::load ( $pattern );
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
 
-      $expectedException = new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-          Array ( 'NodeAttr', 2 )
-      );
-
-      self::assertEquals (
-          $expectedException->getMessage (),
-          $exception->getMessage ()
-      );
-    }
+    MapFilter_TreePattern::load ( $pattern );
   }
   
   /**
    * No node_attr follower
+   * @expectedException MapFilter_TreePattern_NotExactlyOneFollowerException
+   * @expectedExceptionMessage  The 'node_attr' node must have exactly one follower but 0 given.
    */
   public static function testNoFollower () {
   
@@ -90,27 +71,12 @@ class MapFilter_Test_Unit_TreePattern_NodeAttr extends
   
     $query = Array ( 'attr' => Array ( 'attr' ) );
   
-    try {
-      
-      $filter = new MapFilter (
-          MapFilter_TreePattern::load ( $pattern ),
-          $query
-      );
-      $filter->fetchResult ();
-      
-      self::fail ( 'No exception risen' );
-    } catch ( MapFilter_TreePattern_Exception $exception ) {
+    $filter = new MapFilter (
+        MapFilter_TreePattern::load ( $pattern ),
+        $query
+    );
 
-      $expectedException = new MapFilter_TreePattern_Exception (
-          MapFilter_TreePattern_Exception::HAS_NOT_ONE_FOLLOWER,
-          Array ( 'node_attr', 0 )
-      );
-
-      self::assertEquals (
-          $expectedException->getCode (),
-          $exception->getCode ()
-      );
-    }
+    $filter->fetchResult ();
   }
   
   public static function provideAssertAndFlags () {

@@ -3,9 +3,6 @@
 * User Tests using cat.xml
 */  
 
-/**
- * Require tested class
- */
 require_once PHP_MAPFILTER_CLASS;
 
 /**

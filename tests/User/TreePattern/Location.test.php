@@ -1,18 +1,15 @@
 <?php
 /**
-* User Tests using location.xml
-*/  
+ * User Tests using location.xml
+ */  
 
-/**
- * Require tested class
- */
 require_once PHP_MAPFILTER_CLASS;
 
 /**
-* @group	User
-* @group	User::TreePattern
-* @group	User::TreePattern::Location
-*/
+ * @group	User
+ * @group	User::TreePattern
+ * @group	User::TreePattern::Location
+ */
 class MapFilter_Test_User_TreePattern_Location extends
     PHPUnit_Framework_TestCase
 {

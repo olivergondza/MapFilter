@@ -1,7 +1,5 @@
 <?php
 /**
- * Class to handle invalid structure exception.
- *
  * PHP Version 5.1.0
  *
  * This file is part of MapFilter package.
@@ -28,28 +26,35 @@
  */
 
 /**
- * Class to handle invalid structure exception.
- *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_InvalidStructureException
+ * @class    MapFilter_TreePattern_InvalidPatternNameException
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
  * @since    $NEXT$
  */
 class
-    MapFilter_InvalidStructureException
+    MapFilter_TreePattern_InvalidPatternNameException
 extends
     UnexpectedValueException
 {
 
   public function __construct (
-      $message = 'Data structure passed as a query can not be parsed using given pattern.',
+      $message = "Pattern '%s' can not be attached.",
       $code = 0,
       Exception $previous = NULL
   ) {
   
     parent::__construct ( $message, $code, $previous );
+  }
+  
+  public function setName ( $name ) {
+  
+    assert ( is_string ( $name ) );
+    
+    $this->message = sprintf ( $this->message, $name );
+    
+    return $this;
   }
 }

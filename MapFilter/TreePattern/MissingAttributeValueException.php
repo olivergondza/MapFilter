@@ -1,7 +1,5 @@
 <?php
 /**
- * Class for exceptions raised by the MapFilter_TreePattern_Tree_Leaf.
- *
  * PHP Version 5.1.0
  *
  * This file is part of MapFilter package.
@@ -24,47 +22,30 @@
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    0.5.2
+ * @since    $NEXT$
  */
 
 /**
- * @file        MapFilter/Exception.php
- */
-require_once dirname ( __FILE__ ) . '/../Exception.php';
-
-/**
- * MapFilter_TreePattern_Tree_Leaf Exceptions.
- *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_TreePattern_Tree_Leaf_Exception
+ * @class    MapFilter_TreePattern_MissingAttributeValueException
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    0.5.2
+ * @since    $NEXT$
  */
-class MapFilter_TreePattern_Tree_Leaf_Exception extends
-    MapFilter_TreePattern_Tree_Exception
+class
+    MapFilter_TreePattern_MissingAttributeValueException
+extends
+    UnexpectedValueException
 {
 
-  /**
-   * A value that was declared to be a scalar value was filled with an array.
-   *
-   * @since     0.5.2
-   */
-  const ARRAY_ATTR_VALUE = 2;
-
-  /**
-   * Unsupported value used as an iterator depth indicator.
-   * 
-   * @since     $NEXT$
-   */
-  const INVALID_DEPTH_INDICATOR = 3;
+  public function __construct (
+      $message = "There is an Attr node without attribute value specified.",
+      $code = 0,
+      Exception $previous = NULL
+  ) {
   
-  protected $messages = Array (
-      self::ARRAY_ATTR_VALUE =>
-          "A value of '%s' attribute is declared to be a scalar value but array given.",
-      self::INVALID_DEPTH_INDICATOR =>
-          "Unsupported value '%s' for iterator attribute."
-  );
+    parent::__construct ( $message, $code, $previous );
+  }
 }
