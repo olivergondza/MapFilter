@@ -3,19 +3,11 @@
 
 @section	description	Description
 
-MapFilter is an extensible tool to filter key-value data structures such as
-associative arrays (maps or hash tables) or iterators in PHP5.
-
-%MapFilter package is distributed along with default Pattern implementation. 
-MapFilter_TreePattern enables to enforce dependencies between groups of data
-Keys, Keys and allowed Values or Values and Keys from simple Key or Value
--based whitelisting to more complex structures.
+MapFilter is extensible tool to filter data structures in PHP5.
 
 @section        documentation   Documentation
 
-- @subpage      treepattern
 - @subpage      usage
-- @subpage      faq
 
 @section        download        Download
 

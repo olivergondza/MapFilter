@@ -1,5 +1,7 @@
 <?php
 /**
+ * MapFilter Null pattern.
+ *
  * PHP Version 5.1.0
  *
  * This file is part of MapFilter package.
@@ -16,46 +18,73 @@
  *                              
  * You should have received a copy of the GNU Lesser General Public License
  * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
- *                              
+ * 
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    $NEXT$
+ * @since    0.5
  */
+
+require_once dirname ( __FILE__ ) . '/PatternInterface.php';
 
 /**
+ * A mock implementation of basic MapFilter_PatternInterface interface.
+ *
+ * Pattern performs _no_ opperation at all on user query and return it as is.
+ *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_TreePattern_InvalidPatternAttributeException
+ * @class    MapFilter_NullPattern
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    $NEXT$
+ * @since    0.5
  */
-class
-    MapFilter_TreePattern_InvalidPatternAttributeException
-extends
-    UnexpectedValueException
-{
+class MapFilter_NullPattern implements MapFilter_PatternInterface {
 
-  public function __construct (
-      $message = "Node '%s' has no attribute like '%s'.",
-      $code = 0,
-      Exception $previous = NULL
-  ) {
+  /**
+   * A parsed query to return by getResults().
+   *
+   * @since     0.5
+   *
+   * @var       Mixed                   $_query
+   */
+  private $_query = Array ();
+
+  /**
+   * An empty constructor.
+   *
+   * @since     0.5
+   *
+   * @return    MapFilter_Pattern_Null
+   */
+  public function __construct () {}
+
+  /**
+   * Get results.
+   *
+   * Get parsed query from latest parsing process.
+   *
+   * @since     0.5
+   *
+   * @return    Mixed                   Parsing results.
+   */
+  public function getResults () {
   
-    parent::__construct ( $message, $code, $previous );
+    return $this->_query;
   }
   
-  public function setNodeAndAttribute ( $node, $attribute ) {
+  /**
+   * Parse the given query against the pattern.
+   *
+   * @since     0.5
+   *
+   * @param     Mixed                   $query          A user query.
+   */
+  public function parse ( $query ) {
   
-    assert ( is_string ( $node ) );
-    assert ( is_string ( $attribute ) );
-    
-    $this->message = sprintf ( $this->message, $node, $attribute );
-    
-    return $this;
+    $this->_query = $query;
   }
 }

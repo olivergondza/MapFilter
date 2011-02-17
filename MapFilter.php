@@ -27,19 +27,9 @@
  * @since    0.1
  */
 
-/**
- * MapFilter Interface.
- *
- * @file                MapFilter/Interface.php
- */
 require_once dirname ( __FILE__ ) . '/MapFilter/Interface.php';
 
-/**
- * MapFilter Null Pattern.
- *
- * @file                MapFilter/Pattern/Null.php
- */
-require_once dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php';
+require_once dirname ( __FILE__ ) . '/MapFilter/NullPattern.php';
 
 /**
  * Class to provide generic filter interface.
@@ -48,7 +38,7 @@ require_once dirname ( __FILE__ ) . '/MapFilter/Pattern/Null.php';
  * @package  MapFilter
  * @class    MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
- * @license  http://www.gnu.org/copyleft/lesser.html  LGPL
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.1
  */
@@ -59,7 +49,7 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.4
    *
-   * @var       MapFilter_Pattern_Interface     $_pattern
+   * @var       MapFilter_PatternInterface     $_pattern
    * @see       setPattern(), __construct()
    */
   private $_pattern = NULL;
@@ -69,7 +59,7 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.5
    *
-   * @var       MapFilter_Pattern_Interface     $_usedPattern
+   * @var       MapFilter_PatternInterface     $_usedPattern
    * @see       setPattern(), __construct()
    */
   private $_usedPattern = NULL;
@@ -79,7 +69,7 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.4
    *
-   * @var       Array                           $_query
+   * @var       Mixed                   $_query
    * @see       setQuery(), __construct()
    */
   private $_query = Array ();
@@ -89,7 +79,7 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.4
    *
-   * @var       Bool    $_filtered
+   * @var       Bool                    $_filtered
    * @see       _filter(), setQuery(), setPattern()
    */
   private $_filtered = FALSE;
@@ -99,8 +89,8 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set.
-   * @param     Array|ArrayAccess               $query	        A query to filter.
+   * @param     MapFilter_PatternInterface      $pattern        A pattern to set.
+   * @param     Mixed                           $query	        A query to filter.
    *
    * @return    MapFilter_Interface
    *
@@ -108,19 +98,18 @@ class MapFilter implements MapFilter_Interface {
    *
    * @clip{User/MapFilter.test.php,testEmptyPattern}
    *
-   * All parsing is done just in time when some of parsing results is
-   * accessed (in this case when MapFilter::getResults() is called for the
-   * first time):
-   *
-   * @clip{User/TreePattern/Duration.test.php,testDuration}
-   *
-   * @see       setPattern(), setQuery(), MapFilter_Pattern
+   * @see       setPattern(), setQuery(), MapFilter_PatternInterface
    */
   public function __construct (
-      MapFilter_Pattern_Interface $pattern = NULL,
+      MapFilter_PatternInterface $pattern = NULL,
       $query = Array ()
   ) {
 
+    if ( $pattern === NULL ) {
+    
+      $pattern = new MapFilter_NullPattern ();
+    }
+    
     $this->setPattern ( $pattern );
     $this->setQuery ( $query );
   }
@@ -132,9 +121,9 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set
+   * @param     MapFilter_PatternInterface      $pattern        A pattern to set
    *
-   * @return    MapFilter       Instance of MapFilter with new pattern.
+   * @return    MapFilter_Interface             Instance of MapFilter with new pattern.
    *
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
@@ -143,14 +132,11 @@ class MapFilter implements MapFilter_Interface {
    *
    * @see       __construct()
    */
-  public function setPattern ( MapFilter_Pattern_Interface $pattern = NULL) {
+  public function setPattern ( MapFilter_PatternInterface $pattern ) {
 
     $this->_filtered = FALSE;
 
-    $this->_pattern = ( $pattern === NULL )
-        ? new MapFilter_Pattern_Null ()
-        : clone ( $pattern );
-    
+    $this->_pattern = clone $pattern;
     return $this;
   }
   
@@ -159,9 +145,9 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     Array|ArrayAccess       $query           A query to set
+   * @param     Mixed                           $query           A query to set
    *
-   * @return    MapFilter               Instance of MapFilter with new query.
+   * @return    MapFilter_Interface             Instance of MapFilter with new query.
    *
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
@@ -201,7 +187,7 @@ class MapFilter implements MapFilter_Interface {
    *
    * @since     0.5
    *
-   * @return    MapFilter_Pattern_Interface     Parsing results
+   * @return    MapFilter_PatternInterface      Parsing results
    *
    * Return recently used pattern to obtain all kind of results to enable
    * user interface usage.
@@ -218,17 +204,23 @@ class MapFilter implements MapFilter_Interface {
   /**
    * Get results.
    *
+   * @deprecated        Since 0.6.0
    * @since     0.2
    *
-   * Equivalent to MapFilter_Pattern_ResultInterface::getResults()
+   * Equivalent to MapFilter_TreePattern_ResultInterface::getResults()
    *
-   * @return    Array|ArrayAccess               Parsing results.
+   * @return    Mixed                           Parsing results.
    *
    * Get parsed query from latest parsing process.
    *
-   * @see       fetchResult(), MapFilter_Pattern_ResultInterface::getResults()
+   * @see       fetchResult(), MapFilter_TreePattern_ResultInterface::getResults()
    */
   public function getResults () {
+
+    trigger_error (
+        'Accessing pattern results via MapFilter methods is deprecated',
+        E_USER_NOTICE
+    );
 
     return $this->fetchResult ()->getResults ();
   }
@@ -236,17 +228,23 @@ class MapFilter implements MapFilter_Interface {
   /**
    * Get validation assertions.
    *
+   * @deprecated        Since 0.6.0
    * @since     0.4
    *
-   * Equivalent to MapFilter_Pattern_AssertInterface::getAsserts()
+   * Equivalent to MapFilter_TreePattern_AssertInterface::getAsserts()
    *
-   * @return    Array|ArrayAccess               Parsing asserts.
+   * @return    MapFilter_TreePattern_Asserts   Parsing asserts.
    *
    * Return validation asserts that was raised during latest parsing process.
    *
-   * @see       fetchResult(),MapFilter_Pattern_AssertInterface::getAsserts()
+   * @see       fetchResult(), MapFilter_TreePattern_AssertInterface::getAsserts()
    */
   public function getAsserts () {
+  
+    trigger_error (
+        'Accessing pattern results via MapFilter methods is deprecated',
+        E_USER_NOTICE
+    );
   
     return $this->fetchResult ()->getAsserts ();
   }
@@ -254,17 +252,23 @@ class MapFilter implements MapFilter_Interface {
   /**
    * Get flags.
    *
+   * @deprecated        Since 0.6.0
    * @since     0.4
    *
-   * Equivalent to MapFilter_Pattern_FlagInterface::getFlags()
+   * Equivalent to MapFilter_TreePattern_FlagInterface::getFlags()
    *
-   * @return    Array|ArrayAccess               Parsing flags.
+   * @return    MapFilter_TreePattern_Flags     Parsing flags.
    *
    * Return flags that was sat during latest parsing process.
    *
-   * @see       fetchResult(), MapFilter_Pattern_FlagInterface::getFlags()
+   * @see       fetchResult(), MapFilter_TreePattern_FlagInterface::getFlags()
    */
   public function getFlags () {
+  
+    trigger_error (
+        'Accessing pattern results via MapFilter methods is deprecated',
+        E_USER_NOTICE
+    );
   
     return $this->fetchResult ()->getFlags();
   }

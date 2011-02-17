@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface that provides filtering results access.
+ * MapFilter_PatternInterface.
  *
  * PHP Version 5.1.0
  *
@@ -28,33 +28,24 @@
  */
 
 /**
- * @file        MapFilter/Pattern/Interface.php
- */
-require_once dirname ( __FILE__ ) . '/Interface.php';
-
-/**
- * Interface that provides filtering results access.
+ * MapFilter_Pattern Interface.
  *
  * @category Pear
  * @package  MapFilter
- * @class    MapFilter_Pattern_ResultInterface
+ * @class    MapFilter_PatternInterface
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.5
  */
-interface MapFilter_Pattern_ResultInterface extends
-    MapFilter_Pattern_Interface
-{
+interface MapFilter_PatternInterface {
 
   /**
-   * Get results.
-   *
-   * Get parsed query from latest parsing process.
+   * Parse the given query against the pattern.
    *
    * @since     0.5
    *
-   * @return    Array|ArrayAccess       Parsing results.
+   * @param     Mixed           $query          A user query.
    */
-  public function getResults ();
+  public function parse ( $query );
 }

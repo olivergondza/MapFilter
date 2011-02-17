@@ -22,7 +22,7 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
   /** Test invoke */
   public static function testInvocation () {
   
-    $pattern = new MapFilter_Pattern_Null ();
+    $pattern = new MapFilter_NullPattern ();
     
     $query = Array ( 'attr0' => 'value', 'attr1' => 'value' );
 

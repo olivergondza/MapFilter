@@ -24,7 +24,7 @@
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- 
+ * @since    0.5
  */
 
 /**
@@ -45,8 +45,8 @@ interface MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set.
-   * @param     Array|ArrayAccess               $query	        A query to filter.
+   * @param     MapFilter_PatternInterface     $pattern        A pattern to set.
+   * @param     Mixed                          $query	       A query to filter.
    *
    * @return    MapFilter_Interface
    *
@@ -54,16 +54,11 @@ interface MapFilter_Interface {
    *
    * @clip{User/MapFilter.test.php,testEmptyPattern}
    *
-   * All parsing is done just in time (however it can be triggered manually using
-   * MapFilter::parse()) when some of parsing results is accessed (in this case
-   * when MapFilter::getResults() is called for the first time):
-   *
-   * @clip{User/TreePattern/Duration.test.php,testDuration}
-   *
    * @see       setPattern(), setQuery(), MapFilter_Pattern
    */
   public function __construct (
-      MapFilter_Pattern_Interface $pattern = NULL, $query = Array ()
+      MapFilter_PatternInterface $pattern = NULL,
+      $query = Array ()
   );
 
   /**
@@ -73,34 +68,34 @@ interface MapFilter_Interface {
    *
    * @since     0.1
    *
-   * @param     MapFilter_Pattern_Interface     $pattern        A pattern to set
+   * @param     MapFilter_PatternInterface      $pattern        A pattern to set
    *
-   * @return    MapFilter       Instance of MapFilter with new pattern.
+   * @return    MapFilter_Interface             Instance of MapFilter with new pattern.
    *
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
    *
    * @clip{Unit/MapFilter.test.php,testInvocation}
    *
-   * @see       __construct()
+   * @see       __construct(), setQuery()
    */
-  public function setPattern ( MapFilter_Pattern_Interface $pattern );
+  public function setPattern ( MapFilter_PatternInterface $pattern );
   
   /**
    * Set a query to filter.
    *
    * @since     0.1
    *
-   * @param     Array|ArrayAccess              $query           A query to set
+   * @param     Mixed                           $query  A query to set.
    *
-   * @return    MapFilter               Instance of MapFilter with new query.
+   * @return    MapFilter_Interface             Instance of MapFilter with new query.
    *
    * MapFilter can be configured using both constructor and specialized fluent
    * methods setPattern() and setQuery():
    *
    * @clip{Unit/MapFilter.test.php,testInvocation}
    *
-   * @see       __construct()
+   * @see       __construct(), setPattern()
    */
   public function setQuery ( $query );
   
@@ -109,7 +104,7 @@ interface MapFilter_Interface {
    *
    * @since     0.5
    *
-   * @return    MapFilter_Pattern_Interface     Parsing results
+   * @return    MapFilter_PatternInterface     Parsing results
    *
    * Return recently used pattern to obtain all kind of results to enable
    * user interface usage.
@@ -117,43 +112,4 @@ interface MapFilter_Interface {
    * @see       __construct(), setPattern()
    */
   public function fetchResult ();
-  
-  /**
-   * Get results.
-   *
-   * @since     0.2
-   *
-   * @return    Array|ArrayAccess               Parsing results.
-   *
-   * Get parsed query from latest parsing process.
-   *
-   * @see       fetchResult()
-   */
-  public function getResults ();
-  
-  /**
-   * Get validation assertions.
-   *
-   * @since     0.4
-   *
-   * @return    Array|ArrayAccess               Parsing asserts.
-   *
-   * Return validation asserts that was raised during latest parsing process.
-   *
-   * @see       fetchResult()
-   */
-  public function getAsserts ();
-  
-  /**
-   * Get flags.
-   *
-   * @since     0.4
-   *
-   * @return    Array|ArrayAccess               Parsing flags.
-   *
-   * Return flags that was sat during latest parsing process.
-   *
-   * @see       fetchResult()
-   */
-  public function getFlags ();
 }

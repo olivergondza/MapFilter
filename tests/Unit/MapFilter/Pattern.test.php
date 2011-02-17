@@ -4,8 +4,6 @@
  */
 require_once PHP_MAPFILTER_DIR . '/../MapFilter.php';
 
-require_once PHP_MAPFILTER_DIR . '/../MapFilter/Pattern/Null.php';
-
 /**
  * @group	Unit
  * @group	Unit::MapFilter
@@ -21,7 +19,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
   public static function testImplicitMock () {
   
     $filter = new MapFilter (
-        new MapFilter_Pattern_Null ()
+        new MapFilter_NullPattern ()
     );
     
     $implicitFilter = new MapFilter ();
@@ -38,7 +36,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
   public static function testMock () {
   
     $filter = new MapFilter (
-        new MapFilter_Pattern_Null ()
+        new MapFilter_NullPattern ()
     );
     
     $query = Array (
@@ -49,18 +47,8 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     $filter->setQuery ( $query );
     
     self::assertEquals (
-        Array (),
-        $filter->getAsserts ()
-    );
-    
-    self::assertEquals (
-        Array (),
-        $filter->getFlags ()
-    );
-    
-    self::assertEquals (
         $query,
-        $filter->getResults ()
+        $filter->fetchResult ()->getResults ()
     );
   }
   
@@ -124,8 +112,13 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
  */
 /*@{*/
 /** __MapFilter_WhitelistResultPattern__ */
+interface MapFilter_ResultInterface extends MapFilter_PatternInterface {
+
+  public function getResults ();
+}
+
 class MapFilter_WhitelistResultPattern implements
-    MapFilter_Pattern_ResultInterface
+    MapFilter_ResultInterface
 {
 
   /* Filtering whitelist */

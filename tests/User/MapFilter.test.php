@@ -24,7 +24,7 @@ class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
     
     self::assertEquals (
         $query,
-        $filter->getResults ()
+        $filter->fetchResult ()->getResults ()
     );
   }
   /**@}*/

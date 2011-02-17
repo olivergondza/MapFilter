@@ -24,7 +24,7 @@
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    $NEXT$
+ * @since    0.6.0
  */
 
 /**
@@ -36,7 +36,7 @@
  * @author   Oliver Gondža <324706@mail.muni.cz>
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License
  * @link     http://github.com/olivergondza/MapFilter
- * @since    $NEXT$
+ * @since    0.6.0
  */
 class
     MapFilter_InvalidStructureException
