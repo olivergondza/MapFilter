@@ -48,7 +48,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,46 +86,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="MapFilter" --><!-- doxytag: inherits="MapFilter_Interface" -->
-<p>Class to filter key-value data structures.  
+<p>Class to provide generic filter interface.  
 <a href="#_details">More...</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Interface.html">MapFilter_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a950f78f421ba3cd2886ea04045574a43.html#a950f78f421ba3cd2886ea04045574a43">__construct</a> (<a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a> $pattern=NULL, $query=Array())</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create new filter instance.  <a href="#a950f78f421ba3cd2886ea04045574a43"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMapFilter.html">MapFilter</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_aaa69e56e5459ef1d8efb54d0676263f8.html#aaa69e56e5459ef1d8efb54d0676263f8">setPattern</a> (<a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a> $pattern=NULL)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set desired query pattern.  <a href="#aaa69e56e5459ef1d8efb54d0676263f8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMapFilter.html">MapFilter</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_ac826c0673ba85e0e58587f9470fbe653.html#ac826c0673ba85e0e58587f9470fbe653">setQuery</a> ($query)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set a query to filter.  <a href="#ac826c0673ba85e0e58587f9470fbe653"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_ae19bec87bc82ffa0fd42723de2f858aa.html#ae19bec87bc82ffa0fd42723de2f858aa">fetchResult</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get full filtering results.  <a href="#ae19bec87bc82ffa0fd42723de2f858aa"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Array ArrayAccess&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a3e2702d55fac0fa4e098480a6ce66099.html#a3e2702d55fac0fa4e098480a6ce66099">getResults</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get results.  <a href="#a3e2702d55fac0fa4e098480a6ce66099"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Array ArrayAccess&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_ad33d1ae8e569a564f514a3dca0b96f4b.html#ad33d1ae8e569a564f514a3dca0b96f4b">getAsserts</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get validation assertions.  <a href="#ad33d1ae8e569a564f514a3dca0b96f4b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Array ArrayAccess&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a401e96e83489ee80e2f1c516212f9340.html#a401e96e83489ee80e2f1c516212f9340">getFlags</a> ()</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get flags.  <a href="#a401e96e83489ee80e2f1c516212f9340"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Interface.html">MapFilter_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a0d95b8e331ef3c98ce8a0d78ba011bb4.html#a0d95b8e331ef3c98ce8a0d78ba011bb4">__construct</a> (<a class="el" href="interfaceMapFilter__PatternInterface.html">MapFilter_PatternInterface</a> $pattern=NULL, $query=Array())</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create new filter instance.  <a href="#a0d95b8e331ef3c98ce8a0d78ba011bb4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Interface.html">MapFilter_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a4ff9ed7eb8cf66a34e87ad71a5f9ba45.html#a4ff9ed7eb8cf66a34e87ad71a5f9ba45">setPattern</a> (<a class="el" href="interfaceMapFilter__PatternInterface.html">MapFilter_PatternInterface</a> $pattern)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set desired query pattern.  <a href="#a4ff9ed7eb8cf66a34e87ad71a5f9ba45"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Interface.html">MapFilter_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a687f75a5e4e1c2616cade595658c3756.html#a687f75a5e4e1c2616cade595658c3756">setQuery</a> ($query)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set a query to filter.  <a href="#a687f75a5e4e1c2616cade595658c3756"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__PatternInterface.html">MapFilter_PatternInterface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_adc683e17988ab8f300062dd060b42fad.html#adc683e17988ab8f300062dd060b42fad">fetchResult</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get full filtering results.  <a href="#adc683e17988ab8f300062dd060b42fad"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Mixed&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_ab1cd0afa7c63e24d3c0e255dc8145c06.html#ab1cd0afa7c63e24d3c0e255dc8145c06">getResults</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get results.  <a href="#ab1cd0afa7c63e24d3c0e255dc8145c06"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MapFilter_TreePattern_Asserts&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a9f02ce1168863cfac6a90f26a4ed5718.html#a9f02ce1168863cfac6a90f26a4ed5718">getAsserts</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get validation assertions.  <a href="#a9f02ce1168863cfac6a90f26a4ed5718"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MapFilter_TreePattern_Flags&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a7923b7d7b4ba05adada82256228524ac.html#a7923b7d7b4ba05adada82256228524ac">getFlags</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get flags.  <a href="#a7923b7d7b4ba05adada82256228524ac"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a3da042c87a488ab20620e127e7f904eb.html#a3da042c87a488ab20620e127e7f904eb">_filter</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse filter configuration.  <a href="#a3da042c87a488ab20620e127e7f904eb"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a033610e6bc380a435491afd5ffea8eca.html#a033610e6bc380a435491afd5ffea8eca">$_pattern</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pattern.  <a href="#a033610e6bc380a435491afd5ffea8eca"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__Pattern__Interface.html">MapFilter_Pattern_Interface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_ad20910b45a0de9c989f43b306b33f13e.html#ad20910b45a0de9c989f43b306b33f13e">$_usedPattern</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A Used Pattern.  <a href="#ad20910b45a0de9c989f43b306b33f13e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Array&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a9a8706018e21f4c91f59eeaaab9d45cf.html#a9a8706018e21f4c91f59eeaaab9d45cf">$_query</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read data / Query candidate.  <a href="#a9a8706018e21f4c91f59eeaaab9d45cf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__PatternInterface.html">MapFilter_PatternInterface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a4ac619249639c4e81a8b439ba9f5a977.html#a4ac619249639c4e81a8b439ba9f5a977">$_pattern</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pattern.  <a href="#a4ac619249639c4e81a8b439ba9f5a977"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interfaceMapFilter__PatternInterface.html">MapFilter_PatternInterface</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_ab124195f4a294bf5c5d6b0ae13ee2b76.html#ab124195f4a294bf5c5d6b0ae13ee2b76">$_usedPattern</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">A Used Pattern.  <a href="#ab124195f4a294bf5c5d6b0ae13ee2b76"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Mixed&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a5f6a2479728256b5cee6c981fd981607.html#a5f6a2479728256b5cee6c981fd981607">$_query</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read data / Query candidate.  <a href="#a5f6a2479728256b5cee6c981fd981607"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMapFilter_a413b483e340658c61ffd3b00880566a5.html#a413b483e340658c61ffd3b00880566a5">$_filtered</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether the filter configuration has been filtered.  <a href="#a413b483e340658c61ffd3b00880566a5"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Description</h2>
-<p>Class to filter key-value data structures. </p>
+<p>Class to provide generic filter interface. </p>
 <dl class="user"><dt><b>Category:</b></dt><dd>Pear </dd></dl>
 <dl class="user"><dt><b>Package:</b></dt><dd>MapFilter</dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Oliver Gondža &lt;<a href="mailto:324706@mail.muni.cz">324706@mail.muni.cz</a>&gt; </dd></dl>
-<dl class="user"><dt><b>License:</b></dt><dd><a href="http://www.gnu.org/copyleft/lesser.html">http://www.gnu.org/copyleft/lesser.html</a> LGPL </dd></dl>
+<dl class="user"><dt><b>License:</b></dt><dd><a href="http://www.gnu.org/copyleft/lesser.html">http://www.gnu.org/copyleft/lesser.html</a> LGPL License </dd></dl>
 <dl class="user"><dt><b>URL:</b></dt><dd><a class="el" href="">http://github.com/olivergondza/MapFilter</a> </dd></dl>
 <dl class="since"><dt><b>Since:</b></dt><dd>0.1 </dd></dl>
 
@@ -135,7 +135,7 @@ Inheritance diagram for MapFilter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMapFilter__inherit__graph.png" border="0" usemap="#MapFilter_inherit__map" alt="Inheritance graph"/></div>
 <map name="MapFilter_inherit__map" id="MapFilter_inherit__map">
-<area shape="rect" id="node2" href="interfaceMapFilter__Interface.html" title="A MapFilter Interface." alt="" coords="5,6,139,207"/></map>
+<area shape="rect" id="node2" href="interfaceMapFilter__Interface.html" title="A MapFilter Interface." alt="" coords="5,6,139,151"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 </div>
 <!--- window showing the filter options -->

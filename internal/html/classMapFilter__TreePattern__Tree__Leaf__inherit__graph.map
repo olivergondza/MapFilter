@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node9" href="$classMapFilter__TreePattern__Tree__Leaf__Attr.html" title="MapFilter pattern tree attribute leaf." alt="" coords="5,1523,245,1613"/>
-<area shape="rect" id="node11" href="$classMapFilter__TreePattern__Tree__Leaf__KeyAttr.html" title="MapFilter pattern tree KeyAttribute node." alt="" coords="269,1505,531,1631"/>
-<area shape="rect" id="node2" href="$classMapFilter__TreePattern__Tree.html" title="Internal pattern tree." alt="" coords="48,518,229,1074"/>
-<area shape="rect" id="node4" href="$interfaceMapFilter__TreePattern__Tree__Interface.html" title="MapFilter_TreePattern_Tree Interface." alt="" coords="20,6,257,469"/>
-<area shape="rect" id="node6" href="$interfaceMapFilter__TreePattern__Tree__Leaf__Interface.html" title="Interface for MapFilter pattern tree leaves." alt="" coords="253,751,523,841"/>
-</map>
