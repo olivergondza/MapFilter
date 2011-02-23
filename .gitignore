@@ -7,9 +7,4 @@ user/doc/
 *phpCompatibilityFilter/
 *.tgz
 package.xml
-MapFilter/*
-
-!MapFilter/Interface.php
-!MapFilter/PatternInterface.php
-!MapFilter/NullPattern.php
-!MapFilter/InvalidStructureException.php
+yy
