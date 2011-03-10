@@ -27,7 +27,7 @@
  * @since    0.5
  */
 
-require_once dirname ( __FILE__ ) . '/PatternInterface.php';
+require_once 'PHP/MapFilter/PatternInterface.php';
 
 /**
  * A mock implementation of basic MapFilter_PatternInterface interface.

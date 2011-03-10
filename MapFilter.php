@@ -27,9 +27,9 @@
  * @since    0.1
  */
 
-require_once dirname ( __FILE__ ) . '/MapFilter/Interface.php';
+require_once 'PHP/MapFilter/Interface.php';
 
-require_once dirname ( __FILE__ ) . '/MapFilter/NullPattern.php';
+require_once 'PHP/MapFilter/NullPattern.php';
 
 /**
  * Class to provide generic filter interface.
