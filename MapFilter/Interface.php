@@ -38,78 +38,79 @@
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.5
  */
-interface MapFilter_Interface {
+interface MapFilter_Interface
+{
 
-  /**
-   * Create new filter instance.
-   *
-   * @since     0.1
-   *
-   * @param     MapFilter_PatternInterface     $pattern        A pattern to set.
-   * @param     Mixed                          $query	       A query to filter.
-   *
-   * @return    MapFilter_Interface
-   *
-   * If no pattern specified an untouched query will be returned:
-   *
-   * @clip{User/MapFilter.test.php,testEmptyPattern}
-   *
-   * @see       setPattern(), setQuery(), MapFilter_Pattern
-   */
-  public function __construct (
-      MapFilter_PatternInterface $pattern = NULL,
-      $query = Array ()
-  );
+    /**
+     * Create new filter instance.
+     *
+     * @param MapFilter_PatternInterface $pattern A pattern to set.
+     * @param Mixed                      $query	  A query to filter.
+     *
+     * @return MapFilter_Interface
+     *
+     * If no pattern specified an untouched query will be returned:
+     *
+     * @clip{User/MapFilter.test.php,testEmptyPattern}
+     *
+     * @see setPattern(), setQuery(), MapFilter_Pattern
+     *
+     * @since 0.1
+     */
+    public function __construct(
+        MapFilter_PatternInterface $pattern = null,
+        $query = Array()
+    );
 
-  /**
-   * Set desired query pattern.
-   *
-   * Fluent Method
-   *
-   * @since     0.1
-   *
-   * @param     MapFilter_PatternInterface      $pattern        A pattern to set
-   *
-   * @return    MapFilter_Interface             Instance of MapFilter with new pattern.
-   *
-   * MapFilter can be configured using both constructor and specialized fluent
-   * methods setPattern() and setQuery():
-   *
-   * @clip{Unit/MapFilter.test.php,testInvocation}
-   *
-   * @see       __construct(), setQuery()
-   */
-  public function setPattern ( MapFilter_PatternInterface $pattern );
-  
-  /**
-   * Set a query to filter.
-   *
-   * @since     0.1
-   *
-   * @param     Mixed                           $query  A query to set.
-   *
-   * @return    MapFilter_Interface             Instance of MapFilter with new query.
-   *
-   * MapFilter can be configured using both constructor and specialized fluent
-   * methods setPattern() and setQuery():
-   *
-   * @clip{Unit/MapFilter.test.php,testInvocation}
-   *
-   * @see       __construct(), setPattern()
-   */
-  public function setQuery ( $query );
-  
-  /**
-   * Get full filtering results.
-   *
-   * @since     0.5
-   *
-   * @return    MapFilter_PatternInterface     Parsing results
-   *
-   * Return recently used pattern to obtain all kind of results to enable
-   * user interface usage.
-   *
-   * @see       __construct(), setPattern()
-   */
-  public function fetchResult ();
+    /**
+     * Set desired query pattern.
+     *
+     * Fluent Method
+     *
+     * @param MapFilter_PatternInterface $pattern A pattern to set.
+     *
+     * @return MapFilter_Interface Instance of MapFilter with new pattern.
+     *
+     * MapFilter can be configured using both constructor and specialized fluent
+     * methods setPattern() and setQuery():
+     *
+     * @clip{Unit/MapFilter.test.php,testInvocation}
+     *
+     * @see __construct(), setQuery()
+     *
+     * @since 0.1
+     */
+    public function setPattern(MapFilter_PatternInterface $pattern);
+    
+    /**
+     * Set a query to filter.
+     *
+     * @param Mixed $query A query to set.
+     *
+     * @return MapFilter_Interface Instance of MapFilter with new query.
+     *
+     * MapFilter can be configured using both constructor and specialized fluent
+     * methods setPattern() and setQuery():
+     *
+     * @clip{Unit/MapFilter.test.php,testInvocation}
+     *
+     * @see __construct(), setPattern()
+     *
+     * @since 0.1
+     */
+    public function setQuery($query);
+    
+    /**
+     * Get full filtering results.
+     *
+     * @since 0.5
+     *
+     * @return MapFilter_PatternInterface Parsing results.
+     *
+     * Return recently used pattern to obtain all kind of results to enable
+     * user interface usage.
+     *
+     * @see __construct(), setPattern()
+     */
+    public function fetchResult();
 }

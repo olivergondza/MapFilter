@@ -42,49 +42,56 @@ require_once 'PHP/MapFilter/PatternInterface.php';
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.5
  */
-class MapFilter_NullPattern implements MapFilter_PatternInterface {
+class MapFilter_NullPattern implements MapFilter_PatternInterface
+{
 
-  /**
-   * A parsed query to return by getResults().
-   *
-   * @since     0.5
-   *
-   * @var       Mixed                   $_query
-   */
-  private $_query = Array ();
+    /**
+     * A parsed query to return by getResults().
+     *
+     * @since 0.5
+     *
+     * @var Mixed $_query
+     */
+    private $_query = Array();
 
-  /**
-   * An empty constructor.
-   *
-   * @since     0.5
-   *
-   * @return    MapFilter_Pattern_Null
-   */
-  public function __construct () {}
+    /**
+     * An empty constructor.
+     *
+     * @return    MapFilter_Pattern_Null
+     *
+     * @since 0.5
+     */
+    public function __construct()
+    {
+    }
 
-  /**
-   * Get results.
-   *
-   * Get parsed query from latest parsing process.
-   *
-   * @since     0.5
-   *
-   * @return    Mixed                   Parsing results.
-   */
-  public function getResults () {
-  
-    return $this->_query;
-  }
-  
-  /**
-   * Parse the given query against the pattern.
-   *
-   * @since     0.5
-   *
-   * @param     Mixed                   $query          A user query.
-   */
-  public function parse ( $query ) {
-  
-    $this->_query = $query;
-  }
+    /**
+     * Get results.
+     *
+     * Get parsed query from latest parsing process.
+     *
+     * @return Mixed Parsing results.
+     *
+     * @since 0.5
+     */
+    public function getResults()
+    {
+    
+        return $this->_query;
+    }
+    
+    /**
+     * Parse the given query against the pattern.
+     *
+     * @param Mixed $query A user query.
+     *
+     * @return null
+     *
+     * @since     0.5
+     */
+    public function parse($query)
+    {
+    
+        $this->_query = $query;
+    }
 }

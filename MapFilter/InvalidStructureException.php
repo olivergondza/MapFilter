@@ -44,12 +44,19 @@ extends
     UnexpectedValueException
 {
 
-  public function __construct (
-      $message = 'Data structure passed as a query can not be parsed using given pattern.',
-      $code = 0,
-      Exception $previous = NULL
-  ) {
-  
-    parent::__construct ( $message, $code, $previous );
-  }
+    /**
+     * Create excpetion
+     *
+     * @param String    $message  Exception message.
+     * @param Int       $code     Exception code.
+     * @param Exception $previous Previous exception.
+     */
+    public function __construct(
+        $message = 'Data structure passed as a query can not be parsed using given pattern.',
+        $code = 0,
+        Exception $previous = null
+    ) {
+    
+        parent::__construct($message, $code, $previous);
+    }
 }

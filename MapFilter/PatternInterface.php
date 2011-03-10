@@ -38,14 +38,17 @@
  * @link     http://github.com/olivergondza/MapFilter
  * @since    0.5
  */
-interface MapFilter_PatternInterface {
+interface MapFilter_PatternInterface
+{
 
-  /**
-   * Parse the given query against the pattern.
-   *
-   * @since     0.5
-   *
-   * @param     Mixed           $query          A user query.
-   */
-  public function parse ( $query );
+    /**
+     * Parse the given query against the pattern.
+     *
+     * @param Mixed $query A user query.
+     *
+     * @return null
+     *
+     * @since 0.5
+     */
+    public function parse($query);
 }
