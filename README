@@ -63,6 +63,24 @@ $ doxygen doxygen/internal.ini
 An on-line documentation can be found at
 http://olivergondza.github.com/MapFilter/.
 
+phpdoc can be used as well:
+
+$ cd docs/
+$ phpdoc -c phpdoc/user.ini
+
+    To generate doc/user/phpdoc/
+
+
+$ cd docs/
+$ phpdoc -c phpdoc/programmer.ini
+
+    To generate doc/programmer/phpdoc/
+
+
+$ cd docs/
+$ phpdoc -c phpdoc/internal.ini
+
+    To generate doc/internal/phpdoc/
 
 Download
 --------
