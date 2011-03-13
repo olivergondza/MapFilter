@@ -57,23 +57,28 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     return Array (
         Array (
             Array (),
+            Array (),
             Array ()
         ),
         Array (
             Array ( 'attr1' => 'val' ),
-            Array ( 'attr1' => 'val' )
-        ),
-        Array (
-            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
-            Array ( 'attr1' => 'val', 'attr2' => 'val' )
-        ),
-        Array (
-            Array ( 'wrongAttr' => 'val' ),
+            Array ( 'attr1' => 'val' ),
             Array ()
         ),
         Array (
+            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
+            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
+            Array ()
+        ),
+        Array (
+            Array ( 'wrongAttr' => 'val' ),
+            Array (),
+            Array ( 'wrongAttr' => 'val' )
+        ),
+        Array (
             Array ( 'attr1' => 'val', 'attr2' => 'val', 'attr3' => 'val' ),
-            Array ( 'attr1' => 'val', 'attr2' => 'val' )
+            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
+            Array ( 'attr3' => 'val' )
         )
     );
   }
@@ -83,17 +88,14 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
    *
    * @dataProvider	provideUserPatternFiltering
    */
-  /*@{*/
   public static function testWhitelistResultPatternFiltering (
-      Array $query, Array $result
+      Array $query, Array $result, Array $redundant
   ) {
   
-    // 'attr1' and 'attr2' will be excluded from result
-    $pattern = new MapFilter_WhitelistResultPattern(
+    $pattern = new ArrayKeyWhitelistPattern (
         Array ( 'attr1', 'attr2' )
     );
 
-    // Configure filter 
     $filter = new MapFilter (
         $pattern,
         $query
@@ -101,54 +103,123 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     
     self::assertEquals (
         $result,
-        $filter->fetchResult ()->getResults ()
+        $filter->fetchResult ()->getValid ()
+    );
+    
+    self::assertEquals (
+        $redundant,
+        $filter->fetchResult ()->getRedundant ()
     );
   }
-  /*@}*/
-}
-
-/**
- * @class       MapFilter_WhitelistResultPattern
- */
-/*@{*/
-/** __MapFilter_WhitelistResultPattern__ */
-interface MapFilter_ResultInterface extends MapFilter_PatternInterface {
-
-  public function getResults ();
-}
-
-class MapFilter_WhitelistResultPattern implements
-    MapFilter_ResultInterface
-{
-
-  /* Filtering whitelist */
-  private $_whitelist = Array ();
   
-  /* Result cache */
-  private $_results = Array ();
-
-  /* Create user pattern */
-  public function __construct ( Array $whitelist ) {
+  public function testCommand () {
   
-    $this->_whitelist = $whitelist;
-  }
-  
-  /* Perform a filtering */
-  public function parse ( $query ) {
-  
-    foreach ( $this->_whitelist as $validValue ) {
+    /** PatternUsage__ */
+    $pattern = new ArrayKeyWhitelistPattern (
+        Array ( '-v', '-h', '-o' )
+    );
     
-      if ( array_key_exists ( $validValue, $query ) ) {
-  
-        $this->_results[ $validValue ] = $query[ $validValue ];
-      }
-    }
-  }
-  
-  /** Get filtering results */
-  public function getResults () {
-  
-    return $this->_results;
+    $query = Array ( '-o' => './a.out', '-f' => NULL );
+    
+    $filter = new MapFilter (
+        $pattern,
+        $query
+    );
+    
+    $valid = $filter->fetchResult ()->getValid ();
+    $redundant = $filter->fetchResult ()->getRedundant ();
+    
+    // Assert redundant options
+    
+    // Perform an action based on valid options
+    
+    /** __PatternUsage */
+    
+    $this->assertEquals (
+        Array ( '-o' => './a.out' ), $valid
+    );
+    
+    $this->assertEquals (
+        Array ( '-f' => NULL ), $redundant
+    );
   }
 }
-/*@}*/
+
+/** ArrayKeyWhitelistPatternInterfaces__ */
+interface ValidInterface extends MapFilter_PatternInterface {
+
+    /*
+     * Get filtering results
+     *
+     * @return    Array   Array containing keys and values from query that DID match the whitelist pattern.
+     */
+    public function getValid();
+}
+
+interface RedundantInterface extends MapFilter_PatternInterface {
+
+    /*
+     * Get filtered out
+     *
+     * @return    Array   Array containing key and values from querty that DID NOT match the whitelist pattern.
+     */
+    public function getRedundant();
+}
+/** __ArrayKeyWhitelistPatternInterfaces */
+
+/** ArrayKeyWhitelistPattern__ */
+class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
+
+    /* Filtering whitelist */
+    private $_whitelist = Array();
+    
+    /* Result cache */
+    private $_valid = Array();
+    
+    /* Filtered out */
+    private $_redundant = Array();
+
+    /*
+     * Initialize whitelist
+     *
+     * @param     Array   $whitelist      Array of allowed keys.
+     */
+    public function __construct(Array $whitelist)
+    {
+    
+        $this->_whitelist = $whitelist;
+    }
+    
+    /*
+     * Perform a filtering
+     *
+     * @param     Array   $query  A query to filter.
+     */
+    public function parse($query)
+    {
+    
+        foreach ($query as $keyCandidate => $valueCandidate) {
+        
+            if(in_array($keyCandidate, $this->_whitelist)) {
+      
+                $this->_valid[ $keyCandidate ] = $valueCandidate;
+            } else {
+          
+                $this->_redundant[ $keyCandidate ] = $valueCandidate;
+            }
+        }
+    }
+    
+    public function getValid()
+    {
+    
+        return $this->_valid;
+    }
+    
+    public function getRedundant()
+    {
+    
+        return $this->_redundant;
+    }
+}
+/** __ArrayKeyWhitelistPattern */

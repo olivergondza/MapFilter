@@ -28,10 +28,24 @@ All three <tt>filters</tt> are identical.
 
 @subsection     examplesuserpattern     User Patterns
 
-Declaration of an simple user pattern to perform whitelist filtering:
-@clip{Unit/MapFilter/Pattern.test.php,__MapFilter_WhitelistResultPattern__}
-Using of the pattern is very simple:
-@clip{Unit/MapFilter/Pattern.test.php,testWhitelistResultPatternFiltering}
+A power of MapFilter is in declaration of user patterns.
+
+Imagine, there is an associative array (command line options or deserialized
+configuration file etc.) and we would like to find out whether it conteins
+certain keys and what keys are redundant. Our pattern would have two
+outcomes: valid and redundant. We declare interface(s) to provide this
+results.
+
+@clip{Unit/MapFilter/Pattern.test.php,ArrayKeyWhitelistPatternInterfaces}
+
+Next we create a pattern implementing those interfaces performing a
+transformation we need.
+
+@clip{Unit/MapFilter/Pattern.test.php,ArrayKeyWhitelistPattern}
+
+Using of the pattern is straightforward:
+
+@clip{Unit/MapFilter/Pattern.test.php,PatternUsage}
 
 @see    MapFilter
 @see    MapFilter_PatternInterface

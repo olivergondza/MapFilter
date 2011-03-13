@@ -18,9 +18,9 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
     );
   }
   
-  /**@{*/
-  /** Test invoke */
   public static function testInvocation () {
+  
+    /** testInvocation__ */
   
     $pattern = new MapFilter_NullPattern ();
     
@@ -37,6 +37,8 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
     $filter2 = new MapFilter ( $pattern );
     $filter2 -> setQuery ( $query );
 
+    /** __testInvocation */
+
     self::assertEquals (
         $filter0,
         $filter1
@@ -47,5 +49,4 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
         $filter2
     );
   }
-  /**@}*/
 }

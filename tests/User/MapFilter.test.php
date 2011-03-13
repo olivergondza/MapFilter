@@ -14,9 +14,9 @@ require_once PHP_MAPFILTER_CLASS;
  */
 class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
 
-  /**@{*/
   /** Empty pattern filtering */
-  public static function testEmptyPattern  () {
+  /** testEmptyPattern__ */
+  public static function testEmptyPattern () {
   
     $query = Array ( 'attr' => 'value' );
     $filter = new MapFilter ();
@@ -27,5 +27,5 @@ class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
         $filter->fetchResult ()->getResults ()
     );
   }
-  /**@}*/
+  /** __testEmptyPattern */
 }
