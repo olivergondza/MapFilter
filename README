@@ -1,10 +1,12 @@
 README
 ======
 
+
 MapFilter
 ---------
 
 MapFilter is extensible tool to filter data structures in PHP5.
+
 
 License
 -------
@@ -81,6 +83,7 @@ $ cd docs/
 $ phpdoc -c phpdoc/internal.ini
 
     To generate doc/internal/phpdoc/
+
 
 Download
 --------

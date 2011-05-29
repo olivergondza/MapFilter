@@ -151,7 +151,8 @@ interface ValidInterface extends MapFilter_PatternInterface {
     /*
      * Get filtering results
      *
-     * @return    Array   Array containing keys and values from query that DID match the whitelist pattern.
+     * @return  Array   Array containing keys and values from
+     *                  query that DID match the whitelist pattern.
      */
     public function getValid();
 }
@@ -161,7 +162,8 @@ interface RedundantInterface extends MapFilter_PatternInterface {
     /*
      * Get filtered out
      *
-     * @return    Array   Array containing key and values from querty that DID NOT match the whitelist pattern.
+     * @return  Array   Array containing key and values from querty
+     *                  that DID NOT match the whitelist pattern.
      */
     public function getRedundant();
 }
@@ -170,13 +172,10 @@ interface RedundantInterface extends MapFilter_PatternInterface {
 /** ArrayKeyWhitelistPattern__ */
 class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
 
-    /* Filtering whitelist */
     private $_whitelist = Array();
-    
-    /* Result cache */
+
     private $_valid = Array();
-    
-    /* Filtered out */
+
     private $_redundant = Array();
 
     /*
@@ -186,7 +185,6 @@ class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
      */
     public function __construct(Array $whitelist)
     {
-    
         $this->_whitelist = $whitelist;
     }
     
@@ -197,7 +195,6 @@ class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
      */
     public function parse($query)
     {
-    
         foreach ($query as $keyCandidate => $valueCandidate) {
         
             if(in_array($keyCandidate, $this->_whitelist)) {
@@ -212,13 +209,11 @@ class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
     
     public function getValid()
     {
-    
         return $this->_valid;
     }
     
     public function getRedundant()
     {
-    
         return $this->_redundant;
     }
 }
