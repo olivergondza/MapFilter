@@ -31,22 +31,59 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
     
     // Create empty filter and configure it using fluent interface.
     $filter1 = new MapFilter ();
-    $filter1 -> setPattern ( $pattern ) -> setQuery ( $query );
+    $filter1->setPattern ( $pattern )->setQuery ( $query );
 
     // Optional combination of both can be used as well.
     $filter2 = new MapFilter ( $pattern );
-    $filter2 -> setQuery ( $query );
+    $filter2->setQuery ( $query );
 
     /** __testInvocation */
 
-    self::assertEquals (
-        $filter0,
-        $filter1
-    );
+    self::assertEquals ( $filter0, $filter1 );
+    self::assertEquals ( $filter0, $filter2 );
+  }
+  
+  /**
+   * 
+   */
+  public function testParseResultCashing () {
+  
+    $query = 42;
+  
+    $pattern = $this->getMock ( 'MapFilter_NullPattern' );
+
+    $pattern->expects ( $this->exactly ( 3 ) )
+        ->method ( 'parse' )
+        ->with ( $query )
+    ;
     
-    self::assertEquals (
-        $filter0,
-        $filter2
-    );
+    /** testParseResultCashing__ */
+    
+    // Initial pattern configuration
+    $filter = new MapFilter ( $pattern, $query );
+
+    // Parsing is done here
+    $newResult = $filter->fetchResult ();
+
+    // Here we parse again since we have reset the query
+    $newQueryResult = $filter->setQuery ( $query )->fetchResult ();
+    
+    // Here we parse again since we have reset the pattern
+    $newPatternResult = $filter->setPattern ( $pattern )->fetchResult ();
+    
+    // No needed to parse the same query using the same pattern
+    $sameResult = $filter->fetchResult ();
+    
+    /** __testParseResultCashing */
+
+    $this->assertEquals ( $pattern, $newResult );
+    $this->assertEquals ( $pattern, $newQueryResult );
+    $this->assertEquals ( $pattern, $newPatternResult );
+    $this->assertEquals ( $pattern, $sameResult );
+    
+    $this->assertSame ( $sameResult, $newPatternResult );
+    $this->assertNotSame ( $sameResult, $newQueryResult );
+    $this->assertNotSame ( $sameResult, $newResult );
+    $this->assertNotSame ( $newResult, $newQueryResult );
   }
 }

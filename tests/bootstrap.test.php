@@ -3,7 +3,7 @@
 error_reporting ( ( E_ALL | E_STRICT ) );
 
 set_include_path (
-    dirname ( dirname ( dirname ( __FILE__ ) ) )
+    dirname ( dirname ( __FILE__ ) )
     . PATH_SEPARATOR . get_include_path ()
 );
 

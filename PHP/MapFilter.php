@@ -138,7 +138,7 @@ class MapFilter implements MapFilter_Interface
 
         $this->_filtered = false;
 
-        $this->_pattern = clone $pattern;
+        $this->_pattern = $pattern;
         return $this;
     }
     
