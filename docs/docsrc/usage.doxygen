@@ -3,49 +3,85 @@
 
 @section	mapfilter	        MapFilter
 
-	To use MapFilter there is need to define the <tt>pattern</tt> (and
-attach it using constructor or <tt>MapFilter::setPattern()</tt>) describing
-expected data. After setting the <tt>query</tt> (using constructor or
-<tt>MapFilter::setQuery()</tt>), MapFilter is ready to proceed with input
-filtering. Filtering <tt>results</tt> can be had by
-<tt>MapFilter::fetchResult()</tt>. This returned object implements the same
-set of interfaces as the original Pattern.
+        MapFilter is a tool designed to create filters that process user
+<tt>queries</tt> to one or more <tt>results</tt> according to defined
+<tt>pattern</tt>.
 
-@section	pattern			MapFilter Pattern
+@li A <tt>pattern</tt> is an arbitrary implementation of
+<tt>MapFilter_PatternInterface</tt>. The pattern is used during the
+parsing procedure to do all the work needed to obtain all kinds of
+results specified by implemented interfaces.
 
-	A Pattern is an arbitrary implementation of
-<tt>MapFilter_PatternInterface</tt>. This pattern is used during the
-parsing procedure to do all the work needed to obtain all result types
-specified by implemented interfaces.
+
+@li A <tt>query</tt> is a data structure (usually obtained from the user)
+to be filtered by the pattern. MapFilter itself does not constrain
+the type of user query. However, it might be constraint by the pattern.
+
+
+@li <tt>Results</tt> are the outcomes of user query filtering. Every pattern
+should provide one or more results.
+
+        To use MapFilter there is need to define the pattern (and inject it
+by using constructor or @ref MapFilter::setPattern "setPattern" method)
+describing expected data. After setting the query (by using constructor or
+@ref MapFilter::setQuery "setQuery" method), MapFilter is ready to proceed
+with input filtering. Filtering results are obtained by @ref
+MapFilter::fetchResult "fetchResult". This returned object implements the
+same set of interfaces as the original pattern.
 
 @section        examples                Examples
 
 @subsection     examplesmapfilter       MapFilter
 
-Creation of <tt>MapFilter</tt> instance using three different ways:
+There are three different ways how to create <tt>MapFilter</tt> instance:
+
 @clip{Unit/MapFilter.test.php,testInvocation}
-All three <tt>filters</tt> are identical.
+
+All three filters are @b identical.
 
 @subsection     examplesuserpattern     User Patterns
 
 A power of MapFilter is in declaration of user patterns.
 
-Imagine, there is an associative array (command line options or deserialized
-configuration file etc.) and we would like to find out whether it conteins
-certain keys and what keys are redundant. Our pattern would have two
-outcomes: valid and redundant. We declare interface(s) to provide this
-results.
+Let's have an associative array (representing command line options or
+deserialized configuration file etc.) and we would like to find out whether
+it contains certain keys and what keys are redundant. Our pattern would have
+two outcomes:
+
+@li associative array containing only valid keys and corresponding values
+@li and array of keys that ware filtered out
+
+We declare interface(s) to provide those results.
 
 @clip{Unit/MapFilter/Pattern.test.php,ArrayKeyWhitelistPatternInterfaces}
 
-Next we create a pattern implementing those interfaces performing a
-transformation we need.
+Next we create a pattern implementing both interfaces to access results and
+<tt>MapFilter_PatternInterface::parse()</tt> that performs filtering.
 
 @clip{Unit/MapFilter/Pattern.test.php,ArrayKeyWhitelistPattern}
 
-Using of the pattern is straightforward:
+Using of the pattern is straightforward. Pattern is initialized with allowed
+keys, then injected to MapFilter along with the query. After that
+the filter is ready to fetch the results.
 
 @clip{Unit/MapFilter/Pattern.test.php,PatternUsage}
+
+MapFilter will call the <tt>ArrayKeyWhitelistPattern::parse()</tt> method when we ask
+for the results for the first time. Even if we call
+<tt>MapFilter::fetchResult()</tt> several times (as we did in the last
+example), <tt>MapFilter_PatternInterface::parse()</tt> is guaranteed not to
+be called more than once.
+
+@subsection     examplesfilterreuse     Reuse of filter instance
+
+Instance of MapFilter can be easily reused setting new pattern or query (or
+perhaps both) using setter methods. This could be useful in case we would
+like to filter the same query using different filters or more likely use the
+same filter with different user queries. In that case <tt>MapFilter</tt>
+calls <tt>MapFilter_PatternInterface::parse()</tt> for every unique
+configuration.
+
+@clip{Unit/MapFilter.test.php,testParseResultCashing}
 
 @see    MapFilter
 @see    MapFilter_PatternInterface

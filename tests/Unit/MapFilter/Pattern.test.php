@@ -66,19 +66,19 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
             Array ()
         ),
         Array (
-            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
-            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
+            Array ( 'attr1' => 'val1', 'attr2' => 'val2' ),
+            Array ( 'attr1' => 'val1', 'attr2' => 'val2' ),
             Array ()
         ),
         Array (
             Array ( 'wrongAttr' => 'val' ),
             Array (),
-            Array ( 'wrongAttr' => 'val' )
+            Array ( 'wrongAttr' )
         ),
         Array (
-            Array ( 'attr1' => 'val', 'attr2' => 'val', 'attr3' => 'val' ),
-            Array ( 'attr1' => 'val', 'attr2' => 'val' ),
-            Array ( 'attr3' => 'val' )
+            Array ( 'attr1' => 'val1', 'attr2' => 'val2', 'attr3' => 'val' ),
+            Array ( 'attr1' => 'val1', 'attr2' => 'val2' ),
+            Array ( 'attr3' )
         )
     );
   }
@@ -129,19 +129,10 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     $valid = $filter->fetchResult ()->getValid ();
     $redundant = $filter->fetchResult ()->getRedundant ();
     
-    // Assert redundant options
-    
-    // Perform an action based on valid options
+    $this->assertEquals ( Array ( '-o' => './a.out' ), $valid );
+    $this->assertEquals ( Array ( '-f' ), $redundant );
     
     /** __PatternUsage */
-    
-    $this->assertEquals (
-        Array ( '-o' => './a.out' ), $valid
-    );
-    
-    $this->assertEquals (
-        Array ( '-f' => NULL ), $redundant
-    );
   }
 }
 
@@ -162,8 +153,8 @@ interface RedundantInterface extends MapFilter_PatternInterface {
     /*
      * Get filtered out
      *
-     * @return  Array   Array containing key and values from querty
-     *                  that DID NOT match the whitelist pattern.
+     * @return  Array   Array containing keys from querty that DID NOT match
+     *                  the whitelist pattern.
      */
     public function getRedundant();
 }
@@ -185,7 +176,7 @@ class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
      */
     public function __construct(Array $whitelist)
     {
-        $this->_whitelist = $whitelist;
+        $this->_whitelist = array_unique($whitelist);
     }
     
     /*
@@ -202,7 +193,7 @@ class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
                 $this->_valid[ $keyCandidate ] = $valueCandidate;
             } else {
           
-                $this->_redundant[ $keyCandidate ] = $valueCandidate;
+                $this->_redundant[] = $keyCandidate;
             }
         }
     }

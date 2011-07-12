@@ -13,15 +13,12 @@ MapFilter is extensible tool to filter data structures in PHP5.
 
 @subsection     current         Current version
 
-$ git clone git://github.com/olivergondza/MapFilter
+@li $ git clone git://github.com/olivergondza/MapFilter
 
-or compressed
-(@link{zip,http://github.com/olivergondza/MapFilter/zipball/master} or
-@link{tar,http://github.com/olivergondza/MapFilter/tarball/master}).
+@subsection     compressed      Compressed
 
-@subsection     packages        Packages
-
-@link{MapFilter-0.5.3.tgz,http://olivergondza.github.com/MapFilter/MapFilter-0.5.3.tgz}
+@li @link{.zip,http://github.com/olivergondza/MapFilter/zipball/master}
+@li @link{.tar,http://github.com/olivergondza/MapFilter/tarball/master}
 
 @section	license		License
 

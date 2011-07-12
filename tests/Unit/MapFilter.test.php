@@ -72,6 +72,7 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
     $newPatternResult = $filter->setPattern ( $pattern )->fetchResult ();
     
     // No needed to parse the same query using the same pattern
+    // $newPatternResult === $sameResult
     $sameResult = $filter->fetchResult ();
     
     /** __testParseResultCashing */
