@@ -1,9 +1,0 @@
-digraph G
-{
-  bgcolor="transparent";
-  edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
-  node [fontname="FreeSans",fontsize="10",shape=record];
-  Node1 [label="{MapFilter\n|- $_pattern\l- $_usedPattern\l- $_query\l- $_filtered\l|+ __construct()\l+ setPattern()\l+ setQuery()\l+ fetchResult()\l+ getResults()\l+ getAsserts()\l+ getFlags()\l- _filter()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
-  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="10",style="solid",arrowtail="empty",fontname="FreeSans"];
-  Node2 [label="{MapFilter_Interface\n||+ __construct()\l+ setPattern()\l+ setQuery()\l+ fetchResult()\l}",height=0.2,width=0.4,color="black",URL="$interfaceMapFilter__Interface.html",tooltip="A MapFilter Interface."];
-}

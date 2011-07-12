@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$interfaceMapFilter__PatternInterface.html" title="MapFilter_Pattern Interface." alt="" coords="7,5,180,35"/>
+<area shape="rect" id="node3" href="$classMapFilter__NullPattern.html" title="A mock implementation of basic MapFilter_PatternInterface interface." alt="" coords="229,5,376,35"/>
+</map>
