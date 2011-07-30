@@ -47,16 +47,12 @@ extends
     /**
      * Create excpetion
      *
-     * @param String    $message  Exception message.
-     * @param Int       $code     Exception code.
-     * @param Exception $previous Previous exception.
+     * @param String $message Exception message.
      */
     public function __construct(
-        $message = 'Data structure passed as a query can not be parsed using given pattern.',
-        $code = 0,
-        Exception $previous = null
+        $message = 'Data structure passed as a query can not be parsed using given pattern.'
     ) {
     
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message);
     }
 }

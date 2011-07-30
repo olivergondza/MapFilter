@@ -14,7 +14,7 @@ class MapFilter_Test_Unit_MapFilter extends PHPUnit_Framework_TestCase {
   public static function testInterface () {
   
     self::assertTrue (
-        is_a ( new MapFilter (), 'MapFilter_Interface' )
+        new MapFilter () instanceof MapFilter_Interface
     );
   }
   
