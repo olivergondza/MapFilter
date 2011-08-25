@@ -45,44 +45,38 @@ supporting classes can be found in doc/internal/ directory.
 Use:
 
 
-$ cd docs/
-$ doxygen doxygen/user.ini
-
-    To generate doc/user/html/
-
-
-$ cd docs/
-$ doxygen doxygen/programmer.ini
-
-    To generate doc/programmer/html/
+        $ cd docs/
+        $ doxygen doxygen/user.ini
+To generate doc/user/html/
 
 
-$ cd docs/
-$ doxygen doxygen/internal.ini
+        $ cd docs/
+        $ doxygen doxygen/programmer.ini
+To generate doc/programmer/html/
 
-    To generate doc/internal/html/
+
+        $ cd docs/
+        $ doxygen doxygen/internal.ini
+To generate doc/internal/html/
 
 An on-line documentation can be found at
-http://olivergondza.github.com/MapFilter/.
+[http://olivergondza.github.com/MapFilter/](http://olivergondza.github.com/MapFilter/).
 
 phpdoc can be used as well:
 
-$ cd docs/
-$ phpdoc -c phpdoc/user.ini
-
-    To generate doc/user/phpdoc/
-
-
-$ cd docs/
-$ phpdoc -c phpdoc/programmer.ini
-
-    To generate doc/programmer/phpdoc/
+        $ cd docs/
+        $ phpdoc -c phpdoc/user.ini
+To generate doc/user/phpdoc/
 
 
-$ cd docs/
-$ phpdoc -c phpdoc/internal.ini
+        $ cd docs/
+        $ phpdoc -c phpdoc/programmer.ini
+To generate doc/programmer/phpdoc/
 
-    To generate doc/internal/phpdoc/
+
+        $ cd docs/
+        $ phpdoc -c phpdoc/internal.ini
+To generate doc/internal/phpdoc/
 
 
 Download
@@ -90,12 +84,7 @@ Download
 
 Current version:
 
-$ git clone git://github.com/olivergondza/MapFilter
+        $ git clone git://github.com/olivergondza/MapFilter
 
-or Zip
-
-http://github.com/olivergondza/MapFilter/zipball/master
-
-or Tar
-
-http://github.com/olivergondza/MapFilter/tarball/master
+[Zip](http://github.com/olivergondza/MapFilter/zipball/master) or
+[Tar](http://github.com/olivergondza/MapFilter/tarball/master)
