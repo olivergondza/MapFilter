@@ -7,3 +7,4 @@ user/doc/
 *phpCompatibilityFilter*
 *.tgz
 makefile
+package.xml
