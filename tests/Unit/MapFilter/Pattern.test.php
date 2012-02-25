@@ -14,7 +14,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
 {
   
   /**
-   * Test MapFilter_Pattern_Null implicit usage
+   * Test MapFilter_NullPattern implicit usage
    */
   public static function testImplicitMock () {
   
@@ -31,7 +31,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
   }
   
   /**
-   * Test MapFilter_Pattern_Null usage
+   * Test MapFilter_NullPattern usage
    */
   public static function testMock () {
   
@@ -48,7 +48,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     
     self::assertEquals (
         $query,
-        $filter->fetchResult ()->getResults ()
+        $filter->fetchResult ()
     );
   }
   
@@ -136,8 +136,22 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
   }
 }
 
-/** ArrayKeyWhitelistPatternInterfaces__ */
-interface ValidInterface extends MapFilter_PatternInterface {
+/** ArrayKeyWhitelistResult__ */
+class ArrayKeyWhitelistResult {
+
+   private $_valid;
+   private $_redundant;
+
+    /*
+     * Initialize whitelist
+     *
+     * @param     Array   $whitelist      Array of allowed keys.
+     */
+    public function __construct(Array $valid, Array $redundant)
+    {
+        $this->_valid = $valid;
+        $this->_redundant = $redundant;
+    }
 
     /*
      * Get filtering results
@@ -145,29 +159,28 @@ interface ValidInterface extends MapFilter_PatternInterface {
      * @return  Array   Array containing keys and values from
      *                  query that DID match the whitelist pattern.
      */
-    public function getValid();
-}
-
-interface RedundantInterface extends MapFilter_PatternInterface {
-
+    public function getValid()
+    {
+        return $this->_valid;
+    }
+    
     /*
      * Get filtered out
      *
      * @return  Array   Array containing keys from querty that DID NOT match
      *                  the whitelist pattern.
      */
-    public function getRedundant();
+    public function getRedundant()
+    {
+        return $this->_redundant;
+    }
 }
-/** __ArrayKeyWhitelistPatternInterfaces */
+/** __ArrayKeyWhitelistResult */
 
 /** ArrayKeyWhitelistPattern__ */
-class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
+class ArrayKeyWhitelistPattern implements Mapfilter_PatternInterface {
 
-    private $_whitelist = Array();
-
-    private $_valid = Array();
-
-    private $_redundant = Array();
+    private $_whitelist;
 
     /*
      * Initialize whitelist
@@ -186,26 +199,19 @@ class ArrayKeyWhitelistPattern implements ValidInterface, RedundantInterface {
      */
     public function parse($query)
     {
+        $valid = $redundant = Array();
         foreach ($query as $keyCandidate => $valueCandidate) {
         
             if(in_array($keyCandidate, $this->_whitelist)) {
       
-                $this->_valid[ $keyCandidate ] = $valueCandidate;
+                $valid[ $keyCandidate ] = $valueCandidate;
             } else {
           
-                $this->_redundant[] = $keyCandidate;
+                $redundant[] = $keyCandidate;
             }
         }
-    }
-    
-    public function getValid()
-    {
-        return $this->_valid;
-    }
-    
-    public function getRedundant()
-    {
-        return $this->_redundant;
+        
+        return new ArrayKeyWhitelistResult($valid, $redundant);
     }
 }
 /** __ArrayKeyWhitelistPattern */

@@ -3,9 +3,6 @@
  * User Tests
  */  
 
-/**
- * Require tested class
- */
 require_once PHP_MAPFILTER_CLASS;
 
 /**
@@ -24,7 +21,7 @@ class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
     
     self::assertEquals (
         $query,
-        $filter->fetchResult ()->getResults ()
+        $filter->fetchResult ()
     );
   }
   /** __testEmptyPattern */

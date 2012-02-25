@@ -1,3 +1,4 @@
+
 <?php
 /**
  * MapFilter_PatternInterface.
@@ -46,7 +47,8 @@ interface MapFilter_PatternInterface
      *
      * @param Mixed $query A user query.
      *
-     * @return null
+     * @return Mixed A value to be used as a result. If null is returned use
+     *         pattern instance as a result.
      *
      * @since 0.5
      */

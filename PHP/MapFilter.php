@@ -56,14 +56,13 @@ class MapFilter implements MapFilter_Interface
     private $_pattern = null;
     
     /**
-     * A Used Pattern.
+     * Result object.
      *
-     * @since     0.5
+     * @since     $NEXT$
      *
-     * @var       MapFilter_PatternInterface     $_usedPattern
-     * @see       setPattern(), __construct()
+     * @var       MapFilter_ResultInterface     $_result
      */
-    private $_usedPattern = null;
+    private $_result = null;
 
     /**
      * Read data / Query candidate.
@@ -183,9 +182,13 @@ class MapFilter implements MapFilter_Interface
     
         $this->_filtered = true;
     
-        $this->_usedPattern = clone $this->_pattern;
+        $usedPattern = clone $this->_pattern;
       
-        $this->_usedPattern->parse($this->_query);
+        $this->_result = $usedPattern->parse($this->_query);
+        if ($this->_result === null) {
+        
+            $this->_result = $usedPattern;
+        }
     }
     
     /**
@@ -205,7 +208,7 @@ class MapFilter implements MapFilter_Interface
     
         $this->_filter();
     
-        return $this->_usedPattern;
+        return $this->_result;
     }
     
     /**
