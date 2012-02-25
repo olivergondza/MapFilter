@@ -1,4 +1,3 @@
-
 <?php
 /**
  * MapFilter_PatternInterface.
