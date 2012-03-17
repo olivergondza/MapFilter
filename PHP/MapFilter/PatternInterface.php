@@ -27,6 +27,8 @@
  * @since    0.5
  */
 
+require_once 'PHP/MapFilter/InvalidStructureException.php';
+
 /**
  * MapFilter_Pattern Interface.
  *
@@ -48,6 +50,8 @@ interface MapFilter_PatternInterface
      *
      * @return Mixed A value to be used as a result. If null is returned use
      *         pattern instance as a result.
+     *
+     * @throws MapFilter_InvalidStructureException
      *
      * @since 0.5
      */

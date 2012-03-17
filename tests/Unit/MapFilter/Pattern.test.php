@@ -133,6 +133,17 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     
     /** __PatternUsage */
   }
+  
+  /**
+   * @expectedException MapFilter_InvalidStructureException
+   */
+  public function testInvalidMap () {
+  
+    $pattern = new ArrayKeyWhitelistPattern ( Array () );
+    $filter = new MapFilter ( $pattern, 42 );
+    
+    $filter->fetchResult ();
+  }
 }
 
 /** ArrayKeyWhitelistResult__ */
@@ -199,6 +210,12 @@ class ArrayKeyWhitelistPattern implements Mapfilter_PatternInterface {
      */
     public function parse($query)
     {
+    
+        if ( !is_array($query) && !( $query instanceof ArrayAccess ) ) {
+        
+          throw new MapFilter_InvalidStructureException;
+        }
+    
         $valid = $redundant = Array();
         foreach ($query as $keyCandidate => $valueCandidate) {
         
