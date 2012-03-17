@@ -115,21 +115,20 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
   public function testCommand () {
   
     /** PatternUsage__ */
+    // Allowed options
     $pattern = new ArrayKeyWhitelistPattern (
         Array ( '-v', '-h', '-o' )
     );
     
-    $query = Array ( '-o' => './a.out', '-f' => NULL );
+    // Actual options
+    $query = Array ( '-o' => './a.out', '-f' => null, '-v' => null );
     
-    $filter = new MapFilter (
-        $pattern,
-        $query
-    );
+    $filter = new MapFilter ( $pattern, $query );
     
     $valid = $filter->fetchResult ()->getValid ();
     $redundant = $filter->fetchResult ()->getRedundant ();
     
-    $this->assertEquals ( Array ( '-o' => './a.out' ), $valid );
+    $this->assertEquals ( Array ( '-o' => './a.out', '-v' => null ), $valid );
     $this->assertEquals ( Array ( '-f' ), $redundant );
     
     /** __PatternUsage */
@@ -196,6 +195,7 @@ class ArrayKeyWhitelistPattern implements Mapfilter_PatternInterface {
      * Perform a filtering
      *
      * @param     Array   $query  A query to filter.
+     * @return    ArrayKeyWhitelistResult
      */
     public function parse($query)
     {
