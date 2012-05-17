@@ -10,12 +10,12 @@
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at
  * your option) any later version.
- *                
+ *
  * MapFilter is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
- *                              
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -54,7 +54,7 @@ class MapFilter implements MapFilter_Interface
      * @see       setPattern(), __construct()
      */
     private $_pattern = null;
-    
+
     /**
      * Result object.
      *
@@ -73,7 +73,7 @@ class MapFilter implements MapFilter_Interface
      * @see       setQuery(), __construct()
      */
     private $_query = Array();
-    
+
     /**
      * Determine whether the filter configuration has been filtered.
      *
@@ -83,7 +83,7 @@ class MapFilter implements MapFilter_Interface
      * @see       _filter(), setQuery(), setPattern()
      */
     private $_filtered = false;
-    
+
     /**
      * Create new filter instance.
      *
@@ -94,7 +94,7 @@ class MapFilter implements MapFilter_Interface
      *
      * If no pattern specified an untouched query will be returned:
      *
-     * @clip{User/MapFilter.test.php,testEmptyPattern}
+     * @snippet User/MapFilter.test.php testEmptyPattern
      *
      * @see setPattern(), setQuery(), MapFilter_PatternInterface
      *
@@ -106,10 +106,10 @@ class MapFilter implements MapFilter_Interface
     ) {
 
         if ($pattern === null) {
-      
+
             $pattern = new MapFilter_NullPattern;
         }
-      
+
         $this->setPattern($pattern);
         $this->setQuery($query);
     }
@@ -126,7 +126,7 @@ class MapFilter implements MapFilter_Interface
      * MapFilter can be configured using both constructor and specialized fluent
      * methods setPattern() and setQuery():
      *
-     * @clip{Unit/MapFilter.test.php,testInvocation}
+     * @snippet Unit/MapFilter.test.php testInvocation
      *
      * @see __construct()
      *
@@ -140,7 +140,7 @@ class MapFilter implements MapFilter_Interface
         $this->_pattern = $pattern;
         return $this;
     }
-    
+
     /**
      * Set a query to filter.
      *
@@ -151,7 +151,7 @@ class MapFilter implements MapFilter_Interface
      * MapFilter can be configured using both constructor and specialized fluent
      * methods setPattern() and setQuery():
      *
-     * @clip{Unit/MapFilter.test.php,testInvocation}
+     * @snippet Unit/MapFilter.test.php testInvocation
      *
      * @see __construct()
      *
@@ -159,13 +159,13 @@ class MapFilter implements MapFilter_Interface
      */
     public function setQuery($query)
     {
-    
+
         $this->_filtered = false;
-    
+
         $this->_query = $query;
         return $this;
     }
-    
+
     /**
      * Parse filter configuration.
      *
@@ -177,20 +177,20 @@ class MapFilter implements MapFilter_Interface
      */
     private function _filter()
     {
-    
+
         if ($this->_filtered) return;
-    
+
         $this->_filtered = true;
-    
+
         $usedPattern = clone $this->_pattern;
-      
+
         $this->_result = $usedPattern->parse($this->_query);
         if ($this->_result === null) {
-        
+
             $this->_result = $usedPattern;
         }
     }
-    
+
     /**
      * Get full filtering results.
      *
@@ -205,9 +205,9 @@ class MapFilter implements MapFilter_Interface
      */
     public function fetchResult()
     {
-    
+
         $this->_filter();
-    
+
         return $this->_result;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * User Tests
- */  
+ */
 
 require_once PHP_MAPFILTER_CLASS;
 
@@ -12,17 +12,17 @@ require_once PHP_MAPFILTER_CLASS;
 class MapFilter_Test_User_MapFilter extends PHPUnit_Framework_TestCase {
 
   /** Empty pattern filtering */
-  /** testEmptyPattern__ */
-  public static function testEmptyPattern () {
-  
+  /** [testEmptyPattern] */
+  public function testEmptyPattern () {
+
     $query = Array ( 'attr' => 'value' );
     $filter = new MapFilter ();
     $filter->setQuery ( $query );
-    
-    self::assertEquals (
+
+    $this->assertEquals (
         $query,
         $filter->fetchResult ()
     );
   }
-  /** __testEmptyPattern */
+  /** [testEmptyPattern] */
 }

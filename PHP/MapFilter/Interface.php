@@ -10,15 +10,15 @@
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at
  * your option) any later version.
- *                
+ *
  * MapFilter is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
- *                              
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with MapFilter.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @category Pear
  * @package  MapFilter
  * @author   Oliver Gondža <324706@mail.muni.cz>
@@ -51,7 +51,7 @@ interface MapFilter_Interface
      *
      * If no pattern specified an untouched query will be returned:
      *
-     * @clip{User/MapFilter.test.php,testEmptyPattern}
+     * @snippet User/MapFilter.test.php testEmptyPattern
      *
      * @see setPattern(), setQuery(), MapFilter_Pattern
      *
@@ -74,14 +74,14 @@ interface MapFilter_Interface
      * MapFilter can be configured using both constructor and specialized fluent
      * methods setPattern() and setQuery():
      *
-     * @clip{Unit/MapFilter.test.php,testInvocation}
+     * @snippet Unit/MapFilter.test.php testInvocation
      *
      * @see __construct(), setQuery()
      *
      * @since 0.1
      */
     public function setPattern(MapFilter_PatternInterface $pattern);
-    
+
     /**
      * Set a query to filter.
      *
@@ -92,14 +92,14 @@ interface MapFilter_Interface
      * MapFilter can be configured using both constructor and specialized fluent
      * methods setPattern() and setQuery():
      *
-     * @clip{Unit/MapFilter.test.php,testInvocation}
+     * @snippet Unit/MapFilter.test.php testInvocation
      *
      * @see __construct(), setPattern()
      *
      * @since 0.1
      */
     public function setQuery($query);
-    
+
     /**
      * Get full filtering results.
      *

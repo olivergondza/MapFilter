@@ -3,7 +3,7 @@
 
 @section	mapfilter	        MapFilter
 
-        MapFilter is a tool designed to create filters that process user
+MapFilter is a tool designed to create filters that process user
 <tt>queries</tt> to one or more <tt>results</tt> according to defined
 <tt>pattern</tt>.
 
@@ -21,13 +21,14 @@ the type of user query. However, it might be constraint by the pattern.
 @li <tt>Results</tt> are the outcomes of user query filtering. Every pattern
 should provide one or more results.
 
-        To use MapFilter there is need to define the pattern (and inject it
-by using constructor or @ref MapFilter::setPattern "setPattern" method)
-describing expected data. After setting the query (by using constructor or
+To use MapFilter there is need to define the pattern (and inject it
+using constructor or @ref MapFilter::setPattern "setPattern" method)
+describing expected data. After setting the query (using constructor or
 @ref MapFilter::setQuery "setQuery" method), MapFilter is ready to proceed
 with input filtering. Filtering results are obtained by @ref
-MapFilter::fetchResult "fetchResult". This returned object implements the
-same set of interfaces as the original pattern.
+MapFilter::fetchResult "fetchResult". The result is the value returned by the
+<tt>MapFilter_PatternInterface::parse()</tt> method or the pattern instance
+itself in case the method returned <tt>null</tt>.
 
 @section        examples                Examples
 
@@ -35,7 +36,7 @@ same set of interfaces as the original pattern.
 
 There are three different ways how to create <tt>MapFilter</tt> instance:
 
-@clip{Unit/MapFilter.test.php,testInvocation}
+@snippet Unit/MapFilter.test.php testInvocation
 
 All three filters are @b identical.
 
@@ -51,20 +52,20 @@ two outcomes:
 @li associative array containing only valid keys and corresponding values
 @li and array of keys that ware filtered out
 
-We declare interface(s) to provide those results.
+We declare the class to represent this outcomes.
 
-@clip{Unit/MapFilter/Pattern.test.php,ArrayKeyWhitelistPatternInterfaces}
+@snippet Unit/MapFilter/Pattern.test.php ArrayKeyWhitelistResult
 
-Next we create a pattern implementing both interfaces to access results and
-<tt>MapFilter_PatternInterface::parse()</tt> that performs filtering.
+Next we create a pattern that performs filtering. It's <tt>MapFilter_PatternInterface::parse()</tt>
+is supposed to return our result type.
 
-@clip{Unit/MapFilter/Pattern.test.php,ArrayKeyWhitelistPattern}
+@snippet Unit/MapFilter/Pattern.test.php ArrayKeyWhitelistPattern
 
 Using of the pattern is straightforward. Pattern is initialized with allowed
 keys, then injected to MapFilter along with the query. After that
 the filter is ready to fetch the results.
 
-@clip{Unit/MapFilter/Pattern.test.php,PatternUsage}
+@snippet Unit/MapFilter/Pattern.test.php PatternUsage
 
 MapFilter will call the <tt>ArrayKeyWhitelistPattern::parse()</tt> method when we ask
 for the results for the first time. Even if we call
@@ -81,7 +82,7 @@ same filter with different user queries. In that case <tt>MapFilter</tt>
 calls <tt>MapFilter_PatternInterface::parse()</tt> for every unique
 configuration.
 
-@clip{Unit/MapFilter.test.php,testParseResultCashing}
+@snippet Unit/MapFilter.test.php testParseResultCashing
 
 @see    MapFilter
 @see    MapFilter_PatternInterface

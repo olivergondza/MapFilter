@@ -117,7 +117,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     // Actual options
     $query = Array ( '-o' => './a.out', '-f' => null, '-v' => null );
 
-    /** PatternUsage__ */
+    /** [PatternUsage] */
     // Allowed options
     $pattern = new ArrayKeyWhitelistPattern (
         Array ( '-v', '-h', '-o' )
@@ -128,7 +128,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
     $valid = $filter->fetchResult ()->getFiltered ();
     $redundant = $filter->fetchResult ()->getRedundantKeys ();
 
-    /** __PatternUsage */
+    /** [PatternUsage] */
 
     $this->assertEquals ( Array ( '-o' => './a.out', '-v' => null ), $valid );
     $this->assertEquals ( Array ( '-f' ), $redundant );
@@ -146,7 +146,7 @@ class MapFilter_Test_Unit_MapFilter_Pattern extends
   }
 }
 
-/** ArrayKeyWhitelistResult__ */
+/** [ArrayKeyWhitelistResult] */
 class ArrayKeyWhitelistResult {
 
     private $_filtered;
@@ -185,9 +185,9 @@ class ArrayKeyWhitelistResult {
         return $this->_redundantKeys;
     }
 }
-/** __ArrayKeyWhitelistResult */
+/** [ArrayKeyWhitelistResult] */
 
-/** ArrayKeyWhitelistPattern__ */
+/** [ArrayKeyWhitelistPattern] */
 class ArrayKeyWhitelistPattern implements Mapfilter_PatternInterface {
 
     private $_whitelist;
@@ -231,4 +231,4 @@ class ArrayKeyWhitelistPattern implements Mapfilter_PatternInterface {
         return new ArrayKeyWhitelistResult($filtered, $redundantKeys);
     }
 }
-/** __ArrayKeyWhitelistPattern */
+/** [ArrayKeyWhitelistPattern] */
