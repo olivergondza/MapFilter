@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Docs For Class MapFilter</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">MapFilter<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="../classtrees_MapFilter.html" class="menu">class tree: MapFilter</a> ]
+		[ <a href="../elementindex_MapFilter.html" class="menu">index: MapFilter</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">MapFilter</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_MapFilter.html">MapFilter</a><br />
+      	</div>
+      <br />
+                        <b>Files:</b><br />
+        <div class="package">
+				<span style="padding-left: 1em;"><a href="../MapFilter/_MapFilter---Interface.php.html">Interface.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../MapFilter/_MapFilter---InvalidStructureException.php.html">InvalidStructureException.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../MapFilter/_MapFilter.php.html">MapFilter.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../MapFilter/_MapFilter---NullPattern.php.html">NullPattern.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../MapFilter/_MapFilter---PatternInterface.php.html">PatternInterface.php</a></span><br />
+	  </div>
+            <br />
+            <b>Interfaces:</b><br />
+        <div class="package">
+		    		<a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a>    	 <br />
+	    		<a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a>    	 <br />
+	  </div>
+                  <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../MapFilter/MapFilter.html">MapFilter</a>    	 <br />
+	    		<a href="../MapFilter/MapFilter_InvalidStructureException.html">MapFilter_InvalidStructureException</a>    	 <br />
+	    		<a href="../MapFilter/MapFilter_NullPattern.html">MapFilter_NullPattern</a>    	 <br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Class: MapFilter</h1>
+Source Location: /MapFilter.php<br /><br />
+
+<h2 class="class-name">Class MapFilter</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Class Overview</div>
+	<div class="nav-bar">
+					<span class="disabled">Class Overview</span>
+						
+													| <a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
+								</div>
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a></li>            </ul>
+        </p>
+        		<p align="center" class="short-description"><strong>Class to provide generic filter interface.
+</strong></p>
+<span class="description"><p>Class to provide generic filter interface.</p></span>
+		<p class="notes">
+			Located in <a class="field" href="_MapFilter.php.html">/MapFilter.php</a> [<span class="field">line 45</span>]
+		</p>
+
+		
+		<pre></pre>
+
+		
+				<strong>Author(s):</strong>
+		<ul>
+		  			 			 <li>Oliver Gondža &lt;<a href="mailto:324706@mail.muni.cz">324706@mail.muni.cz</a>&gt;</li>
+			 		  			 		  			 		  			 		  			 		  		</ul>
+		
+		
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+				<tr><td><strong>Link:</strong>&nbsp;&nbsp;</td><td><a href="http://github.com/olivergondza/MapFilter">http://github.com/olivergondza/MapFilter</a></td></tr>
+				<tr><td><strong>Class:</strong>&nbsp;&nbsp;</td><td>MapFilter</td></tr>
+				<tr><td><strong>Since:</strong>&nbsp;&nbsp;</td><td>0.1</td></tr>
+				<tr><td><strong>License:</strong>&nbsp;&nbsp;</td><td><a href="http://www.gnu.org/copyleft/lesser.html">LGPL License</a></td></tr>
+	</table>
+		</td>
+
+		
+				<td valign="top" width="20%" class="class-overview">
+		<p align="center" class="short-description"><strong><a href="#sec_methods">Methods</a></strong></p>
+		<ul>
+		  		  <li><a href="../MapFilter/MapFilter.html#method__construct">__construct</a></li>
+		  		  <li><a href="../MapFilter/MapFilter.html#methodfetchResult">fetchResult</a></li>
+		  		  <li><a href="../MapFilter/MapFilter.html#methodsetPattern">setPattern</a></li>
+		  		  <li><a href="../MapFilter/MapFilter.html#methodsetQuery">setQuery</a></li>
+		  		</ul>
+		</td>
+		
+		</tr></table>
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	</div>
+</div>
+
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Class Overview</a>
+									    					| <span class="disabled">Method Summary</span> | <a href="#sec-methods">Methods Detail</a>
+		</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+																																																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result"><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a></span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Create new filter instance.</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result"><a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a></span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#fetchResult" title="details" class="method-name">fetchResult</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Get full filtering results.</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result"><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a></span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#setPattern" title="details" class="method-name">setPattern</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Set desired query pattern.</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result"><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a></span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#setQuery" title="details" class="method-name">setQuery</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Set a query to filter.</td></tr>
+				</div>
+												</table>
+			</div>
+			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
+		</div>
+	</div>
+
+
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Class Overview</a>
+																			| <a href="#sec-method-summary">Method Summary</a> | <span class="disabled">Methods Detail</span>
+					</div>
+		<div class="info-box-body">
+			<a name='method_detail'></a>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a> __construct(
+[<a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a>
+$pattern = null], [Mixed
+$query = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Create new filter instance.
+</strong></p>
+<span class="description"><p>Create new filter instance.</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"><a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pattern:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> A pattern to set.</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">Mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$query:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> A query to filter.</span>			</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>If no pattern specified an untouched query will be returned:</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../MapFilter/MapFilter.html#methodsetPattern">MapFilter::setPattern()</a>, <a href="../MapFilter/MapFilter.html#methodsetQuery">MapFilter::setQuery()</a>, <a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a></td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Since:</strong>&nbsp;&nbsp;</td><td>0.1</td>
+  </tr>
+</table>
+
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../MapFilter/MapFilter_Interface.html#method__construct">MapFilter_Interface::__construct()</a></dt>
+						<dd>Create new filter instance.</dd>
+					</dl>
+		
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodfetchResult" id="fetchResult"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">fetchResult</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 206]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a> fetchResult(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Get full filtering results.
+</strong></p>
+<span class="description"><p>Get full filtering results.</p></span>
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Parsing results
+ Return recently used pattern to obtain all kind of results to enable user interface usage.</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../MapFilter/MapFilter.html#method__construct">MapFilter::__construct()</a>, <a href="../MapFilter/MapFilter.html#methodsetPattern">MapFilter::setPattern()</a></td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Since:</strong>&nbsp;&nbsp;</td><td>0.5</td>
+  </tr>
+</table>
+
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../MapFilter/MapFilter_Interface.html#methodfetchResult">MapFilter_Interface::fetchResult()</a></dt>
+						<dd>Get full filtering results.</dd>
+					</dl>
+		
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodsetPattern" id="setPattern"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">setPattern</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 135]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a> setPattern(
+<a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a>
+$pattern&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Set desired query pattern.
+</strong></p>
+<span class="description"><p>Set desired query pattern.
+ Fluent Method</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"><a href="../MapFilter/MapFilter_PatternInterface.html">MapFilter_PatternInterface</a></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pattern:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> A pattern to set.</span>			</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Instance of MapFilter with new pattern.
+ MapFilter can be configured using both constructor and specialized fluent methods setPattern() and setQuery():</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../MapFilter/MapFilter.html#method__construct">MapFilter::__construct()</a></td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Since:</strong>&nbsp;&nbsp;</td><td>0.1</td>
+  </tr>
+</table>
+
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../MapFilter/MapFilter_Interface.html#methodsetPattern">MapFilter_Interface::setPattern()</a></dt>
+						<dd>Set desired query pattern.</dd>
+					</dl>
+		
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodsetQuery" id="setQuery"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">setQuery</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 160]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../MapFilter/MapFilter_Interface.html">MapFilter_Interface</a> setQuery(
+Mixed
+$query&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Set a query to filter.
+</strong></p>
+<span class="description"><p>Set a query to filter.</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">Mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$query:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> A query to set.</span>			</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Instance of MapFilter with new query.
+ MapFilter can be configured using both constructor and specialized fluent methods setPattern() and setQuery():</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../MapFilter/MapFilter.html#method__construct">MapFilter::__construct()</a></td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Since:</strong>&nbsp;&nbsp;</td><td>0.1</td>
+  </tr>
+</table>
+
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../MapFilter/MapFilter_Interface.html#methodsetQuery">MapFilter_Interface::setQuery()</a></dt>
+						<dd>Set a query to filter.</dd>
+					</dl>
+		
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+		</div>
+	</div>
+
+
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Thu, 17 May 2012 22:18:49 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
