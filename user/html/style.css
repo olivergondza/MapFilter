@@ -31,6 +31,11 @@ h4 {
 	margin-left: 40px;
 }
 
+.header .headertitle .title {
+	text-align: center;
+        font-size: 24px;
+}
+
 dl {
 	border: 1px solid #ccc;
 	background: #f5f5f5;
@@ -101,6 +106,7 @@ clear: none;
 	margin: 0 auto;
 	border: 1px solid #153788;
 	border-width: 0px 1px 0px 1px;
+        overflow: auto;
 }
 
 #header a {
@@ -111,6 +117,7 @@ pre.footer {
 	background-color: #153788;
 	color: #fff;
 	padding: 15px;
+        margin-bottom: 0;
 }
 
 /* Rest */
